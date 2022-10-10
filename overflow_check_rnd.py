@@ -67,25 +67,54 @@ def get_page_border(page:fitz.Page):
     
     return (x0, x1)
 
+def get_doc_border(doc):
+    right_borders = []
+    left_borders = []
+    rnd_page_i = random_pages_index(RND_PAGE_CNT,len(doc))
+
+    for i in rnd_page_i:
+        page = doc[i]
+        x0, x1 = get_page_border(page)
+        right_borders.append(x1)
+        left_borders.append(x0)
+
+    return (median(left_borders), median(right_borders))
+
 
 # ------------------------------------ DOPLNIT ----------------------------------------------
-doc = fitz.Document("C:\\Users\\micha\\Desktop\\Michaela\\Skola\\VS\\bakalarka\\pdf\\25073_overflow(page_51).pdf")
+doc = fitz.Document("C:\\Users\\micha\\Desktop\\Michaela\\Skola\\VS\\bakalarka\\pdf\\overflow.pdf")
 # -------------------------------------------------------------------------------------------
 
-right_borders = []
-left_borders = []
+border = get_doc_border(doc)
+print(border)
 
-rnd_page_i = random_pages_index(RND_PAGE_CNT,len(doc))
-print("pages:")
-print(rnd_page_i)
+page = doc[0]
+pixmap = page.get_pixmap()
 
-for i in rnd_page_i:
-    page = doc[i]
-    x0, x1 = get_page_border(page)
-    right_borders.append(x1)
-    left_borders.append(x0)
+WHITE = (255, 255, 255)
+overflow_rects = [None]
 
-print("left:")
-print(median(left_borders))
-print("right:")
-print(median(right_borders))
+r_border = round(border[1])
+y = 0
+while y < pixmap.height:
+    x = pixmap.width - 1
+    while x > r_border:
+        if pixmap.pixel(x,y) != WHITE:
+
+            if overflow_rects[-1] == None:
+                overflow_rects.pop()
+                overflow_rects.append([r_border,y,x,y])
+            else: 
+                overflow_rects[-1][2] = max(overflow_rects[-1][2],x)
+                overflow_rects[-1][3] = y
+            break
+        x = x - 1
+    
+    if x == r_border and overflow_rects[-1] != None:
+        overflow_rects.append(None)
+    y = y + 1
+overflow_rects.pop()
+
+print()
+print(overflow_rects)
+
