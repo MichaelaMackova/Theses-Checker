@@ -1,15 +1,28 @@
 #----------------------------------------------------------------------------
-# File          : overflow_check.py
+# File          : overflow_check_rnd.py
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 10.10.2022
 # ---------------------------------------------------------------------------
 
+import sys
 import random
 from statistics import median
 import fitz
 
+
+
 RND_PAGE_CNT = 10
+WHITE = (255, 255, 255)
+RED = (204, 0, 0)
+HIGH_RED = (255, 128, 128)
+HIGHLIGHT_MARGIN = 1.5
+
+
+
+
+def rgb_to_pdf(color:tuple):
+    return (color[0]/255.0, color[1]/255.0, color[2]/255.0)
 
 def random_pages_index(max_list_len:int, doc_len:int):
     if doc_len < max_list_len:
@@ -67,7 +80,7 @@ def get_page_border(page:fitz.Page):
     
     return (x0, x1)
 
-def get_doc_border(doc):
+def get_doc_border(doc:fitz.Document):
     right_borders = []
     left_borders = []
     rnd_page_i = random_pages_index(RND_PAGE_CNT,len(doc))
@@ -80,41 +93,69 @@ def get_doc_border(doc):
 
     return (median(left_borders), median(right_borders))
 
+def highlight(page:fitz.Page, rects:list, color:tuple):
+        annot = page.add_highlight_annot(rects)
+        annot.set_colors(stroke=rgb_to_pdf(color))
+        annot.update()
 
-# ------------------------------------ DOPLNIT ----------------------------------------------
-doc = fitz.Document("C:\\Users\\micha\\Desktop\\Michaela\\Skola\\VS\\bakalarka\\pdf\\overflow.pdf")
-# -------------------------------------------------------------------------------------------
+def overflow_line(page:fitz.Page, x:float, overflow_rects:list):
+    for rect in overflow_rects:
+        annot = page.add_line_annot(fitz.Point(x,rect[1]-20), fitz.Point(x,rect[3]+20))
+        annot.set_border(width=1)
+        annot.set_colors(stroke=rgb_to_pdf(RED))
+        annot.update()
+
+def get_page_right_overflow(page:fitz.Page, border:float):
+    pixmap = page.get_pixmap()
+    overflow_rects = [None]
+    r_border = round(border)
+    y = 0
+    while y < pixmap.height:
+        x = pixmap.width - 1
+        while x > r_border:
+            if pixmap.pixel(x,y) != WHITE:
+
+                if overflow_rects[-1] == None:
+                    # previous line was only WHITE
+                    overflow_rects.pop()
+                    overflow_rects.append([r_border+1,y-HIGHLIGHT_MARGIN,x+HIGHLIGHT_MARGIN,y+HIGHLIGHT_MARGIN])
+                else: 
+                    # previous line had overflow -> merge rectanles
+                    overflow_rects[-1][2] = max(overflow_rects[-1][2],x+HIGHLIGHT_MARGIN)
+                    overflow_rects[-1][3] = y+HIGHLIGHT_MARGIN
+                break
+            x = x - 1
+        
+        if x == r_border and overflow_rects[-1] != None:
+            # if whole line was WHITE and previous line wasn't
+            overflow_rects.append(None)
+        y = y + 1
+
+    if overflow_rects[-1] == None:
+        overflow_rects.pop()
+    
+    return overflow_rects
+
+
+
+
+# ---------------------------------------------- MAIN --------------------------------------------------------
+
+if len(sys.argv) != 2:
+    print()
+    print("Usage:\t\tpython .\overflow_check_rnd.py <PDFfilePath>")
+    print("For example:\tpython .\overflow_check_rnd.py .\\pdf\\check.pdf")
+    print()
+    exit()
+
+doc = fitz.Document(sys.argv[1])
 
 border = get_doc_border(doc)
-print(border)
 
-page = doc[0]
-pixmap = page.get_pixmap()
+for page in doc:
+    overflow_rects = get_page_right_overflow(page, border[1])
+    highlight(page, overflow_rects,HIGH_RED)
+    overflow_line(page, border[1], overflow_rects)
 
-WHITE = (255, 255, 255)
-overflow_rects = [None]
-
-r_border = round(border[1])
-y = 0
-while y < pixmap.height:
-    x = pixmap.width - 1
-    while x > r_border:
-        if pixmap.pixel(x,y) != WHITE:
-
-            if overflow_rects[-1] == None:
-                overflow_rects.pop()
-                overflow_rects.append([r_border,y,x,y])
-            else: 
-                overflow_rects[-1][2] = max(overflow_rects[-1][2],x)
-                overflow_rects[-1][3] = y
-            break
-        x = x - 1
-    
-    if x == r_border and overflow_rects[-1] != None:
-        overflow_rects.append(None)
-    y = y + 1
-overflow_rects.pop()
-
-print()
-print(overflow_rects)
-
+doc.save("annotated.pdf")
+print("\n--DONE--\n")
