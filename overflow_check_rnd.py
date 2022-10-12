@@ -141,7 +141,7 @@ def get_page_right_overflow(page:fitz.Page, border:float):
 
 # ---------------------------------------------- MAIN --------------------------------------------------------
 
-if len(sys.argv) != 2:
+if len(sys.argv) != 2 or sys.argv[1] == "-h":
     print()
     print("Usage:\t\tpython .\overflow_check_rnd.py <PDFfilePath>")
     print("For example:\tpython .\overflow_check_rnd.py .\\pdf\\check.pdf")
