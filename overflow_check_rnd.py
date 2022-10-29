@@ -94,9 +94,9 @@ def get_doc_border(doc:fitz.Document):
     return (median(left_borders), median(right_borders))
 
 def highlight(page:fitz.Page, rects:list, color:tuple):
-        annot = page.add_highlight_annot(rects)
-        annot.set_colors(stroke=rgb_to_pdf(color))
-        annot.update()
+    annot = page.add_highlight_annot(rects)
+    annot.set_colors(stroke=rgb_to_pdf(color))
+    annot.update()
 
 def overflow_line(page:fitz.Page, x:float, overflow_rects:list):
     for rect in overflow_rects:
@@ -136,12 +136,45 @@ def get_page_right_overflow(page:fitz.Page, border:float):
     
     return overflow_rects
 
+def get_page_left_overflow(page:fitz.Page, border:float):
+    pixmap = page.get_pixmap()
+    overflow_rects = [None]
+    l_border = round(border) - 1
+    y = 0
+    while y < pixmap.height:
+        x = 0
+        while x < l_border:
+            if pixmap.pixel(x,y) != WHITE:
+
+                if overflow_rects[-1] == None:
+                    # previous line was only WHITE
+                    overflow_rects.pop()
+                    overflow_rects.append([x-HIGHLIGHT_MARGIN,y-HIGHLIGHT_MARGIN,l_border,y+HIGHLIGHT_MARGIN])
+                else: 
+                    # previous line had overflow -> merge rectanles
+                    overflow_rects[-1][0] = min(overflow_rects[-1][0],x-HIGHLIGHT_MARGIN)
+                    overflow_rects[-1][3] = y+HIGHLIGHT_MARGIN
+                break
+            x = x + 1
+        
+        if x == l_border and overflow_rects[-1] != None:
+            # if whole line was WHITE and previous line wasn't
+            overflow_rects.append(None)
+        y = y + 1
+
+    if overflow_rects[-1] == None:
+        overflow_rects.pop()
+    
+    return overflow_rects
+
 
 
 
 # ---------------------------------------------- MAIN --------------------------------------------------------
 
 if len(sys.argv) != 2 or sys.argv[1] == "-h":
+    print("Description:")
+    print("\tMakes a new pdf file called 'annotated.pdf' in the folder, where this program is saved.")
     print()
     print("Usage:\t\tpython .\overflow_check_rnd.py <PDFfilePath>")
     print("For example:\tpython .\overflow_check_rnd.py .\\pdf\\check.pdf")
@@ -156,6 +189,10 @@ for page in doc:
     overflow_rects = get_page_right_overflow(page, border[1])
     highlight(page, overflow_rects,HIGH_RED)
     overflow_line(page, border[1], overflow_rects)
+    overflow_rects = get_page_left_overflow(page, border[0])
+    print(overflow_rects)
+    highlight(page, overflow_rects,HIGH_RED)
+    overflow_line(page, border[0], overflow_rects)
 
 doc.save("annotated.pdf")
 print("\n--DONE--\n")
