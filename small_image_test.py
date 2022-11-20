@@ -97,6 +97,25 @@ def overflow_line(page:fitz.Page, x:float, overflow_rects:list):
         annot.update()
 
 
+def draw_arrow(page:fitz.Page,x_pointing:float,x:float,y:float):
+    S = 2
+    annot = page.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x,y))
+    annot.set_border(width=1)
+    annot.set_colors(stroke=rgb_to_pdf(RED))
+    annot.update()
+
+    if (x_pointing > x ):
+        S *= -1
+    annot = page.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x_pointing+S*2.5,y-S))
+    annot.set_border(width=1)
+    annot.set_colors(stroke=rgb_to_pdf(RED))
+    annot.update()
+
+    annot = page.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x_pointing+S*2.5,y+S))
+    annot.set_border(width=1)
+    annot.set_colors(stroke=rgb_to_pdf(RED))
+    annot.update()
+
 
 
 # ---------------------------------------------- MAIN --------------------------------------------------------
@@ -133,6 +152,9 @@ for page in doc:
             if percentage > 85.0 and percentage < 99.0:
                 print(percentage)
                 rects.append(image_box)
+                y = (image_box[3]-image_box[1])/2.0 + image_box[1]
+                draw_arrow(page,border[0],image_box[0],y)
+                draw_arrow(page,border[1],image_box[2],y)
 
     overflow_line(page,border[0],rects)
     overflow_line(page,border[1],rects)
