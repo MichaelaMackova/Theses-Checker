@@ -36,7 +36,7 @@ def highlight(page:fitz.Page, rects:list, color:tuple, text:string):
 
 
 # ---------------------------------------------- MAIN --------------------------------------------------------
-def main(docPath : string):
+def annotate(origDocPath : string, annotatedDirPath : string):
 
     # if len(sys.argv) != 2 or sys.argv[1] == "-h":
     #     print("Description:")
@@ -48,7 +48,7 @@ def main(docPath : string):
     #     exit()
 
 
-    doc = fitz.Document(docPath)
+    doc = fitz.Document(origDocPath)
 
     for page in doc:
         rects = page.search_for(" - ")
@@ -74,8 +74,10 @@ def main(docPath : string):
 
 
     
-    last = docPath.rfind('\\')
-    if last == -1:
-        last = docPath.rfind('/')
-    replaceStr = docPath[(last+1):]
-    doc.save(docPath.replace(replaceStr, "annotated.pdf"))
+    # last = docPath.rfind('\\')
+    # if last == -1:
+    #     last = docPath.rfind('/')
+    # replaceStr = docPath[(last+1):]
+    # doc.save(docPath.replace(replaceStr, "annotated.pdf"))
+
+    doc.save(annotatedDirPath + "annotated.pdf")
