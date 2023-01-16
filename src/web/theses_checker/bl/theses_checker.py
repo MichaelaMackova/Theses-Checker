@@ -10,8 +10,6 @@ import random
 from statistics import median
 import fitz
 
-import sys
-
 
 class Checker:
     RND_PAGE_CNT = 10
