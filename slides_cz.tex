@@ -22,6 +22,7 @@
   \begin{columns}
     \column{0.4\textwidth}
     \begin{itemize}
+        \item heh
         \item \emph{Vstupy} či stav \emph{před}
         \item Co mají být \emph{výstupy}
         \item Odrážky \emph{žádné} nebo aspoň \emph{stručné}!
@@ -88,22 +89,42 @@
 % - Na slajdy je dobré dát vizuální informaci: vzorce, schemata, obrázky, diagramy. Slovní informaci můžete předat pusou. Je dokonale zbytečné a otravné mít na slajdu v odrážkách to samé, co se chystáte říct.
 % - Titulek slajdu "Podstatné informace o řešení" je hodně generický. Ve skutečné Vaší prezentaci bude daleko lepší použít specifický titulek na každém ze slajdů, například: "Schéma neuronové sítě pro detekci frňáků", "Návrh nekonečného automatu", "Vytvořená datová sada" apod.
 
-\begin{frame}
-  \frametitle{Podstatné informace o řešení}
-  \centering\includegraphics[width=0.8\textwidth]{img/template-Schema.pdf}
-  \begin{equation}
-      \mathbf{a}_t = \sum_{i=1}^{L}\alpha_{t,i}\mathbf{f}_{t,i}^{*}
-  \end{equation}
-  kde $\alpha_{t,i}$ počítá \emph{softmax}:
-  \begin{align}
-      \alpha_{t,i} &= \frac{\exp(r_{t,i})}{\sum_{k=1}{L}\exp(r_{t,k})} 
-      \\
-      r_{t,i} &= W^a \tanh\left( W^h \mathbf{h}_{t-1} + W^f\mathbf{f}_{t,i}^{*} + b \right)
-  \end{align}
-\end{frame}
+% \begin{frame}
+%   \frametitle{Podstatné informace o řešení}
+%   \centering\includegraphics[width=0.8\textwidth]{img/template-Schema.pdf}
+%   \begin{equation}
+%       \mathbf{a}_t = \sum_{i=1}^{L}\alpha_{t,i}\mathbf{f}_{t,i}^{*}
+%   \end{equation}
+%   kde $\alpha_{t,i}$ počítá \emph{softmax}:
+%   \begin{align}
+%       \alpha_{t,i} &= \frac{\exp(r_{t,i})}{\sum_{k=1}{L}\exp(r_{t,k})} 
+%       \\
+%       r_{t,i} &= W^a \tanh\left( W^h \mathbf{h}_{t-1} + W^f\mathbf{f}_{t,i}^{*} + b \right)
+%   \end{align}
+% \end{frame}
 
-\begin{frame}\frametitle{Podstatné informace o řešení}
-  \makebox[\linewidth]{\includegraphics[width=\paperwidth]{img/template-Screenshot.png}}
+% \begin{frame}\frametitle{Podstatné informace o řešení}
+%   \makebox[\linewidth]{\includegraphics[width=\paperwidth]{img/template-Screenshot.png}}
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Hledání okrajů}
+  \begin{columns}
+    \column{0.4\textwidth}
+      \begin{itemize}
+        \item PDF neuchovává okraje
+        \item poznání okraje člověkem
+        \item krátký/dlouhý řádek 
+      \end{itemize}
+      
+    \column{0.6\textwidth}
+      \centering
+      %\includegraphics[width=0.8\textwidth]{img/template-ResultsTable.pdf}
+      
+      \bigskip
+      %\includegraphics[width=\textwidth]{img/template-ResultsPlot.pdf}
+      
+  \end{columns}
 \end{frame}
 
 
@@ -184,14 +205,14 @@
 % Pokud k otázkám nebude potřeba žádná vizuální informace, je vhodné mít jednotlivé otázky jako odrážky na jediném slajdu.
 % Pokud je otázek více a jsou k nim obrázky či grafy, je vhodné mít pro každou otázku jeden slajd - nahoře znění otázky, pod ním vizuální materiál.
 
-\appendix{}
-\begin{frame}
-  \frametitle{Otázky oponenta}
-  \begin{itemize}
-    \item Pokud je otázek více, lze udělat i~více slajdů.
-    \item Tento slajd nechť je příloha, která se nepočítá do celkového počtu slajdů.
-    \item Otázku je dobré sem přepsat \emph{verbatim}, ať není pochybnost, jestli nedošlo k nepřesnému parafrázování.
-  \end{itemize}
-  \bigskip
-  \includegraphics[width=\textwidth]{img/template-ResultsPlot.pdf}
-\end{frame}
+% \appendix{}
+% \begin{frame}
+%   \frametitle{Otázky oponenta}
+%   \begin{itemize}
+%     \item Pokud je otázek více, lze udělat i~více slajdů.
+%     \item Tento slajd nechť je příloha, která se nepočítá do celkového počtu slajdů.
+%     \item Otázku je dobré sem přepsat \emph{verbatim}, ať není pochybnost, jestli nedošlo k nepřesnému parafrázování.
+%   \end{itemize}
+%   \bigskip
+%   \includegraphics[width=\textwidth]{img/template-ResultsPlot.pdf}
+% \end{frame}
