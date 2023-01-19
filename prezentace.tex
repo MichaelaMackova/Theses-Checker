@@ -1,0 +1,74 @@
+%==============================================================================
+% Šablona prezentace/Presentation template
+% Autoři / Authors: Zdeněk Vašíček, Aleš Smrčka, Jaroslav Dytrych, Jana Stopková, Kristýna Zaklová, Adam Herout
+% Kontakt pro dotazy a připomínky: sablona@fit.vutbr.cz
+% Contact for questions and comments: sablona@fit.vutbr.cz
+%==============================================================================
+
+\documentclass[]{fitthesispresn}
+% Je-li prezentace v anglickém jazyce, je zapotřebí u třídy použít parametr english následovně (ev. zakomentovat předcházející řádek a odkomentovat následující): / If presentation is in English, it is necessary to use parameter english as follows (or comment the previous line and uncomment the following one):
+%\documentclass[english]{fitthesispresn}
+
+% Nastavení informací pro úvodní stránku / Setting information for the title page
+%---------------------------------------------------------------------------
+\projectinfo{
+  date=\today, % Datum - je vhodné vepsat datum obhajoby (natvrdo), ne datum kompilace slajdů / Date - it is advisable to write the date of the defense (hard), not the date of the slide compilation        
+  title={Nástroj pro kontrolu\\diplomových prací}, % Název prezentace / Presentation title (The whole title of the presented work suitably divided into lines that are optically balanced)
+  title.footer={Nástroj pro kontrolu diplomových prací}, % Název prezentace - text zobrazovaný vedle čísla slajdu / Presentation title - displayed next to the slide number (The full title of the presented work, it may be suitably abbreviated to fit the footer)
+  author.name={Michaela},  % Jméno autora / Author name
+  author.surname={Macková}, % Příjmení autora / Author surname
+  author.title.first={}, % Tituly před jménem autora (jsou-li jaké) / Author's titles before the name (if there are any)
+  supervisor.name={Tomáš}, % Jméno vedoucího / Supervisor name
+  supervisor.surname={Milet}, % Příjmení vedoucího / Supervisor surname
+  supervisor.title.first={Ing.}, % Tituly před jménem / Supervisor's titles before the name
+  supervisor.title.last={Ph.D.} % Tituly za jménem / Supervisor's titles after the name
+}
+
+% Struktura prezentace / Presentation structure
+%---------------------------------------------------------------------------
+
+\begin{document}
+    \frame[plain]{\titlepage} % Úvodní stránka / Title page
+    \ifczech
+        \input{slides_cz}  % Slajdy v češtině / Slides in Czech
+    \else
+        \input{slides_en}  % Slajdy v angličtině / Slides in English
+    \fi
+\end{document}
+
+%---------------------------------------------------------------------------
+% Když připravujete prezentaci, rozmyslete, co budete říkat, pak rozmyslete, co by se k tomu hodilo mít promítnuté na plátně za vámi a pak podle toho připravte slajdy.
+
+% Co je špatného na slajdech s mnoha písmenky
+% -- Jejich nejčastější problém bývá, že slajd sděluje řečníkovu myšlenku. Po zobrazení slajdu si ho během několika vteřin všichni přečtou (a – chcete-li – během této doby řečníka neposlouchají). Potom řečník svoje publikum k smrti nudí tím, že jim říká, co už vědí – co se dočetli na slajdu.
+% -- Stejné chyby se dopustí i ten, kdo svoji pointu sdělí stručným slajdem o čtyřech slovech, i ten, kdo svoji pointu proflákne roztomilým nákresíčkem.
+% -- Slajd musí být hádanka – když se zobrazí, posluchač mu ještě moc nerozumí, neví, proč tu je. Pak, jak řečník mluví a vysvětluje, slajd dává víc a víc smysl, až dojde k prozření: „AHA, jasně!“
+
+% Pár námětů na zamyšlení nad hotovými slajdy:
+% -- Jsem se slajdy spokojený? S čím nejvíc, s čím nejmíň?
+% -- Od kterých jednotlivých slajdů čekám, že posluchače nadchnou, nakloní na mou stranu?
+% -- Kdyby mi někdo chtěl pokládat nepříjemné otázky – do kterého slajdu se bude strefovat?
+% -- Které slajdy budou samy o sobě přitahovat pozornost posluchačů jen se objeví? Které slajdy budou nudit a budu pozornost ztrácet?
+% -- Jaký „první dojem“ o vás sdělují první tři slajdy? „Tento student je …“ – co si komise doplní místo třech teček?
+
+%---------------------------------------------------------------------------
+% When preparing a presentation, think about what you're going to say, then think about what would be helpful to have projected on the screen behind you, and then prepare your slides accordingly.
+
+% What's wrong with slides with many letters
+% -- Their most common problem is that the slide communicates the speaker's idea. After the slide is shown, everyone reads it within seconds (and -- if you like -- doesn't listen to the speaker during that time). Then the speaker bores his audience to death by telling them what they already know - what they read on the slide.
+% -- The same mistake is made by those who make their point with a brief four-word slide and those who make it with a cute sketch.
+% -- The slide must be a riddle - when it appears, the listener doesn't understand it yet, doesn't know why it's there. Then, as the speaker talks and explains, the slide makes more and more sense when it comes to insight, "Ah, I get it!"
+
+% Some ideas for thinking about the finished slides:
+% -- Am I happy with the slides? With what the most, with what the least?
+% -- Which individual slides do I expect to excite the audience, win them over to my side?
+% -- If someone wanted to ask me uncomfortable questions - which slide would they aim at?
+%  Which slides will attract the attention of the audience just by appearing? Which slides will be boring, and then I will lose attention?
+% -- What "first impression" will you make with the first three slides? "This student is…" - what will the commission add instead of three dots?
+
+% HEROUT, Adam. Prezentování. Herout.net: Poznámky učitele, kouče, čtenáře. [online]. [cit. 2021-9-15]. Dostupné z: https://www.herout.net/blog/category/prezentovani/
+%---------------------------------------------------------------------------
+
+% Obrázky / Pictures:
+% -- STORIES. Freepik [online]. [cit. 2021-9-16]. Dostupné z: https://www.freepik.com/vectors/social-media
+%---------------------------------------------------------------------------
