@@ -55,8 +55,8 @@
   \frametitle{Cíle práce}
   \includegraphics[width=\textwidth]{img/Theses_checker_diagram2.png}
   \begin{itemize}
-    \item \emph{přenositelný} program
-    \item pochopitelné na první pohled
+    \item \emph{Přenositelný} program
+    \item Pochopitelné na první pohled
   \end{itemize}
 \end{frame}
 
@@ -82,8 +82,8 @@
 
   \begin{itemize}
     \item PDF neuchovává okraje
-    \item poznání okraje člověkem
-    \item krátký/dlouhý řádek 
+    \item Poznání okraje člověkem
+    \item Krátký/dlouhý řádek 
   \end{itemize}
 
   \makebox[\linewidth]{
@@ -108,21 +108,24 @@
 
 \begin{frame}
   \frametitle{Výsledky práce}
-  \begin{columns}
-    \column{0.4\textwidth}
-      \begin{itemize}
-        \item Co se \emph{podařilo}
-        \item Vytvořená datová sada: \emph{105\,k} záznamů
-        \item Úspěšnost: \emph{103\,\%}
-      \end{itemize}
+  \centering
+  \makebox[\textwidth]{
+    \begin{tikzpicture}
+      \node (overflow)
+         {\includegraphics[width=0.6\paperwidth]{img/overflow-check.png}};
+      \pause
+      \node (image) at (overflow.north west) [xshift=2.5em]
+        {\includegraphics[width=0.5\paperwidth]{img/image-check.png}};
+      \pause
+      \node (hyphen) at (-3,-1)
+         {\includegraphics[width=0.5\paperwidth]{img/hyphen-check.png}};
       
-    \column{0.6\textwidth}
-      \centering
-      \includegraphics[width=0.8\textwidth]{img/template-ResultsTable.pdf}
-      
-      \bigskip
-      \includegraphics[width=\textwidth]{img/template-ResultsPlot.pdf}
-  \end{columns}
+      \pause
+      \node (website) at (-0.2,0.8)
+          {\includegraphics[width=0.9\paperwidth]{img/website.png}};
+      \onslide<1->
+    \end{tikzpicture}
+  }
 \end{frame}
 
 
@@ -139,13 +142,13 @@
   \begin{columns}
     \column{0.4\textwidth}
       \begin{itemize}
-        \item rastrové obrázky
-        \item prázdné kapitoly
-        \item nízké úrovně nadpisů v~obsahu
-        \item mezera u reference
+        \item Rastrové obrázky
+        \item Prázdné kapitoly
+        \item Nízké úrovně nadpisů v~obsahu
+        \item Mezera u reference
         \bigskip
         \bigskip
-        \item vzhled webové stránky
+        \item Vzhled webové stránky
       \end{itemize}
       
     \column{0.6\textwidth}
@@ -170,16 +173,15 @@
 \begin{frame}
   \frametitle{Děkuji za pozornost!}
   http://theseschecker.eu.pythonanywhere.com/
+  \bigskip
   {
     \centering
     \makebox[\textwidth]{
       \begin{tikzpicture}
-        \node (screenshot) 
-          {\includegraphics[width=0.6\paperwidth]{img/template-Screenshot.png}};
-        \node (schema) at (screenshot.south east) [xshift=5em] [yshift=2.5ex]
-          {\includegraphics[width=0.45\paperwidth]{img/template-Schema.pdf}};
-        \node (goal) at (screenshot.north east) [xshift=4em] [yshift=2ex]
-          {\includegraphics[width=0.5\paperwidth]{img/template-Goal.pdf}};
+        \node (website) 
+          {\includegraphics[width=0.75\paperwidth]{img/website.png}};
+        \node (image_check) at (website.south east) [yshift=2ex]
+          {\includegraphics[width=0.4\paperwidth]{img/image-check.png}};
       \end{tikzpicture}
     }
   }
@@ -206,14 +208,17 @@
 % Pokud k otázkám nebude potřeba žádná vizuální informace, je vhodné mít jednotlivé otázky jako odrážky na jediném slajdu.
 % Pokud je otázek více a jsou k nim obrázky či grafy, je vhodné mít pro každou otázku jeden slajd - nahoře znění otázky, pod ním vizuální materiál.
 
-% \appendix{}
-% \begin{frame}
-%   \frametitle{Otázky oponenta}
-%   \begin{itemize}
-%     \item Pokud je otázek více, lze udělat i~více slajdů.
-%     \item Tento slajd nechť je příloha, která se nepočítá do celkového počtu slajdů.
-%     \item Otázku je dobré sem přepsat \emph{verbatim}, ať není pochybnost, jestli nedošlo k nepřesnému parafrázování.
-%   \end{itemize}
-%   \bigskip
-%   \includegraphics[width=\textwidth]{img/template-ResultsPlot.pdf}
-% \end{frame}
+\appendix{}
+\begin{frame}
+  \frametitle{Doplňující informace -- Testování}
+  \begin{itemize}
+    \item Okraje stránky
+    \item Úspěšnost:
+    \begin{itemize}
+      \item Všechny stránky: 0\,\%
+      \item Bez začátku a~konce: \emph{94\,\%}
+      \item Random 10: 66\,\%
+    \end{itemize}
+    
+  \end{itemize}
+\end{frame}
