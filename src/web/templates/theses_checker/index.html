@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}"/>
     <title>PDF checker</title>
 </head>
 <body>
     <h1>{{ text }}</h1>
 
-    <form action="{% url 'checkPDF' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-        <label for="file">Select a file:</label>
-        <input type="file" id="file" name="file"><br><br>
-        <input type="submit" value="Zkontroluj">
-    </form>
+    <div class="container">
+        <div class="box">
+            <form action="{% url 'checkPDF' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                <label for="file">Select a file:</label>
+                <input type="file" id="file" name="file"><br><br>
+                <input onclick="loader()" type="submit" value="Zkontroluj">
+            </form>
+        </div>
 
+        <div id="loader" class="box overlay">
+            <div class="dot-pulse"></div>
+        </div>
+    </div>
 
+    <script src="{% static 'script.js' %}"></script>
 </body>
 </html>
