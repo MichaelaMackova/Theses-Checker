@@ -34,10 +34,10 @@ class Checker:
 
     def __randomPagesIndex(self):
         docLen = len(self.__document)
-        maxListLen = self.RND_PAGE_CNT
-        if docLen < maxListLen:
-            maxListLen = docLen
-        return random.sample(range(0, docLen), maxListLen)
+        if docLen <= 5:
+            return range(0, docLen)
+        maxListLen = min(self.RND_PAGE_CNT, docLen-4)
+        return random.sample(range(2, docLen-2), maxListLen)
 
     def __highlight(self, rects:list, color:tuple, text:string = None, title:string = None):
         annot = self.__currPage.add_highlight_annot(rects)
@@ -228,13 +228,59 @@ class Checker:
 
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True):
+    def __drawArrow(self,x_pointing:float,x:float,y:float):
+        S = 2
+        annot = self.__currPage.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x,y))
+        annot.set_border(width=1)
+        annot.set_colors(stroke=self.__rgbToPdf(self.RED))
+        annot.update()
+
+        if (x_pointing > x ):
+            S *= -1
+        annot = self.__currPage.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x_pointing+S*2.5,y-S))
+        annot.set_border(width=1)
+        annot.set_colors(stroke=self.__rgbToPdf(self.RED))
+        annot.update()
+
+        annot = self.__currPage.add_line_annot(fitz.Point(x_pointing,y), fitz.Point(x_pointing+S*2.5,y+S))
+        annot.set_border(width=1)
+        annot.set_colors(stroke=self.__rgbToPdf(self.RED))
+        annot.update()
+
+
+
+    def __imageWidthPageCheck(self):
+        lineWidth = self.__border[1] - self.__border[0]
+        rects = []
+        dictionary = self.__currPage.get_text("dict")
+        blocks = dictionary['blocks']
+
+        for block in blocks:
+            if block['type'] == 1:
+                imageBox = block['bbox']
+
+                imageWidth = imageBox[2] - imageBox[0]
+                percentage = (imageWidth * 100.0)/lineWidth
+                
+
+                if percentage > 85.0 and percentage < 99.0:
+                    rects.append(imageBox)
+                    y = (imageBox[3]-imageBox[1])/2.0 + imageBox[1]
+                    self.__drawArrow(self.__border[0],imageBox[0],y)
+                    self.__drawArrow(self.__border[1],imageBox[2],y)
+
+        self.__overflowLine(self.__border[0],rects)
+        self.__overflowLine(self.__border[1],rects)
+
+
+
+    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True):
         self.__currPage = None
         self.__currDict = None
         self.__currPixmap = None
 
-        if borderCheck or hyphenCheck:
-            if borderCheck:
+        if borderCheck or hyphenCheck or imageWidthCheck:
+            if borderCheck or imageWidthCheck:
                 self.__getDocBorder()
 
             self.__currPage = None
@@ -247,6 +293,9 @@ class Checker:
 
                 if hyphenCheck:
                     self.__hyphenPageCheck()
+
+                if imageWidthCheck:
+                    self.__imageWidthPageCheck()
             
                 self.__currDict = None
                 self.__currPixmap = None
