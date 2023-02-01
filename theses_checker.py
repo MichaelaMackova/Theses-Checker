@@ -19,6 +19,7 @@ class Checker:
     WHITE = (255, 255, 255)
 
     def __init__(self, pdfPath : string):
+        self.mistakes_found = False
         self.__document = fitz.Document(pdfPath)
         self.__currPage = fitz.Page
         self.__currPixmap = fitz.Pixmap
@@ -213,15 +214,20 @@ class Checker:
         overflow_rects = self.__getPageRightOverflow()
         self.__highlight(overflow_rects,self.HIGH_RED)
         self.__overflowLine(self.__border[1], overflow_rects)
+        if(overflow_rects):
+            self.mistakes_found = True
         overflow_rects = self.__getPageLeftOverflow()
         self.__highlight(overflow_rects,self.HIGH_RED)
         self.__overflowLine(self.__border[0], overflow_rects)
+        if(overflow_rects):
+            self.mistakes_found = True
 
 
 
     def __hyphenPageCheck(self):
         rects = self.__currPage.search_for(" - ")
         for rect in rects:
+            self.mistakes_found = True
             self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik (–) namisto pomlcky.", "Chyba")
 
 
@@ -266,7 +272,9 @@ class Checker:
                     y = (imageBox[3]-imageBox[1])/2.0 + imageBox[1]
                     self.__drawArrow(self.__border[0],imageBox[0],y)
                     self.__drawArrow(self.__border[1],imageBox[2],y)
-
+        
+        if rects:
+            self.mistakes_found = True
         self.__overflowLine(self.__border[0],rects)
         self.__overflowLine(self.__border[1],rects)
 

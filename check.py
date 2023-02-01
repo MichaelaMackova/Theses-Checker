@@ -1,7 +1,23 @@
+#----------------------------------------------------------------------------
+# File          : check.py
+# Created By    : Michaela Macková
+# Login         : xmacko13
+# Created Date  : 31.1.2023
+# ---------------------------------------------------------------------------
+
+
 import sys
 import os
 from theses_checker import Checker
 import argparse
+
+
+COLOR_RESET = "\u001b[0m"
+COLOR_OK = "\u001b[32;1m"
+COLOR_WARNING = "\u001b[33;1m"
+
+NO_MISTAKES = " -> " + COLOR_OK + "no mistakes found" + COLOR_RESET
+MISTAKES_FOUND = " -> " + COLOR_WARNING + "mistakes were found" + COLOR_RESET
 
 # ---------------------------------------------- MAIN --------------------------------------------------------
 
@@ -29,5 +45,5 @@ for file in args.in_files:
     #     args.out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
     out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
     checker.annotate(out_file,args.overflow,args.Hyphen,args.image_width)
-
-print("--DONE--")
+    mistake_state = MISTAKES_FOUND if checker.mistakes_found else NO_MISTAKES 
+    print("New file '" + out_file + "' was created." + mistake_state)
