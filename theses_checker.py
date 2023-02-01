@@ -10,8 +10,6 @@ import random
 from statistics import median
 import fitz
 
-import sys
-
 
 class Checker:
     RND_PAGE_CNT = 10
@@ -303,21 +301,3 @@ class Checker:
         
         self.__document.save(annotatedPath)
 
-
-
-
-
-# ---------------------------------------------- MAIN --------------------------------------------------------
-
-if len(sys.argv) != 2 or sys.argv[1] == "-h":
-    print("Description:")
-    print("\tMakes a new pdf file called 'annotated.pdf' in the folder, where this program is saved.")
-    print()
-    print("Usage:\t\tpython .\\theses_checker.py <PDFfilePath>")
-    print("For example:\tpython .\\theses_checker.py .\\pdf\\check.pdf")
-    print()
-    exit()
-
-checker = Checker(sys.argv[1])
-checker.annotate("annotated.pdf")
-print("\n--DONE--\n")
