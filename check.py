@@ -39,6 +39,9 @@ if(not (args.overflow or args.image_width or args.Hyphen or args.TOC)):
     args.TOC = True
 
 for file in args.in_files:
+    if(not os.path.exists(file)):
+        print("File '" + file + "' does not exist.")
+        continue
     if(file[-4:] != ".pdf"):
         print("File '" + file + "' is not supported.")
         continue

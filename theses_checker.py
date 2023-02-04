@@ -10,7 +10,14 @@ import random
 from statistics import median
 import fitz
 import re
+from enum import Enum
 
+
+class Language(Enum):
+    CZECH = 0
+    SLOVAK = 1
+    ENGLISH = 2
+    
 
 class Checker:
     RND_PAGE_CNT = 10
@@ -19,7 +26,7 @@ class Checker:
     RED = (204, 0, 0)
     WHITE = (255, 255, 255)
 
-    def __init__(self, pdfPath : string):
+    def __init__(self, pdfPath : string, pdfLang : Language = None):
         self.mistakes_found = False
         self.__document = fitz.Document(pdfPath)
         self.__currPage = fitz.Page
@@ -27,6 +34,7 @@ class Checker:
         self.__currDict = None
         self.__border = (-1.0, -1.0)
         self.__contentPage = False
+        self.__language = pdfLang
         
 
 
@@ -287,7 +295,8 @@ class Checker:
             # --- text ---
             lines = pageFirstBlock['lines']
             if (len(lines) == 1):
-                if (lines[0]['spans'][0]['text'] == "Obsah"):
+                #contentText = "Obsah" if (self.__language == Language.CZECH or self.__language == Language.SLOVAK) else "Contents"
+                if ( lines[0]['spans'][0]['text'] == "Obsah" or lines[0]['spans'][0]['text'] == "Contents"):
                     self.__contentPage = True
                 else:
                     self.__contentPage = False
