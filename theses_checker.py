@@ -9,6 +9,7 @@ import string
 import random
 from statistics import median
 import fitz
+import re
 
 
 class Checker:
@@ -25,6 +26,7 @@ class Checker:
         self.__currPixmap = fitz.Pixmap
         self.__currDict = None
         self.__border = (-1.0, -1.0)
+        self.__contentPage = False
         
 
 
@@ -256,8 +258,8 @@ class Checker:
     def __imageWidthPageCheck(self):
         lineWidth = self.__border[1] - self.__border[0]
         rects = []
-        dictionary = self.__currPage.get_text("dict")
-        blocks = dictionary['blocks']
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
 
         for block in blocks:
             if block['type'] == 1:
@@ -280,12 +282,46 @@ class Checker:
 
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True):
+    def __getBoolContentPage(self, pageFirstBlock : dict):
+        if (pageFirstBlock['type'] == 0): 
+            # --- text ---
+            lines = pageFirstBlock['lines']
+            if (len(lines) == 1):
+                if (lines[0]['spans'][0]['text'] == "Obsah"):
+                    self.__contentPage = True
+                else:
+                    self.__contentPage = False
+
+
+
+    def __TOCSectionsCheck(self):
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
+        self.__getBoolContentPage(blocks[0])
+        if (self.__contentPage):
+            for block in blocks:
+                if block['type'] == 0: 
+                    # --- text ---
+                    lines = block['lines']
+                    origin_y = -1.0
+                    for line in lines:
+                        line_origin = line['spans'][0]['origin']
+                        if line_origin[1] != origin_y:
+                            # new line, not tab -> section number
+                            x = re.search("^\d+\.(\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
+                            if x:
+                                self.mistakes_found = True
+                                self.__highlight([line['bbox']],self.HIGH_RED)
+                        origin_y = line_origin[1]
+
+
+
+    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True, TOCCheck : bool = True):
         self.__currPage = None
         self.__currDict = None
         self.__currPixmap = None
 
-        if borderCheck or hyphenCheck or imageWidthCheck:
+        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck:
             if borderCheck or imageWidthCheck:
                 self.__getDocBorder()
 
@@ -302,6 +338,9 @@ class Checker:
 
                 if imageWidthCheck:
                     self.__imageWidthPageCheck()
+
+                if TOCCheck:
+                    self.__TOCSectionsCheck()
             
                 self.__currDict = None
                 self.__currPixmap = None

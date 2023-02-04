@@ -1,10 +1,10 @@
 import fitz
 
 # ------------------------------------ DOPLNIT ----------------------------------------------
-doc = fitz.Document("C:\\Users\\micha\\Desktop\\Michaela\\Skola\\VS\\bakalarka\\pdf\\exe1.pdf")
+doc = fitz.Document("projekt.pdf")
 # -------------------------------------------------------------------------------------------
 
-page = doc[0]
+page = doc[3]
 
 #imageBlock_dict: dict_keys(['number', 'type', 'bbox', 'width', 'height', 'ext', 'colorspace', 'xres', 'yres', 'bpc', 'transform', 'size', 'image'])
 #   |-> Key "type": 1 = image (int)
@@ -18,7 +18,9 @@ dictionary = page.get_text("dict")
 #print(dictionary)
 blocks = dictionary['blocks']
 #print(blocks[10]['ext'])
+print(" ------------------------------------------------------------------------------------------")
 for block in blocks:
+    print("|                                                                                          |")
     #print(block)
     #input()
     if block['type'] == 0:
@@ -26,9 +28,10 @@ for block in blocks:
         for line in lines:
             #print(line)
             for span in line['spans']:
-                print(span['text'])
-            print(line['bbox'])
+                print("| " + span['text'] + (89-len(span['text']))*" " + "|")
+            print("| " + str(line['bbox']) + (89-len(str(line['bbox'])))*" " + "|")
     else: #type = 1
         print(block['ext'])
         print(block['size'])
-    print()
+    print("|                                                                                          |")
+    print(" ------------------------------------------------------------------------------------------")
