@@ -9,7 +9,15 @@ import string
 import random
 from statistics import median
 import fitz
+import re
+from enum import Enum
 
+
+class Language(Enum):
+    CZECH = 0
+    SLOVAK = 1
+    ENGLISH = 2
+    
 
 class Checker:
     RND_PAGE_CNT = 10
@@ -18,12 +26,16 @@ class Checker:
     RED = (204, 0, 0)
     WHITE = (255, 255, 255)
 
-    def __init__(self, pdfPath : string):
+    def __init__(self, pdfPath : string, pdfLang : Language = None):
+        self.mistakes_found = False
         self.__document = fitz.Document(pdfPath)
         self.__currPage = fitz.Page
+        self.__currTextPage = fitz.TextPage
         self.__currPixmap = fitz.Pixmap
         self.__currDict = None
         self.__border = (-1.0, -1.0)
+        self.__isContentPage = False
+        self.__language = pdfLang
         
 
 
@@ -61,9 +73,16 @@ class Checker:
 
 
 
+    def __getTextPage(self):
+        if self.__currTextPage == None:
+            self.__currTextPage = self.__currPage.get_textpage()
+
+
+
     def __getPageDictionary(self):
         if self.__currDict == None:
-            self.__currDict = self.__currPage.get_text("dict")
+            self.__getTextPage()
+            self.__currDict = self.__currPage.get_text("dict", textpage=self.__currTextPage, sort=True)
 
 
 
@@ -213,15 +232,21 @@ class Checker:
         overflow_rects = self.__getPageRightOverflow()
         self.__highlight(overflow_rects,self.HIGH_RED)
         self.__overflowLine(self.__border[1], overflow_rects)
+        if(overflow_rects):
+            self.mistakes_found = True
         overflow_rects = self.__getPageLeftOverflow()
         self.__highlight(overflow_rects,self.HIGH_RED)
         self.__overflowLine(self.__border[0], overflow_rects)
+        if(overflow_rects):
+            self.mistakes_found = True
 
 
 
     def __hyphenPageCheck(self):
-        rects = self.__currPage.search_for(" - ")
+        self.__getTextPage()
+        rects = self.__currPage.search_for(" - ", textpage=self.__currTextPage)
         for rect in rects:
+            self.mistakes_found = True
             self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik (–) namisto pomlcky.", "Chyba")
 
 
@@ -250,8 +275,8 @@ class Checker:
     def __imageWidthPageCheck(self):
         lineWidth = self.__border[1] - self.__border[0]
         rects = []
-        dictionary = self.__currPage.get_text("dict")
-        blocks = dictionary['blocks']
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
 
         for block in blocks:
             if block['type'] == 1:
@@ -266,24 +291,89 @@ class Checker:
                     y = (imageBox[3]-imageBox[1])/2.0 + imageBox[1]
                     self.__drawArrow(self.__border[0],imageBox[0],y)
                     self.__drawArrow(self.__border[1],imageBox[2],y)
-
+        
+        if rects:
+            self.mistakes_found = True
         self.__overflowLine(self.__border[0],rects)
         self.__overflowLine(self.__border[1],rects)
 
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True):
+    def __getBoolContentPage(self, pageFirstBlock : dict):
+        if (pageFirstBlock['type'] == 0): 
+            # --- text ---
+            lines = pageFirstBlock['lines']
+            if (len(lines) == 1):
+                #contentText = "Obsah" if (self.__language == Language.CZECH or self.__language == Language.SLOVAK) else "Contents"
+                if ( lines[0]['spans'][0]['text'] == "Obsah" or lines[0]['spans'][0]['text'] == "Contents"):
+                    self.__isContentPage = True
+                else:
+                    self.__isContentPage = False
+
+
+
+    def __TOCSectionsCheck(self):
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
+        self.__getBoolContentPage(blocks[0])
+        if (self.__isContentPage):
+            for block in blocks:
+                if block['type'] == 0: 
+                    # --- text ---
+                    lines = block['lines']
+                    origin_y = -1.0
+                    for line in lines:
+                        line_origin = line['spans'][0]['origin']
+                        if line_origin[1] != origin_y:
+                            # new line, not tab -> section number
+                            x = re.search("^\d+\.(\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
+                            if x:
+                                self.mistakes_found = True
+                                self.__highlight([line['bbox']],self.HIGH_RED,"Nečíslovat nadpisy třetí a více úrovně", "Chyba")
+                        origin_y = line_origin[1]
+
+
+
+    def __deleteDuplicate(self, array : list):
+        return list(dict.fromkeys(array))
+
+
+
+    def __spaceBracketCheck(self):
+        textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
+        for block in textBlocks:
+            if block[6] == 0:   # contains text
+                text = block[4]
+                if text[-1] == "\n":
+                    text = text[:-1]
+                
+                text = text.replace("\n"," ")
+                matchList = re.findall("\S\(", text)    # not " ("
+                if matchList:
+                    self.__getTextPage()
+                    matchList = self.__deleteDuplicate(matchList)
+                    for match in matchList:
+                        rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
+                        for rect in rects:
+                            self.mistakes_found = True
+                            self.__highlight(rect,self.HIGH_RED,"Chybí mezera před levou závorkou.", "Chyba")
+
+
+
+    def __resetCurrVars(self):
         self.__currPage = None
         self.__currDict = None
         self.__currPixmap = None
+        self.__currTextPage = None
 
-        if borderCheck or hyphenCheck or imageWidthCheck:
+
+    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True, TOCCheck : bool = True, spaceBracketCheck : bool = True):
+        self.__resetCurrVars()
+        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck:
             if borderCheck or imageWidthCheck:
                 self.__getDocBorder()
 
-            self.__currPage = None
-            self.__currDict = None
-            self.__currPixmap = None
+            self.__resetCurrVars()
 
             for self.__currPage in self.__document:
                 if borderCheck:
@@ -294,10 +384,13 @@ class Checker:
 
                 if imageWidthCheck:
                     self.__imageWidthPageCheck()
-            
-                self.__currDict = None
-                self.__currPixmap = None
 
-        
+                if TOCCheck:
+                    self.__TOCSectionsCheck()
+
+                if spaceBracketCheck:
+                    self.__spaceBracketCheck()
+            
+                self.__resetCurrVars()
         self.__document.save(annotatedPath)
 
