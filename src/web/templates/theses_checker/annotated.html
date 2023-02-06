@@ -10,7 +10,11 @@
     <h1>{{ text }}</h1>
 
     {% load static %}
-    <iframe src="{% static pdf_name %}" style="width: 100%; height: 95vh;"></iframe>
+    <object src="{% static pdf_name %}" style="width: 100%; height: 95vh;">
+        <iframe src="{% static pdf_name %}" style="width: 100%; height: 95vh;">
+            <div>No online PDF viewer installed</div>
+        </iframe>
+    </object>
 
 
 </body>
