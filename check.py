@@ -28,17 +28,19 @@ parser.add_argument('-i', '--image_width', action='store_true', help="image widt
 parser.add_argument('-H', '--Hyphen', action='store_true', help="hyphen check")
 parser.add_argument('-t', '--TOC', action='store_true', help="table of content section check")
 parser.add_argument('-s', '--space_bracket', action='store_true', help="space before left bracket check")
+parser.add_argument('-e', '--empty_chapter', action='store_true', help="text between titles check")
 #parser.add_argument('--out_file', default="annotated.pdf", help="name of created annotated file, default name is 'annotated.pdf'; usable with only one IN_FILES otherwise ignored")
 args = parser.parse_args(sys.argv[1:])
 
 
 
-if(not (args.overflow or args.image_width or args.Hyphen or args.TOC or args.space_bracket)):
+if(not (args.overflow or args.image_width or args.Hyphen or args.TOC or args.space_bracket or args.empty_chapter)):
     args.overflow = True
     args.image_width = True
     args.Hyphen = True
     args.TOC = True
     args.space_bracket = True
+    args.empty_chapter = True
 
 for file in args.in_files:
     if(not os.path.exists(file)):
@@ -51,6 +53,6 @@ for file in args.in_files:
     # if(len(args.in_files) > 1):
     #     args.out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
     out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
-    checker.annotate(out_file,args.overflow,args.Hyphen,args.image_width, args.TOC, args.space_bracket)
+    checker.annotate(out_file,args.overflow,args.Hyphen,args.image_width, args.TOC, args.space_bracket, args.empty_chapter)
     mistake_state = MISTAKES_FOUND if checker.mistakes_found else NO_MISTAKES 
     print("New file '" + out_file + "' was created." + mistake_state)

@@ -36,6 +36,8 @@ class Checker:
         self.__border = (-1.0, -1.0)
         self.__isContentPage = False
         self.__language = pdfLang
+        self.__regularFont = None
+        self.__isPreviousTitle = False
         
 
 
@@ -141,22 +143,87 @@ class Checker:
 
     
 
-    def __getDocBorder(self):
+    def __getFontIndex(self, fonts : list, font : dict):
+        for i in range(len(fonts)):
+            currFont = fonts[i]
+            if not isinstance(currFont,dict):
+                currFont = fonts[i][0]
+            if ((currFont['name'] == font['name']) and (currFont['size'] == font['size']) and (currFont['flags'] == font['flags'])):
+                return i
+        return None
+
+    
+
+    def __getPageUsedFonts(self):
+        fonts = []
+
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
+
+        for block in blocks:
+            if block['type'] == 0: 
+                # --- text ---
+                lines = block['lines']
+                for line in lines:
+                    spans = line['spans']
+                    for span in spans:
+                        font = dict(name=span['font'], size=round(span['size'],5), flags=span['flags'])
+                        index = self.__getFontIndex(fonts,font)
+                        if index != None:
+                            fonts[index] = (font, fonts[index][1] + len(span['text']))
+                        else:
+                            fonts.append((font,len(span['text'])))
+        return fonts
+
+    
+
+    def __getMostUsedFontIndex(self, fonts : list):
+        index_mostUsedFont = 0
+        for index in range(1,len(fonts)):
+            if fonts[index][1] > fonts[index_mostUsedFont][1]:
+                index_mostUsedFont = index
+        return index_mostUsedFont
+
+    
+
+    def __getPageRegularFont(self):
+        fonts = self.__getPageUsedFonts() 
+        return fonts[self.__getMostUsedFontIndex(fonts)]
+
+    
+
+    def __getDocInfo(self, findBorder : bool, findRegularFont : bool):
+
         right_borders = []
         left_borders = []
+        regularFonts = []
         rnd_page_i = self.__randomPagesIndex()
 
         self.__resetCurrVars()
+
         for i in rnd_page_i:
             self.__currPage = self.__document[i]
 
-            leftX, rightX = self.__getPageBorder()
-            right_borders.append(rightX)
-            left_borders.append(leftX)
+            if findBorder:
+                leftX, rightX = self.__getPageBorder()
+                right_borders.append(rightX)
+                left_borders.append(leftX)
+
+            if findRegularFont:
+                font = self.__getPageRegularFont()
+                index = self.__getFontIndex(regularFonts, font[0])
+                if index != None:
+                    regularFonts[index] = (font[0], regularFonts[index][1] + font[1])
+                else:
+                    regularFonts.append(font)
 
             self.__resetCurrVars()
 
-        self.__border = (median(left_borders), median(right_borders))
+        if findBorder:
+            self.__border = (median(left_borders), median(right_borders))
+
+        if findRegularFont:
+            self.__regularFont = regularFonts[self.__getMostUsedFontIndex(regularFonts)][0]
 
 
 
@@ -364,6 +431,98 @@ class Checker:
 
 
 
+    def __isTitleBlock(self, blockNumber : int):
+        block = self.__currDict['blocks'][blockNumber]
+        block_info = dict(linesCount=0, fonts=[])
+        if block['type'] == 0:
+            # --- text ---
+            lines = block['lines']
+            block_info['linesCount'] = len(lines)
+            origin_y = -1.0
+            for line in lines:
+                line_origin = line['spans'][0]['origin']
+                if line_origin[1] == origin_y:
+                    # not a new line
+                    block_info['linesCount'] -= 1
+                origin_y = line_origin[1]
+                spans = line['spans']
+                for span in spans:
+                    font = dict(name=span['font'], size=round(span['size'],5), flags=span['flags'])
+                    index = self.__getFontIndex(block_info['fonts'],font)
+                    if index == None:
+                        block_info['fonts'].append(font)
+            
+            if self.__getFontIndex(block_info['fonts'],self.__regularFont) == None:
+                if len(block_info['fonts']) > 2:
+                    return False
+                for font in block_info['fonts']:
+                    if font['size'] < self.__regularFont['size']:
+                        return False
+                #TODO: delete
+                #self.__highlight([block['bbox']],(220,255,255),str(block_info),"Nadpis")
+                return True
+                
+        return False
+
+
+
+    def __getBlockText(self, blockNumber : int):
+        block = self.__currDict['blocks'][blockNumber]
+        text = ""
+        if block['type'] == 0:
+            origin_y = -1.0
+            origin_x = -1.0
+            lines = block['lines']
+            for line in lines:
+                line_origin = line['spans'][0]['origin']
+                if line_origin[1] == origin_y:
+                    # not a new line
+                    text = text[:-1] + "\t"
+                else:
+                    if line_origin[0] > origin_x and origin_x != -1.0:
+                        # new paragraph
+                        text = text[:-1] + "\n"
+                origin_y = line_origin[1]
+                origin_x = line_origin[0]
+                spans = line['spans']
+                for span in spans:
+                    text += span['text']
+                if text[-1] == "-":
+                    text = text[:-1]
+                else:
+                    text+=" "
+            text=text[:-1]
+        return text
+
+
+
+    def __emptySectionCheck(self):
+        isPreviousNewChapter=False
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
+        for blockNumber in range(len(blocks)):
+            if self.__isTitleBlock(blockNumber):
+                blockText = self.__getBlockText(blockNumber)
+                x = re.search("\t\d+$", blockText) # example: Úvod   2
+                if self.__isPreviousTitle and not isPreviousNewChapter and not x:
+                    y1=blocks[blockNumber-1]['bbox'][3]
+                    y2=blocks[blockNumber]['bbox'][1]
+                    if y1 < y2:
+                        rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
+                        self.mistakes_found = True
+                        self.__highlight([rect],self.HIGH_RED,"Chybí text mezi nadpisy","Chyba")
+                x = re.search("^(?:Kapitola|Chapter) \d+$", blockText) # example: Kapitola 4; Chapter 4
+                if  x:
+                    isPreviousNewChapter = True
+                else:
+                    isPreviousNewChapter = False
+                self.__isPreviousTitle = True
+            else:
+                isPreviousNewChapter = False
+                self.__isPreviousTitle = False
+
+
+
     def __resetCurrVars(self):
         self.__currPage = None
         self.__currDict = None
@@ -371,11 +530,12 @@ class Checker:
         self.__currTextPage = None
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True, TOCCheck : bool = True, spaceBracketCheck : bool = True):
+    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True, TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True):
         self.__resetCurrVars()
-        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck:
-            if borderCheck or imageWidthCheck:
-                self.__getDocBorder()
+        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck or emptySectionCheck:
+            findBorder = borderCheck or imageWidthCheck or emptySectionCheck
+            if findBorder or emptySectionCheck:
+                self.__getDocInfo(findBorder, emptySectionCheck)
 
             self.__resetCurrVars()
 
@@ -394,6 +554,10 @@ class Checker:
 
                 if spaceBracketCheck:
                     self.__spaceBracketCheck()
+
+                if emptySectionCheck:
+                    if self.__currPage.number > 0:
+                        self.__emptySectionCheck()
             
                 self.__resetCurrVars()
         self.__document.save(annotatedPath)

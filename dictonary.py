@@ -1,10 +1,10 @@
 import fitz
 
 # ------------------------------------ DOPLNIT ----------------------------------------------
-doc = fitz.Document("projekt.pdf")
+doc = fitz.Document('..\\..\\..\\pdf\\fit\\24420.pdf')
 # -------------------------------------------------------------------------------------------
 
-page = doc[3]
+page = doc[41]
 
 #imageBlock_dict: dict_keys(['number', 'type', 'bbox', 'width', 'height', 'ext', 'colorspace', 'xres', 'yres', 'bpc', 'transform', 'size', 'image'])
 #   |-> Key "type": 1 = image (int)
@@ -14,13 +14,18 @@ page = doc[3]
 
 # if origin y is the same => one line
 
+# font flags: 0bBMSIX -> B - bold; M - monospaced; S - serifed; I - italic; X - superscripted – not a font property, detected by MuPDF code.
+
+
+WIDTH = 150
+
 dictionary = page.get_text("dict")
 #print(dictionary)
 blocks = dictionary['blocks']
 #print(blocks[10]['ext'])
-print(" ------------------------------------------------------------------------------------------")
+print(" " + WIDTH*"-")
 for block in blocks:
-    print("|                                                                                          |")
+    print("|" + WIDTH*" " + "|")
     #print(block)
     #input()
     if block['type'] == 0:
@@ -28,10 +33,10 @@ for block in blocks:
         for line in lines:
             #print(line)
             for span in line['spans']:
-                print("| " + span['text'] + (89-len(span['text']))*" " + "|")
-            print("| " + str(line['bbox']) + (89-len(str(line['bbox'])))*" " + "|")
+                print("| " + span['text'] + (WIDTH-1-len(span['text']))*" " + "|")
+                print("| " + str(line['bbox']) + "    font: " + span['font'] + "    size: "  + str(span['size']) + "   flags: " + str(bin(span['flags'])) + (WIDTH-1-len(str(line['bbox']))-10-len(span['font'])-10-len(str(span['size']))-10-len(str(bin(span['flags']))))*" " + "|")
     else: #type = 1
         print(block['ext'])
         print(block['size'])
-    print("|                                                                                          |")
-    print(" ------------------------------------------------------------------------------------------")
+    print("|" + WIDTH*" " + "|")
+    print(" " + WIDTH*"-")
