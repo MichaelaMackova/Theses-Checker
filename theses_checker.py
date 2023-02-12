@@ -146,11 +146,15 @@ class Checker:
         left_borders = []
         rnd_page_i = self.__randomPagesIndex()
 
+        self.__resetCurrVars()
         for i in rnd_page_i:
             self.__currPage = self.__document[i]
+
             leftX, rightX = self.__getPageBorder()
             right_borders.append(rightX)
             left_borders.append(leftX)
+
+            self.__resetCurrVars()
 
         self.__border = (median(left_borders), median(right_borders))
 
@@ -326,7 +330,7 @@ class Checker:
                         line_origin = line['spans'][0]['origin']
                         if line_origin[1] != origin_y:
                             # new line, not tab -> section number
-                            x = re.search("^\d+\.(\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
+                            x = re.search("^\d+\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
                             if x:
                                 self.mistakes_found = True
                                 self.__highlight([line['bbox']],self.HIGH_RED,"Nečíslovat nadpisy třetí a více úrovně", "Chyba")
