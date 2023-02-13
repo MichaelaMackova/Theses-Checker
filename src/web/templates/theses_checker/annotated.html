@@ -9,13 +9,17 @@
 <body>
     <h1>{{ text }}</h1>
 
-    {% load static %}
+    <!-- {% load static %}
+    <div id="pdf_view" style="display: none;">{{ pdf_name }}</div>
     <object src="{% static pdf_name %}" style="width: 100%; height: 95vh;">
-        <iframe src="{% static pdf_name %}" style="width: 100%; height: 95vh;">
+        <iframe src="{% url 'view_annotated' pdf_name=pdf_name %}" style="width: 100%; height: 95vh;">
             <div>No online PDF viewer installed</div>
         </iframe>
-    </object>
+    </object> -->
 
+    <iframe src="{% url 'view_annotated' pdf_name=pdf_name %}" style="width: 100%; height: 95vh;">
+        <div>No online PDF viewer installed</div>
+    </iframe>
 
 </body>
 </html>

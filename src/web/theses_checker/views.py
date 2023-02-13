@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 
 from .bl.theses_checker import Checker
@@ -27,3 +28,12 @@ def show_annotated(request, pdf_name):
         'text': "Hello world! This is my bachelors theses\nThe pdf name is: " + pdf_name,
         'pdf_name': pdf_name
     })
+
+@xframe_options_exempt
+def view_annotated(request, pdf_name):
+    pdf_path = os.path.join(settings.BASE_DIR, 'static/', pdf_name)
+    with open(pdf_path, 'rb') as f:
+        pdf_contents = f.read()
+    os.remove(pdf_path)
+    response = HttpResponse(pdf_contents, content_type='application/pdf')
+    return response
