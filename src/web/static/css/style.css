@@ -1,4 +1,5 @@
 @import "loader-style.css";
+@import "base-style.css";
 
 #loader{
     display: none;
@@ -23,6 +24,6 @@
 }
 
 .overlay{
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(245, 245, 245, 0.75);
     z-index: 9;
 }

@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="cs-cz">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF checker</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block body %}
+
     <h1>{{ text }}</h1>
 
     <!-- {% load static %}
@@ -21,5 +15,4 @@
         <div>No online PDF viewer installed</div>
     </iframe>
 
-</body>
-</html>
+{% endblock body %}
