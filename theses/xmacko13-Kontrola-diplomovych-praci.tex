@@ -75,6 +75,35 @@
 \usepackage{xcolor}
 \newcommand{\dummyText}[1][1]{{\color{lightgray}\blindtext[#1]}}
 \newcommand{\DummyText}[0]{{\color{lightgray}\Blindtext}}
+\usepackage{pgffor}
+\newcommand{\blindshort}[1][3]{
+  \def\loremtext{
+    {Lorem ipsum dolor sit amet, consectetuer adipiscing elit.},
+    {Etiam lobortis facilisis sem.},
+    {Nullam nec mi et neque pharetra sollicitudin.},
+    {Praesent imperdiet mi nec ante.},
+    {Donec ullamcorper, felis non sodales commodo, lectus velit ultrices augue, a dignissim nibh lectus placerat pede.},
+    {Vivamus nunc nunc, molestie ut, ultricies vel, semper in, velit.},
+    {Ut porttitor.},
+    {Praesent in sapien.},
+    {Lorem ipsum dolor sit amet, consectetuer adipiscing elit.},
+    {Duis fringilla tristique neque.},
+    {Sed interdum libero ut metus.},
+    {Pellentesque placerat.},
+    {Nam rutrum augue a leo.},
+    {Morbi sed elit sit amet ante lobortis sollicitudin.},
+    {Praesent blandit blandit mauris.},
+    {Praesent lectus tellus, aliquet aliquam, luctus a, egestas a, turpis.},
+    {Mauris lacinia lorem sit amet ipsum.},
+    {Nunc quis urna dictum turpis accumsan semper.}}%
+  \foreach \texti [count=\i] in \loremtext {
+    \ifnum\i>#1
+    \else
+    \texti
+    \fi
+  }
+}
+\newcommand{\dummyShortText}[1][3]{{\color{lightgray}\blindshort[#1]}}
 
 % =======================================================================
 % balíček "hyperref" vytváří klikací odkazy v pdf, pokud tedy použijeme pdflatex
