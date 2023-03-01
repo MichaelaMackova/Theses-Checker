@@ -7,11 +7,24 @@
 %\begin{document}
 
 
+\newcommand{\highlight}[1]{\colorbox{purple}{\color{white}#1}}
+\newcommand{\todoimage}[2]{
+    \begin{figure}[H]
+        \centering
+        \includegraphics[#1]{obrazky-figures/placeholder.pdf}
+        \caption{\textbf{#2} \todo{popisek}}
+    \end{figure}
+}
 
+
+% \renewcommand{\dummyShortText}[1][1]{}
+% \renewcommand{\dummyText}[1][1]{}
+% \renewcommand{\DummyText}{}
+% \renewcommand{\todoimage}[2]{}
 
 
 %*********************************************************************************
-%                                      ÚVOD
+%                                    1 ÚVOD
 %*********************************************************************************
 \chapter{Úvod}
 
@@ -28,7 +41,7 @@
 
 
 %*********************************************************************************
-%                                  ČASTÉ CHYBY
+%                                2 ČASTÉ CHYBY
 %*********************************************************************************
 \chapter{Často vyskytované chyby v~diplomových pracích}
 
@@ -37,64 +50,43 @@
 \dummyText
 
 
-%#######################    Přetečení obsahu za okraj    #######################
+%#######################    2.1 Přetečení obsahu za okraj    #######################
 \section{Přetečení obsahu za okraj}
+Tato chyba se nejčastěji vyskytuje, když student píše \highlight{svou}
+diplomovou práci s~pomocí jazyka \LaTeX. 
+
 \dummyShortText[10]
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka přetečení za okraj.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka přetečení za okraj.}
 
 
-%#######################    Spojovník x pomlčka    #######################
+%#######################    2.2 Spojovník x pomlčka    #######################
 \section{Spojovník $\times$ pomlčka}
 \dummyShortText[10]
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka špatně použitého spojovníku.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka špatně použitého spojovníku.}
 
 
-%#######################    Chybějící popis kapitoly    #######################
+%#######################    2.3 Chybějící popis kapitoly    #######################
 \section{Chybějící popis kapitoly}
 \dummyShortText[10]
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka chybějícího textu.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka chybějícího textu.}
 
 
-%#######################    Nadpisy třetí a větší úrovně v obsahu    #######################
+%#######################    2.4 Nadpisy třetí a větší úrovně v obsahu    #######################
 \section{Nadpisy třetí a~větší úrovně v~obsahu}
 \dummyShortText[10]
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka obsahu s~nadpisy 3 a~více úrovně.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka obsahu s~nadpisy 3 a~více úrovně.}
 
 
-%#######################    Absence vektorové grafiky    #######################
+%#######################    2.5 Absence vektorové grafiky    #######################
 \section{Absence vektorové grafiky}
 \dummyShortText[10]
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka rastrového a~vektorového obrázku.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
 
 
-%#######################    Nepoužívání nezalomitelné mezery    #######################
+%#######################    2.6 Nepoužívání nezalomitelné mezery    #######################
 \section{Nepoužívání nezalomitelné mezery}
 \dummyText
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=1.7in}{Ukázka.}
 
 
 %*********************************************************************************
@@ -103,46 +95,126 @@
 
 
 %*********************************************************************************
-%                                    TEORIE
+%                               3 ANOTACE V PDF
 %*********************************************************************************
 \chapter{Anotace v~PDF souboru}
 
 \dummyText
 
 
-%#######################    Reprezentace anotací v PDF souboru    #######################
+%#######################    3.1 Reprezentace anotací v PDF souboru    #######################
 \section{Reprezentace anotací v~PDF souboru}
 
 \DummyText
 
 
-%#######################    Programovací jazyky a knihovny pro zpracování a anotování PDF souborů    #######################
+%#######################    3.2 Programovací jazyky a knihovny pro zpracování a anotování PDF souborů    #######################
 \section{Programovací jazyky a~knihovny pro zpracování a~anotování PDF souborů}
+
+Pro zpracovávání PDF souborů existuje mnoho knihoven v~různých programovacích
+jazycích. Výběr programovacího jazyka záleží ne jen na požadavcích pro výslednou
+aplikaci, ale též na znalostech daného programátora. Samotná knihovna se poté
+vybere na základě její funkcionality. 
+
+V~této kapitole jsou popsány různé knihovny, které je možné použít pro zpracování
+PDF souborů, jejich speciality a~nedostatky.
+
+
+%---------- 3.2.1 C# ----------
+\subsection*{C\#}
+
+C\# je objektově orientovaný programovací jazyk, vyvinutý firmou Microsoft.
+Jazyk C\# je potomkem rodiny jazyků C, je jim tedy podobný a~programátorům těchto
+jazyků nebude dlouho trvat se jej naučit. Jazyk C\# je jeden z~nejpoužívanějších
+jazyků pro vývoj na platformě .NET.
+\cite{CSharp}
+
+\textbf{iText 7}\footnote{\href{https://kb.itextpdf.com/home}{https://kb.itextpdf.com/home}}
+\dummyText
+
+
+%---------- 3.2.2 JavaScript ----------
+\subsection*{JavaScript}
+
+JavaScript je dynamicky typovaný, objektově orientovaný, interpretovaný
+programovací jazyk. Nejčastěji se využívá jako skriptovací jazyk používaný
+pro vytváření webových stránek, je však často používaný i~mimo prostředí webového
+prohlížeče. Nejznámější z~těchto případů je například Node.js, Apache CouchDB
+a~Adobe Acrobat. 
+\cite{JavaScript}
+
+Pro zpracování PDF souborů v~jazyce JavaScript je možné použít některou
+z~následujících knihoven:
+\begin{itemize}
+    \item \textbf{PDF.js}\footnote{
+    \href{http://mozilla.github.io/pdf.js/getting_started/}{http://mozilla.github.io/pdf.js/getting\_started/}
+    }\,--\,Tato knihovna byla vyvinuta převážně pro čtení a~vykreslování PDF
+    souborů, samotná neumí dané soubory editovat. Jiné knihovny jsou s~touto
+    knihovnou často kombinovány pro pokročilejší práci s~PDF soubory. Práce
+    s~PDF.js knihovnou závisí na využívání takzvaných Promises, bez kterých nelze
+    tuto knihovnu používat, proto je doporučené se s~jejich používáním dobře
+    seznámit před jakoukoliv prací s~touto knihovnou. PDF.js je dostupné pod
+    licencí \emph{Apache License 2.0}\footnote{
+    \href{https://github.com/mozilla/pdf.js/blob/master/LICENSE}{https://github.com/mozilla/pdf.js/blob/master/LICENSE}}.
+    
+    \item \textbf{pdfAnnotate}\footnote{
+    \href{https://github.com/highkite/pdfAnnotate}{https://github.com/highkite/pdfAnnotate}
+    }\,--\,Je knihovna vyvinutá specificky pro anotování PDF souborů dostupná pod
+    licencí \emph{MIT License}\footnote{
+    \href{https://github.com/highkite/pdfAnnotate/blob/master/LICENSE}{https://github.com/highkite/pdfAnnotate/blob/master/LICENSE}
+    }. Funguje pouze v~prostředí webového prohlížeče a~Node.js. Samotná knihovna
+    neumí číst a~zobrazovat PDF soubory, proto je doporučováno tuto knihovnu
+    kombinovat s~výše zmíněnou knihovnou PDF.js. Přidané anotace se zapisují
+    na konec PDF souboru a~díky tomu je možné je zobrazit i~mimo vytvořenou
+    aplikaci.
+    
+    \item \textbf{PDF-LIB}\footnote{
+    \href{https://pdf-lib.js.org/}{https://pdf-lib.js.org/}
+    }\,--\,Tuto knihovnu je možné používat v~jakémkoliv JavaScriptovém prostředí.
+    PDF-LIB dokáže vytvářet nové či modifikovat existující PDF soubory. Mezi
+    modifikace patří například vytváření a~vyplňování formulářů, vkládání PDF
+    stránek a~čtení a~přepisování metadat souboru. Vytváření anotací je možné, ale
+    vyžaduje pokročilejší znalost zápisu formátu PDF. Tato knihovna je dostupná
+    pod licencí \emph{MIT License}\footnote{
+    \href{https://github.com/Hopding/pdf-lib/blob/master/LICENSE.md}{https://github.com/Hopding/pdf-lib/blob/master/LICENSE.md}
+    }.
+\end{itemize}
+
+
+%---------- 3.2.3 PHP ----------
+\subsection*{PHP}
+
+PHP je skriptovací programovací jazyk, který je především vhodný pro vývoj
+dynamických webových stránek. \todo{vnořené v HTML}
+\cite{PHP}
 
 \dummyShortText[5]
 
 
-%---------- C# - iText ----------
-\subsection*{C\#~---~iText}
-
-\dummyShortText[12]
-
-\textbf{iText}
-\dummyText
+\begin{itemize}
+    \item \textbf{TCPDF}\footnote{\href{https://tcpdf.org/}{https://tcpdf.org/}}\,--\,\dummyText
+    \item \textbf{TCPDI}\footnote{\href{https://github.com/pauln/tcpdi}{https://github.com/pauln/tcpdi}}\,--\,\dummyShortText[8]
+    \item \textbf{FPDI PDF-Parser}\,--\,\dummyShortText[8]
+\end{itemize}
 
 
-%---------- JavaScript ----------
-\subsection*{JavaScript}
-
-
-
-%---------- PHP ----------
-\subsection*{PHP}
-
-
-%---------- Python ----------
+%---------- 3.2.4 Python ----------
 \subsection*{Python}
 
+Python je vysokoúrovňový, interpretovaný programovací jazyk. Má dynamickou
+kontrolu datových typů a~podporuje objektově orientované programování. Tyto
+skutečnosti z~něj dělají ideální jazyk pro skriptování a~rychlé prototypování
+různých aplikací na mnoho platformách. Python je programovací jazyk vhodný i~pro
+začátečníky.
+\cite{Python}
+
+V~tomto jazyce existuje několik knihoven pro práci s~PDF soubory. Je možné použít
+například následující: 
+\begin{itemize}
+    \item \textbf{PyMuPDF}\footnote{\href{https://pymupdf.readthedocs.io/en/latest/}{https://pymupdf.readthedocs.io/en/latest/}}\,--\,\dummyText[2]
+    \item \textbf{pikepdf}\footnote{\href{https://pikepdf.readthedocs.io/en/latest/}{https://pikepdf.readthedocs.io/en/latest/}}\,--\,\dummyShortText[8]
+\end{itemize}
+
 
 %*********************************************************************************
 
@@ -150,7 +222,7 @@
 
 
 %*********************************************************************************
-%                              NÁVRH A IMPLEMENTACE
+%                            4 NÁVRH A IMPLEMENTACE
 %*********************************************************************************
 %TODO: přejmenovat
 \chapter{Návrh a~implementace webové aplikace}
@@ -158,7 +230,7 @@
 \dummyText
 
 
-%#######################    Specifikace požadavků    #######################
+%#######################    4.1 Specifikace požadavků    #######################
 \section{Specifikace požadavků}
 
 \dummyText
@@ -166,19 +238,19 @@
 \dummyText
 
 
-%#######################    Využité technologie    #######################
+%#######################    4.2 Využité technologie    #######################
 \section{Využité technologie}
 
 \dummyShortText[9]
 
 
-%---------- Python ----------
+%---------- 4.2.1 Python ----------
 \subsection*{Python}
 
 \dummyText[2]
 
 
-%---------- Django ----------
+%---------- 4.2.2 Django ----------
 \subsection*{Django}
 
 \dummyShortText[13]
@@ -186,39 +258,35 @@
 \dummyText
 
 
-%---------- HTML, CSS ----------
+%---------- 4.2.3 HTML, CSS ----------
 \subsection*{HTML, CSS}
 
 \dummyText
 
 
-%---------- JavaScript ----------
+%---------- 4.2.4 JavaScript ----------
 \subsection*{JavaScript}
 
 \dummyText
 
 
-%#######################    Program pro vyhledání chyb a jejich následné vyznačení    #######################
+%#######################    4.3 Program pro vyhledání chyb a jejich následné vyznačení    #######################
 \section{Program pro vyhledání chyb a~jejich následné vyznačení}
 
 \DummyText
 
-%---------- Nalezení okraje stránky ----------
+%---------- 4.3.1 Nalezení okraje stránky ----------
 \subsection*{Nalezení okraje stránky}
 
 \dummyShortText[10]
 
 \dummyText[2]
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Vyznačení okraje textu.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth}{Vyznačení okraje textu.}
 
 
 
-%#######################    Architektura webové aplikace    #######################
+%#######################    4.4 Architektura webové aplikace    #######################
 \section{Architektura webové aplikace}
 
 \dummyText
@@ -226,34 +294,22 @@
 \dummyText[2]
 
 
-%#######################    Ukázka použití vytvořené webové aplikace    #######################
+%#######################    4.5 Ukázka použití vytvořené webové aplikace    #######################
 \section{Ukázka použití vytvořené webové aplikace}
 
 \dummyShortText[13]
 
 \dummyText
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=3.3in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Zvolení PDF a~filtrů na webu.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=3.3in}{Zvolení PDF a~filtrů na webu.}
 
 \dummyShortText[8]
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=3.3in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Čekání na webu.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=3.3in}{Čekání na webu.}
 
 \dummyText
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\linewidth,height=3.3in]{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Anotované PDF na webu.} \todo{popisek}}
-\end{figure}
+\todoimage{width=\linewidth,height=3.3in}{Anotované PDF na webu.}
 
 %*********************************************************************************
 
@@ -261,7 +317,7 @@
 
 
 %*********************************************************************************
-%                                   TESTOVÁNÍ 
+%                                 5 TESTOVÁNÍ 
 %*********************************************************************************
 %TODO: přejmenovat
 \chapter{Testování a~zhodnocení výsledné aplikace}
@@ -269,29 +325,28 @@
 \dummyShortText[10]
 
 
-%#######################    Ověření správné funkcionality vyhledávání chyb    #######################
+%#######################    5.1 Ověření správné funkcionality vyhledávání chyb    #######################
 \section{Ověření správné funkcionality vyhledávání chyb}
 
 
-%#######################    Známé chyby aplikace    #######################
+%#######################    5.2 Známé chyby aplikace    #######################
 \section{Známé chyby aplikace}
 
 
-%#######################    Uživatelské dotazníky    #######################
+%#######################    5.3 Uživatelské dotazníky    #######################
 \section{Uživatelské dotazníky}
 
 
-%#######################    Možné budoucí rozšíření aplikace    #######################
+%#######################    5.4 Možné budoucí rozšíření aplikace    #######################
 \section{Možné budoucí rozšíření aplikace}
 
-\cite{Beran}
 %*********************************************************************************
 
 
 
 
 %*********************************************************************************
-%                                     ZÁVĚR
+%                                   6 ZÁVĚR
 %*********************************************************************************
 \chapter{Závěr}
 
