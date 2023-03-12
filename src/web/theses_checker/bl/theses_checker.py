@@ -28,6 +28,7 @@ class Checker:
 
     def __init__(self, pdfPath : string, pdfLang : Language = None):
         self.mistakes_found = False
+        self.borderNotFound = False
         self.__document = fitz.Document(pdfPath)
         self.__currPage = fitz.Page
         self.__currTextPage = fitz.TextPage
@@ -52,17 +53,19 @@ class Checker:
         return random.sample(range(2, docLen-2), maxListLen)
 
     def __highlight(self, rects:list, color:tuple, text:string = None, title:string = None):
-        annot = self.__currPage.add_highlight_annot(rects)
-        annot.set_colors(stroke=self.__rgbToPdf(color))
+        if len(rects) > 0:
+            
+            annot = self.__currPage.add_highlight_annot(rects)
+            annot.set_colors(stroke=self.__rgbToPdf(color))
 
-        if text != None:
-            info = annot.info
-            if title != None:
-                info["title"] = title
-            info["content"] = text
-            annot.set_info(info)
+            if text != None:
+                info = annot.info
+                if title != None:
+                    info["title"] = title
+                info["content"] = text
+                annot.set_info(info)
 
-        annot.update()
+            annot.update()
 
 
 
@@ -220,7 +223,21 @@ class Checker:
             self.__resetCurrVars()
 
         if findBorder:
-            self.__border = (median(left_borders), median(right_borders))
+            borderLeft = median(left_borders)
+            borderRight = median(right_borders)
+            if (borderLeft < borderRight) and (borderLeft != -1.0) and (borderRight != -1.0):
+                self.__border = (borderLeft, borderRight)
+            else:
+                # bad border found
+                self.borderNotFound = True
+                #TODO: skip checks where border is needed!!!
+                pageBound = self.__document[0].rect
+                if (borderLeft != -1.0) and (borderRight == -1.0):
+                    self.__border = (borderLeft, pageBound[2])
+                elif (borderLeft == -1.0) and (borderRight != -1.0):
+                    self.__border = (pageBound[0], borderRight)
+                else:
+                    self.__border = (pageBound[0], pageBound[2])
 
         if findRegularFont:
             self.__regularFont = regularFonts[self.__getMostUsedFontIndex(regularFonts)][0]
@@ -540,13 +557,13 @@ class Checker:
             self.__resetCurrVars()
 
             for self.__currPage in self.__document:
-                if borderCheck:
+                if borderCheck and not self.borderNotFound:
                     self.__overflowPageCheck()
 
                 if hyphenCheck:
                     self.__hyphenPageCheck()
 
-                if imageWidthCheck:
+                if imageWidthCheck and not self.borderNotFound:
                     self.__imageWidthPageCheck()
 
                 if TOCCheck:
