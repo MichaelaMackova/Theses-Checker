@@ -225,14 +225,19 @@ class Checker:
         if findBorder:
             borderLeft = median(left_borders)
             borderRight = median(right_borders)
-            if borderLeft < borderRight:
+            if (borderLeft < borderRight) and (borderLeft != -1.0) and (borderRight != -1.0):
                 self.__border = (borderLeft, borderRight)
             else:
                 # bad border found
                 self.borderNotFound = True
                 #TODO: skip checks where border is needed!!!
                 pageBound = self.__document[0].rect
-                self.__border = (pageBound[0], pageBound[2])
+                if (borderLeft != -1.0) and (borderRight == -1.0):
+                    self.__border = (borderLeft, pageBound[2])
+                elif (borderLeft == -1.0) and (borderRight != -1.0):
+                    self.__border = (pageBound[0], borderRight)
+                else:
+                    self.__border = (pageBound[0], pageBound[2])
 
         if findRegularFont:
             self.__regularFont = regularFonts[self.__getMostUsedFontIndex(regularFonts)][0]
@@ -552,13 +557,13 @@ class Checker:
             self.__resetCurrVars()
 
             for self.__currPage in self.__document:
-                if borderCheck:
+                if borderCheck and not self.borderNotFound:
                     self.__overflowPageCheck()
 
                 if hyphenCheck:
                     self.__hyphenPageCheck()
 
-                if imageWidthCheck:
+                if imageWidthCheck and not self.borderNotFound:
                     self.__imageWidthPageCheck()
 
                 if TOCCheck:
