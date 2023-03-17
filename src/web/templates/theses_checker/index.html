@@ -1,14 +1,26 @@
 {% extends "base.html" %}
 {% block body %}
-    <h1>{{ text }}</h1>
+
+    <div class="text">
+        <!-- Theses Checker is an online tool that checks your thesis mainly for typographical errors.
+        This tool searches for mistakes such as text overflow, wrong usage of hyphen, ___ and others.
+        To find some mistakes Theses Checker searches for keywords therefore the thesis should
+        be either in Czech, English or Slovak otherwise some checks might not work as expected. -->
+
+        Theses Checker is an online tool that checks your thesis mainly for typographical errors.
+        This tool searches for mistakes such as text overflow, wrong usage of hyphens, no section
+        description and others.
+        To find some mistakes, Theses Checker searches for keywords. Therefore the thesis should be
+        either in Czech, English or Slovak; otherwise, some checks might not work as expected.
+    </div>
 
     <div class="container">
         <div class="box">
-            <form action="{% url 'checkPDF' %}" method="post" enctype="multipart/form-data">
+            <form onsubmit="loader()" action="{% url 'checkPDF' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-                <label for="file">Select a file:</label>
-                <input type="file" id="file" name="file" accept="application/pdf, .pdf" onchange="validatePdf(this)"><br><br>
-                <input onclick="loader()" type="submit" value="Zkontroluj">
+                <label for="file">Select a PDF file:</label><br>
+                <input type="file" id="file" name="file" accept="application/pdf, .pdf" onchange="validatePdf(this)" required><br><br>
+                <input class="button" type="submit" value="Check file">
             </form>
         </div>
 

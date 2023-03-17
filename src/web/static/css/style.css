@@ -27,3 +27,35 @@
     background-color: rgba(245, 245, 245, 0.75);
     z-index: 9;
 }
+
+.button{
+    background-color:royalblue;
+    color: white;
+    font-size: inherit;
+    padding: 0.65em;
+    border-radius: 5px;
+    border: none;
+    transition: ease-in-out 0.5s;
+}
+
+.button:hover{
+    background-color: rgb(46, 75, 164);
+    cursor: pointer;
+    transition: ease-in-out 0.5s;
+}
+
+.text{
+    color: rgb(131, 131, 131);
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 30px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* change loader color */
+.dot-pulse, .dot-pulse::after, .dot-pulse::before{
+    color: royalblue;
+    background-color: royalblue;
+}
