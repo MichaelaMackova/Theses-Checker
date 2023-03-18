@@ -28,12 +28,22 @@
 %*********************************************************************************
 \chapter{Úvod}
 
-\todo{Udělat Úvod}
 \dummyText
 
 \dummyText[2]
 
 \dummyShortText[15]
+
+%*********************************************************************************
+
+
+
+
+%*********************************************************************************
+%                                 2 TYPOGRAFIE
+%*********************************************************************************
+\chapter{Rychlokurz typografie}
+
 
 %*********************************************************************************
 
@@ -56,7 +66,12 @@ Tato chyba se nejčastěji vyskytuje, když student píše \highlight{svou}
 diplomovou práci s~pomocí jazyka \LaTeX. 
 
 \dummyShortText[10]
-\todoimage{width=\linewidth,height=1.7in}{Ukázka přetečení za okraj.}
+\begin{figure}[H]
+    \centering
+    %\includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
+    \includegraphics{obrazky-figures/overflow.pdf}
+    \caption{\textbf{Ukázka přetečení za okraj.} \todo{popisek}}
+\end{figure}
 
 
 %#######################    2.2 Spojovník x pomlčka    #######################
@@ -83,8 +98,8 @@ diplomovou práci s~pomocí jazyka \LaTeX.
 \todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
 
 
-%#######################    2.6 Nepoužívání nezalomitelné mezery    #######################
-\section{Nepoužívání nezalomitelné mezery}
+%#######################    2.6 Nepoužívání nezlomitelné mezery    #######################
+\section{Nepoužívání nezlomitelné mezery}
 \dummyText
 \todoimage{width=\linewidth,height=1.7in}{Ukázka.}
 
@@ -129,7 +144,12 @@ jazyků nebude dlouho trvat se jej naučit. Jazyk C\# je jeden z~nejpoužívaně
 jazyků pro vývoj na platformě .NET.
 \cite{CSharp}
 
-\textbf{iText 7}\footnote{\href{https://kb.itextpdf.com/home}{https://kb.itextpdf.com/home}}
+Nejznámější C\# knihovna pro práci s~PDF dokumenty je \textbf{iText 7}\footnote{
+\href{https://kb.itextpdf.com/home}{https://kb.itextpdf.com/home}
+}. Tato knihovna je dostupná pod \emph{Open Source AGPLv3}\footnote{
+\href{https://itextpdf.com/how-buy/AGPLv3-license}{https://itextpdf.com/how-buy/AGPLv3-license}
+} licencí a~dvěma verzemi komerční licence. 
+
 \dummyText
 
 
@@ -185,16 +205,41 @@ z~následujících knihoven:
 \subsection*{PHP}
 
 PHP je skriptovací programovací jazyk, který je především vhodný pro vývoj
-dynamických webových stránek. \todo{vnořené v HTML}
-\cite{PHP}
-
-\dummyShortText[5]
-
+dynamických webových stránek. Často je PHP kód vnořený přímo do HTML kódu, kterému
+tak přidává dynamičnost. PHP podporuje objektově orientované i~procedurální 
+programování. I~když je PHP jazyk používán převážně pro vývoj webu, lze jej využít
+i~pro vytvoření aplikace běžící v~příkazové řádce a~pro vývoj
+desktopových aplikací.
+\cite{PHP_is}, \cite{PHP_can_do}
 
 \begin{itemize}
-    \item \textbf{TCPDF}\footnote{\href{https://tcpdf.org/}{https://tcpdf.org/}}\,--\,\dummyText
-    \item \textbf{TCPDI}\footnote{\href{https://github.com/pauln/tcpdi}{https://github.com/pauln/tcpdi}}\,--\,\dummyShortText[8]
-    \item \textbf{FPDI PDF-Parser}\,--\,\dummyShortText[8]
+    \item \textbf{TCPDF}\footnote{
+    \href{https://tcpdf.org/}{https://tcpdf.org/}
+    }\,--\,Tato knihovna je zaměřena na vytváření PDF dokumentů, mezi její hlavní
+    vlastnosti patří podpora fontů, automatické hlavičky a~patičky na stránce,
+    dělení slov, zarovnání a~zalamování textu, PDF anotace a~automatické číslování
+    stran. TCPDF nepodporuje čtení a~editaci existujících PDF souborů.
+    Knihovna TCPDF je dostupná pod \emph{Free Software License}\footnote{
+    \href{https://tcpdf.org/docs/license/}{https://tcpdf.org/docs/license/}
+    } licencí.
+
+    % \item \textbf{TCPDI}\footnote{
+    % \href{https://github.com/pauln/tcpdi}{https://github.com/pauln/tcpdi}
+    % }\,--\,\todo{text}
+    
+    % \dummyShortText[8]
+
+    \item \textbf{FPDI}\footnote{
+    \href{https://www.setasign.com/products/fpdi/about/}{https://www.setasign.com/products/fpdi/about/}
+    }\,--\,Je knihovna pro používání stránek z~existujícího PDF dokumentu jako
+    šablonu do nového PDF dokumentu. Při opakovaném použití jedné šablony tato 
+    knihovna zajistí, že šablona bude v~souboru PDF zahrnuta právě jednou. Díky
+    této skutečnosti může být výsledné PDF menší velikosti než PDF vytvořeno jiným
+    způsobem. Tato třída je kompatibilní s~výše zmíněnou knihovnou TCPDF. Od verze
+    1.6 je knihovna FPDI dostupná pod licencí \emph{MIT license}\footnote{
+    \href{https://www.tldrlegal.com/l/mit}{https://www.tldrlegal.com/l/mit}
+    }.
+
 \end{itemize}
 
 
@@ -211,8 +256,33 @@ začátečníky.
 V~tomto jazyce existuje několik knihoven pro práci s~PDF soubory. Je možné použít
 například následující: 
 \begin{itemize}
-    \item \textbf{PyMuPDF}\footnote{\href{https://pymupdf.readthedocs.io/en/latest/}{https://pymupdf.readthedocs.io/en/latest/}}\,--\,\dummyText[2]
-    \item \textbf{pikepdf}\footnote{\href{https://pikepdf.readthedocs.io/en/latest/}{https://pikepdf.readthedocs.io/en/latest/}}\,--\,\dummyShortText[8]
+    \item \textbf{PyMuPDF}\footnote{
+    \href{https://pymupdf.readthedocs.io/en/latest/}{https://pymupdf.readthedocs.io/en/latest/}
+    }\,--\,Je Python verze MuPDF. Je dostupná pod dvěma různými licencemi a~to pod
+    licencí \emph{Open Source\,--\,AGPL}\footnote{
+    \href{https://artifex.com/licensing/agpl/}{https://artifex.com/licensing/agpl/}
+    } a~komerční\footnote{
+    \href{https://artifex.com/licensing/commercial/}{https://artifex.com/licensing/commercial/}
+    } licencí. Knihovna se může lišit podle verze s~danou licencí. Tato knihovna
+    dokáže například číst a~vyjmout text i~obrázky, číst a~upravovat
+    metadata a~vyhledávat text v~existujícím dokumentu.
+    Knihovna má podporu pro OCR (Optical Character Recognition), pokud při
+    instalaci je nainstalován též Tesseract. Podporované formáty dokumentu jsou
+    PDF, XPS, OpenXPS, CBZ, EPUB a~FB2 (eBooks). PyMuPDF umí zacházet
+    i~s~populárními formáty obrázků jako jsou PNG, JPEG, BMP, TIFF a~dalšími.
+    \todo{vlastnosti pouze pro PDF -- anotovat, vyplňovat formuláře, vytvoření nového}
+    \todo{přístup z příkazové řádky}
+
+    \item \textbf{pikepdf}\footnote{
+    \href{https://pikepdf.readthedocs.io/en/latest/}{https://pikepdf.readthedocs.io/en/latest/}
+    }\,--\,Tuto knihovnu lze používat pro vytváření, čtení i~úpravu PDF dokumentů.
+    Je to Python verze C++ knihovny QPDF. Pro požívání knihovny je nutné být
+    seznámen se specifikací PDF formátu. Knihovna je dostupná pod
+    \emph{Mozilla Public License 2.0}\footnote{
+    \href{https://github.com/pikepdf/pikepdf/blob/master/LICENSE.txt}{https://github.com/pikepdf/pikepdf/blob/master/LICENSE.txt}
+    } licencí. Pikepdf dokáže kopírovat stránky do jiného PDF souboru, extrahovat
+    obrázky, nahradit obrázek za jiný, upravovat metadata souboru a~další.
+
 \end{itemize}
 
 
