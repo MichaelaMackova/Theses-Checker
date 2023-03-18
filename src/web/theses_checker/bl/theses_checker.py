@@ -12,7 +12,7 @@ import fitz
 import re
 from enum import Enum
 
-
+# TODO: NOT USED
 class Language(Enum):
     CZECH = 0
     SLOVAK = 1
@@ -335,7 +335,7 @@ class Checker:
         rects = self.__currPage.search_for(" - ", textpage=self.__currTextPage)
         for rect in rects:
             self.mistakes_found = True
-            self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik (–) namisto pomlcky.", "Chyba")
+            self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik namisto pomlcky. / Use dash instead of hyphen.", "Chyba / Error")
 
 
 
@@ -417,7 +417,7 @@ class Checker:
                             x = re.search("^\d+\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
                             if x:
                                 self.mistakes_found = True
-                                self.__highlight([line['bbox']],self.HIGH_RED,"Nečíslovat nadpisy třetí a více úrovně", "Chyba")
+                                self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
                         origin_y = line_origin[1]
 
 
@@ -428,6 +428,7 @@ class Checker:
 
 
     def __spaceBracketCheck(self):
+        matchList = []
         textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
         for block in textBlocks:
             if block[6] == 0:   # contains text
@@ -436,15 +437,17 @@ class Checker:
                     text = text[:-1]
                 
                 text = text.replace("\n"," ")
-                matchList = re.findall("\S\(", text)    # not " ("
-                if matchList:
-                    self.__getTextPage()
-                    matchList = self.__deleteDuplicate(matchList)
-                    for match in matchList:
-                        rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
-                        for rect in rects:
-                            self.mistakes_found = True
-                            self.__highlight(rect,self.HIGH_RED,"Chybí mezera před levou závorkou.", "Chyba")
+                matchList += re.findall("\S\(", text)    # not " ("
+
+        if matchList:
+            self.__getTextPage()
+            matchList = self.__deleteDuplicate(matchList)
+            print(matchList)
+            for match in matchList:
+                rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
+                for rect in rects:
+                    self.mistakes_found = True
+                    self.__highlight(rect,self.HIGH_RED,"Chybi mezera pred levou zavorkou. / Missing space in between.", "Chyba / Error")
 
 
 
@@ -527,7 +530,7 @@ class Checker:
                     if y1 < y2:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
                         self.mistakes_found = True
-                        self.__highlight([rect],self.HIGH_RED,"Chybí text mezi nadpisy","Chyba")
+                        self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
                 x = re.search("^(?:Kapitola|Chapter) \d+$", blockText) # example: Kapitola 4; Chapter 4
                 if  x:
                     isPreviousNewChapter = True
