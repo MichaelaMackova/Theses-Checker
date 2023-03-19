@@ -22,6 +22,7 @@ class Language(Enum):
 class Checker:
     RND_PAGE_CNT = 10
     HIGH_RED = (255, 128, 128)
+    HIGH_ORANGE = (253, 182, 116)
     HIGHLIGHT_MARGIN = 1.5
     RED = (204, 0, 0)
     WHITE = (255, 255, 255)
@@ -330,12 +331,22 @@ class Checker:
 
 
 
-    def __hyphenPageCheck(self):
+    def __searchForAndHighlight(self, searchFor : string, highlightColor:tuple = self.HIGH_RED, popupText:string, popupTitle:string = "Chyba / Error"):
         self.__getTextPage()
-        rects = self.__currPage.search_for(" - ", textpage=self.__currTextPage)
+        rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
             self.mistakes_found = True
-            self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik namisto pomlcky. / Use dash instead of hyphen.", "Chyba / Error")
+            self.__highlight(rect, highlightColor, popupText, popupTitle)
+
+
+
+    def __hyphenPageCheck(self):
+        self.__searchForAndHighlight(" - ", self.HIGH_RED, "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.", "Chyba / Error")
+
+
+
+    def __doubleQuestionMarkPageCheck(self):
+        self.__searchForAndHighlight("??", self.HIGH_RED, "Spatne uvedena reference. / Missing reference.", "Chyba / Error")
 
 
 
@@ -427,7 +438,7 @@ class Checker:
 
 
 
-    def __spaceBracketCheck(self):
+    def __regexSearchAndHighlight(self, regexSearch : string, highlightColor:tuple = self.HIGH_RED, popupText:string, popupTitle:string = "Chyba / Error"):
         matchList = []
         textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
         for block in textBlocks:
@@ -437,18 +448,23 @@ class Checker:
                     text = text[:-1]
                 
                 text = text.replace("\n"," ")
-                matchList += re.findall("\S\(", text)    # not " ("
+                matchList += re.findall(regexSearch, text)
 
         if matchList:
             self.__getTextPage()
             matchList = self.__deleteDuplicate(matchList)
-            print(matchList)
             for match in matchList:
                 rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
                 for rect in rects:
                     self.mistakes_found = True
-                    self.__highlight(rect,self.HIGH_RED,"Chybi mezera pred levou zavorkou. / Missing space in between.", "Chyba / Error")
+                    self.__highlight(rect, highlightColor, popupText, popupTitle)
 
+
+
+    def __spaceBracketCheck(self):
+        # "\S\(" -> not " ("
+        self.__regexSearchAndHighlight("\S\(", self.HIGH_ORANGE,"Chybi mezera pred levou zavorkou. / Missing space in between.", "Varování / Warning")
+        
 
 
     def __isTitleBlock(self, blockNumber : int):
