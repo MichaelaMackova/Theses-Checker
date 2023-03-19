@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.files.storage import default_storage
 from django.conf import settings
+from django.http import Http404
 
 
 from .bl.theses_checker import Checker
@@ -26,7 +27,11 @@ def checkPDF(request):
 
     pdf_name = auxiliary_functions.generateUniqueFileName(pdf_dir,pdf_name,'pdf')
 
-    checker = Checker(original_pdf_path)
+    try:
+        checker = Checker(original_pdf_path)
+    except:
+        raise Http404("File '" + request.FILES['file'].name + "' could not be processed.")
+    
     checker.annotate(os.path.join(pdf_dir, pdf_name))
     del checker
     os.remove(original_pdf_path)
