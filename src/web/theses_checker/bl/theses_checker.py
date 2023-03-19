@@ -23,7 +23,7 @@ class Checker:
     RND_PAGE_CNT = 10
     HIGH_RED = (255, 128, 128)
     HIGH_ORANGE = (253, 182, 116)
-    HIGHLIGHT_MARGIN = 1.5
+    HIGHLIGHT_PADDING = 1.5
     RED = (204, 0, 0)
     WHITE = (255, 255, 255)
 
@@ -46,12 +46,16 @@ class Checker:
     def __rgbToPdf(self, color:tuple):
         return (color[0]/255.0, color[1]/255.0, color[2]/255.0)
 
+
+
     def __randomPagesIndex(self):
         docLen = len(self.__document)
         if docLen <= 5:
             return range(0, docLen)
         maxListLen = min(self.RND_PAGE_CNT, docLen-4)
         return random.sample(range(2, docLen-2), maxListLen)
+
+
 
     def __highlight(self, rects:list, color:tuple, text:string = None, title:string = None):
         if len(rects) > 0:
@@ -264,11 +268,11 @@ class Checker:
                     if overflow_rects[-1] == None:
                         # previous line was only WHITE
                         overflow_rects.pop()
-                        overflow_rects.append([r_border+1,y-self.HIGHLIGHT_MARGIN,x+self.HIGHLIGHT_MARGIN,y+self.HIGHLIGHT_MARGIN])
+                        overflow_rects.append([r_border+1,y-self.HIGHLIGHT_PADDING,x+self.HIGHLIGHT_PADDING,y+self.HIGHLIGHT_PADDING])
                     else: 
                         # previous line had overflow -> merge rectanles
-                        overflow_rects[-1][2] = max(overflow_rects[-1][2],x+self.HIGHLIGHT_MARGIN)
-                        overflow_rects[-1][3] = y+self.HIGHLIGHT_MARGIN
+                        overflow_rects[-1][2] = max(overflow_rects[-1][2],x+self.HIGHLIGHT_PADDING)
+                        overflow_rects[-1][3] = y+self.HIGHLIGHT_PADDING
                     break
                 x = x - 1
             
@@ -297,11 +301,11 @@ class Checker:
                     if overflow_rects[-1] == None:
                         # previous line was only WHITE
                         overflow_rects.pop()
-                        overflow_rects.append([x-self.HIGHLIGHT_MARGIN,y-self.HIGHLIGHT_MARGIN,l_border,y+self.HIGHLIGHT_MARGIN])
+                        overflow_rects.append([x-self.HIGHLIGHT_PADDING,y-self.HIGHLIGHT_PADDING,l_border,y+self.HIGHLIGHT_PADDING])
                     else: 
                         # previous line had overflow -> merge rectanles
-                        overflow_rects[-1][0] = min(overflow_rects[-1][0],x-self.HIGHLIGHT_MARGIN)
-                        overflow_rects[-1][3] = y+self.HIGHLIGHT_MARGIN
+                        overflow_rects[-1][0] = min(overflow_rects[-1][0],x-self.HIGHLIGHT_PADDING)
+                        overflow_rects[-1][3] = y+self.HIGHLIGHT_PADDING
                     break
                 x = x + 1
             
@@ -331,7 +335,7 @@ class Checker:
 
 
 
-    def __searchForAndHighlight(self, searchFor : string, highlightColor:tuple = self.HIGH_RED, popupText:string, popupTitle:string = "Chyba / Error"):
+    def __searchForAndHighlight(self, searchFor : string, popupText : string, popupTitle:string = "Chyba / Error", highlightColor:tuple = HIGH_RED):
         self.__getTextPage()
         rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
@@ -341,12 +345,12 @@ class Checker:
 
 
     def __hyphenPageCheck(self):
-        self.__searchForAndHighlight(" - ", self.HIGH_RED, "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.", "Chyba / Error")
+        self.__searchForAndHighlight(" - ", "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.", "Chyba / Error", self.HIGH_RED)
 
 
 
     def __doubleQuestionMarkPageCheck(self):
-        self.__searchForAndHighlight("??", self.HIGH_RED, "Spatne uvedena reference. / Missing reference.", "Chyba / Error")
+        self.__searchForAndHighlight("??", "Spatne uvedena reference. / Missing reference.", "Chyba / Error", self.HIGH_RED)
 
 
 
@@ -438,7 +442,7 @@ class Checker:
 
 
 
-    def __regexSearchAndHighlight(self, regexSearch : string, highlightColor:tuple = self.HIGH_RED, popupText:string, popupTitle:string = "Chyba / Error"):
+    def __regexSearchAndHighlight(self, regexSearch : string, popupText:string, popupTitle:string = "Chyba / Error", highlightColor:tuple = HIGH_RED):
         matchList = []
         textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
         for block in textBlocks:
@@ -463,7 +467,7 @@ class Checker:
 
     def __spaceBracketCheck(self):
         # "\S\(" -> not " ("
-        self.__regexSearchAndHighlight("\S\(", self.HIGH_ORANGE,"Chybi mezera pred levou zavorkou. / Missing space in between.", "Varování / Warning")
+        self.__regexSearchAndHighlight("\S\(", "Chybi mezera pred levou zavorkou. / Missing space in between.", "Varovani / Warning", self.HIGH_ORANGE)
         
 
 
@@ -576,6 +580,7 @@ class Checker:
             self.__resetCurrVars()
 
             for self.__currPage in self.__document:
+                self.__doubleQuestionMarkPageCheck()
                 if borderCheck and not self.borderNotFound:
                     self.__overflowPageCheck()
 
