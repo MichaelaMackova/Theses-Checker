@@ -3,6 +3,6 @@
 {% block body %}
 
     <h1>403 Forbidden</h1>
-    <p>More information: {{ exception }}</p>
+    <p>More information: {% firstof exception "None" %}</p>
 
 {% endblock body %}

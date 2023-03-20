@@ -3,6 +3,6 @@
 {% block body %}
 
     <h1>Bad Request (400)</h1>
-    <p>More information: {{ exception }}</p>
+    <p>More information: {% firstof exception "None" %}</p>
 
 {% endblock body %}
