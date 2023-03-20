@@ -9,3 +9,8 @@ urlpatterns = [
     path('<str:pdf_name>', views.show_annotated, name='show_annotated'),
     path('view/<str:pdf_name>', views.view_annotated, name='view_annotated'),
 ]
+
+handler404 = 'theses_checker.views.error_404'
+handler500 = 'theses_checker.views.error_500'
+handler403 = 'theses_checker.views.error_403'
+handler400 = 'theses_checker.views.error_400'

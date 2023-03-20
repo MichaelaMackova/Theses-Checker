@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.files.storage import default_storage
 from django.conf import settings
-from django.http import Http404
+from django.core.exceptions import BadRequest
 
 
 from .bl.theses_checker import Checker
@@ -16,7 +16,7 @@ import os
 
 
 def index(request):
-    return render(request, 'theses_checker/index.html', {'text': "Hello world! This is my bachelors theses"})
+    return render(request, 'theses_checker/index.html')
 
 
 
@@ -26,11 +26,11 @@ def checkPDF(request):
     pdf_dir = os.path.join(settings.BASE_DIR, 'static')
 
     pdf_name = auxiliary_functions.generateUniqueFileName(pdf_dir,pdf_name,'pdf')
-
+    
     try:
         checker = Checker(original_pdf_path)
     except:
-        raise Http404("File '" + request.FILES['file'].name + "' could not be processed.")
+        raise BadRequest("File '" + request.FILES['file'].name + "' could not be opened or parsed. Check if your file isn't corrupted.")
     
     checker.annotate(os.path.join(pdf_dir, pdf_name))
     del checker
@@ -41,7 +41,6 @@ def checkPDF(request):
 
 def show_annotated(request, pdf_name):
     return render(request, 'theses_checker/annotated.html', {
-        'text': "Hello world! This is my bachelors theses\nThe pdf name is: " + pdf_name,
         'pdf_name': pdf_name
     })
 
@@ -55,3 +54,24 @@ def view_annotated(request, pdf_name):
     os.remove(pdf_path)
     response = HttpResponse(pdf_contents, content_type='application/pdf')
     return response
+
+
+
+def error_404(request, exception):
+    return render(request, '404.html')
+
+
+
+def error_500(request):
+    return render(request, '500.html')
+
+
+
+def error_403(request, exception):
+    return render(request, '403.html')
+
+
+
+def error_400(request, exception):
+    return render(request, '400.html')
+
