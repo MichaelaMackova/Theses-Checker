@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Theses Checker - 403 Forbidden{% endblock %}
+{% block body %}
+
+    <h1>403 Forbidden</h1>
+    <p>More information: {% firstof exception "None" %}</p>
+
+{% endblock body %}

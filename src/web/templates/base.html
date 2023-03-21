@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}"/>
+    <title>{% block title %}Theses Checker{% endblock %}</title>
+</head>
+<body>
+    <div id="page-grid">
+
+        <header id="header">
+            <div id="title">
+                <a href="{% url 'index' %}">Theses Checker</a>
+            </div>
+        </header>
+
+        <main id="main" class="page-content">
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer id="footer" class="page-content">
+            <div>
+                Created as a Bachelor's Theses by Michaela Macková. For more information visit <a class="contacts" href="https://github.com/MichaelaMackova/Theses-Checker.git">GitHub</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
