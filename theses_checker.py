@@ -429,7 +429,7 @@ class Checker:
                         line_origin = line['spans'][0]['origin']
                         if line_origin[1] != origin_y:
                             # new line, not tab -> section number
-                            x = re.search("^\d+\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
+                            x = re.search("^(?:\d+|[A-Z])\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5; C.2.3
                             if x:
                                 self.mistakes_found = True
                                 self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
@@ -551,7 +551,7 @@ class Checker:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
                         self.mistakes_found = True
                         self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
-                x = re.search("^(?:Kapitola|Chapter) \d+$", blockText) # example: Kapitola 4; Chapter 4
+                x = re.search("^(?:(?:Kapitola|Chapter) \d+|(?:Příloha|Appendix|Príloha) [A-Z])$", blockText) # example: Kapitola 4; Chapter 4; Appendix D; Príloha D; Příloha D
                 if  x:
                     isPreviousNewChapter = True
                 else:
@@ -570,22 +570,25 @@ class Checker:
         self.__currTextPage = None
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True, TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True):
+    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True,
+                 TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True):
+        
         self.__resetCurrVars()
-        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck or emptySectionCheck:
+        if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck or emptySectionCheck or badReferenceCheck:
             findBorder = borderCheck or imageWidthCheck or emptySectionCheck
             if findBorder or emptySectionCheck:
                 self.__getDocInfo(findBorder, emptySectionCheck)
 
             self.__resetCurrVars()
-
             for self.__currPage in self.__document:
-                self.__doubleQuestionMarkPageCheck()
                 if borderCheck and not self.borderNotFound:
                     self.__overflowPageCheck()
 
                 if hyphenCheck:
                     self.__hyphenPageCheck()
+
+                if badReferenceCheck:
+                    self.__doubleQuestionMarkPageCheck()
 
                 if imageWidthCheck and not self.borderNotFound:
                     self.__imageWidthPageCheck()
