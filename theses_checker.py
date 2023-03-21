@@ -12,7 +12,7 @@ import fitz
 import re
 from enum import Enum
 
-
+# TODO: NOT USED
 class Language(Enum):
     CZECH = 0
     SLOVAK = 1
@@ -22,7 +22,8 @@ class Language(Enum):
 class Checker:
     RND_PAGE_CNT = 10
     HIGH_RED = (255, 128, 128)
-    HIGHLIGHT_MARGIN = 1.5
+    HIGH_ORANGE = (253, 182, 116)
+    HIGHLIGHT_PADDING = 1.5
     RED = (204, 0, 0)
     WHITE = (255, 255, 255)
 
@@ -45,12 +46,16 @@ class Checker:
     def __rgbToPdf(self, color:tuple):
         return (color[0]/255.0, color[1]/255.0, color[2]/255.0)
 
+
+
     def __randomPagesIndex(self):
         docLen = len(self.__document)
         if docLen <= 5:
             return range(0, docLen)
         maxListLen = min(self.RND_PAGE_CNT, docLen-4)
         return random.sample(range(2, docLen-2), maxListLen)
+
+
 
     def __highlight(self, rects:list, color:tuple, text:string = None, title:string = None):
         if len(rects) > 0:
@@ -263,11 +268,11 @@ class Checker:
                     if overflow_rects[-1] == None:
                         # previous line was only WHITE
                         overflow_rects.pop()
-                        overflow_rects.append([r_border+1,y-self.HIGHLIGHT_MARGIN,x+self.HIGHLIGHT_MARGIN,y+self.HIGHLIGHT_MARGIN])
+                        overflow_rects.append([r_border+1,y-self.HIGHLIGHT_PADDING,x+self.HIGHLIGHT_PADDING,y+self.HIGHLIGHT_PADDING])
                     else: 
                         # previous line had overflow -> merge rectanles
-                        overflow_rects[-1][2] = max(overflow_rects[-1][2],x+self.HIGHLIGHT_MARGIN)
-                        overflow_rects[-1][3] = y+self.HIGHLIGHT_MARGIN
+                        overflow_rects[-1][2] = max(overflow_rects[-1][2],x+self.HIGHLIGHT_PADDING)
+                        overflow_rects[-1][3] = y+self.HIGHLIGHT_PADDING
                     break
                 x = x - 1
             
@@ -296,11 +301,11 @@ class Checker:
                     if overflow_rects[-1] == None:
                         # previous line was only WHITE
                         overflow_rects.pop()
-                        overflow_rects.append([x-self.HIGHLIGHT_MARGIN,y-self.HIGHLIGHT_MARGIN,l_border,y+self.HIGHLIGHT_MARGIN])
+                        overflow_rects.append([x-self.HIGHLIGHT_PADDING,y-self.HIGHLIGHT_PADDING,l_border,y+self.HIGHLIGHT_PADDING])
                     else: 
                         # previous line had overflow -> merge rectanles
-                        overflow_rects[-1][0] = min(overflow_rects[-1][0],x-self.HIGHLIGHT_MARGIN)
-                        overflow_rects[-1][3] = y+self.HIGHLIGHT_MARGIN
+                        overflow_rects[-1][0] = min(overflow_rects[-1][0],x-self.HIGHLIGHT_PADDING)
+                        overflow_rects[-1][3] = y+self.HIGHLIGHT_PADDING
                     break
                 x = x + 1
             
@@ -330,12 +335,22 @@ class Checker:
 
 
 
-    def __hyphenPageCheck(self):
+    def __searchForAndHighlight(self, searchFor : string, popupText : string, popupTitle:string = "Chyba / Error", highlightColor:tuple = HIGH_RED):
         self.__getTextPage()
-        rects = self.__currPage.search_for(" - ", textpage=self.__currTextPage)
+        rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
             self.mistakes_found = True
-            self.__highlight(rect,self.HIGH_RED,"Pouzijte spojovnik (–) namisto pomlcky.", "Chyba")
+            self.__highlight(rect, highlightColor, popupText, popupTitle)
+
+
+
+    def __hyphenPageCheck(self):
+        self.__searchForAndHighlight(" - ", "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.", "Chyba / Error", self.HIGH_RED)
+
+
+
+    def __doubleQuestionMarkPageCheck(self):
+        self.__searchForAndHighlight("??", "Spatne uvedena reference. / Missing reference.", "Chyba / Error", self.HIGH_RED)
 
 
 
@@ -417,7 +432,7 @@ class Checker:
                             x = re.search("^\d+\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5
                             if x:
                                 self.mistakes_found = True
-                                self.__highlight([line['bbox']],self.HIGH_RED,"Nečíslovat nadpisy třetí a více úrovně", "Chyba")
+                                self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
                         origin_y = line_origin[1]
 
 
@@ -427,7 +442,8 @@ class Checker:
 
 
 
-    def __spaceBracketCheck(self):
+    def __regexSearchAndHighlight(self, regexSearch : string, popupText:string, popupTitle:string = "Chyba / Error", highlightColor:tuple = HIGH_RED):
+        matchList = []
         textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
         for block in textBlocks:
             if block[6] == 0:   # contains text
@@ -436,16 +452,23 @@ class Checker:
                     text = text[:-1]
                 
                 text = text.replace("\n"," ")
-                matchList = re.findall("\S\(", text)    # not " ("
-                if matchList:
-                    self.__getTextPage()
-                    matchList = self.__deleteDuplicate(matchList)
-                    for match in matchList:
-                        rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
-                        for rect in rects:
-                            self.mistakes_found = True
-                            self.__highlight(rect,self.HIGH_RED,"Chybí mezera před levou závorkou.", "Chyba")
+                matchList += re.findall(regexSearch, text)
 
+        if matchList:
+            self.__getTextPage()
+            matchList = self.__deleteDuplicate(matchList)
+            for match in matchList:
+                rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
+                for rect in rects:
+                    self.mistakes_found = True
+                    self.__highlight(rect, highlightColor, popupText, popupTitle)
+
+
+
+    def __spaceBracketCheck(self):
+        # "\S\(" -> not " ("
+        self.__regexSearchAndHighlight("\S\(", "Chybi mezera pred levou zavorkou. / Missing space in between.", "Varovani / Warning", self.HIGH_ORANGE)
+        
 
 
     def __isTitleBlock(self, blockNumber : int):
@@ -527,7 +550,7 @@ class Checker:
                     if y1 < y2:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
                         self.mistakes_found = True
-                        self.__highlight([rect],self.HIGH_RED,"Chybí text mezi nadpisy","Chyba")
+                        self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
                 x = re.search("^(?:Kapitola|Chapter) \d+$", blockText) # example: Kapitola 4; Chapter 4
                 if  x:
                     isPreviousNewChapter = True
@@ -557,6 +580,7 @@ class Checker:
             self.__resetCurrVars()
 
             for self.__currPage in self.__document:
+                self.__doubleQuestionMarkPageCheck()
                 if borderCheck and not self.borderNotFound:
                     self.__overflowPageCheck()
 
