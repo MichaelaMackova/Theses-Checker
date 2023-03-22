@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,9 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*'
+#TODO: set
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#TODO: production - False; development - True
 DEBUG = False
 
 ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', '.localhost', '127.0.0.1', '[::1]']
@@ -129,3 +132,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Set this to True to avoid transmitting the session cookie over HTTP accidentally.
+CSRF_COOKIE_SECURE = True
