@@ -64,7 +64,7 @@
 %#######################    2.1 Přetečení obsahu za okraj    #######################
 \section{Přetečení obsahu za okraj}
 Přetečení textu za okraj se nejčastěji vyskytuje, když student píše svou diplomovou
-práci s~pomocí jazyka \LaTeX. Obvykle je to způsobeno tím, že program nedokáže
+práci s~pomocí jazyka {\LaTeX}. Obvykle je to způsobeno tím, že program nedokáže
 automaticky zalomit slovo na konci řádku, jak je ukázáno na
 obrázku~\ref{pic_overflow}. Toto lze opravit napověděním možného
 zalomení nebo přeformulováním věty, kde se daná chyba vyskytuje.
@@ -81,8 +81,29 @@ který se nestává tak často, ale lze jej udělat v~několika textových edito
 
 
 %#######################    2.2 Spojovník x pomlčka    #######################
-\section{Spojovník $\times$ pomlčka}
-\dummyShortText[10]
+\section{Špatné použití spojovníku}
+Špatné používání spojovníku je chyba, která se vyskytuje nejen v~diplomových
+pracích. Spojovník (-) je graficky velmi podobný pomlčce (--), ale významově
+se značně liší. Pravidla pro psaní těchto znaků uvedena v~\cite{Ustav_pro_jazyk_cesky}
+říkají, že spojovník se píše bez mezer mezi výrazy, které spojuje. Výjimkou
+je, naznačuje-li spojovník neúplné slovo. Obecně tedy v~češtině tento znak
+užíváme tehdy, chceme-li vyjádřit, že jím spojené výrazy tvoří těsný významový
+celek. Pomlčka se oproti spojovníku využívá pro oddělování částí projevu,
+vyjádření rozsahu, vztahu nebo vyznačení přestávky v~řeči, pro uvození
+přímé řeči a~pro vyjádření celého čísla při psaní peněžních částek.
+Oddělujeme ji z~obou stran mezerami. Komplikovanější situace nastane pouze
+tehdy, když je toto znaménko použito ve funkci výrazů a, až, od, do nebo proti.
+\todo{minus}
+
+Podle článku~\cite{Zaklady_typografie:Slezakova} se tato chyba (naznačena na
+obrázku~\ref{TODO:}) vyskytuje v~textu kvůli absenci znaku pomlčky na klávesnici.
+Místo znaku pomlčky, který je pravděpodobně častěji potřebný při psaní textu,
+se na klávesnici vyskytuje právě znak spojovníku. I~když nyní už spousta
+textových editorů dokáže automaticky nahradit spojovník za pomlčku, tato náhrada
+nemusí být stoprocentní. V~programu {\LaTeX} se spojovník zapíše jako \verb|-|,
+pomlčku je možno zapsat pomocí dvou spojovníků \verb|--| a~znaménko minus je zapsáno
+jako spojovník v~matematickém prostředí \verb|$-$|.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka špatně použitého spojovníku.}
 
 

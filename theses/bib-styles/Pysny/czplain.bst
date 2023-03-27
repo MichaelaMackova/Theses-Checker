@@ -2844,7 +2844,7 @@ FUNCTION {misc}
         output
         day empty$
         { format.u.date capitalize output }
-        { day ". " * format.date.g * comma.connect output }
+        { day ". " * format.date.g * output }
         if$
       }
       { 
