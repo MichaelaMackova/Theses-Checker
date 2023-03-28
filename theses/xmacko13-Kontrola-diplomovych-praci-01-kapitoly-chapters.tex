@@ -84,7 +84,8 @@ který se nestává tak často, ale lze jej udělat v~několika textových edito
 \section{Špatné použití spojovníku}
 Špatné používání spojovníku je chyba, která se vyskytuje nejen v~diplomových
 pracích. Spojovník (-) je graficky velmi podobný pomlčce (--), ale významově
-se značně liší. Pravidla pro psaní těchto znaků uvedena v~\cite{Ustav_pro_jazyk_cesky}
+se značně liší. Pravidla pro psaní těchto znaků, uvedena v~internetové příručce
+Ústavu pro jazyk český~\cite{Ustav_pro_jazyk_cesky},
 říkají, že spojovník se píše bez mezer mezi výrazy, které spojuje. Výjimkou
 je, naznačuje-li spojovník neúplné slovo. Obecně tedy v~češtině tento znak
 užíváme tehdy, chceme-li vyjádřit, že jím spojené výrazy tvoří těsný významový
@@ -93,16 +94,26 @@ vyjádření rozsahu, vztahu nebo vyznačení přestávky v~řeči, pro uvození
 přímé řeči a~pro vyjádření celého čísla při psaní peněžních částek.
 Oddělujeme ji z~obou stran mezerami. Komplikovanější situace nastane pouze
 tehdy, když je toto znaménko použito ve funkci výrazů a, až, od, do nebo proti.
-\todo{minus}
+Spojovník (-) i~pomlčka (--) bývají často zaměňovány se znaménkem minus ($-$),
+to však má též své grafické i~významové odlišnosti.
+V~knize~\cite{Pruvodce_tvorbou_dokumentu} je vysvětleno, že znak minus má stejnou
+šíři i~umístění jako znak plus. Znak minus se používá ve dvou významech, a to
+pro označení záporné hodnoty, nebo pro označení operace odčítání. Sazba se v~obou
+případech liší: pro označení záporné hodnoty se znak minus a~následující
+operand píše bez mezery, pro psaní minus jako odčítání se však mezera uvádí
+z~obou stran tohoto znaménka. Internetové příručka Ústavu pro jazyk
+český~\cite{Ustav_pro_jazyk_cesky} však uvádí, že je v~korespondenci dovoleno
+znak minus ($-$) nahradit pomlčkou (--).
 
 Podle článku~\cite{Zaklady_typografie:Slezakova} se tato chyba (naznačena na
 obrázku~\ref{TODO:}) vyskytuje v~textu kvůli absenci znaku pomlčky na klávesnici.
 Místo znaku pomlčky, který je pravděpodobně častěji potřebný při psaní textu,
 se na klávesnici vyskytuje právě znak spojovníku. I~když nyní už spousta
 textových editorů dokáže automaticky nahradit spojovník za pomlčku, tato náhrada
-nemusí být stoprocentní. V~programu {\LaTeX} se spojovník zapíše jako \verb|-|,
-pomlčku je možno zapsat pomocí dvou spojovníků \verb|--| a~znaménko minus je zapsáno
-jako spojovník v~matematickém prostředí \verb|$-$|.
+nemusí být stoprocentní. V~programu {\LaTeX} se spojovník zapíše přímo
+z~klávesnice jako \verb|-|,
+pomlčku je možno zapsat pomocí dvou spojovníků \verb|--| a~znaménko minus je
+zapsáno jako spojovník v~matematickém prostředí \verb|$-$| nebo též \verb|$$-$$|.
 
 \todoimage{width=\linewidth,height=1.7in}{Ukázka špatně použitého spojovníku.}
 
@@ -160,7 +171,7 @@ jako spojovník v~matematickém prostředí \verb|$-$|.
 \section{Programovací jazyky a~knihovny pro zpracování a~anotování PDF souborů}
 
 Pro zpracovávání PDF souborů existuje mnoho knihoven v~různých programovacích
-jazycích. Výběr programovacího jazyka záleží ne jen na požadavcích pro výslednou
+jazycích. Výběr programovacího jazyka záleží nejen na požadavcích pro výslednou
 aplikaci, ale též na znalostech daného programátora. Samotná knihovna se poté
 vybere na základě její funkcionality. 
 
@@ -267,7 +278,7 @@ desktopových aplikací.
     }\,--\,Je knihovna pro používání stránek z~existujícího PDF dokumentu jako
     šablonu do nového PDF dokumentu. Při opakovaném použití jedné šablony tato 
     knihovna zajistí, že šablona bude v~souboru PDF zahrnuta právě jednou. Díky
-    této skutečnosti může být výsledné PDF menší velikosti než PDF vytvořeno jiným
+    této skutečnosti může být výsledné PDF menší velikosti, než PDF vytvořeno jiným
     způsobem. Tato třída je kompatibilní s~výše zmíněnou knihovnou TCPDF. Od verze
     1.6 je knihovna FPDI dostupná pod licencí \emph{MIT license}\footnote{
     \href{https://www.tldrlegal.com/l/mit}{https://www.tldrlegal.com/l/mit}
@@ -291,7 +302,7 @@ například následující:
 \begin{itemize}
     \item \textbf{PyMuPDF}\footnote{
     \href{https://pymupdf.readthedocs.io/en/latest/}{https://pymupdf.readthedocs.io/en/latest/}
-    }\,--\,Je Python verze MuPDF. Je dostupná pod dvěma různými licencemi a~to pod
+    }\,--\,Je Python verze MuPDF. Je dostupná pod dvěma různými licencemi, a~to pod
     licencí \emph{Open Source\,--\,AGPL}\footnote{
     \href{https://artifex.com/licensing/agpl/}{https://artifex.com/licensing/agpl/}
     } a~komerční\footnote{
