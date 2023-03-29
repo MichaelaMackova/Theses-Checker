@@ -2,3 +2,5 @@ command.txt
 annotated.pdf
 *_annotated.pdf
 src/web/templates/test.html
+src/web/.env
+.vscode/launch.json

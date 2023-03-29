@@ -11,6 +11,7 @@ from statistics import median
 import fitz
 import re
 from enum import Enum
+import numpy
 
 # TODO: NOT USED
 class Language(Enum):
@@ -35,11 +36,13 @@ class Checker:
         self.__currTextPage = fitz.TextPage
         self.__currPixmap = fitz.Pixmap
         self.__currDict = None
+        self.__currPageEmbeddedPdfs = None
         self.__border = (-1.0, -1.0)
         self.__isContentPage = False
         self.__language = pdfLang
         self.__regularFont = None
         self.__isPreviousTitle = False
+        self.__embeddedPdfAsImage = True
         
 
 
@@ -83,9 +86,114 @@ class Checker:
 
 
 
+    def __getPageXobjects(self):
+        tmp_xobjects = self.__currPage.get_xobjects()
+        xobjects = []
+        for xobject in tmp_xobjects:
+            # xobject = (xref, name, invoker, bbox)
+            if xobject[2] == 0:
+                # page directly invokes this xobject
+                xobjects.append(xobject)
+
+        return xobjects
+
+
+
+
+    def __getPageEmbeddedPdfs(self):
+        if self.__currPageEmbeddedPdfs:
+            # already exists
+            return
+        
+        xobjects = self.__getPageXobjects()
+        embeddedPdfBlocks = []
+        if xobjects:
+            pageContent = str(self.__currPage.read_contents(),'utf-8')
+            cmds = pageContent.splitlines()
+
+            CTMStack = []
+            CTM = [
+                [1.0, 0.0, 0.0],
+                [0.0, 1.0, 0.0],
+                [0.0, 0.0, 1.0]
+            ]
+
+            for cmd in cmds:
+                if cmd == 'q':
+                    CTMStack.append(CTM)
+                elif cmd == 'Q':
+                    CTM = CTMStack.pop()
+                elif cmd[-2:] == 'cm':
+                    matrix = cmd.split(' ')
+                    cm = [
+                        [float(matrix[0]), float(matrix[1]), 0.0],
+                        [float(matrix[2]), float(matrix[3]), 0.0],
+                        [float(matrix[4]), float(matrix[5]), 1.0]
+                    ]
+                    CTM = numpy.matmul(cm,CTM)
+                elif cmd[-2:] == 'Do':
+                    for xobject in xobjects:
+                        # xobject = (xref, name, invoker, bbox)
+                        if cmd == "/" + xobject[1] + " Do":
+                            pageTransMatrix = [
+                                [self.__currPage.transformation_matrix.a, self.__currPage.transformation_matrix.b, 0.0],
+                                [self.__currPage.transformation_matrix.c, self.__currPage.transformation_matrix.d, 0.0],
+                                [self.__currPage.transformation_matrix.e, self.__currPage.transformation_matrix.f, 1.0]
+                            ] # flips upside down - (0,0) in view is top-left, but in internal pdf is bottom-left
+                            viewMatrix = numpy.matmul(CTM,pageTransMatrix)
+                            # [ x' y' 1 ] = [ x  y  1 ] * viewMatrix
+                            blMatrix = numpy.matmul([xobject[3][0], xobject[3][1], 1.0],viewMatrix)
+                            trMatrix = numpy.matmul([xobject[3][2], xobject[3][3], 1.0],viewMatrix)
+                            embeddedPdfBlocks.append(
+                                {
+                                    'type'          : 1,
+                                    'bbox'          : fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1]),
+                                    'ext'           : 'pdf',
+                                    'width'         : xobject[3].width,
+                                    'height'        : xobject[3].height,
+                                    'colorspace'    : None,
+                                    'xres'          : None,
+                                    'yres'          : None,
+                                    'bpc'           : None,
+                                    'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
+                                    'size'          : int(self.__document.xref_get_key(xobject[0],'Length')[1]),
+                                    'image'         : self.__document.xref_stream_raw(xobject[0])
+                                }
+                            )
+                            break
+        self.__currPageEmbeddedPdfs = sorted(embeddedPdfBlocks, key=lambda x: (x['bbox'][1], x['bbox'][0]))
+
+
+
     def __getTextPage(self):
         if self.__currTextPage == None:
             self.__currTextPage = self.__currPage.get_textpage()
+
+
+
+    def __isRectInsideRect(self, rectIn, rectOut):
+        """
+            -1 -> rectIn Before rectOut\n
+            0 -> Inside\n
+            1 -> After\n
+        """
+        if rectIn[0]>=rectOut[0] and rectIn[1]>=rectOut[1] and rectIn[2]<=rectOut[2] and rectIn[3]<=rectOut[3]:
+            return 0
+        elif rectIn[1]<rectOut[1]:
+            return -1
+        elif rectIn[1]==rectOut[1] and rectIn[0]<rectOut[0]:
+            return -1
+        else:
+            return 1
+
+
+
+    def __isInsideEmbeddedPdf(self, rect):
+        self.__getPageEmbeddedPdfs()
+        for embeddedPdfBlock in self.__currPageEmbeddedPdfs:
+            if self.__isRectInsideRect(rect, embeddedPdfBlock['bbox']) == 0:
+                return True
+        return False
 
 
 
@@ -93,6 +201,24 @@ class Checker:
         if self.__currDict == None:
             self.__getTextPage()
             self.__currDict = self.__currPage.get_text("dict", textpage=self.__currTextPage, sort=True)
+            if self.__embeddedPdfAsImage:
+                self.__getPageEmbeddedPdfs()
+                embeddedPdfBlocks = self.__currPageEmbeddedPdfs.copy()
+                if embeddedPdfBlocks:
+                    blocks = self.__currDict['blocks']
+                    idx = 0
+                    while idx < len(blocks) and embeddedPdfBlocks:
+                        position = self.__isRectInsideRect(blocks[idx]['bbox'], embeddedPdfBlocks[0]['bbox'])
+                        if position == 0:
+                                blocks.pop(idx)
+                                idx = idx - 1
+                        elif position == 1:
+                            blocks.insert(idx,embeddedPdfBlocks.pop(0))
+                        idx = idx + 1
+
+                    for pdfBlock in embeddedPdfBlocks:
+                        blocks.append(pdfBlock)
+                    self.__currDict['blocks'] = blocks
 
 
 
@@ -339,6 +465,9 @@ class Checker:
         self.__getTextPage()
         rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
+            if self.__embeddedPdfAsImage:
+                if self.__isInsideEmbeddedPdf(rect):
+                    continue
             self.mistakes_found = True
             self.__highlight(rect, highlightColor, popupText, popupTitle)
 
@@ -455,13 +584,9 @@ class Checker:
                 matchList += re.findall(regexSearch, text)
 
         if matchList:
-            self.__getTextPage()
             matchList = self.__deleteDuplicate(matchList)
             for match in matchList:
-                rects = self.__currPage.search_for(match, textpage=self.__currTextPage)
-                for rect in rects:
-                    self.mistakes_found = True
-                    self.__highlight(rect, highlightColor, popupText, popupTitle)
+                self.__searchForAndHighlight(match, popupText, popupTitle, highlightColor)
 
 
 
@@ -568,12 +693,26 @@ class Checker:
         self.__currDict = None
         self.__currPixmap = None
         self.__currTextPage = None
+        self.__currPageEmbeddedPdfs = None
 
 
-    def annotate(self ,annotatedPath : string, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True,
+    
+    def __resetCheckerVars(self):
+        self.__resetCurrVars()
+        self.mistakes_found = False
+        self.borderNotFound = False
+        self.__border = (-1.0, -1.0)
+        self.__isContentPage = False
+        self.__regularFont = None
+        self.__isPreviousTitle = False
+
+
+
+    def annotate(self ,annotatedPath : string, embeddedPdfAsImage : bool = True, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True,
                  TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True):
         
-        self.__resetCurrVars()
+        self.__resetCheckerVars()
+        self.__embeddedPdfAsImage = embeddedPdfAsImage
         if borderCheck or hyphenCheck or imageWidthCheck or TOCCheck or spaceBracketCheck or emptySectionCheck or badReferenceCheck:
             findBorder = borderCheck or imageWidthCheck or emptySectionCheck
             if findBorder or emptySectionCheck:

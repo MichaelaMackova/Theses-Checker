@@ -23,6 +23,7 @@ MISTAKES_FOUND = " -> " + COLOR_WARNING + "mistakes were found" + COLOR_RESET
 
 parser = argparse.ArgumentParser(description="Makes a new pdf file called '*_annotated.pdf' in the folder, where this program is saved. If no check flag is given, everything will be checked.") # TODO:
 parser.add_argument('in_files', nargs='+', help="path to files to be checked; only '*.pdf' are supported")
+parser.add_argument('--embedded_PDF', action='store_false', help="if used, embedded PDF files will be taken as a part of PDF, otherwise will be taken as an image")
 parser.add_argument('-o', '--overflow', action='store_true', help="overflow check")
 parser.add_argument('-i', '--image_width', action='store_true', help="image width check")
 parser.add_argument('-H', '--Hyphen', action='store_true', help="hyphen check")
@@ -55,6 +56,6 @@ for file in args.in_files:
     # if(len(args.in_files) > 1):
     #     args.out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
     out_file = os.path.basename(file)[:-4] + "_annotated.pdf"
-    checker.annotate(out_file,args.overflow,args.Hyphen,args.image_width, args.TOC, args.space_bracket, args.empty_chapter, args.bad_reference)
+    checker.annotate(out_file, args.embedded_PDF, args.overflow, args.Hyphen, args.image_width, args.TOC, args.space_bracket, args.empty_chapter, args.bad_reference)
     mistake_state = MISTAKES_FOUND if checker.mistakes_found else NO_MISTAKES 
     print("New file '" + out_file + "' was created." + mistake_state)

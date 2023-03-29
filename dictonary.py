@@ -4,7 +4,7 @@ import fitz
 doc = fitz.Document('..\\..\\..\\pdf\\fit\\24420.pdf')
 # -------------------------------------------------------------------------------------------
 
-page = doc[41]
+page = doc[20]
 
 #imageBlock_dict: dict_keys(['number', 'type', 'bbox', 'width', 'height', 'ext', 'colorspace', 'xres', 'yres', 'bpc', 'transform', 'size', 'image'])
 #   |-> Key "type": 1 = image (int)
@@ -38,5 +38,6 @@ for block in blocks:
     else: #type = 1
         print(block['ext'])
         print(block['size'])
+        print(block['transform'])
     print("|" + WIDTH*" " + "|")
     print(" " + WIDTH*"-")
