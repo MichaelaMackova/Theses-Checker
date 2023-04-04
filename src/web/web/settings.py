@@ -29,7 +29,7 @@ SECRET_KEY = config('SECRET_KEY')
 #TODO: production - False; development - True
 DEBUG = True
 
-ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', '.localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition

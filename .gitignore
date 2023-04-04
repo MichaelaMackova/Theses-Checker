@@ -4,3 +4,4 @@ thesis/sablona2020.zip
 src/web/templates/test.html
 src/web/.env
 .vscode/launch.json
+.vscode/settings.json
