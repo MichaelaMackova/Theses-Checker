@@ -120,32 +120,101 @@ zapsáno jako spojovník v~matematickém prostředí \verb|$-$| nebo též \verb
 
 %#######################    2.3 Chybějící popis kapitoly    #######################
 \section{Chybějící popis kapitoly}
-\cite{Chlubna}
-\dummyShortText[10]
+
+I když je kapitola rozdělena na několik podkapitol, musí i samotná kapitola
+obsahovat její popis. Blog~\cite{Leany_blog} vysvětluje, , že pokud není uveden
+popis mezi kapitolou a~její podkapitolou, působí poté práce nedopracovaně. Tuto
+skutečnost lze vidět i~na ukázce v~obrázku~\ref{TODO:}. V~tomto místě
+se hodí napsat 1--2 odstavce, kde bude vysvětlené o~čem ta kapitola je, a~co se
+v~ní čtenář dozví.
 \todoimage{width=\linewidth,height=1.7in}{Ukázka chybějícího textu.}
 
 
 %#######################    2.4 Nadpisy třetí a větší úrovně v obsahu    #######################
 \section{Nadpisy třetí a~větší úrovně v~obsahu}
-\dummyShortText[10]
+V~diplomové práci není vhodné uvádět v~obsahu nadpisy třetí či větší úrovně.
+Jak je vidět na obrázku~\ref{TODO:}, obsah bude poté nepřehledný a~zbytečně
+dlouhý. Samotná třetí úroveň nadpisů je velmi podrobná, ale v~diplomové práci
+ji lze použít, když bude nečíslovaná. V~programu {\LaTeX} tohoto lze dosáhnout
+příkazem \verb|\subsection*{}|. Nadpisy čtvrté a~větší úrovně už by se v~diplomové
+práci neměly vyskytovat vůbec.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka obsahu s~nadpisy 3 a~více úrovně.}
 
 
 %#######################    2.5 Absence vektorové grafiky    #######################
 \section{Absence vektorové grafiky}
-\dummyShortText[10]
+Při vkládání obrázku do textu se musíme zabývat několika otázkami a~jedna z~nich
+je určitě kvalita tohoto obrázku. Pokud bude mít obrázek moc malé rozlišení
+nevypadá to v~odborné práci dobře, \highlight{a~i~když se obrázek může na obrazovce zdát
+dostatečně vysoké kvality}, při tisku může být daný obrázek \uv{rozkostičkovaný}.
+Toto nevhodné použití lze vidět i~na obrázku~\ref{TODO:}.
+Tento problém kvalitního rozlišení nám může vyřešit použití vektorového obrázku. Podle
+knihy~\cite{Pruvodce_tvorbou_dokumentu} je zásadní výhodou vektorového obrázku
+jeho uložení, díky kterému si obrázek zanechá vysokou kvalitu i~v~různém zvětšení.
+Ale použití vektorové grafiky není vždy vhodné či dokonce možné. V~knize je proto
+uvedeno doporučení použít vektorovou grafiku (formáty SVG, EPS a~PDF) na schémata
+a~loga, rastrovou grafiku formátu JPG pro fotografie a~pro ostatní rastrovou
+grafiku použít formát PNG.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
 
 
-%#######################    2.6 Nepoužívání nezlomitelné mezery    #######################
-\section{Nepoužívání nezlomitelné mezery}
-\dummyText
+%#######################    2.6 Nepoužívání pevné mezery    #######################
+\section{Nepoužívání pevné mezery}
+Jako spousta jiných věcí i~psaní mezer má svá pravidla. Jak zmiňuje
+článek~\cite{Ctenar_12_2015}, i~v~něčem tak samozřejmém, jako je psaní pouhé
+mezery se často chybuje: mezera se musí psát za tečkou (nebo též čárkou), ne před
+ní a~píše se vždy jen jedna, data se píšou ve formátu \emph{d.~m. yyyy}
+a~čísla se oddělují mezerou po tisících (s~výjimkou letopočtu). Při psaní se může
+stát, že mezera spojující znaky nebo čísla, vyjde na konec řádku a~tyto znaky
+by se rozdělily. Tento případ lze pozorovat i~na obrázku~\ref{TODO:}.
+Pro zamezení takových případů existuje právě pevná (nebo též nedělitelná)
+mezera.
+
+Pevná mezera se se zobrazí stejně jako normální mezera, ale na rozdíl od normální
+mezery, spojí dohromady příslušné znaky a~zablokuje jejich rozdělení na konci
+řádku. Podle pravidel Internetové jazykové příručky~\cite{Ustav_pro_jazyk_cesky}
+se má pevná mezera použít v~těchto případech:
+\begin{itemize}
+    \item ve spojení neslabičných předložek \emph{k, s, v, z} s~následujícím
+    slovem, např. \emph{v~obrázku, z~funkce},
+    \item ve spojení slabičných předložek \emph{o, u} a~spojek \emph{a, i}
+    s~následujícím výrazem, např. \emph{o~kapitole, a~to},
+    \item členění čísel, např. $\mathit{2~301~000}$, $\mathit{3,141~592~65}$,
+    \item mezi číslem a~značkou, např. \emph{25~\%, \copyright~2008},
+    \item mezi číslem a~zkratkou počítaného předmětu nebo písmennou značkou
+    jednotek a~měn, např. \emph{24~hod., 100~m, 3~000~Kč, 500~¥},
+    \item mezi číslem a~názvem počítaného jevu, např. \emph{obrázek~5, 12~metrů,
+    I.~patro},
+    \item v~kalendářních datech mezi dnem a~měsícem, rok však lze oddělit, např.
+    \emph{3.~5. 2000, 26.~dubna 2023}
+    \item v~měřítkách map, plánů a~výkresů, v~poměrech nebo při naznačení dělení,
+    např. \emph{4~:~7, 1~:~10~000}, $\mathit{12:2=6}$,
+    \item v~telefonních, faxových a~jiných číslech členěných mezerou, např. 
+    \emph{+420~603~999~226},
+    \item ve složených zkratkách (v~případě nutnosti se doporučuje dělit podle
+    dílčích celků), v~ustálených spojeních a~v~různých kódech, např.
+    \emph{s.~r.~o., m~n.~m., ISO~690},
+    \item mezi zkratkami typu \emph{tj., tzv., tzn.} a~výrazem, který za nimi
+    bezprostředně následuje, např. \emph{tzv.~pipeline},
+    \item mezi zkratkami rodných jmen a~příjmeními, např. \emph{T.~Milet},
+    \item mezi zkratkou titulu nebo hodnosti uváděnou před osobním jménem, např.
+    \emph{p.~Macková, Ing.~Novák}.
+\end{itemize}
+
+Zapsání pevné mezery závisí na použitém textovém editoru. I~když spousta z~nich
+už umí tuto pevnou mezeru automaticky doplnit, nemusí mít tato automatizace
+stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem tildy
+(\texttildelow) a~v~editoru WORD se zase zapíše kombinací kláves
+\emph{Ctrl Shift mezera}.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka.}
 
-%#######################    2.7 Špatný odkaz na referenci    #######################
-\section{Špatný odkaz na referenci}
-\dummyText
-\todoimage{width=\linewidth,height=1.7in}{Ukázka.}
+% %#######################    2.7 Špatný odkaz na referenci    #######################
+% \section{Špatný odkaz na referenci}
+% \dummyText
+% \todoimage{width=\linewidth,height=1.7in}{Ukázka.}
 
 
 %*********************************************************************************
