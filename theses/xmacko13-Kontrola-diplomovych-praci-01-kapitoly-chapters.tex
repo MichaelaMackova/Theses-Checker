@@ -51,17 +51,27 @@
 
 
 %*********************************************************************************
-%                                2 ČASTÉ CHYBY
+%                                3 ČASTÉ CHYBY
 %*********************************************************************************
 \chapter{Často vyskytované chyby v~diplomových pracích}
-\cite{Ctenar_12_2015}
+U~psaní textu se autor musí řídit ne jen gramatickými, ale i~typografickými
+pravidly. Toto především platí při psaní odborné práce. Větší množství chyb
+v~obsahu práce může mít za následek, že i~kvalitně odvedená práce se bude zdát
+neuspokojivá.
 
-\dummyShortText[6]
+Chyby mohou být způsobeny z~nepozornosti, nebo z~neznalosti, přičemž druhá možnost
+je pro autora textu horší, jelikož i~po několikátém přečtení nemusí pisatel vůbec
+poznat, že se jedná o~chybu. Správnou volbou textového editoru si tvůrce textu
+může usnadnit hledání některých chyb. Některé dnešní textové procesory poskytují
+alespoň částečnou kontrolu pravopisu, nicméně tato kontrola umí ve spoustě případů
+upozornit převážně jen na překlepy. Významové chyby, jako je například záměna slov
+\emph{tip, typ} nebo \emph{autorizace, autentizace}, bývají často touto
+automatickou kontrolou zanedbávány. Další části této kapitoly popisují několik
+chyb, které lze nalézt v~mnoha diplomových pracích a~dále uvádějí jak se těmto
+chybám vyhnout.
 
-\dummyText
 
-
-%#######################    2.1 Přetečení obsahu za okraj    #######################
+%#######################    3.1 Přetečení obsahu za okraj    #######################
 \section{Přetečení obsahu za okraj}
 Přetečení textu za okraj se nejčastěji vyskytuje, když student píše svou diplomovou
 práci s~pomocí jazyka {\LaTeX}. Obvykle je to způsobeno tím, že program nedokáže
@@ -80,7 +90,7 @@ který se nestává tak často, ale lze jej udělat v~několika textových edito
 \end{figure}
 
 
-%#######################    2.2 Spojovník x pomlčka    #######################
+%#######################    3.2 Spojovník x pomlčka    #######################
 \section{Špatné použití spojovníku}
 Špatné používání spojovníku je chyba, která se vyskytuje nejen v~diplomových
 pracích. Spojovník (-) je graficky velmi podobný pomlčce (--), ale významově
@@ -118,56 +128,148 @@ zapsáno jako spojovník v~matematickém prostředí \verb|$-$| nebo též \verb
 \todoimage{width=\linewidth,height=1.7in}{Ukázka špatně použitého spojovníku.}
 
 
-%#######################    2.3 Chybějící popis kapitoly    #######################
+%#######################    3.3 Chybějící popis kapitoly    #######################
 \section{Chybějící popis kapitoly}
-\cite{Chlubna}
-\dummyShortText[10]
+
+I když je kapitola rozdělena na několik podkapitol, musí i samotná kapitola
+obsahovat její popis. Blog~\cite{Leany_blog} vysvětluje, , že pokud není uveden
+popis mezi kapitolou a~její podkapitolou, působí poté práce nedopracovaně. Tuto
+skutečnost lze vidět i~na ukázce v~obrázku~\ref{TODO:}. V~tomto místě
+se hodí napsat 1--2 odstavce, kde bude vysvětlené o~čem ta kapitola je, a~co se
+v~ní čtenář dozví.
 \todoimage{width=\linewidth,height=1.7in}{Ukázka chybějícího textu.}
 
 
-%#######################    2.4 Nadpisy třetí a větší úrovně v obsahu    #######################
+%#######################    3.4 Nadpisy třetí a větší úrovně v obsahu    #######################
 \section{Nadpisy třetí a~větší úrovně v~obsahu}
-\dummyShortText[10]
+V~diplomové práci není vhodné uvádět v~obsahu nadpisy třetí či větší úrovně.
+Jak je vidět na obrázku~\ref{TODO:}, obsah bude poté nepřehledný a~zbytečně
+dlouhý. Samotná třetí úroveň nadpisů je velmi podrobná, ale v~diplomové práci
+ji lze použít, když bude nečíslovaná. V~programu {\LaTeX} tohoto lze dosáhnout
+příkazem \verb|\subsection*{}|. Nadpisy čtvrté a~větší úrovně už by se v~diplomové
+práci neměly vyskytovat vůbec.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka obsahu s~nadpisy 3 a~více úrovně.}
 
 
-%#######################    2.5 Absence vektorové grafiky    #######################
+%#######################    3.5 Absence vektorové grafiky    #######################
 \section{Absence vektorové grafiky}
-\dummyShortText[10]
+Při vkládání obrázku do textu se musíme zabývat několika otázkami a~jedna z~nich
+je určitě kvalita tohoto obrázku. Pokud bude mít obrázek moc malé rozlišení
+nevypadá to v~odborné práci dobře, \highlight{a~i~když se obrázek může na obrazovce zdát
+dostatečně vysoké kvality}, při tisku může být daný obrázek \uv{rozkostičkovaný}.
+Toto nevhodné použití lze vidět i~na obrázku~\ref{TODO:}.
+Tento problém kvalitního rozlišení nám může vyřešit použití vektorového obrázku. Podle
+knihy~\cite{Pruvodce_tvorbou_dokumentu} je zásadní výhodou vektorového obrázku
+jeho uložení, díky kterému si obrázek zanechá vysokou kvalitu i~v~různém zvětšení.
+Ale použití vektorové grafiky není vždy vhodné či dokonce možné. V~knize je proto
+uvedeno doporučení použít vektorovou grafiku (formáty SVG, EPS a~PDF) na schémata
+a~loga, rastrovou grafiku formátu JPG pro fotografie a~pro ostatní rastrovou
+grafiku použít formát PNG.
+
 \todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
 
 
-%#######################    2.6 Nepoužívání nezlomitelné mezery    #######################
-\section{Nepoužívání nezlomitelné mezery}
+%#######################    3.6 Nepoužívání pevné mezery    #######################
+\section{Nepoužívání pevné mezery}
+Jako spousta jiných věcí i~psaní mezer má svá pravidla. Jak zmiňuje
+článek~\cite{Ctenar_12_2015}, i~v~něčem tak samozřejmém, jako je psaní pouhé
+mezery se často chybuje: mezera se musí psát za tečkou (nebo též čárkou), ne před
+ní a~píše se vždy jen jedna, data se píšou ve formátu \emph{d.~m. yyyy}
+a~čísla se oddělují mezerou po tisících (s~výjimkou letopočtu). Při psaní se může
+stát, že mezera spojující znaky nebo čísla, vyjde na konec řádku a~tyto znaky
+by se rozdělily. Tento případ lze pozorovat i~na obrázku~\ref{TODO:}.
+Pro zamezení takových případů existuje právě pevná (nebo též nedělitelná)
+mezera.
+
+Pevná mezera se se zobrazí stejně jako normální mezera, ale na rozdíl od normální
+mezery, spojí dohromady příslušné znaky a~zablokuje jejich rozdělení na konci
+řádku. Podle pravidel Internetové jazykové příručky~\cite{Ustav_pro_jazyk_cesky}
+se má pevná mezera použít v~těchto případech:
+\begin{itemize}
+    \item ve spojení neslabičných předložek \emph{k, s, v, z} s~následujícím
+    slovem, např. \emph{v~obrázku, z~funkce},
+    \item ve spojení slabičných předložek \emph{o, u} a~spojek \emph{a, i}
+    s~následujícím výrazem, např. \emph{o~kapitole, a~to},
+    \item členění čísel, např. $\mathit{2~301~000}$, $\mathit{3,141~592~65}$,
+    \item mezi číslem a~značkou, např. \emph{25~\%, \copyright~2008},
+    \item mezi číslem a~zkratkou počítaného předmětu nebo písmennou značkou
+    jednotek a~měn, např. \emph{24~hod., 100~m, 3~000~Kč, 500~¥},
+    \item mezi číslem a~názvem počítaného jevu, např. \emph{obrázek~5, 12~metrů,
+    I.~patro},
+    \item v~kalendářních datech mezi dnem a~měsícem, rok však lze oddělit, např.
+    \emph{3.~5. 2000, 26.~dubna 2023}
+    \item v~měřítkách map, plánů a~výkresů, v~poměrech nebo při naznačení dělení,
+    např. \emph{4~:~7, 1~:~10~000}, $\mathit{12:2=6}$,
+    \item v~telefonních, faxových a~jiných číslech členěných mezerou, např. 
+    \emph{+420~603~999~226},
+    \item ve složených zkratkách (v~případě nutnosti se doporučuje dělit podle
+    dílčích celků), v~ustálených spojeních a~v~různých kódech, např.
+    \emph{s.~r.~o., m~n.~m., ISO~690},
+    \item mezi zkratkami typu \emph{tj., tzv., tzn.} a~výrazem, který za nimi
+    bezprostředně následuje, např. \emph{tzv.~pipeline},
+    \item mezi zkratkami rodných jmen a~příjmeními, např. \emph{T.~Milet},
+    \item mezi zkratkou titulu nebo hodnosti uváděnou před osobním jménem, např.
+    \emph{p.~Macková, Ing.~Novák}.
+\end{itemize}
+
+Zapsání pevné mezery závisí na použitém textovém editoru. I~když spousta z~nich
+už umí tuto pevnou mezeru automaticky doplnit, nemusí mít tato automatizace
+stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem tildy
+(\texttildelow) a~v~editoru WORD se zase zapíše kombinací kláves
+\emph{Ctrl Shift mezera}.
+
+\todoimage{width=\linewidth,height=1.7in}{Ukázka.}
+
+%#######################    3.7 Použití špatných uvozovek    #######################
+\section{Použití špatných uvozovek}
 \dummyText
 \todoimage{width=\linewidth,height=1.7in}{Ukázka.}
 
-%#######################    2.7 Špatný odkaz na referenci    #######################
-\section{Špatný odkaz na referenci}
+% %#######################    3.8 Špatný odkaz na referenci    #######################
+% \section{Špatný odkaz na referenci}
+% \dummyText
+% \todoimage{width=\linewidth,height=1.7in}{Ukázka.}
+
+
+%*********************************************************************************
+
+
+
+
+%*********************************************************************************
+%                               4 ANOTACE V PDF
+%*********************************************************************************
+\chapter{PDF soubor}
+
 \dummyText
-\todoimage{width=\linewidth,height=1.7in}{Ukázka.}
-
-
-%*********************************************************************************
 
 
 
+%#######################    4.1 Formát PDF    #######################
+\section{Formát PDF}
 
-%*********************************************************************************
-%                               3 ANOTACE V PDF
-%*********************************************************************************
-\chapter{Anotace v~PDF souboru}
-
-\dummyText
+\DummyText
 
 
-%#######################    3.1 Reprezentace anotací v PDF souboru    #######################
+
+%#######################    4.2 Reprezentace anotací v PDF souboru    #######################
 \section{Reprezentace anotací v~PDF souboru}
 
 \DummyText
 
 
-%#######################    3.2 Programovací jazyky a knihovny pro zpracování a anotování PDF souborů    #######################
+
+%#######################    4.3 Graphics State    #######################
+\section{Grafika v~PDF}
+\todo{Graphics State}
+
+\cite{PDF32000-1:2008}
+\DummyText
+
+
+
+%#######################    4.4 Programovací jazyky a knihovny pro zpracování a anotování PDF souborů    #######################
 \section{Programovací jazyky a~knihovny pro zpracování a~anotování PDF souborů}
 
 Pro zpracovávání PDF souborů existuje mnoho knihoven v~různých programovacích
@@ -179,7 +281,7 @@ V~této kapitole jsou popsány různé knihovny, které je možné použít pro 
 PDF souborů, jejich speciality a~nedostatky.
 
 
-%---------- 3.2.1 C# ----------
+%---------- 4.3.1 C# ----------
 \subsection*{C\#}
 
 C\# je objektově orientovaný programovací jazyk, vyvinutý firmou Microsoft.
@@ -193,11 +295,12 @@ Nejznámější C\# knihovna pro práci s~PDF dokumenty je \textbf{iText 7}\foot
 }. Tato knihovna je dostupná pod \emph{Open Source AGPLv3}\footnote{
 \href{https://itextpdf.com/how-buy/AGPLv3-license}{https://itextpdf.com/how-buy/AGPLv3-license}
 } licencí a~dvěma verzemi komerční licence. 
+\todo{popsat funkce knihovny iText 7}
 
 \dummyText
 
 
-%---------- 3.2.2 JavaScript ----------
+%---------- 4.3.2 JavaScript ----------
 \subsection*{JavaScript}
 
 JavaScript je dynamicky typovaný, objektově orientovaný, interpretovaný
@@ -245,7 +348,7 @@ z~následujících knihoven:
 \end{itemize}
 
 
-%---------- 3.2.3 PHP ----------
+%---------- 4.3.3 PHP ----------
 \subsection*{PHP}
 
 PHP je skriptovací programovací jazyk, který je především vhodný pro vývoj
@@ -287,7 +390,7 @@ desktopových aplikací.
 \end{itemize}
 
 
-%---------- 3.2.4 Python ----------
+%---------- 4.3.4 Python ----------
 \subsection*{Python}
 
 Python je vysokoúrovňový, interpretovaný programovací jazyk. Má dynamickou
@@ -336,7 +439,7 @@ například následující:
 
 
 %*********************************************************************************
-%                            4 NÁVRH A IMPLEMENTACE
+%                            5 NÁVRH A IMPLEMENTACE
 %*********************************************************************************
 %TODO: přejmenovat
 \chapter{Návrh a~implementace webové aplikace}
@@ -344,7 +447,7 @@ například následující:
 \dummyText
 
 
-%#######################    4.1 Specifikace požadavků    #######################
+%#######################    5.1 Specifikace požadavků    #######################
 \section{Specifikace požadavků}
 
 \dummyText
@@ -352,19 +455,19 @@ například následující:
 \dummyText
 
 
-%#######################    4.2 Využité technologie    #######################
+%#######################    5.2 Využité technologie    #######################
 \section{Využité technologie}
 
 \dummyShortText[9]
 
 
-%---------- 4.2.1 Python ----------
+%---------- 5.2.1 Python ----------
 \subsection*{Python}
 
 \dummyText[2]
 
 
-%---------- 4.2.2 Django ----------
+%---------- 5.2.2 Django ----------
 \subsection*{Django}
 
 \dummyShortText[13]
@@ -372,24 +475,24 @@ například následující:
 \dummyText
 
 
-%---------- 4.2.3 HTML, CSS ----------
+%---------- 5.2.3 HTML, CSS ----------
 \subsection*{HTML, CSS}
 
 \dummyText
 
 
-%---------- 4.2.4 JavaScript ----------
+%---------- 5.2.4 JavaScript ----------
 \subsection*{JavaScript}
 
 \dummyText
 
 
-%#######################    4.3 Program pro vyhledání chyb a jejich následné vyznačení    #######################
+%#######################    5.3 Program pro vyhledání chyb a jejich následné vyznačení    #######################
 \section{Program pro vyhledání chyb a~jejich následné vyznačení}
 
 \DummyText
 
-%---------- 4.3.1 Nalezení okraje stránky ----------
+%---------- 5.3.1 Nalezení okraje stránky ----------
 \subsection*{Nalezení okraje stránky}
 
 \dummyShortText[10]
@@ -398,9 +501,25 @@ například následující:
 
 \todoimage{width=\linewidth}{Vyznačení okraje textu.}
 
+%---------- 5.3.2 Nalezení souřadnic vloženého PDF na stránce ----------
+\subsection*{Nalezení souřadnic vloženého PDF na stránce}
+
+\dummyShortText[10]
+
+\dummyText[2]
 
 
-%#######################    4.4 Architektura webové aplikace    #######################
+
+%#######################    5.4 Doplňující program pro použití v~příkazovém řádku    #######################
+\section{Doplňující program pro použití v~příkazovém řádku}
+
+\dummyText
+
+\dummyText[2]
+
+
+
+%#######################    5.5 Architektura webové aplikace    #######################
 \section{Architektura webové aplikace}
 
 \dummyText
@@ -408,7 +527,8 @@ například následující:
 \dummyText[2]
 
 
-%#######################    4.5 Ukázka použití vytvořené webové aplikace    #######################
+
+%#######################    5.6 Ukázka použití vytvořené webové aplikace    #######################
 \section{Ukázka použití vytvořené webové aplikace}
 
 \dummyShortText[13]
@@ -431,7 +551,7 @@ například následující:
 
 
 %*********************************************************************************
-%                                 5 TESTOVÁNÍ 
+%                                 6 TESTOVÁNÍ 
 %*********************************************************************************
 %TODO: přejmenovat
 \chapter{Testování a~zhodnocení výsledné aplikace}
@@ -439,19 +559,19 @@ například následující:
 \dummyShortText[10]
 
 
-%#######################    5.1 Ověření správné funkcionality vyhledávání chyb    #######################
+%#######################    6.1 Ověření správné funkcionality vyhledávání chyb    #######################
 \section{Ověření správné funkcionality vyhledávání chyb}
 
 
-%#######################    5.2 Známé chyby aplikace    #######################
+%#######################    6.2 Známé chyby aplikace    #######################
 \section{Známé chyby aplikace}
 
 
-%#######################    5.3 Uživatelské dotazníky    #######################
+%#######################    6.3 Uživatelské dotazníky    #######################
 \section{Uživatelské dotazníky}
 
 
-%#######################    5.4 Možné budoucí rozšíření aplikace    #######################
+%#######################    6.4 Možné budoucí rozšíření aplikace    #######################
 \section{Možné budoucí rozšíření aplikace}
 
 %*********************************************************************************
@@ -460,7 +580,7 @@ například následující:
 
 
 %*********************************************************************************
-%                                   6 ZÁVĚR
+%                                   7 ZÁVĚR
 %*********************************************************************************
 \chapter{Závěr}
 
