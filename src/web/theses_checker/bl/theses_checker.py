@@ -63,6 +63,8 @@ class Checker:
         self.__currDict = None
         ## List of embedded PDFs invoked by current page as dictionary image blocks 
         self.__currPageEmbeddedPdfs = None
+        ## All text from current page in one continuous string (warning: included text from embedded PDFs)
+        self.__currPageTextContent = None
         ## Tuple containing x0 and x1 coordinates of page border
         self.__border = (-1.0, -1.0)
         ## Boolean indicating whether current page contains table of content (TOC)
@@ -173,7 +175,7 @@ class Checker:
         """
         Updates class variable currPageEmbeddedPdfs.
         """
-        if self.__currPageEmbeddedPdfs:
+        if self.__currPageEmbeddedPdfs != None:
             # instance already exists
             return
         
@@ -732,7 +734,8 @@ class Checker:
             lines = pageFirstBlock['lines']
             if (len(lines) == 1):
                 #contentText = "Obsah" if (self.__language == Language.CZECH or self.__language == Language.SLOVAK) else "Contents"
-                if ( lines[0]['spans'][0]['text'] == "Obsah" or lines[0]['spans'][0]['text'] == "Contents"):
+                text = lines[0]['spans'][0]['text'].lower().strip()
+                if ( text == "obsah" or text == "contents"):
                     self.__isContentPage = True
                 else:
                     self.__isContentPage = False
@@ -746,22 +749,23 @@ class Checker:
         """
         self.__getPageDictionary()
         blocks = self.__currDict['blocks']
-        self.__getIsContentPage(blocks[0])
-        if (self.__isContentPage):
-            for block in blocks:
-                if block['type'] == 0: 
-                    # --- text ---
-                    lines = block['lines']
-                    origin_y = -1.0
-                    for line in lines:
-                        line_origin = line['spans'][0]['origin']
-                        if line_origin[1] != origin_y:
-                            # new line, not tab -> section number
-                            x = re.search("^(?:\d+|[A-Z])\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5; C.2.3
-                            if x:
-                                self.mistakes_found = True
-                                self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
-                        origin_y = line_origin[1]
+        if blocks:
+            self.__getIsContentPage(blocks[0])
+            if (self.__isContentPage):
+                for block in blocks:
+                    if block['type'] == 0: 
+                        # --- text ---
+                        lines = block['lines']
+                        origin_y = -1.0
+                        for line in lines:
+                            line_origin = line['spans'][0]['origin']
+                            if line_origin[1] != origin_y:
+                                # new line, not tab -> section number
+                                x = re.search("^(?:\d+|[A-Z])\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5; C.2.3
+                                if x:
+                                    self.mistakes_found = True
+                                    self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
+                            origin_y = line_origin[1]
 
 
 
@@ -779,6 +783,26 @@ class Checker:
 
 
 
+    def __getPageTextContent(self):
+        """
+        Scans current page for all text and saves its dehyphenated form in class variable currPageTextContent (warning: text from embedded PDFs included)
+        """
+        if self.__currPageTextContent == None:
+            self.__currPageTextContent = ""
+            textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
+            for block in textBlocks:
+                # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
+                if block[6] == 0:   # contains text
+                    text = block[4]
+                    if text[-1] == "\n":
+                        text = text[:-1]
+                    
+                    text = text.replace("\n"," ")
+                self.__currPageTextContent += text +"\n\n"
+
+
+
+
     def __regexSearchAndHighlight(self, regexSearch : string, popupText:string, popupTitle:string = "Chyba / Error", highlightColor:tuple = HIGH_RED):
         """
         Searches for regexSearch as a regular expression on current page and highlights all occurrences.
@@ -789,17 +813,8 @@ class Checker:
             popupTitle (string, optional): Title of the pop-up annotation attached to highlight annotation. Defaults to "Chyba / Error".
             highlightColor (tuple, optional): RGB representation of highlight color. Defaults to HIGH_RED.
         """
-        matchList = []
-        textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
-        for block in textBlocks:
-            # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
-            if block[6] == 0:   # contains text
-                text = block[4]
-                if text[-1] == "\n":
-                    text = text[:-1]
-                
-                text = text.replace("\n"," ")
-                matchList += re.findall(regexSearch, text)
+        self.__getPageTextContent()
+        matchList = re.findall(regexSearch, self.__currPageTextContent)
 
         if matchList:
             matchList = self.__deleteDuplicate(matchList)
@@ -812,8 +827,8 @@ class Checker:
         """
         Check for missing space before any left bracket on current page. Highlights all missing spaces.
         """
-        # "\S\(" -> not " ("
-        self.__regexSearchAndHighlight("\S\(", "Chybi mezera pred levou zavorkou. / Missing space in between.", "Varovani / Warning", self.HIGH_ORANGE)
+        # "\S(?:\(|\[|{)" -> for example: "l(", ".[", "5{"
+        self.__regexSearchAndHighlight("\S(?:\(|\[|{)", "Chybi mezera pred levou zavorkou. / Missing space in between.", "Varovani / Warning", self.HIGH_ORANGE)
         
 
 
@@ -938,6 +953,7 @@ class Checker:
         self.__currPixmap = None
         self.__currTextPage = None
         self.__currPageEmbeddedPdfs = None
+        self.__currPageTextContent = None
 
 
     
