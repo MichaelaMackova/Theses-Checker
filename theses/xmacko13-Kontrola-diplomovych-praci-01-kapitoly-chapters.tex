@@ -155,17 +155,17 @@ práci neměly vyskytovat vůbec.
 %#######################    3.5 Absence vektorové grafiky    #######################
 \section{Absence vektorové grafiky}
 Při vkládání obrázku do textu se musíme zabývat několika otázkami a~jedna z~nich
-je určitě kvalita tohoto obrázku. Pokud bude mít obrázek moc malé rozlišení
-nevypadá to v~odborné práci dobře, \highlight{a~i~když se obrázek může na obrazovce zdát
-dostatečně vysoké kvality}, při tisku může být daný obrázek \uv{rozkostičkovaný}.
+je určitě jeho kvalita. Pokud má obrázek moc malé rozlišení
+nevypadá v~odborné práci dobře. I~přesto, že se obrázek na displeji zdá
+dostatečně kvalitní, při tisku může být daný obrázek \uv{rozkostičkovaný}.
 Toto nevhodné použití lze vidět i~na obrázku~\ref{TODO:}.
-Tento problém kvalitního rozlišení nám může vyřešit použití vektorového obrázku. Podle
-knihy~\cite{Pruvodce_tvorbou_dokumentu} je zásadní výhodou vektorového obrázku
-jeho uložení, díky kterému si obrázek zanechá vysokou kvalitu i~v~různém zvětšení.
-Ale použití vektorové grafiky není vždy vhodné či dokonce možné. V~knize je proto
-uvedeno doporučení použít vektorovou grafiku (formáty SVG, EPS a~PDF) na schémata
-a~loga, rastrovou grafiku formátu JPG pro fotografie a~pro ostatní rastrovou
-grafiku použít formát PNG.
+Tento problém kvalitního rozlišení nám může vyřešit použití vektorového obrázku.
+Podle knihy~\cite{Pruvodce_tvorbou_dokumentu} je zásadní výhodou vektorového
+obrázku jeho uložení, díky kterému si obrázek ponechá vysokou kvalitu i~v~různém
+zvětšení. Ale použití vektorové grafiky není vždy vhodné a~v~některých případech
+není ani možné. V~knize je proto uvedeno doporučení použít vektorovou grafiku
+(formáty SVG, EPS a~PDF) na schémata a~loga, rastrovou grafiku formátu JPG pro
+fotografie a~pro ostatní rastrovou grafiku použít formát PNG.
 
 \todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
 
@@ -248,9 +248,112 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 
 %#######################    4.1 Formát PDF    #######################
 \section{Formát PDF}
+Většina uživatelů, kteří zachází s~PDF soubory nepotřebují znát vnitřní složení
+PDF dokumentů. Spousta programů a~knihoven, pro vytváření či úpravu PDF dokumentu
+dokáže při práci s~tímto souborem dostatečně odstínit od syntaxe PDF formátu.
+Avšak pro pokročilejší práci s~PDF dokumenty není na obtíž si zjistit pár
+základních informací o~uložení dat v~tomto formátu.
+PDF dokument má podobu textového souboru a~na jeho pochopení jsou v~této sekci
+vysvětleny jeho 4 základní stavební bloky. Tato sekce čerpá informace ze
+standardu PDF~32000-1~\cite{PDF32000-1:2008}.
 
-\DummyText
 
+%---------- 4.1.1 Objekty ----------
+\subsection*{Objekty}
+\todo{obecný popis}
+PDF rozeznává osm typů objektů:
+\begin{itemize}
+    \item \textbf{Boolean objekt} -- Tyto objekty reprezentují logickou hodnotu.
+    Můžou nabýt dvou hodnot, které jsou označeny klíčovými slovy \texttt{true}
+    a~\texttt{false}.
+    \item \textbf{Číselný objekt} -- Obsahovaná číselná hodnota může být celé,
+    nebo reálné číslo. U~zápisu reálných čísel se používá desetinná tečka,
+    například \texttt{-3.62}, \texttt{.054}, \texttt{+238.45}. Celá čísla můžou
+    být například \texttt{500}, \texttt{+3}, \texttt{-21}.
+    \item \textbf{Řetězcový objekt (string)} -- Řetězec se dá zapsat dvěma způsoby,
+    a~to jako klasický řetězec, nebo jako řetězec v~hexadecimální podobě. Klasický
+    řetězec je zapsán jako posloupnost znaků uzavřená v~kulatých závorkách,
+    například \texttt{(Toto je string)}. V~tomto typu řetězce je možné používat
+    escape sekvence začínající zpětným lomítkem. Řetězec psaný v~hexadecimální
+    podobě lze zapsat jako posloupnost hexadecimálních číslic uzavřenou mezi znaky
+    menší než a~větší než, například \texttt{<48656c6c6f>}, \texttt{<776F726C64>}.
+    Každá dvojice hexadecimálních číslic tvoří jeden znak zakódovaný v~ASCII
+    podobě.
+    \item \textbf{Jmenný objekt} -- Objekt jména je sekvence znaků. Znaky, které
+    se mohou použít ve jménu jsou takové, které zapadají do rozmezí mezi znakem
+    vykřičníku (!) a~znakem tildy (\texttildelow). Ostatní znaky se mohou zapsat jako hexadecimální
+    hodnota požadovaného znaku, kterou předchází znak mřížky (\#).
+    Jméno musí začínat lomítkem, které se nebere jako jeho součást. Zapsané jméno
+    může být například \texttt{/Name}, \texttt{/1.6*xyz}, \texttt{/C\#23}.
+    \item \textbf{Objekt pole} -- Objekt typu pole je kolekce, která obsahuje
+    objekty. Tyto objekty nemusí být stejného typu -- heterogenní pole.
+    Zapisuje se jako prvky pole, které jsou odděleny bílým znakem, uzavřené
+    v~hranatých závorkách. Prvkem pole může být objekt pole. Validní pole je
+    například \texttt{[(string) -25 [2.75 /Name] true]}.
+    \item \textbf{Slovníkový objekt} -- Slovník je kolekce, jejíž prvky jsou
+    dvojice objektů. První prvek z~této dvojice se nazývá \emph{klíč} a~vždy to 
+    musí být objekt typu jméno. Ve slovníku nesmí existovat více záznamů se
+    stejným klíčem. Druhý prvek ze dvojice se nazývá \emph{hodnota}.
+    Tento prvek může být objekt jakéhokoli typu. Slovník je uvozen dvojitým znakem
+    menší než a~dvojitým znakem větší než, například
+    \texttt{<</Key1 2.6 /Key2 /Value2>>}.
+    \item \textbf{Objekt datového toku (stream)} -- Stream je sekvence bajtů, 
+    která má neomezenou délku. Používá se především pro ukládání velkého množství
+    dat, což je například obrázek. Tento objekt se zapisuje jako slovník, za nímž
+    následuje klíčové slovo \texttt{stream}, po kterém se musí vyskytovat konec
+    řádku. Následují bajty datového toku, které jsou ukončeny koncem řádku
+    a~klíčovým slovem \texttt{endstream}. Vyskytovaný slovník nesmí být uveden
+    nepřímým odkazem a~musí se v~něm uvádět délka datového toku v~bajtech, pod
+    klíčem \texttt{Length}. Každý objekt datového toku musí být zároveň nepřímým
+    objektem (vysvětleno později v~této sekci). Validní objekt datového toku je
+    například:
+\begin{verbatim}
+    12 0 obj
+    <</Length 20 /Filter /FlateDecode>>
+    stream
+    xścbd`ŕg`b``8	"y
+    DZn
+    endstream
+    endobj
+\end{verbatim}
+    \item \textbf{Null objekt} -- Null objekt je speciální objekt, který nabývá
+    pouze hodnoty \texttt{null}.
+\end{itemize}
+
+Každému objektu se může přiřadit jednoznačný identifikátor, takový objekt se poté
+nazývá \textbf{nepřímý objekt}. Na nepřímý objekt potom může být odkazováno
+z~jiného objektu, čehož je často využíváno například ve slovníku, kde je uveden
+klíč a~hodnota je nepřímý odkaz na objekt. Identifikátor nepřímého objektu má dvě
+části. První část je kladné celé číslo, kterému se říká \emph{číslo objektu}.
+Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný dokument
+0. Toto číslo musí být vždy nezáporné celé číslo. Nepřímý objekt se zapíše jako
+číslo objektu, poté bílý znak a~číslo generace. Následuje samotný objekt uzavřen
+mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
+například:
+\begin{verbatim}
+    7 0 obj
+        <504446>
+    endobj
+\end{verbatim}
+Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}. Nepřímý odkaz
+se zapíše číslem objektu, číslem generace a~klíčovým slovem \texttt{R}, oddělené
+bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše jako \texttt{7 0 R}.
+
+\todo{Xobject, xref ?}
+
+
+%---------- 4.1.2 Struktura souboru ----------
+\subsection*{Struktura souboru}
+\todo{The Four Sections of a PDF}
+
+
+%---------- 4.1.3 Struktura dokumentu ----------
+\subsection*{Struktura dokumentu}
+\todo{The Page Tree, Pages, PDF units, Rects and boxes}
+
+
+%---------- 4.1.4 Content streams ----------
+\subsection*{Content streams}
 
 
 %#######################    4.2 Reprezentace anotací v PDF souboru    #######################
@@ -260,7 +363,7 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 
 
 
-%#######################    4.3 Graphics State    #######################
+%#######################    4.3 Grafika v~PDF    #######################
 \section{Grafika v~PDF}
 \todo{Graphics State}
 
