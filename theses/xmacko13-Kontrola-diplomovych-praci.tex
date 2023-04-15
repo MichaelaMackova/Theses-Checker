@@ -105,6 +105,43 @@
 }
 \newcommand{\dummyShortText}[1][3]{{\color{lightgray}\blindshort[#1]}}
 
+%listing utf-8 chars (czech + few more)
+\lstset{
+  literate=%
+    {á}{{\'a}}1
+    {í}{{\'i}}1
+    {é}{{\'e}}1
+    {ý}{{\'y}}1
+    {ú}{{\'u}}1
+    {ó}{{\'o}}1
+    {ě}{{\v{e}}}1
+    {š}{{\v{s}}}1
+    {č}{{\v{c}}}1
+    {ř}{{\v{r}}}1
+    {ž}{{\v{z}}}1
+    {ď}{{\v{d}}}1
+    {ť}{{\v{t}}}1
+    {ň}{{\v{n}}}1                
+    {ů}{{\r{u}}}1
+    {Á}{{\'A}}1
+    {Í}{{\'I}}1
+    {É}{{\'E}}1
+    {Ý}{{\'Y}}1
+    {Ú}{{\'U}}1
+    {Ó}{{\'O}}1
+    {Ě}{{\v{E}}}1
+    {Š}{{\v{S}}}1
+    {Č}{{\v{C}}}1
+    {Ř}{{\v{R}}}1
+    {Ž}{{\v{Z}}}1
+    {Ď}{{\v{D}}}1
+    {Ť}{{\v{T}}}1
+    {Ň}{{\v{N}}}1                
+    {Ů}{{\r{U}}}1
+    {ŕ}{{\'r}}1
+    {ś}{{\'s}}1
+}
+
 % =======================================================================
 % balíček "hyperref" vytváří klikací odkazy v pdf, pokud tedy použijeme pdflatex
 % problém je, že balíček hyperref musí být uveden jako poslední, takže nemůže
@@ -181,9 +218,9 @@
   abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.}, % abstrakt v anglickém jazyce / abstract in english
   %abstract.en={An abstract of the work in English will be written in this paragraph.},
   % Prohlášení (u anglicky psané práce anglicky, u slovensky psané práce slovensky; u projektové praxe lze zakomentovat) / Declaration (for thesis in english should be in english; for project practice can be commented out)
-  declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana X...
-Další informace mi poskytli...
-Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých jsem čerpal.},
+  declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracovala samostatně pod vedením pana Ing.~Tomáše Mileta, Ph.D.
+Další informace mi poskytli... \todo{TODO}
+Uvedla jsem všechny literární prameny, publikace a~další zdroje, ze kterých jsem čerpala.},
   %declaration={I hereby declare that this Bachelor's thesis was prepared as an original work by the author under the supervision of Mr. X
 % The supplementary information was provided by Mr. Y
 % I have listed all the literary sources, publications and other sources, which were used during the preparation of this thesis.},

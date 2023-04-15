@@ -16,11 +16,19 @@
     \end{figure}
 }
 
+\renewcommand{\dummyShortText}[1][1]{}
+\renewcommand{\dummyText}[1][1]{}
+\renewcommand{\DummyText}{}
+\renewcommand{\todoimage}[2]{}
 
-% \renewcommand{\dummyShortText}[1][1]{}
-% \renewcommand{\dummyText}[1][1]{}
-% \renewcommand{\DummyText}{}
-% \renewcommand{\todoimage}[2]{}
+
+\newcommand{\pdfcode}[1]{
+
+    \noindent\begin{minipage}{\linewidth}
+        \lstinputlisting[xleftmargin=.25in]{#1}
+    \end{minipage}
+
+}
 
 
 %*********************************************************************************
@@ -260,16 +268,18 @@ standardu PDF~32000-1~\cite{PDF32000-1:2008}.
 
 %---------- 4.1.1 Objekty ----------
 \subsection*{Objekty}
-\todo{obecný popis}
-PDF rozeznává osm typů objektů:
+Objekty jsou jedny ze základních stavebních bloků PDF dokumentu. PDF rozeznává
+osm typů objektů:
 \begin{itemize}
     \item \textbf{Boolean objekt} -- Tyto objekty reprezentují logickou hodnotu.
     Můžou nabýt dvou hodnot, které jsou označeny klíčovými slovy \texttt{true}
     a~\texttt{false}.
+    
     \item \textbf{Číselný objekt} -- Obsahovaná číselná hodnota může být celé,
     nebo reálné číslo. U~zápisu reálných čísel se používá desetinná tečka,
     například \texttt{-3.62}, \texttt{.054}, \texttt{+238.45}. Celá čísla můžou
     být například \texttt{500}, \texttt{+3}, \texttt{-21}.
+    
     \item \textbf{Řetězcový objekt (string)} -- Řetězec se dá zapsat dvěma způsoby,
     a~to jako klasický řetězec, nebo jako řetězec v~hexadecimální podobě. Klasický
     řetězec je zapsán jako posloupnost znaků uzavřená v~kulatých závorkách,
@@ -279,17 +289,20 @@ PDF rozeznává osm typů objektů:
     menší než a~větší než, například \texttt{<48656c6c6f>}, \texttt{<776F726C64>}.
     Každá dvojice hexadecimálních číslic tvoří jeden znak zakódovaný v~ASCII
     podobě.
+    
     \item \textbf{Jmenný objekt} -- Objekt jména je sekvence znaků. Znaky, které
     se mohou použít ve jménu jsou takové, které zapadají do rozmezí mezi znakem
-    vykřičníku (!) a~znakem tildy (\texttildelow). Ostatní znaky se mohou zapsat jako hexadecimální
-    hodnota požadovaného znaku, kterou předchází znak mřížky (\#).
-    Jméno musí začínat lomítkem, které se nebere jako jeho součást. Zapsané jméno
-    může být například \texttt{/Name}, \texttt{/1.6*xyz}, \texttt{/C\#23}.
+    vykřičníku (!) a~znakem tildy (\texttildelow). Ostatní znaky se mohou zapsat
+    jako hexadecimální hodnota požadovaného znaku, kterou předchází znak mřížky
+    (\#). Jméno musí začínat lomítkem, které se nebere jako jeho součást. Zapsané
+    jméno může být například \texttt{/Name}, \texttt{/1.6*xyz}, \texttt{/C\#23}.
+    
     \item \textbf{Objekt pole} -- Objekt typu pole je kolekce, která obsahuje
     objekty. Tyto objekty nemusí být stejného typu -- heterogenní pole.
     Zapisuje se jako prvky pole, které jsou odděleny bílým znakem, uzavřené
     v~hranatých závorkách. Prvkem pole může být objekt pole. Validní pole je
     například \texttt{[(string) -25 [2.75 /Name] true]}.
+    
     \item \textbf{Slovníkový objekt} -- Slovník je kolekce, jejíž prvky jsou
     dvojice objektů. První prvek z~této dvojice se nazývá \emph{klíč} a~vždy to 
     musí být objekt typu jméno. Ve slovníku nesmí existovat více záznamů se
@@ -297,6 +310,7 @@ PDF rozeznává osm typů objektů:
     Tento prvek může být objekt jakéhokoli typu. Slovník je uvozen dvojitým znakem
     menší než a~dvojitým znakem větší než, například
     \texttt{<</Key1 2.6 /Key2 /Value2>>}.
+
     \item \textbf{Objekt datového toku (stream)} -- Stream je sekvence bajtů, 
     která má neomezenou délku. Používá se především pro ukládání velkého množství
     dat, což je například obrázek. Tento objekt se zapisuje jako slovník, za nímž
@@ -307,15 +321,8 @@ PDF rozeznává osm typů objektů:
     klíčem \texttt{Length}. Každý objekt datového toku musí být zároveň nepřímým
     objektem (vysvětleno později v~této sekci). Validní objekt datového toku je
     například:
-\begin{verbatim}
-    12 0 obj
-    <</Length 20 /Filter /FlateDecode>>
-    stream
-    xścbd`ŕg`b``8	"y
-    DZn
-    endstream
-    endobj
-\end{verbatim}
+    \pdfcode{code_examples/stream_objects.txt}
+
     \item \textbf{Null objekt} -- Null objekt je speciální objekt, který nabývá
     pouze hodnoty \texttt{null}.
 \end{itemize}
@@ -330,30 +337,129 @@ Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný
 číslo objektu, poté bílý znak a~číslo generace. Následuje samotný objekt uzavřen
 mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
 například:
-\begin{verbatim}
-    7 0 obj
-        <504446>
-    endobj
-\end{verbatim}
-Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}. Nepřímý odkaz
+\pdfcode{code_examples/indirect_object.txt}
+\noindent Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}. Nepřímý odkaz
 se zapíše číslem objektu, číslem generace a~klíčovým slovem \texttt{R}, oddělené
 bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše jako \texttt{7 0 R}.
-
-\todo{Xobject, xref ?}
 
 
 %---------- 4.1.2 Struktura souboru ----------
 \subsection*{Struktura souboru}
-\todo{The Four Sections of a PDF}
+Tato část popisuje jak jsou výše popsané objekty uložené v~PDF dokumentu.
+Též popisuje jak je k~nim přistupováno a~jak jsou aktualizovány.
+PDF soubor se je rozdělen do 4~částí: 
+\begin{itemize}
+    \item \textbf{Hlavička} -- Hlavička se vždy vyskytuje na prvním řádku souboru.
+    Má tvar komentáře, přesněji \texttt{\%PDF–} a~bezprostředně za tím následuje
+    číslo PDF verze, například \texttt{\%PDF–1.7}.
+    
+    \item \textbf{Tělo} -- Tělo se skládá z~posloupnosti nepřímých objektů. Tyto 
+    nepřímé objekty popisují vzhled celého dokumentu (stránky, fonty, obrázky,
+    \ldots).
+    
+    \item \textbf{Tabulka křížových odkazů} -- Tabulka křížových odkazů se používá
+    při přístupu k~nepřímým objektům. Tato tabulka obsahuje informaci o~umístění
+    každého nepřímého objektu. Tabulka se skládá z~jedné nebo více \emph{sekcí
+    křížových odkazů}, která musí začínat řádkem s~klíčovým slovem \texttt{xref}.
+    Každá sekce může být rozdělena na několik \emph{podsekcí křížových odkazů}.
+    Tyto podsekce vždy začínají řádkem, na kterém se vyskytují dvě čísla. První
+    číslo označuje první objekt v~záznamu podsekce a~druhé číslo značí, kolik
+    takových záznamů se v~dané podsekci vyskytuje. Pod tímto řádkem se nachází
+    samotné záznamy o~nepřímých objektech. Záznam o~využívaném nepřímém objektu
+    má tvar \emph{nnnnnnnnnn ggggg \textbf{n}} a~je zakončen koncem řádku.
+    Desetimístné číslo \emph{nnnnnnnnnn} označuje offset bajtů od začátku
+    dokumentu, po začátek nepřímého objektu. Pětimístné číslo \emph{ggggg} je
+    číslo generace. Jedna sekce křížových odkazů, rozdělena na 2~podsekce, celkově
+    obsahující 3~záznamy může vypadat například:
+    \pdfcode{code_examples/cross_reference_table.txt}
+    \todo{od verze 1.5 může být ve streamu}
+    
+    \item \textbf{Patička} -- Patička umožňuje rychlé nalezení tabulky křížových
+    odkazů a~jiných speciálních objektů. Proto obecně platí, že by se měl PDF
+    soubor číst od konce, kde se vykytuje právě patička. Patička začíná klíčovým
+    slovem \texttt{trailer}, za ním následuje slovník patičky a~klíčové slovo
+    \texttt{startxref}. Na novém řádku se poté vykytuje číslo, uvádějící počet
+    bajtů offsetu od začátku souboru po začátek tabulky křížových odkazů. Jako
+    poslední se na samostatném řádku musí objevit výraz \texttt{\%\%EOF}.
+    V~celém souboru se může vyskytovat více patiček, to je způsobeno aktualizováním
+    daného PDF dokumentu. Na posledním řádku souboru se vždy musí vyskytovat
+    výraz \texttt{\%\%EOF}. Patička může vypadat následovně:
+    \pdfcode{code_examples/trailer.txt}
+    \todo{od verze 1.5 může být slovník ve streamu}
+
+\end{itemize}
+
+\todoimage{width=\linewidth,height=1.7in}{Ukázka struktury souboru + odkaz.}
 
 
 %---------- 4.1.3 Struktura dokumentu ----------
 \subsection*{Struktura dokumentu}
-\todo{The Page Tree, Pages, PDF units, Rects and boxes}
+\highlight{Struktura dokumentu popisuje jak vypadá vyobrazený dokument.}
+... jako hierarchii objektů vyskytujících se v~těle PDF souboru.
+Některé z~důležitých částí tohoto hierarchického stromu jsou:
+\begin{itemize}
+    \item \textbf{Katalog dokumentu} -- Tento katalog je kořenem celého
+    hierarchického stromu. Odkaz na něj lze nalézt ve slovníku patičky, pod klíčem
+    \texttt{Root}. Tento katalog obsahuje odkazy na objekty specifikující vzhled
+    dokumentu. Objekt katalogu je slovník, ve kterém se musí vyskytovat klíč
+    \texttt{Type}, ke kterému je přiřazena hodnota \texttt{/Catalog}. Dalším
+    povinným prvkem katalogového slovníku je klíč \texttt{Pages}, jehož hodnota je
+    nepřímý odkaz na kořenový objekt stromu stránek. Objekt katalogu dokumentu
+    může být například:
+    \pdfcode{code_examples/document_catalog.txt}
+
+    \item \textbf{Strom stránek} -- Strom stránek určuje pořadí zobrazení stránek.
+    Listové uzly tohoto stromu jsou typu \emph{objektu stránky}, které mají jiný
+    tvar než ostatní uzly tohoto stromu. Uzly stromu stránek jsou typu slovníku,
+    ve kterém se musí vyskytovat klíče \texttt{Type}, \texttt{Kids},
+    \texttt{Count} a~\texttt{Parent}, jenž není povinný v~kořenovém uzlu.
+    Hodnota klíče \texttt{Type} musí v~uzlu stromu stránek být \texttt{/Pages}.
+    Ke klíči \texttt{Kids} musí být přiřazena hodnota typu pole, které obsahuje
+    nepřímé odkazy na uzly stromu stránek, nebo na objekty stránek. Hodnota klíče
+    \texttt{Count} je počet listových uzlů, které jsou potomkem tohoto uzlu. Ke
+    klíči \texttt{Parent} je přiřazena hodnota nepřímého odkazu přímého předchůdce
+    tohoto uzlu. Uzel stromu stránek může být například:
+    \pdfcode{code_examples/page_tree.txt}
+
+    \item \textbf{Objekt stránky} -- Objekt stránky je typ listového uzlu stromu
+    stránek. Tento uzel má tvar slovníku, ve kterém se musí vyskytovat klíč
+    \texttt{Type} s~hodnotou \texttt{/Page}. Dalším povinným záznamem tohoto
+    slovníku je klíč \texttt{Parent}, jehož hodnota je nepřímý odkaz na přímého
+    předchůdce tohoto listového uzlu stromu stránek. Mezi jiné důležité záznamy
+    patří záznamy s~klíčem \texttt{MediaBox}, \texttt{Resources} \highlight{(popsáno dále
+    v~této kapitole)}, \texttt{Rotate},
+    \texttt{Contents} \highlight{(popsáno dále v~této kapitole)}, \texttt{Annots} aj.
+    Jednoduchý objekt stránky může vypadat následovně:
+    \pdfcode{code_examples/page_object.txt}
+\end{itemize}
 
 
 %---------- 4.1.4 Content streams ----------
 \subsection*{Content streams}
+Content stream obsahuje popis vzhledu PDF stránky pomocí instrukcí na její
+vykreslení. Tyto instrukce jsou zapsány pomocí PDF objektů, ale na rozdíl od
+PDF dokumentu jsou tyto instrukce seřazené a~vykonávají se podle jejich
+posloupnosti. \emph{Operand} takové instrukce musí být přímý objekt, který 
+nesmí být typu datového toku. Operand může být typ slovník pouze při použití
+speciálních operací. \emph{Operátor} instrukce určuje, která akce se provede.
+Operátory jsou klíčová slova typu jmenného objektu, kde na rozdíl od PDF dokumentu
+se operátory píšou bez počátečního lomítka.
+
+
+%---------- 4.1.5 Resources ----------
+\subsection*{Resources}
+Resources specifikují a~pojmenovávají používané externí objekty z~content streams.
+V~content streams se nesmí používat nepřímé odkazy, proto je možné pojmenovat
+jednotlivé používané objekty a~definovat je tak jako \emph{named resources}.
+Tyto jména lze používat pouze uvnitř content streams a~mimo ně nejsou v~PDF
+dokumentu validní. Named resources se používají například pro obrázky a~fonty,
+které jsou použity na dané stránce. Objekt pro resources je typu slovníku, který
+má několik definovaných klíčů, které je možné použít, např. \texttt{ColorSpace}, 
+\texttt{XObject}, \texttt{Font}, \texttt{ProcSet} a~další. Slovník pro resources,
+který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované jako
+\texttt{Im1} a~\texttt{Im2}, může vypadat následovně:
+\pdfcode{code_examples/resources.txt}
+\todo{F5, Im1 a Im2 správné zvýraznění? (emph vs texttt vs none)}
 
 
 %#######################    4.2 Reprezentace anotací v PDF souboru    #######################
@@ -365,7 +471,7 @@ bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše jako \text
 
 %#######################    4.3 Grafika v~PDF    #######################
 \section{Grafika v~PDF}
-\todo{Graphics State}
+\todo{Graphics State, , PDF units, Rects and boxes, Xobject, xref?}
 
 \cite{PDF32000-1:2008}
 \DummyText
