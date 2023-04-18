@@ -351,23 +351,24 @@ class Checker:
                     origin_x = -1.0
 
                     for line in lines:
-                        line_origin = line['spans'][0]['origin']
+                        if line['spans']:
+                            line_origin = line['spans'][0]['origin']
 
-                        if line_origin[1] == origin_y:
-                            # not a new line, just tab -> pop previous right border
-                            potentialRight.pop()
-                        else:
-                            potentialLeft.append(line['bbox'][0])
+                            if line_origin[1] == origin_y:
+                                # not a new line, just tab -> pop previous right border
+                                potentialRight.pop()
+                            else:
+                                potentialLeft.append(line['bbox'][0])
 
-                            if line_origin[0] > origin_x and origin_x != -1.0:
-                                # new paragraph
-                                potentialRight.pop() #pop the last line in previous paragraph
-                                potentialLeft.pop() #pop this line -> indent
+                                if line_origin[0] > origin_x and origin_x != -1.0:
+                                    # new paragraph
+                                    potentialRight.pop() #pop the last line in previous paragraph
+                                    potentialLeft.pop() #pop this line -> indent
 
-                            origin_x = line_origin[0]
+                                origin_x = line_origin[0]
 
-                        origin_y = line_origin[1]
-                        potentialRight.append(line['bbox'][2])
+                            origin_y = line_origin[1]
+                            potentialRight.append(line['bbox'][2])
 
                     potentialRight.pop() #pop the last line in paragraph
 
@@ -734,11 +735,13 @@ class Checker:
             lines = pageFirstBlock['lines']
             if (len(lines) == 1):
                 #contentText = "Obsah" if (self.__language == Language.CZECH or self.__language == Language.SLOVAK) else "Contents"
-                text = lines[0]['spans'][0]['text'].lower().strip()
-                if ( text == "obsah" or text == "contents"):
-                    self.__isContentPage = True
-                else:
-                    self.__isContentPage = False
+                line_spans = lines[0]['spans']
+                if line_spans:
+                    text = line_spans[0]['text'].lower().strip()
+                    if ( text == "obsah" or text == "contents"):
+                        self.__isContentPage = True
+                    else:
+                        self.__isContentPage = False
 
 
 
@@ -758,6 +761,9 @@ class Checker:
                         lines = block['lines']
                         origin_y = -1.0
                         for line in lines:
+                            if not line['spans']:
+                                continue
+                            
                             line_origin = line['spans'][0]['origin']
                             if line_origin[1] != origin_y:
                                 # new line, not tab -> section number
@@ -850,17 +856,19 @@ class Checker:
             block_info['linesCount'] = len(lines)
             origin_y = -1.0
             for line in lines:
-                line_origin = line['spans'][0]['origin']
-                if line_origin[1] == origin_y:
-                    # not a new line
-                    block_info['linesCount'] -= 1
-                origin_y = line_origin[1]
                 spans = line['spans']
-                for span in spans:
-                    font = dict(name=span['font'], size=round(span['size'],5), flags=span['flags'])
-                    index = self.__getFontIndex(block_info['fonts'],font)
-                    if index == None:
-                        block_info['fonts'].append(font)
+                if spans:
+                    line_origin = spans[0]['origin']
+                    if line_origin[1] == origin_y:
+                        # not a new line
+                        block_info['linesCount'] -= 1
+                    origin_y = line_origin[1]
+                    
+                    for span in spans:
+                        font = dict(name=span['font'], size=round(span['size'],5), flags=span['flags'])
+                        index = self.__getFontIndex(block_info['fonts'],font)
+                        if index == None:
+                            block_info['fonts'].append(font)
             
             if self.__getFontIndex(block_info['fonts'],self.__regularFont) == None:
                 if len(block_info['fonts']) > 2:
@@ -891,23 +899,25 @@ class Checker:
             origin_x = -1.0
             lines = block['lines']
             for line in lines:
-                line_origin = line['spans'][0]['origin']
-                if line_origin[1] == origin_y:
-                    # not a new line
-                    text = text[:-1] + "\t"
-                else:
-                    if line_origin[0] > origin_x and origin_x != -1.0:
-                        # new paragraph
-                        text = text[:-1] + "\n"
-                origin_y = line_origin[1]
-                origin_x = line_origin[0]
                 spans = line['spans']
-                for span in spans:
-                    text += span['text']
-                if text[-1] == "-":
-                    text = text[:-1]
-                else:
-                    text+=" "
+                if spans:
+                    line_origin = spans[0]['origin']
+                    if line_origin[1] == origin_y:
+                        # not a new line
+                        text = text[:-1] + "\t"
+                    else:
+                        if line_origin[0] > origin_x and origin_x != -1.0:
+                            # new paragraph
+                            text = text[:-1] + "\n"
+                    origin_y = line_origin[1]
+                    origin_x = line_origin[0]
+                    
+                    for span in spans:
+                        text += span['text']
+                    if text[-1] == "-":
+                        text = text[:-1]
+                    else:
+                        text+=" "
             text=text[:-1]
         return text
 
