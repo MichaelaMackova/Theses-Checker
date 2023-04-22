@@ -320,8 +320,8 @@ osm typů objektů:
     nepřímým odkazem a~musí se v~něm uvádět délka datového toku v~bajtech, pod
     klíčem \texttt{Length}. Každý objekt datového toku musí být zároveň nepřímým
     objektem (vysvětleno později v~této sekci). Validní objekt datového toku je
-    například uveden ve výpise~\ref{stream}:
-    \pdfcode{code_examples/stream_objects.txt}{TODO:}{stream}
+    například uveden ve výpise~\ref{code_stream}:
+    \pdfcode{code_examples/stream_objects.txt}{TODO:}{code_stream}
 
     \item \textbf{Null objekt} -- Null objekt je speciální objekt, který nabývá
     pouze hodnoty \texttt{null}.
@@ -337,7 +337,7 @@ Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný
 číslo objektu, poté bílý znak a~číslo generace. Následuje samotný objekt uzavřen
 mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
 například:
-\pdfcode{code_examples/indirect_object.txt}{TODO:}{indirect_object}
+\pdfcode{code_examples/indirect_object.txt}{TODO:}{code_indirect_object}
 \noindent Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}.
 Nepřímý odkaz se zapíše číslem objektu, číslem generace a~klíčovým slovem
 \texttt{R}, oddělené bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše
@@ -372,7 +372,7 @@ PDF soubor se je rozdělen do 4~částí:
     dokumentu, po začátek nepřímého objektu. Pětimístné číslo \emph{ggggg} je
     číslo generace. Jedna sekce křížových odkazů, rozdělena na 2~podsekce, celkově
     obsahující 3~záznamy může vypadat například:
-    \pdfcode{code_examples/cross_reference_table.txt}{TODO:}{cross_reference_table}
+    \pdfcode{code_examples/cross_reference_table.txt}{TODO:}{code_cross_reference_table}
     \todo{od verze 1.5 může být ve streamu}
     
     \item \textbf{Patička} -- Patička umožňuje rychlé nalezení tabulky křížových
@@ -385,7 +385,7 @@ PDF soubor se je rozdělen do 4~částí:
     V~celém souboru se může vyskytovat více patiček, to je způsobeno aktualizováním
     daného PDF dokumentu. Na posledním řádku souboru se vždy musí vyskytovat
     výraz \texttt{\%\%EOF}. Patička může vypadat následovně:
-    \pdfcode{code_examples/trailer.txt}{TODO:}{trailer}
+    \pdfcode{code_examples/trailer.txt}{TODO:}{code_trailer}
     \todo{od verze 1.5 může být slovník ve streamu}
 
 \end{itemize}
@@ -407,7 +407,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     povinným prvkem katalogového slovníku je klíč \texttt{Pages}, jehož hodnota je
     nepřímý odkaz na kořenový objekt stromu stránek. Objekt katalogu dokumentu
     může být například:
-    \pdfcode{code_examples/document_catalog.txt}{TODO:}{documet_catalog}
+    \pdfcode{code_examples/document_catalog.txt}{TODO:}{code_documet_catalog}
 
     \item \textbf{Strom stránek} -- Strom stránek určuje pořadí zobrazení stránek.
     Listové uzly tohoto stromu jsou typu \emph{objektu stránky}, které mají jiný
@@ -420,7 +420,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     \texttt{Count} je počet listových uzlů, které jsou potomkem tohoto uzlu. Ke
     klíči \texttt{Parent} je přiřazena hodnota nepřímého odkazu přímého předchůdce
     tohoto uzlu. Uzel stromu stránek může být například:
-    \pdfcode{code_examples/page_tree.txt}{TODO:}{page_tree}
+    \pdfcode{code_examples/page_tree.txt}{TODO:}{code_page_tree}
 
     \item \textbf{Objekt stránky} -- Objekt stránky je typ listového uzlu stromu
     stránek. Tento uzel má tvar slovníku, ve kterém se musí vyskytovat klíč
@@ -431,7 +431,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     v~této kapitole)}, \texttt{Rotate},
     \texttt{Contents} \highlight{(popsáno dále v~této kapitole)}, \texttt{Annots} aj.
     Jednoduchý objekt stránky může vypadat následovně:
-    \pdfcode{code_examples/page_object.txt}{TODO:}{page_object}
+    \pdfcode{code_examples/page_object.txt}{TODO:}{code_page_object}
 \end{itemize}
 
 
@@ -450,7 +450,7 @@ a~poté je uveden její operátor.
 
 
 %---------- 3.1.5 Resources ----------
-\subsection*{Resources}
+\subsection*{Resources} \label{resources}
 Resources specifikují a~pojmenovávají používané externí objekty z~content streams.
 V~content streams se nesmí používat nepřímé odkazy, proto je možné pojmenovat
 jednotlivé používané objekty a~definovat je tak jako \emph{named resources}.
@@ -461,7 +461,7 @@ má několik definovaných klíčů, které je možné použít, např. \texttt{
 \texttt{XObject}, \texttt{Font}, \texttt{ProcSet} a~další. Slovník pro resources,
 který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované jako
 \texttt{Im1} a~\texttt{Im2}, může vypadat následovně:
-\pdfcode{code_examples/resources.txt}{TODO:}{resources}
+\pdfcode{code_examples/resources.txt}{TODO:}{code_resources}
 \todo{F5, Im1 a Im2 správné zvýraznění? (emph vs texttt vs none)}
 
 
@@ -496,11 +496,7 @@ hlavních skupin:
 \end{itemize}
 
 
-%---------- 3.2.1 Resources ----------
-%\subsection*{Resources}
-
-
-%---------- 3.2.2 Souřadnicové systémy ----------
+%---------- 3.2.1 Souřadnicové systémy ----------
 \subsection*{Souřadnicové systémy}
 PDF definuje více souřadnicových systémů, ve kterých se definují různé grafické
 objekty. Převod mezi těmito souřadnicovými systémy se provádí s~pomocí
@@ -588,7 +584,8 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
         v~tomto prostoru. Pro správné vykreslení obrázku na stránku se musí dočasně
         upravit CTM.
 
-        \item \emph{Prostor formuláře} -- Formulářový \emph{XObject} je
+        \item \emph{Prostor formuláře} -- Formulářový \emph{XObject} (též externí
+        objekt, viz dále v~této kapitole) je
         reprezentován jako content stream. Tento XObject je v~jiném content streamu
         brán jako grafický objekt. Prostor, ve kterém je tento formulář definovaný,
         se nazývá prostor formuláře.
@@ -609,7 +606,7 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
 \end{figure}
 
 
-%---------- 3.2.3 Graphics state ----------
+%---------- 3.2.2 Graphics state ----------
 \subsection*{Graphics state}
 Pro zobrazení PDF dokumentu se používá datová struktura zvaná \emph{graphics state}.
 Každá aplikace zobrazující PDF dokumenty musí umět udržovat tuto datovou strukturu.
@@ -647,14 +644,33 @@ struktury graphics state.
 
 
 
-
-%---------- 3.2.4 Path construction and paintings ----------
-\subsection*{Path construction and paintings \todo{TODO: přeložit}}
-
-
-%---------- 3.2.5 Externí objekty ----------
+%---------- 3.2.3 Externí objekty ----------
 \subsection*{Externí objekty}
-
+Externí objekt (též taky \emph{XObject}) ... \todo{TODO: obecný popis}.
+Každý XObject lze vykreslit pomocí operátoru \texttt{Do} vyskytujícího se uvnitř
+content streamu. K~tomuto operátoru se váže jeden operand typu jméno. Toto jméno
+musí být uvedeno ve slovníku resources (viz kapitola~\ref{resources}) vázaného
+na stejnou stránku jako content stream. Přesněji se toto jméno musí objevit
+v~položce, která má hodnotu typu slovník, pod klíčem \texttt{XObject}. Operátor
+\texttt{Do} má 3 různé chování. Toto chování závisí na hodnotě vázané ke klíči
+\texttt{Subtype} uvnitř XObject slovníku, na který se odkazuje operand tohoto
+příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
+\texttt{Do} jsou:
+\begin{itemize}
+    \item \texttt{/Image} -- Tyto externí objekty mají ve slovníkové části své
+    definice dodatečné prvky. Prvky s~klíčem \texttt{Width} a~\texttt{Height}
+    jsou v~těchto objektech povinné. Tyto prvky můžou ovlivnit jak bude
+    vykreslený obrázek vypadat, ale podle aktuálního nastavení stránky můžou mít
+    omezené možnosti. \todo{Do}
+    
+    \item \texttt{/Form} -- Takzvaný \emph{Form XObject} je takový, který ve svém
+    datovém toku obsahuje content stream (popsán v~sekci~\ref{content_streams}).
+    Form XObject může být vykreslen několikrát a~to na různých souřadnicích.
+     
+    
+    \item \texttt{/PS} -- 
+\end{itemize}
+\todo{popsat funkci \texttt{Do}}
 
 
 %#######################    3.3 Reprezentace anotací v PDF souboru    #######################
