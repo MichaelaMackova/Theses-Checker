@@ -25,7 +25,7 @@
 \newcommand{\pdfcode}[3]{
 
     \noindent\begin{minipage}{\linewidth}
-        \lstinputlisting[xleftmargin=.25in, caption=#2, captionpos=b, label=#3]{#1}
+        \lstinputlisting[xleftmargin=.25in, caption={#2}, captionpos=b, label=#3]{#1}
     \end{minipage}
 
 }
@@ -394,7 +394,7 @@ PDF soubor se je rozdělen do 4~částí:
 
 
 %---------- 3.1.3 Struktura dokumentu ----------
-\subsection*{Struktura dokumentu}
+\subsection*{Struktura dokumentu} \label{document_structure}
 \highlight{Struktura dokumentu popisuje, jak vypadá vyobrazený dokument.}
 Lze si ji představit jako hierarchii objektů vyskytujících se v~těle PDF souboru.
 Některé z~důležitých částí tohoto hierarchického stromu jsou:
@@ -468,8 +468,6 @@ který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované
 
 %#######################    3.2 Grafika v~PDF    #######################
 \section{Grafika v~PDF}
-\todo{Graphics State, PDF units, Rects and boxes, Xobject, xref?}
-
 Tato sekce čerpá informace ze standardu PDF~32000-1~\cite{PDF32000-1:2008}.
 Grafika PDF dokumentu je popsána pomocí content streams, jenž je vysvětleno
 v~kapitole~\ref{content_streams}. Operátory zde používané spadají do šesti
@@ -636,7 +634,7 @@ content streamu specifické operátory. Mezi tyto operátory patří již uveden
 operátory upravující graphics state jsou například \texttt{cm}, \texttt{w},
 \texttt{i} a~jiné. K~operátoru \texttt{cm} se váže šest číselných operandů
 \emph{a, b, c, d,} a~\emph{f}. Dohromady tyto operandy specifikují matici
-transformace, která bude vynásobena maticí CMT a~následně přiřazena do CMT položky
+transformace, která bude vynásobena maticí CTM a~následně přiřazena do CTM položky
 datové struktury graphics state. Operátor \texttt{w} je unární a~jeho operandem
 je číslo \emph{lineWidth}, které specifikuje tloušťku kreslených čar. Unární
 operátor \texttt{i} nastaví uvedený číselná operand jako \emph{flatness} parametr
@@ -666,15 +664,99 @@ příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
     \item \texttt{/Form} -- Takzvaný \emph{Form XObject} je takový, který ve svém
     datovém toku obsahuje content stream (popsán v~sekci~\ref{content_streams}).
     Form XObject může být vykreslen několikrát a~to na různých souřadnicích.
-     
+    Ve slovníkové části tohoto objektu musí být pro tento typ uvedena hodnota
+    pro klíč \texttt{BBox}. Tato hodnota jsou souřadnice daného externího objektu
+    v~prostoru formuláře. Pro transformaci mezi formulářovým prostorem a~user
+    space se uvádí použitá transformační matice jako hodnota pro klíč
+    \texttt{Matrix}. Pokud tato matice není uvedena, použije se místo ní
+    jednotková matice. Pro vykreslení se tohoto objektu se musí použít operátor
+    \texttt{Do} a~při tom se provedou následující kroky (převzato ze standardu
+    PDF~\cite{PDF32000-1:2008}):
+    \begin{enumerate}
+        \item Uloží se aktuální stav datové struktury graphics state, stejně
+        jako kdyby byl použit operátor \texttt{q}.
+        \item Vynásobí se matice ze slovníkového prvku \texttt{Matrix} a~matice
+        CTM z~datové struktury graphics state.
+        \item \texttt{BBox} \todo{clips}
+        \item Vykreslí obsahované  grafické objekty podle instrukcí uvnitř content
+        streamu definovaného objektem form XObject.
+        \item Obnoví původní stav struktury graphics state (jako použití operátoru
+        \texttt{Q}).
+    \end{enumerate}
     
-    \item \texttt{/PS} -- 
+    \item \texttt{/PS} -- Takzvaný \emph{PostScript XObject} je využíván pouze
+    pokud bude daný PDF dokument zpracován zařízením používající jazyk PostScript.
+    Při zobrazení v~jiných zařízeních bude tento objekt ignorován. Aplikace
+    zpracovávající PDF dokumenty nemají nutnost zpracování těchto objektů
+    podporovat.
 \end{itemize}
-\todo{popsat funkci \texttt{Do}}
 
 
 %#######################    3.3 Reprezentace anotací v PDF souboru    #######################
 \section{Reprezentace anotací v~PDF souboru}
+Anotace spojují objekty (zvuk, video, text, \dots) s~pozicí na PDF stránce.
+Uživatel může s~anotacemi interagovat pomocí myši a~klávesnice.
+\todo{\texttt{Annotations} klíč ve slovníku stránky (viz
+sekce~\ref{document_structure})} PDF dokumenty podporují několik typů anotací, 
+například:
+\begin{itemize}
+    \item \textbf{Text} -- Tyto anotace imitují nalepovací papírky. Jsou
+    zobrazeny jako ikona umístěna na určitých souřadnicích a~po interakci s~myší
+    se zobrazí vyskakovací okénko s~textem této anotace. Tato anotace ignoruje
+    rotaci a~změnu měřítka stránky. Ve slovníku této anotace se můžou navíc
+    objevit záznamy s~klíčem \texttt{Subtype} (tento prvek je povinný a~pro tento
+    typ anotace musí mít hodnotu \texttt{/Text}), \texttt{Open}, \texttt{Name},
+    \texttt{State} a~\texttt{StateModel}. Příklad textové anotace lze vidět ve
+    výpisu~\ref{code_text_annotation}:
+    \pdfcode{code_examples/text_annotation.txt}{
+    Anotace typu \emph{Text}, která se zobrazí jako ikona
+    \emph{Note}. Po interakci s~myší se zobrazí vyskakovací okénko
+    s~textem \uv{This is text annotation.}}{code_text_annotation}
+
+    \item \textbf{Odkaz} -- Anotace odkazu slouží jako hypertextový
+    odkaz na místo v~daném dokumentu nebo jako akce, která se má
+    provést po jejím stisknutí. Ve slovníku takové anotace musí
+    existovat povinný záznam s~klíčem \texttt{Subtype} mít hodnotu
+    \texttt{/Link}. Další možné záznamy mohou být \texttt{A},
+    \texttt{Dest}, \texttt{H}, \texttt{PA}, \texttt{QuadPoints}
+    a~\texttt{BS}. Validní anotace odkazu je uvedena ve
+    výpisu~\ref{code_link_annotation}:
+    \pdfcode{code_examples/link_annotation.txt}{
+    Anotace typu \emph{Link}, která odkazuje na místo uvnitř
+    stejného dokumentu.
+    }{code_link_annotation}
+    
+    \item \textbf{Volný text} -- Tato anotace bude na stránce
+    zobrazena jako viditelný text. Ve slovníku její definice
+    musí být uveden záznam \texttt{Subtype} s~hodnotou
+    \texttt{/FreeText} a~záznam \texttt{DA}, kterým se definuje
+    grafická úprava vypsaného textu. Slovník může obsahovat další
+    záznamy, například \texttt{Q}, \texttt{IT} nebo \texttt{BS}.
+    
+    \item \textbf{Přímka} -- Tato anotace se na stránce zobrazí
+    jako jedna definovaná přímka. Po její interakci s~myší se
+    může zobrazit vyskakovací okénko. \texttt{Subtype} záznam ve slovníku, který
+    definuje tuto anotaci, musí mít hodnotu \texttt{/Line}. Další
+    povinný záznam je \texttt{L}, jehož hodnota specifikuje počáteční 
+    a~konečný bod dané přímky. V~tomto slovníku je možné uvést
+    ještě několik dalších záznamů, například \texttt{BS}, \texttt{IC},
+    \texttt{Cap} a~\texttt{LE}.
+    
+    \item \textbf{Označení textu} -- Označení textu anotacemi se může zobrazit
+    jako jeho zvýraznění, podtržení, vlnité podtržení, nebo jeho přeškrtnutí.
+    Pro zvolení typu označení se musí ve slovníku této anotace uvést příslušná
+    hodnota povinného záznamu \texttt{Subtype}, a~to \texttt{/Highlight},
+    \texttt{/Underline}, \texttt{/Squiggly}, nebo \texttt{/StrikeOut}.
+    Další povinný záznam této anotace je \texttt{QuadPoints}, jehož hodnota
+    specifikuje souřadnice čtyřúhelníku, ve kterém je obsažen označovaný text.
+    Této anotaci může být přiřazena vyskakovací anotace.
+    
+    \item \textbf{Vyskakovací anotace} -- Toto vyskakovací okénko je vždy spojené
+    s~jinou anotací (takzvanou \emph{rodičovskou anotací}). Samotná nemá
+    definovaný žádný datový tok popisující vhled, ani k~sobě nemá přiřazenou
+    žádnou akci. Bývá uvedena jako nepřímý odkaz ve slovníku své rodičovské
+    anotace, přesněji v~záznamu \texttt{Popup}.
+\end{itemize}
 
 \DummyText
 

@@ -1,0 +1,9 @@
+21 0 obj
+<<
+/Type /Annot
+/Subtype /Text
+/Name /Note
+/Rect [32.789 127.064 70.23 175.9]
+/Contents (This is text annotation.)
+>>
+endobj
