@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 14.1.2023
-# Last Updated  : 4.4.2023
+# Last Updated  : 23.4.2023
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -154,10 +154,10 @@ class Checker:
 
     def __getPageXobjects(self):
         """
-        Gets XObjects invoked by current page.
+        Gets non-image XObjects invoked by current page.
 
         Returns:
-            list: XObjects invoked by current page. Every XObject is a touple (xref, name, invoker, bbox).
+            list: XObjects invoked by current page. Every XObject is a tuple (xref, name, invoker, bbox).
         """
         tmp_xobjects = self.__currPage.get_xobjects()
         xobjects = []
@@ -209,6 +209,18 @@ class Checker:
                     for xobject in xobjects:
                         # xobject = (xref, name, invoker, bbox)
                         if cmd == "/" + xobject[1] + " Do":
+                            CTMStack.append(CTM)
+
+                            Matrix = self.__document.xref_get_key(xobject[0], "Matrix")[1]
+                            if Matrix != 'null':
+                                #Matrix = '[a b c d e f]'
+                                Matrix = [
+                                    [float(Matrix[1]), float(Matrix[3]), 0.0],
+                                    [float(Matrix[5]), float(Matrix[7]), 0.0],
+                                    [float(Matrix[9]), float(Matrix[11]), 1.0]
+                                ]
+                                CTM = numpy.matmul(Matrix,CTM)
+
                             pageTransMatrix = [
                                 [self.__currPage.transformation_matrix.a, self.__currPage.transformation_matrix.b, 0.0],
                                 [self.__currPage.transformation_matrix.c, self.__currPage.transformation_matrix.d, 0.0],
@@ -234,6 +246,8 @@ class Checker:
                                     'image'         : self.__document.xref_stream_raw(xobject[0])
                                 }
                             )
+
+                            CTM = CTMStack.pop()
                             break
         self.__currPageEmbeddedPdfs = sorted(embeddedPdfBlocks, key=lambda x: (x['bbox'][1], x['bbox'][0]))
 
