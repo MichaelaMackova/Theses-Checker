@@ -55,11 +55,11 @@
 %*********************************************************************************
 %                                2 ČASTÉ CHYBY
 %*********************************************************************************
-\chapter{Typografie a~často vyskytované chyby v~diplomových pracích}
+\chapter{Typografie a~často vyskytované chyby v~diplomových pracích} \label{frequent_mistakes}
 U~psaní textu se autor musí řídit nejen gramatickými, ale i~typografickými
-pravidly. Toto platí především při psaní odborné práce. \highlight{Větší množství chyb
-v~obsahu práce může mít za} \highlight{následek to, že i~kvalitně odvedená práce se bude zdát
-neuspokojivá.}
+pravidly. Toto platí především při psaní odborné práce. Větší množství chyb
+v~textu práce může mít za následek to, že i~kvalitně odvedená praktická realizace
+práce se bude zdát neuspokojivá.
 
 Chyby mohou být způsobeny z~nepozornosti, anebo z~neznalosti, přičemž druhá možnost
 je pro autora textu horší, jelikož i~po několikátém přečtení nemusí pisatel vůbec
@@ -79,8 +79,8 @@ chybám vyhnout.
 \DummyText
 
 
-%#######################    2.2 Přetečení obsahu za okraj    #######################
-\section{Přetečení obsahu za okraj}
+%#######################    2.2 Přetečení objektů za okraj stránky    #######################
+\section{Přetečení objektů za okraj stránky}
 Přetečení textu za okraj se nejčastěji vyskytuje, když student píše svou diplomovou
 práci s~pomocí jazyka {\LaTeX}. Obvykle je to způsobeno tím, že program nedokáže
 automaticky zalomit slovo na konci řádku, jak je ukázáno na
@@ -139,8 +139,8 @@ zapsáno jako spojovník v~matematickém prostředí \verb|$-$| nebo též \verb
 %#######################    2.4 Chybějící popis kapitoly    #######################
 \section{Chybějící popis kapitoly}
 
-I když je kapitola rozdělena na několik podkapitol, musí i samotná kapitola
-obsahovat \highlight{její popis}. Blog~\cite{Leany_blog} vysvětluje, že pokud není uveden
+I~když je kapitola rozdělena na několik podkapitol, musí i~samotná kapitola
+obsahovat úvod do této kapitoly. Blog~\cite{Leany_blog} vysvětluje, že pokud není uveden
 popis mezi kapitolou a~její podkapitolou, působí poté práce nedopracovaně. Tuto
 skutečnost lze vidět i~na ukázce v~obrázku~\ref{TODO:}. V~tomto místě
 se hodí napsat 1--2 odstavce, kde bude vysvětlené o~čem daná kapitola je a~co se
@@ -199,10 +199,10 @@ se má pevná mezera použít v~těchto případech (převzato a~upraveno):
     slovem, např. \emph{v~obrázku, z~funkce},
     \item ve spojení slabičných předložek \emph{o, u} a~spojek \emph{a, i}
     s~následujícím výrazem, např. \emph{o~kapitole, a~to},
-    \item členění čísel, např. $\mathit{2~301~000}$, $\mathit{3,141~592~65}$,
+    \item členění čísel, např. $\mathit{2\,301\,000}$, $\mathit{3,\!141\,592\,65}$,
     \item mezi číslem a~značkou, např. \emph{25~\%, \copyright~2008},
     \item mezi číslem a~zkratkou počítaného předmětu nebo písmennou značkou
-    jednotek a~měn, např. \emph{24~hod., 100~m, 3~000~Kč, 500~¥},
+    jednotek a~měn, např. \emph{24~hod., 100\,m, 3\,000~Kč, 500~¥},
     \item mezi číslem a~názvem počítaného jevu, např. \emph{obrázek~5, 12~metrů,
     I.~patro},
     \item v~kalendářních datech mezi dnem a~měsícem, rok však lze oddělit, např.
@@ -216,7 +216,7 @@ se má pevná mezera použít v~těchto případech (převzato a~upraveno):
     \emph{s.~r.~o., m~n.~m., ISO~690},
     \item mezi zkratkami typu \emph{tj., tzv., tzn.} a~výrazem, který za nimi
     bezprostředně následuje, např. \emph{tzv.~pipeline},
-    \item mezi zkratkami rodných jmen a~příjmeními, např. \emph{T.~Milet},
+    \item mezi zkratkami rodných jmen a~příjmeními, např. \emph{T.\,Milet},
     \item mezi zkratkou titulu nebo hodnosti uváděnou před osobním jménem, např.
     \emph{p.~Macková, Ing.~Novák}.
 \end{itemize}
@@ -321,7 +321,7 @@ osm typů objektů:
     klíčem \texttt{Length}. Každý objekt datového toku musí být zároveň nepřímým
     objektem (vysvětleno později v~této sekci). Validní objekt datového toku je
     například uveden ve výpise~\ref{code_stream}:
-    \pdfcode{code_examples/stream_objects.txt}{TODO:}{code_stream}
+    \pdfcode{code_examples/pdf_code/stream_objects.txt}{TODO:}{code_stream}
 
     \item \textbf{Null objekt} -- Null objekt je speciální objekt, který nabývá
     pouze hodnoty \texttt{null}.
@@ -337,7 +337,7 @@ Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný
 číslo objektu, poté bílý znak a~číslo generace. Následuje samotný objekt uzavřen
 mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
 například:
-\pdfcode{code_examples/indirect_object.txt}{TODO:}{code_indirect_object}
+\pdfcode{code_examples/pdf_code/indirect_object.txt}{TODO:}{code_indirect_object}
 \noindent Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}.
 Nepřímý odkaz se zapíše číslem objektu, číslem generace a~klíčovým slovem
 \texttt{R}, oddělené bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše
@@ -367,12 +367,12 @@ PDF soubor se je rozdělen do 4~částí:
     číslo označuje první objekt v~záznamu podsekce a~druhé číslo značí, kolik
     takových záznamů se v~dané podsekci vyskytuje. Pod tímto řádkem se nachází
     samotné záznamy o~nepřímých objektech. Záznam o~využívaném nepřímém objektu
-    má tvar \emph{nnnnnnnnnn ggggg \textbf{n}} a~je zakončen koncem řádku.
+    má tvar \emph{nnnnnnnnnn ggggg \texttt{n}} a~je zakončen koncem řádku.
     Desetimístné číslo \emph{nnnnnnnnnn} označuje offset bajtů od začátku
     dokumentu, po začátek nepřímého objektu. Pětimístné číslo \emph{ggggg} je
     číslo generace. Jedna sekce křížových odkazů, rozdělena na 2~podsekce, celkově
     obsahující 3~záznamy může vypadat například:
-    \pdfcode{code_examples/cross_reference_table.txt}{TODO:}{code_cross_reference_table}
+    \pdfcode{code_examples/pdf_code/cross_reference_table.txt}{TODO:}{code_cross_reference_table}
     \todo{od verze 1.5 může být ve streamu}
     
     \item \textbf{Patička} -- Patička umožňuje rychlé nalezení tabulky křížových
@@ -385,7 +385,7 @@ PDF soubor se je rozdělen do 4~částí:
     V~celém souboru se může vyskytovat více patiček, to je způsobeno aktualizováním
     daného PDF dokumentu. Na posledním řádku souboru se vždy musí vyskytovat
     výraz \texttt{\%\%EOF}. Patička může vypadat následovně:
-    \pdfcode{code_examples/trailer.txt}{TODO:}{code_trailer}
+    \pdfcode{code_examples/pdf_code/trailer.txt}{TODO:}{code_trailer}
     \todo{od verze 1.5 může být slovník ve streamu}
 
 \end{itemize}
@@ -407,7 +407,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     povinným prvkem katalogového slovníku je klíč \texttt{Pages}, jehož hodnota je
     nepřímý odkaz na kořenový objekt stromu stránek. Objekt katalogu dokumentu
     může být například:
-    \pdfcode{code_examples/document_catalog.txt}{TODO:}{code_documet_catalog}
+    \pdfcode{code_examples/pdf_code/document_catalog.txt}{TODO:}{code_documet_catalog}
 
     \item \textbf{Strom stránek} -- Strom stránek určuje pořadí zobrazení stránek.
     Listové uzly tohoto stromu jsou typu \emph{objektu stránky}, které mají jiný
@@ -420,7 +420,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     \texttt{Count} je počet listových uzlů, které jsou potomkem tohoto uzlu. Ke
     klíči \texttt{Parent} je přiřazena hodnota nepřímého odkazu přímého předchůdce
     tohoto uzlu. Uzel stromu stránek může být například:
-    \pdfcode{code_examples/page_tree.txt}{TODO:}{code_page_tree}
+    \pdfcode{code_examples/pdf_code/page_tree.txt}{TODO:}{code_page_tree}
 
     \item \textbf{Objekt stránky} -- Objekt stránky je typ listového uzlu stromu
     stránek. Tento uzel má tvar slovníku, ve kterém se musí vyskytovat klíč
@@ -431,7 +431,7 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     v~této kapitole)}, \texttt{Rotate},
     \texttt{Contents} \highlight{(popsáno dále v~této kapitole)}, \texttt{Annots} aj.
     Jednoduchý objekt stránky může vypadat následovně:
-    \pdfcode{code_examples/page_object.txt}{TODO:}{code_page_object}
+    \pdfcode{code_examples/pdf_code/page_object.txt}{TODO:}{code_page_object}
 \end{itemize}
 
 
@@ -461,7 +461,7 @@ má několik definovaných klíčů, které je možné použít, např. \texttt{
 \texttt{XObject}, \texttt{Font}, \texttt{ProcSet} a~další. Slovník pro resources,
 který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované jako
 \texttt{Im1} a~\texttt{Im2}, může vypadat následovně:
-\pdfcode{code_examples/resources.txt}{TODO:}{code_resources}
+\pdfcode{code_examples/pdf_code/resources.txt}{TODO:}{code_resources}
 \todo{F5, Im1 a Im2 správné zvýraznění? (emph vs texttt vs none)}
 
 
@@ -693,7 +693,7 @@ příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
 
 
 %#######################    3.3 Reprezentace anotací v PDF souboru    #######################
-\section{Reprezentace anotací v~PDF souboru}
+\section{Reprezentace anotací v~PDF souboru} \label{PDF_annotations}
 Anotace spojují objekty (zvuk, video, text, \dots) s~pozicí na PDF stránce.
 Uživatel může s~anotacemi interagovat pomocí myši a~klávesnice.
 \todo{\texttt{Annotations} klíč ve slovníku stránky (viz
@@ -708,7 +708,7 @@ například:
     typ anotace musí mít hodnotu \texttt{/Text}), \texttt{Open}, \texttt{Name},
     \texttt{State} a~\texttt{StateModel}. Příklad textové anotace lze vidět ve
     výpisu~\ref{code_text_annotation}:
-    \pdfcode{code_examples/text_annotation.txt}{
+    \pdfcode{code_examples/pdf_code/text_annotation.txt}{
     Anotace typu \emph{Text}, která se zobrazí jako ikona
     \emph{Note}. Po interakci s~myší se zobrazí vyskakovací okénko
     s~textem \uv{This is text annotation.}}{code_text_annotation}
@@ -721,7 +721,7 @@ například:
     \texttt{Dest}, \texttt{H}, \texttt{PA}, \texttt{QuadPoints}
     a~\texttt{BS}. Validní anotace odkazu je uvedena ve
     výpisu~\ref{code_link_annotation}:
-    \pdfcode{code_examples/link_annotation.txt}{
+    \pdfcode{code_examples/pdf_code/link_annotation.txt}{
     Anotace typu \emph{Link}, která odkazuje na místo uvnitř
     stejného dokumentu.
     }{code_link_annotation}
@@ -757,8 +757,6 @@ například:
     žádnou akci. Bývá uvedena jako nepřímý odkaz ve slovníku své rodičovské
     anotace, přesněji v~záznamu \texttt{Popup}.
 \end{itemize}
-
-\DummyText
 
 
 
@@ -942,10 +940,41 @@ například následující:
 
 %#######################    4.1 Specifikace požadavků    #######################
 \section{Specifikace požadavků}
+Cílem vytvořené aplikace je nalézt a~vyznačit chyby, které se vyskytují
+v~nahrané technické zprávě. Technická zpráva bude ve formátu PDF.
+Program musí podporovat technické zprávy napsané v~jazyce českém a~s~menší
+podporou i~v~jazyce slovenském nebo anglickém. Aplikace musí primárně umět
+kontrolovat diplomové práce vytvořené v~šabloně pro jazyk {\LaTeX}, která byla
+poskytnuta univerzitou Vysoké učení technické v~Brně, přesněji Fakultou
+informačních technologií. Aplikace musí
+být lehce přístupná, nejlépe bez nutnosti jakékoliv instalace.
+A měla by být funkční na co nejvíce platformách, aby byla zajištěna dostupnost pro
+co nejvíce uživatelů.
 
-\dummyText
+Nalezené
+chyby budou označeny graficky pomocí PDF anotací, jako například zvýraznění textu
+a~kreslení čar. Toto označení by mělo být zřetelné -- dobře viditelné
+a~na první pohled pochopitelné. Aplikace by tím měla imitovat poznámky korektora.
+Detekované chyby jsou takové, které se často vyskytují v~technických pracích.
+Tyto časté chyby byly zjištěny zkoumáním rozpracovaných i~odevzdaných
+diplomových prací a~projevilo se, že vyskytované časté chyby jsou porušení
+některého z~typografických pravidel. Tyto nalezené časté chyby jsou uvedeny
+v~kapitole~\ref{frequent_mistakes}. 
+Aktuálně neexistuje žádná aplikace, která by aktivně kontrolovala typografické
+chyby. Většina existujících aplikací hledá pouze porušení gramatických pravidel.
 
-\dummyText
+Hledání chyb bude pracovat na principu zvaném \emph{false-positive}. To znamená,
+že něco může být označeno jako chyba, ale ve skutečnosti se o~chybu nejedná.
+Aplikace by měla umět pracovat s~co nejaktuálnější verzí PDF. Není nutné, aby
+program dokázal zpracovat několik PDF dokumentů zároveň, postačí aby v~jednom příkazu
+zpracoval právě jeden dokument.
+
+
+
+%#######################    4.2 Návrh aplikace    #######################
+\section{Návrh aplikace}
+\todo{webová aplikace, nákresy webovky, princip nahrát -> zpracovat -> ukázat, cílová skupina?, }
+
 
 
 %#######################    4.2 Využité technologie    #######################
@@ -982,11 +1011,132 @@ například následující:
 
 %#######################    4.3 Program pro vyhledání chyb a jejich následné vyznačení    #######################
 \section{Program pro vyhledání chyb a~jejich následné vyznačení}
+Program, který zodpovídá za práci s~PDF dokumentem, je obsažen v~souboru s~názvem
+\texttt{theses\_checker.py}. Pro zkontrolování technické zprávy se musí použít
+funkce \texttt{annotate()} ze třídy \texttt{Checker}. Při vytváření instance této
+třídy se musí uvést cesta ke kontrolovanému PDF souboru. Třída \texttt{Checker}
+v~sobě obsahuje všechny potřebné funkce a~proměnné pro správnou funkci hledání
+a~zvýrazňování chyb uvnitř PDF dokumentů.
 
-\DummyText
+Třídní proměnné jsou rozděleny do dvou skupin -- statické třídní proměnné
+a~třídní proměnné vázané na jednu instanci. Statické třídní proměnné nemění 
+svou přiřazenou hodnotu a~jsou využívány především pro jednotnou barvu označení
+nalezených chyb. Jsou to proměnné:
+\begin{itemize}
+    \item \texttt{RND\_PAGE\_CNT} -- Tato proměnná se používá při zjišťování
+    základních informací o~dodaném PDF dokumentu. Tyto informace jsou potřebné
+    pro správné hledání chyb. Proměnná obsahuje maximální počet náhodných stran,
+    které jsou zkoumány, pro získání těchto základních informací.
+
+    \item \texttt{HIGH\_RED} -- Proměnná obsahuje červenou barvu pro zvýraznění
+    textu při nalezené chybě. Barva je ve formátu RGB\footnote{
+        Formát RGB -- Uspořádaná trojice, kde každý prvek obsahuje celé číslo
+        v~intervalu $<0;255>$.
+    }.
+
+    \item \texttt{HIGH\_ORANGE} -- Je to oranžová barva ve formátu RGB pro
+    zvýraznění textu při varování.
+    
+    \item \texttt{HIGHLIGHT\_PADDING} -- Tato proměnná obsahuje velikost okraje,
+    který je použit, když je zvýraznění moc těsné zvýrazněnému objektu. Toto
+    nastává při hledání přetečení okraje stránky.
+    
+    \item \texttt{RED} -- Je to červená barva ve formátu RGB. Tato barva je
+    použita při kreslení přímek.
+    
+    \item \texttt{WHITE} -- Proměnná obsahuje bílou barvu ve formátu RGB.
+\end{itemize}
+Třídní proměnné instance během programu mění svou hodnotu. Některé jsou využívány
+pro navigaci v~kontrolovaném dokumentu a~další v~sobě mají uležená data
+o~tomto dokumentu, která jsou potřebná k~prováděným kontrolám. Některé z~důležitých
+proměnných jsou:
+\begin{itemize}
+    \item \texttt{mistakes\_found} -- Veřejná proměnná typu boolean, která označuje,
+    zda byla při kontrole PDF dokumentu nalezena jakákoliv chyba (či varování
+    na chybu).
+
+    \item \texttt{borderNotFound} -- Tato proměnná je veřejná a~označuje zda byl
+    při hledání základních informací o~dokumentu nalezen okraj stránky. 
+
+    \item \texttt{\_\_document} -- Tato privátní proměnná obsahuje instanci
+    kontrolovaného PDF dokumentu.
+
+    \item \texttt{\_\_currPage} -- Privátní proměnná, která obsahuje instanci
+    aktuálně zpracovávané stránky z~PDF dokumentu.
+    
+    \item \texttt{\_\_currTextPage} -- Tato privátní proměnná obsahuje instanci
+    takzvané \emph{textpage} aktuálně zpracovávané stránky. Textpage se používá
+    pro urychlení některých funkcí pracující s~PDF stránkou.
+    
+    \item \texttt{\_\_currPixmap} -- Tato privátní proměnná obsahuje pixelovou
+    mapu aktuálně skenované stránky. Pixelová mapa je podobná obrázku a~v~tomto
+    programu se používá pouze pro nalezení přetékajících objektů za okraje
+    aktuálně kontrolované stránky.
+    
+    \item \texttt{\_\_currDict} -- Tato privátní proměnná obsahuje aktuálně
+    zkoumanou stránku ve formě slovníku, jehož struktura je uvedena na
+    obrázku~\ref{pic_curr_page_dict}.
+    \begin{figure}[H]
+        \label{pic_curr_page_dict}
+        \includegraphics[width=\linewidth]{obrazky-figures/img-textpage.png}
+        \caption{TODO: \url{https://pymupdf.readthedocs.io/en/latest/textpage.html}}
+    \end{figure}
+    
+    \item \texttt{\_\_currPageEmbeddedPdfs} -- Privátní proměnná, která obsahuje
+    seznam vykreslených vložených PDF na aktuálně zpracovávané stránce. Každá
+    položka tohoto seznamu je pro kompatibilitu s~proměnnou \texttt{\_\_currDict}
+    typu slovník, který odpovídá slovníku \emph{Image block} uvedeném na
+    obrázku~\ref{pic_curr_page_dict}. 
+    
+    \item \texttt{\_\_currPageTextContent} -- Tato privátní proměnná obsahuje
+    všechen text vyskytující se na aktuální stránce. Jelikož při extrakci textu
+    z~PDF stránky nelze vždy získat nepřerušovaný text (text většinou obsahuje
+    například znak
+    zalomení řádku tam, kde by byl vykreslen na stránce), musí se nejdříve tento
+    extrahovaný text upravit.
+    Text obsažen uvnitř proměnné \texttt{\_\_currPageTextContent} je formátován
+    přímo pro čtení (falešné nové řádky nahrazeny za mezeru a~jsou odebrány
+    spojovníky u~rozdělených slov např. \emph{spojo-vník}), kde každý blok je
+    oddělen prázdným
+    řádkem.\todo{TODO: samotná podsekce?, proměnná obsahuje i text z vložených pdf}
+\end{itemize}
+
+Než se budou moct provézt některé kontroly, musí se nejdříve zjistit pár
+základních informací o~kontrolovaném dokumentu (například font normálního textu
+nebo souřadnice okrajů stránek). Toto získávání informací provádí funkce
+\texttt{\_\_getDocInfo()}, která pro zrychlení programu skenuje pouze předem
+určený počet stran. Skenované stránky jsou získány náhodně.
+
+% \lstinputlisting[
+%     style=myPython,
+%     caption={TODO:},
+%     label=code
+% ]{code_examples/python_code/getDocInfo.py}
+
+Hlavní funkce \texttt{annotate()} přijímá parametry typu boolean, kde
+každý typ kontroly má vlastní parametr. Tyto parametry určují, zda se má daná
+kontrola provést, či nikoliv. Další parametry, které tato funkce přijímá jsou
+\texttt{annotatedPath}, který určuje cestu pro vytvořený anotovaný soubor,
+a~\texttt{embeddedPdfAsImage}, který je typu boolean a~označuje, zda se mají
+při kontrolách chovat vložené PDF soubory jako obrázky, nebo jako pokračování
+daného PDF dokumentu. Tato funkce provádí všechny kontroly a~vše s~nimi spojené.
+To znamená zjištění potřebných informací, samotná kontrola a~označení nalezených
+chyb. Každá kontrola má vlastní funkci, která prozkoumá jednu stránku a~nalezené
+chyby označí pomocí PDF anotací (vysvětleny v~sekci~\ref{PDF_annotations}).
+
+\hfill
+\lstinputlisting[style=myPython,caption={TODO:},label=code_annotate]{code_examples/python_code/annotate.py}
+
+
+
+%---------- 4.3.1 Extrahovaný text ve formátu pro čtení ----------
+\subsection*{Extrahovaný text ve formátu pro čtení}
+\todo{proč existuje proměnná \texttt{\_\_currPageTextContent} a na co se to potom používá}
+
 
 %---------- 4.3.1 Nalezení okraje stránky ----------
 \subsection*{Nalezení okraje stránky}
+\todo{pseudokód, popsat princip, blbne u textových objektů (tabulka, listing, grafy?)}
 
 \dummyShortText[10]
 
@@ -994,8 +1144,10 @@ například následující:
 
 \todoimage{width=\linewidth}{Vyznačení okraje textu.}
 
+
 %---------- 4.3.2 Nalezení souřadnic vloženého PDF na stránce ----------
 \subsection*{Nalezení souřadnic vloženého PDF na stránce}
+\todo{pseudokód, popsat princip, funkčí pouze pro Form XObjects}
 
 \dummyShortText[10]
 
@@ -1005,6 +1157,7 @@ například následující:
 
 %#######################    4.4 Doplňující program pro použití v~příkazovém řádku    #######################
 \section{Doplňující program pro použití v~příkazovém řádku}
+\todo{je to něco navíc, musí se instalovat python a pymupdf, jak to nainstalovat, aby to fungovalo, ukázka použití, proč to vůbec vzniklo (hromadná oprava)}
 
 \dummyText
 
@@ -1013,11 +1166,20 @@ například následující:
 
 
 %#######################    4.5 Architektura webové aplikace    #######################
-\section{Architektura webové aplikace}
+\section{Implementace webové aplikace}
 
-\dummyText
+\dummyShortText[10]
+
+\subsection*{Architektura webové aplikace}
+\todo{MVC?, kde jsou jaké soubory, }
+
 
 \dummyText[2]
+
+\subsection*{Implementační detaily}
+\todo{error views, vymazání anotovaného souboru, }
+
+\dummyText
 
 
 
@@ -1076,6 +1238,7 @@ například následující:
 %                                   6 ZÁVĚR
 %*********************************************************************************
 \chapter{Závěr}
+\todo{TODO: vylepšení: proměnná \texttt{\_\_currPageTextContent} nebude obsahovat z embedded pdfs}
 
 \dummyShortText[8]
 
