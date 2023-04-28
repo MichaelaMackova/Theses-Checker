@@ -105,8 +105,58 @@
 }
 \newcommand{\dummyShortText}[1][3]{{\color{lightgray}\blindshort[#1]}}
 
-%listing utf-8 chars (czech + few more)
-\lstset{
+%listing utf-8 chars (czech)
+% \lstset{
+%   literate=%
+%     {á}{{\'a}}1
+%     {í}{{\'i}}1
+%     {é}{{\'e}}1
+%     {ý}{{\'y}}1
+%     {ú}{{\'u}}1
+%     {ó}{{\'o}}1
+%     {ě}{{\v{e}}}1
+%     {š}{{\v{s}}}1
+%     {č}{{\v{c}}}1
+%     {ř}{{\v{r}}}1
+%     {ž}{{\v{z}}}1
+%     {ď}{{\v{d}}}1
+%     {ť}{{\v{t}}}1
+%     {ň}{{\v{n}}}1                
+%     {ů}{{\r{u}}}1
+%     {Á}{{\'A}}1
+%     {Í}{{\'I}}1
+%     {É}{{\'E}}1
+%     {Ý}{{\'Y}}1
+%     {Ú}{{\'U}}1
+%     {Ó}{{\'O}}1
+%     {Ě}{{\v{E}}}1
+%     {Š}{{\v{S}}}1
+%     {Č}{{\v{C}}}1
+%     {Ř}{{\v{R}}}1
+%     {Ž}{{\v{Z}}}1
+%     {Ď}{{\v{D}}}1
+%     {Ť}{{\v{T}}}1
+%     {Ň}{{\v{N}}}1                
+%     {Ů}{{\r{U}}}1
+% }
+
+\lstdefinestyle{myPython}{
+  language=Python,
+  basicstyle=\fontfamily{newtxtt}\small,
+  numbers=left,
+  numberstyle=\scriptsize,
+  frame=lines,
+  xleftmargin=2em,
+  xrightmargin=0.5em,
+  %framexleftmargin=1.5em,
+  captionpos=b
+}
+
+\lstdefinelanguage{PDF}{
+  morekeywords={stream, endstream, xref, trailer, startxref},
+  sensitive=true,
+  morecomment=[l]\%,
+  alsoletter={/,(,)},
   literate=%
     {á}{{\'a}}1
     {í}{{\'i}}1
@@ -121,7 +171,7 @@
     {ž}{{\v{z}}}1
     {ď}{{\v{d}}}1
     {ť}{{\v{t}}}1
-    {ň}{{\v{n}}}1                
+    {ň}{{\v{n}}}1
     {ů}{{\r{u}}}1
     {Á}{{\'A}}1
     {Í}{{\'I}}1
@@ -136,22 +186,34 @@
     {Ž}{{\v{Z}}}1
     {Ď}{{\v{D}}}1
     {Ť}{{\v{T}}}1
-    {Ň}{{\v{N}}}1                
+    {Ň}{{\v{N}}}1
     {Ů}{{\r{U}}}1
     {ŕ}{{\'r}}1
     {ś}{{\'s}}1
+    {endobj}{{{\bfseries\color{purple}endobj}}}6
+    {12\ 0\ obj}{{{\bfseries\color{purple}12 0 obj}}}8
+    {7\ 0\ obj}{{{\bfseries\color{purple}7 0 obj}}}7
+    {3\ 0\ obj}{{{\bfseries\color{purple}3 0 obj}}}7
+    {5\ 0\ obj}{{{\bfseries\color{purple}5 0 obj}}}7
+    {21\ 0\ obj}{{{\bfseries\color{purple}21 0 obj}}}8
+    {46\ 0\ obj}{{{\bfseries\color{purple}46 0 obj}}}8
 }
 
-\lstdefinestyle{myPython}{
-  language=Python,
+\lstdefinestyle{myPDF}{
+  language=PDF,
   basicstyle=\fontfamily{newtxtt}\small,
-  numbers=left,
-  numberstyle=\scriptsize,
+  %numbers=left,
+  %numberstyle=\scriptsize,
   frame=lines,
-  xleftmargin=2em,
-  xrightmargin=0.5em,
-  %framexleftmargin=1.5em,
+  %xleftmargin=2em,
+  %xrightmargin=0.5em,
+  %framexleftmargin=2em,
   captionpos=b,
+  emph=[2]{/Length, /Filter, /FlateDecode, /Size, /Root, /Info, /Type, /Catalog,
+    /Pages, /Kids, /Count, /Page, /MediaBox, /Parent, /Contents, /Resources, /Font, 
+    /F5, /XObject, /Im1, /Im2, /Annot, /Subtype, /Text, /Name, /Note, /Rect, /Dest, 
+    /XYZ, /Link},
+  emphstyle=[2]{\color{blue}},
 }
 
 % =======================================================================
@@ -222,23 +284,31 @@
   supervisor.title.p={Ing.},   %titul před jménem (nepovinné) / title before the name (optional)
   supervisor.title.a={Ph.D.},    %titul za jménem (nepovinné) / title after the name (optional)
   % Klíčová slova / keywords
-  keywords.cs={Sem budou zapsána jednotlivá klíčová slova v českém (slovenském) jazyce, oddělená čárkami.}, % klíčová slova v českém či slovenském jazyce / keywords in czech or slovak language
-  keywords.en={Sem budou zapsána jednotlivá klíčová slova v anglickém jazyce, oddělená čárkami.}, % klíčová slova v anglickém jazyce / keywords in english
+  keywords.cs={PDF, typografické chyby, časté chyby, technická zpráva, webová aplikace, PDF anotace, Django, Python, struktura PDF}, % klíčová slova v českém či slovenském jazyce / keywords in czech or slovak language
+  keywords.en={PDF, typographical mistakes, frequent mistakes, technical paper, web application, PDF annotations}, % klíčová slova v anglickém jazyce / keywords in english
   %keywords.en={Here, individual keywords separated by commas will be written in English.},
   % Abstrakt / Abstract
-  abstract.cs={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v českém (slovenském) jazyce.}, % abstrakt v českém či slovenském jazyce / abstract in czech or slovak language
-  abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce.}, % abstrakt v anglickém jazyce / abstract in english
+  abstract.cs={Cílem této práce je vytvoření aplikace, která zkontroluje technickou
+      zprávu a~označí všechny nalezené chyby pomocí PDF anotací. Aplikace je
+      implementována v~jazyku Python a~pomocí frameworku Django je přístupná jako
+      webový nástroj. Vytvořené řešení dokáže nalézt šest převážně typografických chyb,
+      které se často vyskytují v~diplomových pracích. Nalezené chyby jsou graficky
+      označeny a~upravený PDF soubor je poté zobrazen přímo na webové stránce.
+      Výsledný nástroj je volně dostupný a~pomáhá uživatelům při kontrolování textu
+      své vytvářené technické zprávy.
+  }, % abstrakt v českém či slovenském jazyce / abstract in czech or slovak language
+  abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce. \todo{TODO:}
+  }, % abstrakt v anglickém jazyce / abstract in english
   %abstract.en={An abstract of the work in English will be written in this paragraph.},
   % Prohlášení (u anglicky psané práce anglicky, u slovensky psané práce slovensky; u projektové praxe lze zakomentovat) / Declaration (for thesis in english should be in english; for project practice can be commented out)
   declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracovala samostatně pod vedením pana Ing.~Tomáše Mileta, Ph.D.
-Další informace mi poskytli... \todo{TODO}
 Uvedla jsem všechny literární prameny, publikace a~další zdroje, ze kterých jsem čerpala.},
   %declaration={I hereby declare that this Bachelor's thesis was prepared as an original work by the author under the supervision of Mr. X
 % The supplementary information was provided by Mr. Y
 % I have listed all the literary sources, publications and other sources, which were used during the preparation of this thesis.},
   % Poděkování (nepovinné, nejlépe v jazyce práce; nechcete-li, zakomentujte pro skrytí nadpisu) / Acknowledgement (optional, ideally in the language of the thesis; comment out for hiding including heading)
   acknowledgment={V této sekci je možno uvést poděkování vedoucímu práce a těm, kteří poskytli odbornou pomoc
-(externí zadavatel, konzultant apod.).},
+(externí zadavatel, konzultant apod.). \todo{TODO:}},
   %acknowledgment={Here it is possible to express thanks to the supervisor and to the people which provided professional help
 %(external submitter, consultant, etc.).},
   % Rozšířený abstrakt (cca 3 normostrany) - lze definovat zde nebo níže / Extended abstract (approximately 3 standard pages) - can be defined here or below

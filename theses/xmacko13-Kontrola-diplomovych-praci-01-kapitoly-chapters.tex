@@ -25,7 +25,8 @@
 \newcommand{\pdfcode}[3]{
 
     \noindent\begin{minipage}{\linewidth}
-        \lstinputlisting[xleftmargin=.25in, caption={#2}, captionpos=b, label=#3]{#1}
+        \hfill
+        \lstinputlisting[style=myPDF, caption={#2}, label=#3]{#1}
     \end{minipage}
 
 }
@@ -40,6 +41,26 @@
 %                                    1 ÚVOD
 %*********************************************************************************
 \chapter{Úvod}
+
+Pro úspěšné dokončení vysokoškolského studia musí student napsat několik desítek
+stran textu zvaného závěrečná práce. Tato technická zpráva by měla být před jejím
+zveřejněním několikrát překontrolována, ale ve většině případů se nenaleznou
+všechny vyskytované chyby. Při velké koncentraci chyb se může výsledná práce zdát
+\uv{odfláklá} a~může tak být sníženo její ohodnocení \highlight{případně přímo zamítnuta}.
+
+V~současné době existuje několik nástrojů pro kontrolu textu. Tyto nástroje se
+však převážně zaměřují na gramatické chyby a~typografické chyby tak bývají často
+přehlíženy. Při správné volbě textového procesoru jsou některé chyby automaticky
+při psaní opravovány, ale opět na to není žádná aplikace zaměřena.
+
+Cílem této práce je zkoumáním zveřejněných diplomových prací nalézt, které chyby
+se v~nich často vyskytují. Dalším krokem bylo navrhnout a~vytvořit lehce
+dostupnou aplikaci, která nalezne tyto (převážně typografické) chyby a~označí
+je přímo uvnitř poskytnutého PDF souboru. Tato aplikace by měla být dostupná bez
+nutnosti instalování a~měla by být co nejvíce intuitivní.
+
+V~kapitole \dots \todo{TODO: popis kapitol}
+
 
 \dummyText
 
@@ -190,7 +211,7 @@ by se rozdělily. Tento případ lze pozorovat i~na obrázku~\ref{TODO:}.
 Pro zamezení takových případů existuje právě pevná (nebo též nedělitelná)
 mezera.
 
-Pevná mezera se se zobrazí stejně jako normální mezera, ale na rozdíl od normální
+Pevná mezera se zobrazí stejně jako normální mezera, ale na rozdíl od normální
 mezery, spojí dohromady příslušné znaky a~zablokuje jejich rozdělení na konci
 řádku. Podle pravidel internetové jazykové příručky~\cite{Ustav_pro_jazyk_cesky}
 se má pevná mezera použít v~těchto případech (převzato a~upraveno):
@@ -280,7 +301,7 @@ osm typů objektů:
     například \texttt{-3.62}, \texttt{.054}, \texttt{+238.45}. Celá čísla můžou
     být například \texttt{500}, \texttt{+3}, \texttt{-21}.
     
-    \item \textbf{Řetězcový objekt (string)} -- Řetězec se dá zapsat dvěma způsoby,
+    \item \textbf{Řetězcový objekt (string)} -- Řetězec lze zapsat dvěma způsoby,
     a~to jako klasický řetězec, nebo jako řetězec v~hexadecimální podobě. Klasický
     řetězec je zapsán jako posloupnost znaků uzavřená v~kulatých závorkách,
     například \texttt{(Toto je string)}. V~tomto typu řetězce je možné používat
@@ -338,7 +359,7 @@ Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný
 mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
 například:
 \pdfcode{code_examples/pdf_code/indirect_object.txt}{TODO:}{code_indirect_object}
-\noindent Nepřímý objekt se dá referencovat pomocí \emph{nepřímého odkazu}.
+\noindent Nepřímý objekt lze referencovat pomocí \emph{nepřímého odkazu}.
 Nepřímý odkaz se zapíše číslem objektu, číslem generace a~klíčovým slovem
 \texttt{R}, oddělené bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše
 jako \texttt{7 0 R}.
@@ -513,11 +534,11 @@ vyobrazena v~rovnici~\eqref{transformation_matrix}.
 \end{equation}
 Pokud se potřebuje provést více elementárních transformací 
 (např. rotace a~posun), záleží na jejich posloupnosti provedení. Obecně
-platí vzorec~\eqref{multiple_matrix_transformations}, kde $M_{T_0}$ značí matici
+platí vzorec~\eqref{multiple_matrix_transformations}, kde $M_{T_1}$ značí matici
 první provedené transformace, $M_{T_n}$ je matice poslední provedené transformace
 a~$M'$ označuje matici, která kombinuje všechny tyto provedené transformace.
 \begin{equation} \label{multiple_matrix_transformations}
-    M' = M_{T_0} \cdot M_{T_1} \cdots M_{T_{(n-1)}} \cdot M_{T_n}
+    M' = M_{T_1} \cdot M_{T_2} \cdots M_{T_{n-1}} \cdot M_{T_n}
 \end{equation}
 
 Bod $(x, y)$ v~souřadnicovém systému se může matematicky popsat jako vektor
@@ -576,7 +597,7 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
         se v~datové struktuře graphics state.
 
         \item \emph{Glyph space} -- Glyfy znaků fontu musí být definovány v~tomto
-        prostoru. Z~glyph space se se poté transformuje do textového prostoru.
+        prostoru. Z~glyph space se poté transformuje do textového prostoru.
         
         \item \emph{Obrázkový prostor} -- Všechny obrázky by měly být definovány
         v~tomto prostoru. Pro správné vykreslení obrázku na stránku se musí dočasně
@@ -600,7 +621,7 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
 \begin{figure}[H]
     \label{coordinate_spaces}
     \includegraphics[width=\linewidth]{obrazky-figures/coordinate_spaces.pdf}
-    \caption[Vztah mezi souřadnicovými systémy používaných uvnitř PDF]{Vztah mezi souřadnicovými systémy používaných uvnitř PDF. Každá šipka představuje transformaci mezi dvěma souřadnicovými systémy. Inspirováno obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
+    \caption[Vztah mezi souřadnicovými systémy používaných uvnitř PDF]{Obrázek označuje vztah mezi souřadnicovými systémy používaných uvnitř PDF. Každá šipka představuje transformaci mezi dvěma souřadnicovými systémy. Inspirováno obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
 \end{figure}
 
 
@@ -1047,7 +1068,7 @@ nalezených chyb. Jsou to proměnné:
     \item \texttt{WHITE} -- Proměnná obsahuje bílou barvu ve formátu RGB.
 \end{itemize}
 Třídní proměnné instance během programu mění svou hodnotu. Některé jsou využívány
-pro navigaci v~kontrolovaném dokumentu a~další v~sobě mají uležená data
+pro navigaci v~kontrolovaném dokumentu a~další v~sobě mají uložená data
 o~tomto dokumentu, která jsou potřebná k~prováděným kontrolám. Některé z~důležitých
 proměnných jsou:
 \begin{itemize}
@@ -1078,7 +1099,8 @@ proměnných jsou:
     obrázku~\ref{pic_curr_page_dict}.
     \begin{figure}[H]
         \label{pic_curr_page_dict}
-        \includegraphics[width=\linewidth]{obrazky-figures/img-textpage.png}
+        \centering
+        \includegraphics[width=\linewidth]{obrazky-figures/page_dictionary.pdf}
         \caption{TODO: \url{https://pymupdf.readthedocs.io/en/latest/textpage.html}}
     \end{figure}
     
@@ -1238,6 +1260,15 @@ chyby označí pomocí PDF anotací (vysvětleny v~sekci~\ref{PDF_annotations}).
 %                                   6 ZÁVĚR
 %*********************************************************************************
 \chapter{Závěr}
+Cílem této bakalářské práce bylo vytvořit lehce dostupnou aplikaci, která zpracuje
+nahraný PDF dokument a~pomocí PDF anotací v~něm vyznačí nalezené chyby. Tato
+aplikace byla vytvořena jako webový nástroj a~nyní je veřejně
+přístupná pod názvem Theses Checker\footnote{Theses Checker je dostupný na adrese
+\href{https://theseschecker.eu.pythonanywhere.com/}{https://theseschecker.eu.pythonanywhere.com/}}.
+
+Nejdříve bylo zapotřebí nalézt, které chyby se nejčastěji vyskytují v~závěrečných
+pracích. Poté \dots
+
 \todo{TODO: vylepšení: proměnná \texttt{\_\_currPageTextContent} nebude obsahovat z embedded pdfs}
 
 \dummyShortText[8]
