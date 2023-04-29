@@ -510,8 +510,7 @@ hlavních skupin:
     se specifikují nastavení spojené s~textem a~též zde patří operátory pro
     vykreslení takového textu. 
     \item \textbf{Marked-content operátory} -- Tyto operátory přímo neovlivňují
-    vzhled stránky, ale spojují informace a~objekty uvedené v~content
-    \highlight{streamu}.
+    vzhled stránky, ale spojují informace a~objekty uvedené v~content streamu.
 \end{itemize}
 
 
@@ -649,12 +648,19 @@ zásobníku se musí použít operátor \texttt{Q}, kterým se obnoví posledně
 stav datové struktury graphics state. Uvnitř celého content streamu musí být
 použit stejný počet operátorů \texttt{q} a~\texttt{Q}.
 
+\begin{figure}[H]
+    \label{pic_graphics_state}
+    \centering
+    \includegraphics[width=0.7\linewidth]{obrazky-figures/graphics_state_stack.pdf}
+    \caption{\todo{TODO: odkaz}}
+\end{figure}
+
 Pro úpravu parametrů uložených ve struktuře graphics state se používají uvnitř
 content streamu specifické operátory. Mezi tyto operátory patří již uvedené
 \texttt{q} a~\texttt{Q}, které nepoužívají žádné operandy. Další používané
 operátory upravující graphics state jsou například \texttt{cm}, \texttt{w},
 \texttt{i} a~jiné. K~operátoru \texttt{cm} se váže šest číselných operandů
-\emph{a, b, c, d,} a~\emph{f}. Dohromady tyto operandy specifikují matici
+\emph{a, b, c, d, e} a~\emph{f}. Dohromady tyto operandy specifikují matici
 transformace, která bude vynásobena maticí CTM a~následně přiřazena do CTM položky
 datové struktury graphics state. Operátor \texttt{w} je unární a~jeho operandem
 je číslo \emph{lineWidth}, které specifikuje tloušťku kreslených čar. Unární
@@ -996,6 +1002,12 @@ zpracoval právě jeden dokument.
 \section{Návrh aplikace}
 \todo{webová aplikace, nákresy webovky, princip nahrát -> zpracovat -> ukázat, cílová skupina?, }
 
+\begin{figure}[H]
+    \label{pic_theses_checker_dia}
+    \centering
+    \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_diagram.pdf}
+    \caption{\todo{TODO: odkaz}}
+\end{figure}
 
 
 %#######################    4.2 Využité technologie    #######################
@@ -1189,6 +1201,13 @@ chyby označí pomocí PDF anotací (vysvětleny v~sekci~\ref{PDF_annotations}).
 
 %#######################    4.5 Architektura webové aplikace    #######################
 \section{Implementace webové aplikace}
+
+\begin{figure}[H]
+    \label{pic_communication}
+    \centering
+    \includegraphics[]{obrazky-figures/Theses_Checker_communication.pdf}
+    \caption{TODO: popis + odkaz}
+\end{figure}
 
 \dummyShortText[10]
 

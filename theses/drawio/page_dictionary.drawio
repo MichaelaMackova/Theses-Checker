@@ -1,65 +1,65 @@
-<mxfile host="app.diagrams.net" modified="2023-04-27T12:45:40.238Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" etag="oALYgmJ_fUFLv0VpqKlS" version="21.2.1" type="device">
+<mxfile host="Electron" modified="2023-04-28T09:23:24.356Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="br10HPRN44wRqbfUHJq8" version="21.2.1" type="device">
   <diagram name="Stránka-1" id="BCANzbfRsbrFAI9QRQWC">
-    <mxGraphModel dx="874" dy="433" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1036" dy="606" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="c3giEuFTwCzxrzfthgMz-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=none;" vertex="1" parent="1">
-          <mxGeometry x="50" y="170" width="600" height="70" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-1" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffcc99;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="50" y="170" width="610" height="70" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffee99;strokeColor=none;" vertex="1" parent="1">
-          <mxGeometry x="50" y="260" width="600" height="170" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffee99;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="50" y="260" width="610" height="170" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=1.006;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="c3giEuFTwCzxrzfthgMz-5" target="c3giEuFTwCzxrzfthgMz-6">
+        <mxCell id="c3giEuFTwCzxrzfthgMz-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=1.006;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" parent="1" source="c3giEuFTwCzxrzfthgMz-5" target="c3giEuFTwCzxrzfthgMz-6" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="330" y="160" />
-              <mxPoint x="60" y="160" />
-              <mxPoint x="60" y="205" />
+              <mxPoint x="70" y="160" />
+              <mxPoint x="70" y="205" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=1.014;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="c3giEuFTwCzxrzfthgMz-5" target="c3giEuFTwCzxrzfthgMz-7">
+        <mxCell id="c3giEuFTwCzxrzfthgMz-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.875;exitY=1.014;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" parent="1" source="c3giEuFTwCzxrzfthgMz-5" target="c3giEuFTwCzxrzfthgMz-7" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="330" y="150" />
-              <mxPoint x="50" y="150" />
-              <mxPoint x="50" y="285" />
+              <mxPoint x="60" y="150" />
+              <mxPoint x="60" y="285" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-5" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Stránka:&lt;/b&gt; {&quot;width&quot;: &lt;i&gt;šířka&lt;/i&gt;, &quot;height&quot;: &lt;i&gt;výška&lt;/i&gt;, &quot;blocks&quot;: [&lt;b&gt;bloky&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" vertex="1" parent="1">
+        <mxCell id="c3giEuFTwCzxrzfthgMz-5" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Stránka:&lt;/b&gt; {&quot;width&quot;: &lt;i&gt;šířka&lt;/i&gt;, &quot;height&quot;: &lt;i&gt;výška&lt;/i&gt;, &quot;blocks&quot;: [&lt;b&gt;bloky&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" parent="1" vertex="1">
           <mxGeometry x="50" y="110" width="320" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-6" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Obrázkový blok:&lt;/b&gt; {&quot;type&quot;: 1, &quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;ext&quot;: &lt;i&gt;přípona&lt;/i&gt;, &quot;width&quot;: &lt;i&gt;šířka&lt;/i&gt;, &quot;height&quot;: &lt;i&gt;výška&lt;/i&gt;, &quot;colorspace&quot;: &lt;i&gt;n&lt;/i&gt;, &quot;xres&quot;: &lt;i&gt;x_rozlišení&lt;/i&gt;, &quot;yres&quot;: &lt;i&gt;y&lt;/i&gt;&lt;/font&gt;&lt;span style=&quot;border-color: var(--border-color); font-family: &amp;quot;Times New Roman&amp;quot;;&quot;&gt;&lt;i&gt;_rozlišení&lt;/i&gt;&lt;/span&gt;&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;, &quot;bpc&quot;: &lt;i&gt;bpc&lt;/i&gt;, &quot;transform&quot;: (&lt;i&gt;a&lt;/i&gt;, &lt;i&gt;b&lt;/i&gt;, &lt;i&gt;c&lt;/i&gt;, &lt;i&gt;d&lt;/i&gt;, &lt;i&gt;e&lt;/i&gt;, &lt;i&gt;f&lt;/i&gt;), &quot;image&quot;: b&quot;...&quot;}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" vertex="1" parent="1">
-          <mxGeometry x="80" y="180" width="560" height="50" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-6" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Obrázkový blok:&lt;/b&gt; {&quot;type&quot;: 1, &quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;ext&quot;: &lt;i&gt;přípona&lt;/i&gt;, &quot;width&quot;: &lt;i&gt;šířka&lt;/i&gt;, &quot;height&quot;: &lt;i&gt;výška&lt;/i&gt;, &quot;colorspace&quot;: &lt;i&gt;n&lt;/i&gt;, &quot;xres&quot;: &lt;i&gt;x_rozlišení&lt;/i&gt;, &quot;yres&quot;: &lt;i&gt;y&lt;/i&gt;&lt;/font&gt;&lt;span style=&quot;border-color: var(--border-color); font-family: &amp;quot;Times New Roman&amp;quot;;&quot;&gt;&lt;i&gt;_rozlišení&lt;/i&gt;&lt;/span&gt;&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;, &quot;bpc&quot;: &lt;i&gt;bpc&lt;/i&gt;, &quot;transform&quot;: (&lt;i&gt;a&lt;/i&gt;, &lt;i&gt;b&lt;/i&gt;, &lt;i&gt;c&lt;/i&gt;, &lt;i&gt;d&lt;/i&gt;, &lt;i&gt;e&lt;/i&gt;, &lt;i&gt;f&lt;/i&gt;), &quot;image&quot;: b&quot;...&quot;}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" parent="1" vertex="1">
+          <mxGeometry x="90" y="180" width="560" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.889;exitY=0.996;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" edge="1" parent="1" source="c3giEuFTwCzxrzfthgMz-7" target="c3giEuFTwCzxrzfthgMz-8">
+        <mxCell id="c3giEuFTwCzxrzfthgMz-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.889;exitY=0.996;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;strokeWidth=2;" parent="1" source="c3giEuFTwCzxrzfthgMz-7" target="c3giEuFTwCzxrzfthgMz-8" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="391" y="310" />
-              <mxPoint x="80" y="310" />
-              <mxPoint x="80" y="335" />
+              <mxPoint x="401" y="310" />
+              <mxPoint x="90" y="310" />
+              <mxPoint x="90" y="335" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-7" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Textový blok:&lt;/b&gt; {&quot;type&quot;: 0, &quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;lines&quot;: [&lt;b&gt;řádky&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;glass=0;shadow=0;align=left;spacing=10;" vertex="1" parent="1">
-          <mxGeometry x="80" y="270" width="350" height="30" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-7" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Textový blok:&lt;/b&gt; {&quot;type&quot;: 0, &quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;lines&quot;: [&lt;b&gt;řádky&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;glass=0;shadow=0;align=left;spacing=10;" parent="1" vertex="1">
+          <mxGeometry x="90" y="270" width="350" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.926;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;exitPerimeter=0;" edge="1" parent="1" source="c3giEuFTwCzxrzfthgMz-8" target="c3giEuFTwCzxrzfthgMz-9">
+        <mxCell id="c3giEuFTwCzxrzfthgMz-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.926;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;exitPerimeter=0;" parent="1" source="c3giEuFTwCzxrzfthgMz-8" target="c3giEuFTwCzxrzfthgMz-9" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="498" y="360" />
-              <mxPoint x="100" y="360" />
-              <mxPoint x="100" y="395" />
+              <mxPoint x="508" y="360" />
+              <mxPoint x="110" y="360" />
+              <mxPoint x="110" y="395" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-8" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Řádek:&lt;/b&gt; {&quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;wmode&quot;: &lt;i&gt;směr_textu&lt;/i&gt;, &quot;dir&quot;: (&lt;i&gt;x&lt;/i&gt;, &lt;i&gt;y&lt;/i&gt;), &quot;spans&quot;: [&lt;b&gt;části&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;glass=0;shadow=0;align=left;spacing=10;" vertex="1" parent="1">
-          <mxGeometry x="100" y="320" width="430" height="30" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-8" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Řádek:&lt;/b&gt; {&quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;wmode&quot;: &lt;i&gt;směr_textu&lt;/i&gt;, &quot;dir&quot;: (&lt;i&gt;x&lt;/i&gt;, &lt;i&gt;y&lt;/i&gt;), &quot;spans&quot;: [&lt;b&gt;části&lt;/b&gt;]}&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;glass=0;shadow=0;align=left;spacing=10;" parent="1" vertex="1">
+          <mxGeometry x="110" y="320" width="430" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="c3giEuFTwCzxrzfthgMz-9" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Část:&lt;/b&gt; {&quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;color&quot;: &lt;i&gt;sRGB&lt;/i&gt;, &quot;font&quot;: &lt;i&gt;font&lt;/i&gt;, &quot;size&quot;: &lt;i&gt;velikost_písma&lt;/i&gt;, &quot;flags&quot;: &lt;i&gt;příznaky&lt;/i&gt;, &quot;origin&quot;: (&lt;i&gt;x&lt;/i&gt;, &lt;i&gt;y&lt;/i&gt;), &quot;text&quot;: &lt;i&gt;text&lt;/i&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" vertex="1" parent="1">
-          <mxGeometry x="120" y="370" width="510" height="50" as="geometry" />
+        <mxCell id="c3giEuFTwCzxrzfthgMz-9" value="&lt;font face=&quot;Times New Roman&quot; style=&quot;font-size: 12px;&quot;&gt;&lt;b&gt;Část:&lt;/b&gt; {&quot;bbox&quot;: (&lt;i&gt;x&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;0&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;x&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;, &lt;i&gt;y&lt;sub&gt;1&lt;/sub&gt;&lt;/i&gt;), &quot;color&quot;: &lt;i&gt;sRGB&lt;/i&gt;, &quot;font&quot;: &lt;i&gt;font&lt;/i&gt;, &quot;size&quot;: &lt;i&gt;velikost_písma&lt;/i&gt;, &quot;flags&quot;: &lt;i&gt;příznaky&lt;/i&gt;, &quot;origin&quot;: (&lt;i&gt;x&lt;/i&gt;, &lt;i&gt;y&lt;/i&gt;), &quot;text&quot;: &lt;i&gt;text&lt;/i&gt;&lt;/font&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0fcff;strokeColor=#6eafbf;align=left;spacing=10;" parent="1" vertex="1">
+          <mxGeometry x="130" y="370" width="510" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -15,3 +15,5 @@ src/web/templates/test.html
 src/web/.env
 .vscode/launch.json
 .vscode/settings.json
+theses/drawio/.$*
+theses/pdf_to_png

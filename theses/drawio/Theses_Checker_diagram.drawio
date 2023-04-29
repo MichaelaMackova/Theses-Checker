@@ -1,0 +1,121 @@
+<mxfile host="Electron" modified="2023-04-28T23:05:11.639Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="fTZ-L4qnm6XuG2t7Fog-" version="21.2.1" type="device">
+  <diagram name="Stránka-1" id="94ikDguoyIiTkVl64Qt1">
+    <mxGraphModel dx="134" dy="78" grid="1" gridSize="1" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="42" y="77" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="49" y="84" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-4" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=23;" vertex="1" parent="1">
+          <mxGeometry x="56" y="91" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-6" value="PDF" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="50.5" y="50" width="59.5" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-13" value="&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 3.5px;&quot;&gt;Pyd nitreb tišt fle, puti přách di&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 3.5px;&quot;&gt;tidi chruhu v hlesk na vedreh&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;vutěroť&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;frýč voj. Hlouchoum děpeduva,&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;láhlou cren kavlách člimlatrodi&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;pěptu ňoun pyklíblu úhouj zošo&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;tidičlíz.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="60" y="112" width="65" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-14" value="&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;Difé břáč vyvo a šíňů. Plýhlihlí pěř kroněcrurá jask i chro ma pásrysk ťuz měšlu dič byžrusk. Cizlask i titě, bistél a dějvlý opě šky frotij slim hřech clomyďžrýz myďběd o flery. Pok krošluř hřoň.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="62.75" y="155" width="50" height="23.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-15" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 4px;&quot;&gt;3.4&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;Pyd nitreb ti&lt;/font&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=1;spacingTop=-1;" vertex="1" parent="1">
+          <mxGeometry x="65.5" y="100" width="35" height="7.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-16" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0.1;fillColor=#bac8d3;strokeColor=#23445d;fillStyle=auto;" vertex="1" parent="1">
+          <mxGeometry x="65.5" y="140" width="44.5" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-17" value="&lt;div style=&quot;font-size: 3.5px;&quot;&gt;Uťáď bědi fýt&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;fontStyle=1;spacing=1;spacingTop=-2;" vertex="1" parent="1">
+          <mxGeometry x="65.5" y="107.5" width="35" height="7.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="77" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-19" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="327" y="84" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-20" value="" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=23;" vertex="1" parent="1">
+          <mxGeometry x="334" y="91" width="63" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-21" value="PDF" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="328.5" y="50" width="59.5" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-22" value="&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 3.5px;&quot;&gt;Pyd nitreb tišt fle, puti přách di&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 3.5px;&quot;&gt;tidi chruhu v hlesk na vedreh&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;vutěroť&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;frýč voj. Hlouchoum děpeduva,&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;láhlou cren kavlách člimlatrodi&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;pěptu ňoun pyklíblu úhouj zošo&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;tidičlíz.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=right;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=6;" vertex="1" parent="1">
+          <mxGeometry x="338" y="112" width="65" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-23" value="&lt;div style=&quot;text-align: justify; font-size: 3.5px;&quot;&gt;Difé břáč vyvo a šíňů. Plýhlihlí pěř kroněcrurá jask i chro ma pásrysk ťuz měšlu dič byžrusk. Cizlask i titě, bistél a dějvlý opě šky frotij slim - hřech clomyďžrýz myďběd o flery. Pok krošluř hřoň.&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="340.75" y="155" width="50" height="23.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-24" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 4px;&quot;&gt;3.4&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;Pyd nitreb ti&lt;/font&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;spacing=1;spacingTop=-1;" vertex="1" parent="1">
+          <mxGeometry x="343.5" y="100" width="35" height="7.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-25" value="" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0.1;fillColor=#bac8d3;strokeColor=#23445d;fillStyle=auto;" vertex="1" parent="1">
+          <mxGeometry x="343.5" y="140" width="44.5" height="10" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-26" value="&lt;div style=&quot;font-size: 3.5px;&quot;&gt;Uťáď bědi fýt&lt;br&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=3.5;fontFamily=Times New Roman;fontStyle=1;spacing=1;spacingTop=-2;" vertex="1" parent="1">
+          <mxGeometry x="343.5" y="107.5" width="35" height="7.5" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-27" value="Theses Checker" style="rounded=0;whiteSpace=wrap;html=1;fontFamily=Times New Roman;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="180" y="103" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-28" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;width=7.474747474747475;endSize=4.4646464646464645;endWidth=11.823283338434853;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="125" y="132.77" as="sourcePoint" />
+            <mxPoint x="175" y="132.77" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-29" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;width=7.474747474747475;endSize=4.4646464646464645;endWidth=11.823283338434853;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="265" y="132.77" as="sourcePoint" />
+            <mxPoint x="315" y="132.77" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-30" value="" style="endArrow=none;html=1;rounded=1;strokeWidth=0.5;strokeColor=#CC1030;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="125" as="sourcePoint" />
+            <mxPoint x="389.95" y="115" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-31" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="120" as="sourcePoint" />
+            <mxPoint x="397" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-33" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="345" y="106" as="sourcePoint" />
+            <mxPoint x="373" y="106" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-34" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="359" y="120" as="sourcePoint" />
+            <mxPoint x="365" y="120" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-35" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="367" y="154.93" as="sourcePoint" />
+            <mxPoint x="371" y="154.93" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-36" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="348" y="163" as="sourcePoint" />
+            <mxPoint x="353" y="163" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FliS7TeuEX4JlH2KSaNP-37" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#cc1030;opacity=60;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="375" y="172" as="sourcePoint" />
+            <mxPoint x="381" y="172" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
