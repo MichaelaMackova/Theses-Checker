@@ -811,14 +811,14 @@ class Checker:
             self.__currPageTextContent = ""
             textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
             for block in textBlocks:
+                text = ""
                 # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
                 if block[6] == 0:   # contains text
                     text = block[4]
                     if text[-1] == "\n":
                         text = text[:-1]
                     
-                    text = text.replace("\n"," ")
-                self.__currPageTextContent += text +"\n\n"
+                    self.__currPageTextContent += text.replace("\n"," ") + "\n\n"
 
 
 
