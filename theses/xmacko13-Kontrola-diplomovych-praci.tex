@@ -143,13 +143,20 @@
 \lstdefinestyle{myPython}{
   language=Python,
   basicstyle=\fontfamily{newtxtt}\small,
+  keywordstyle={\bfseries\color{blue}},
   numbers=left,
   numberstyle=\scriptsize,
   frame=lines,
   xleftmargin=2em,
   xrightmargin=0.5em,
   %framexleftmargin=1.5em,
-  captionpos=b
+  captionpos=b,
+  emph=[2]{currPage, overflowList, pageBorder, pagePicture, lineOfPixels, pixel},
+  %emphstyle=[2]{\color{cyan}},
+  emph=[3]{getOverflow, getPageBorder, getPageAsPicture, outOfBounds, add,
+    annotate, getDocInfo, Check1, Check2, save, findPageBorder, firstLine,
+    lastLine, median},
+  emphstyle=[3]{\color{violet}},
 }
 
 \lstdefinelanguage{PDF}{

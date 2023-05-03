@@ -1,0 +1,22 @@
+<mxfile host="Electron" modified="2023-04-30T19:44:58.932Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="NzQZ22xgHx7coNPjg_sU" version="21.2.1" type="device">
+  <diagram name="Stránka-1" id="HWMP4H51_XWvQbo8pHPE">
+    <mxGraphModel dx="668" dy="391" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8orIHBOaLpbLe8Rx1qW9-1" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;Vestibulum fermentum tortor id mi. Sed convallis magna eu&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;a, faucibus vel, interdum nec, diam. Nullam feugiat,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ante. Integer lacinia.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;" vertex="1" parent="1">
+          <mxGeometry x="300" y="80" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="8orIHBOaLpbLe8Rx1qW9-3" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;sem. Aliquam ante. Aliquam&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial; border-color: var(--border-color); text-align: justify;&quot;&gt;erat volutpat. Sed elit dui, pellentesque&lt;/span&gt;&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Times New Roman;" vertex="1" parent="1">
+          <mxGeometry x="300" y="102" width="330" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8orIHBOaLpbLe8Rx1qW9-4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#cc0000;" vertex="1" parent="1">
+          <mxGeometry x="301" y="80" width="327" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="8orIHBOaLpbLe8Rx1qW9-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#cc0000;" vertex="1" parent="1">
+          <mxGeometry x="301" y="80" width="327" height="88" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
