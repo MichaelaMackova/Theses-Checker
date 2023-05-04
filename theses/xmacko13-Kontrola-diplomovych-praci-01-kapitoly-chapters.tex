@@ -47,7 +47,8 @@ Pro úspěšné dokončení vysokoškolského studia musí student napsat někol
 stran textu zvaného závěrečná práce. Tato technická zpráva by měla být před jejím
 zveřejněním několikrát překontrolována, ale ve většině případů se nenaleznou
 všechny vyskytované chyby. Při velké koncentraci chyb se může výsledná práce zdát
-\uv{odfláklá} a~může tak být sníženo její ohodnocení \highlight{případně přímo zamítnuta}.
+\uv{odfláklá} a~může tak být sníženo její ohodnocení, případně může být
+tato práce přímo zamítnuta.
 
 V~současné době existuje několik nástrojů pro kontrolu textu. Tyto nástroje se
 však převážně zaměřují na gramatické chyby a~typografické chyby tak bývají často
@@ -60,14 +61,14 @@ dostupnou aplikaci, která nalezne tyto (převážně typografické) chyby a~ozn
 je přímo uvnitř poskytnutého PDF souboru. Tato aplikace by měla být dostupná bez
 nutnosti instalování a~měla by být co nejvíce intuitivní.
 
-V~kapitole \dots \todo{TODO: popis kapitol}
+V~kapitole~\ref{frequent_mistakes} jsou popisovány často vyskytované chyby
+v~diplomových pracích, které byly zjištěny jako součást této práce. Dále je
+popsán formát souboru PDF (kapitola~\ref{PDF_file}), návrh a~implementace samotné
+aplikace (kapitola~\ref{design_implementation}), což zahrnuje i~vývoj webové
+aplikace s~pomocí Django frameworku. 
 
+\todo{TODO:}
 
-\dummyText
-
-\dummyText[2]
-
-\dummyShortText[15]
 
 %*********************************************************************************
 
@@ -270,7 +271,7 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 %*********************************************************************************
 %                               3 ANOTACE V PDF
 %*********************************************************************************
-\chapter{PDF soubor}
+\chapter{PDF soubor} \label{PDF_file}
 
 \todo{TODO: úvod do kapitoly}
 \dummyText
@@ -962,7 +963,7 @@ například následující:
 %                            4 NÁVRH A IMPLEMENTACE
 %*********************************************************************************
 %TODO: přejmenovat
-\chapter{Návrh a~implementace aplikace}
+\chapter{Návrh a~implementace aplikace} \label{design_implementation}
 \todo{TODO: úvod do kapitoly}
 
 \dummyText
@@ -1146,9 +1147,40 @@ naznačen na obrázku~\ref{pic_communication}.
 
 %---------- 4.4.2 Implementační detaily ----------
 \subsection*{Implementační detaily}
-\todo{error views, vymazání anotovaného souboru, }
+Během vývoje webové aplikace se vyskytlo několik problémů, které se převážně
+dokázalo vyřešit. Jeden takový problém bylo, v~jaký moment se ze serveru odstraní
+výstupní soubor. Jelikož server má omezené úložiště (v~případě neplaceného účtu
+služby PythonAnywhere je to 512\;MB) musí se všechny poskytnuté i~vytvořené PDF
+dokumenty někdy odstranit. Vstupní dokument se odstraní ihned po vytvoření
+výstupního dokumentu. Tento výstupní dokument se nejdříve musí zobrazit na
+webové stránce, až poté může být odstraněn. Použité řešení využívá
+odpovědi\footnote{
+    Odpověď dostupná na:
+    \href{https://groups.google.com/g/django-users/c/Da8HvVts9pI/m/fwgaFj8RAAAJ}{https://groups.google.com/g/django-users/c/Da8HvVts9pI/m/fwgaFj8RAAAJ}
+} nalezené na google groups, ve které se tento problém řeší uložením
+obsahu PDF souboru do proměnné, vymazáním souboru ze serveru a~následným posláním 
+obsahu vytvořené proměnné jako HTTP odpovědi. Ve vytvořené webové aplikaci se tato
+HTTP odpověď přijímá do HTML elementu \texttt{<iframe>}, který se vyskytuje na
+zobrazované webové stránce. Aby mohl element \texttt{<iframe>} zobrazit webovou
+stránku, musí se u~této zobrazované stránky nastavit X-Frame-Options. Díky
+odpovědi\footnote{
+    Odpověď lze nalézt na 
+    \href{https://stackoverflow.com/a/33267908}{https://stackoverflow.com/a/33267908}
+} ze Stack Overflow, bylo možné správně nastavit tuto možnost. 
 
-\dummyText
+Další detail bylo zobrazení chybových stránek. Django má podporu pro nastavení
+šablony chybových stránek s~chybovým kódem 400, 403, 404 a~500. S~každým tímto
+chybovým kódem se pojí jedna šablona jejíž soubory se jmenují \texttt{400.html},
+\texttt{403.html}, \texttt{404.html} a~\texttt{500.html}. Příklad chybové
+stránky, která se zobrazí při nahrání poškozeného souboru, lze vidět na
+obrázku~\ref{pic_theses_checker_error}.
+
+\begin{figure}[H]
+    \label{pic_theses_checker_error}
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/screenshot-error.png}
+    \caption{\todo{TODO: popis}}
+\end{figure}
 
 
 
