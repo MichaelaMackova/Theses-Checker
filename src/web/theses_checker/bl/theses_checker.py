@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 14.1.2023
-# Last Updated  : 4.4.2023
+# Last Updated  : 7.5.2023
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -154,10 +154,10 @@ class Checker:
 
     def __getPageXobjects(self):
         """
-        Gets XObjects invoked by current page.
+        Gets non-image XObjects invoked by current page.
 
         Returns:
-            list: XObjects invoked by current page. Every XObject is a touple (xref, name, invoker, bbox).
+            list: XObjects invoked by current page. Every XObject is a tuple (xref, name, invoker, bbox).
         """
         tmp_xobjects = self.__currPage.get_xobjects()
         xobjects = []
@@ -209,6 +209,18 @@ class Checker:
                     for xobject in xobjects:
                         # xobject = (xref, name, invoker, bbox)
                         if cmd == "/" + xobject[1] + " Do":
+                            CTMStack.append(CTM)
+
+                            Matrix = self.__document.xref_get_key(xobject[0], "Matrix")[1]
+                            if Matrix != 'null':
+                                #Matrix = '[a b c d e f]'
+                                Matrix = [
+                                    [float(Matrix[1]), float(Matrix[3]), 0.0],
+                                    [float(Matrix[5]), float(Matrix[7]), 0.0],
+                                    [float(Matrix[9]), float(Matrix[11]), 1.0]
+                                ]
+                                CTM = numpy.matmul(Matrix,CTM)
+
                             pageTransMatrix = [
                                 [self.__currPage.transformation_matrix.a, self.__currPage.transformation_matrix.b, 0.0],
                                 [self.__currPage.transformation_matrix.c, self.__currPage.transformation_matrix.d, 0.0],
@@ -234,6 +246,8 @@ class Checker:
                                     'image'         : self.__document.xref_stream_raw(xobject[0])
                                 }
                             )
+
+                            CTM = CTMStack.pop()
                             break
         self.__currPageEmbeddedPdfs = sorted(embeddedPdfBlocks, key=lambda x: (x['bbox'][1], x['bbox'][0]))
 
@@ -465,6 +479,8 @@ class Checker:
             tuple: Regular font of current page with the layout: ({'name', 'size', 'flags'}, total_character_count)
         """
         fonts = self.__getPageUsedFonts() 
+        if not fonts:
+            return None
         return fonts[self.__getMostUsedFontIndex(fonts)]
 
     
@@ -494,11 +510,12 @@ class Checker:
 
             if findRegularFont:
                 font = self.__getPageRegularFont()
-                index = self.__getFontIndex(regularFonts, font[0])
-                if index != None:
-                    regularFonts[index] = (font[0], regularFonts[index][1] + font[1])
-                else:
-                    regularFonts.append(font)
+                if font:
+                    index = self.__getFontIndex(regularFonts, font[0])
+                    if index != None:
+                        regularFonts[index] = (font[0], regularFonts[index][1] + font[1])
+                    else:
+                        regularFonts.append(font)
 
             self.__resetCurrVars()
 
@@ -640,11 +657,12 @@ class Checker:
         self.__getTextPage()
         rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
-            if self.__embeddedPdfAsImage:
-                if self.__isInsideEmbeddedPdf(rect):
-                    continue
-            self.mistakes_found = True
-            self.__highlight(rect, highlightColor, popupText, popupTitle)
+            if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
+                if self.__embeddedPdfAsImage:
+                    if self.__isInsideEmbeddedPdf(rect):
+                        continue
+                self.mistakes_found = True
+                self.__highlight(rect, highlightColor, popupText, popupTitle)
 
 
 
@@ -797,14 +815,14 @@ class Checker:
             self.__currPageTextContent = ""
             textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
             for block in textBlocks:
+                text = ""
                 # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
                 if block[6] == 0:   # contains text
                     text = block[4]
                     if text[-1] == "\n":
                         text = text[:-1]
                     
-                    text = text.replace("\n"," ")
-                self.__currPageTextContent += text +"\n\n"
+                    self.__currPageTextContent += text.replace("\n"," ") + "\n\n"
 
 
 
@@ -939,8 +957,9 @@ class Checker:
                     y2=blocks[blockNumber]['bbox'][1]
                     if y1 < y2:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
-                        self.mistakes_found = True
-                        self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
+                        if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
+                            self.mistakes_found = True
+                            self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
 
                 x = re.search("^(?:(?:Kapitola|Chapter) \d+|(?:Příloha|Appendix|Príloha) [A-Z])$", blockText) # example: Kapitola 4; Chapter 4; Appendix D; Príloha D; Příloha D
                 if  x:
