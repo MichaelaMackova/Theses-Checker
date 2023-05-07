@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 14.1.2023
-# Last Updated  : 23.4.2023
+# Last Updated  : 7.5.2023
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -479,6 +479,8 @@ class Checker:
             tuple: Regular font of current page with the layout: ({'name', 'size', 'flags'}, total_character_count)
         """
         fonts = self.__getPageUsedFonts() 
+        if not fonts:
+            return None
         return fonts[self.__getMostUsedFontIndex(fonts)]
 
     
@@ -508,11 +510,12 @@ class Checker:
 
             if findRegularFont:
                 font = self.__getPageRegularFont()
-                index = self.__getFontIndex(regularFonts, font[0])
-                if index != None:
-                    regularFonts[index] = (font[0], regularFonts[index][1] + font[1])
-                else:
-                    regularFonts.append(font)
+                if font:
+                    index = self.__getFontIndex(regularFonts, font[0])
+                    if index != None:
+                        regularFonts[index] = (font[0], regularFonts[index][1] + font[1])
+                    else:
+                        regularFonts.append(font)
 
             self.__resetCurrVars()
 
@@ -654,11 +657,12 @@ class Checker:
         self.__getTextPage()
         rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
         for rect in rects:
-            if self.__embeddedPdfAsImage:
-                if self.__isInsideEmbeddedPdf(rect):
-                    continue
-            self.mistakes_found = True
-            self.__highlight(rect, highlightColor, popupText, popupTitle)
+            if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
+                if self.__embeddedPdfAsImage:
+                    if self.__isInsideEmbeddedPdf(rect):
+                        continue
+                self.mistakes_found = True
+                self.__highlight(rect, highlightColor, popupText, popupTitle)
 
 
 
@@ -953,8 +957,9 @@ class Checker:
                     y2=blocks[blockNumber]['bbox'][1]
                     if y1 < y2:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
-                        self.mistakes_found = True
-                        self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
+                        if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
+                            self.mistakes_found = True
+                            self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
 
                 x = re.search("^(?:(?:Kapitola|Chapter) \d+|(?:Příloha|Appendix|Príloha) [A-Z])$", blockText) # example: Kapitola 4; Chapter 4; Appendix D; Príloha D; Příloha D
                 if  x:
