@@ -61,13 +61,46 @@ dostupnou aplikaci, která nalezne tyto (převážně typografické) chyby a~ozn
 je přímo uvnitř poskytnutého PDF souboru. Tato aplikace by měla být dostupná bez
 nutnosti instalování a~měla by být co nejvíce intuitivní.
 
-V~kapitole~\ref{frequent_mistakes} jsou popisovány často vyskytované chyby
-v~diplomových pracích, které byly zjištěny jako součást této práce. Dále je
-popsán formát souboru PDF (kapitola~\ref{PDF_file}), návrh a~implementace samotné
-aplikace (kapitola~\ref{design_implementation}), což zahrnuje i~vývoj webové
-aplikace s~pomocí Django frameworku. 
+Úvodní stránka výsledného produktu lze vidět na
+obrázku~\ref{pic_theses_checker_page1}. Přesněji lze vidět úvodní stránku
+na obrázku~\ref{pic_theses_checker_page1_sub1} a~na
+obrázku~\ref{pic_theses_checker_page1_sub2} lze vidět úvodní stránku
+při čekání na zpracování nahraného dokumentu. 
+ Na obrázku~\ref{pic_theses_checker_page2}
+je poté vidět PDF výstup vytvořené aplikace. Toto anotované PDF je pro
+příjemnější používání aplikace přímo zobrazené na webové stránce.
 
-\todo{TODO:}
+\begin{figure}[H]
+    
+    \begin{subfigure}[b]{0.496\linewidth}
+        \includegraphics[width=\linewidth]{obrazky-figures/screenshot-page1-small.png}
+        \caption{TODO:}
+        \label{pic_theses_checker_page1_sub1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.496\linewidth}
+        \includegraphics[width=\linewidth]{obrazky-figures/screenshot-loading-small.png}
+        \caption{TODO:}
+        \label{pic_theses_checker_page1_sub2}
+    \end{subfigure}
+    %\includegraphics[width=0.496\linewidth]{obrazky-figures/screenshot-loading-small.png}
+    \caption[]{Tyto obrázky ukazují úvodní stránku vytvořené webové aplikace Theses Checker}
+    \label{pic_theses_checker_page1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/screenshot-page2.png}
+    \caption{Tento obrázek ukazuje webovou stránku s~výstupem z~vytvořené aplikace}
+    \label{pic_theses_checker_page2}
+\end{figure}
+
+Tento text v~kapitole~\ref{frequent_mistakes} popisuje často vyskytované chyby
+v~diplomových pracích, které byly zjištěny jako součást této práce. Dále je
+popsán formát souboru PDF (kapitola~\ref{PDF_file}) a~návrh a~implementace samotné
+aplikace (kapitola~\ref{design_implementation}), což zahrnuje i~vývoj webové
+aplikace s~pomocí Django frameworku. Kapitola~\ref{testing} poté popisuje postup
+testování a~vyhodnocení výsledného produktu.
 
 
 %*********************************************************************************
@@ -113,11 +146,11 @@ Další typ této chyby je přetečení obrázku za okraj,
 který se nestává tak často, ale lze jej udělat v~několika textových editorech.
 
 \begin{figure}[H]
-    \label{pic_overflow}
     \centering
     %\includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
     \includegraphics{obrazky-figures/placeholder.pdf}
     \caption{\textbf{Ukázka přetečení za okraj.} \todo{popisek + přetečení obrázku}}
+    \label{pic_overflow}
 \end{figure}
 
 
@@ -272,6 +305,7 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 %                               3 ANOTACE V PDF
 %*********************************************************************************
 \chapter{PDF soubor} \label{PDF_file}
+Tato kapitola se zaobírá popsáním struktury PDF dokumentu. 
 
 \todo{TODO: úvod do kapitoly}
 \dummyText
@@ -419,7 +453,8 @@ PDF soubor se je rozdělen do 4~částí:
 
 %---------- 3.1.3 Struktura dokumentu ----------
 \subsection*{Struktura dokumentu} \label{document_structure}
-\highlight{Struktura dokumentu popisuje, jak vypadá vyobrazený dokument.}
+Struktura dokumentu popisuje, jak vypadá vyobrazený PDF dokument na rozdíl
+od struktury souboru, která popisuje vnitřní rozložení.
 Lze si ji představit jako hierarchii objektů vyskytujících se v~těle PDF souboru.
 Některé z~důležitých částí tohoto hierarchického stromu jsou:
 \begin{itemize}
@@ -486,7 +521,6 @@ má několik definovaných klíčů, které je možné použít, např. \texttt{
 který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované jako
 \texttt{Im1} a~\texttt{Im2}, může vypadat následovně:
 \pdfcode{code_examples/pdf_code/resources.txt}{TODO:}{code_resources}
-\todo{F5, Im1 a Im2 správné zvýraznění? (emph vs texttt vs none)}
 
 
 
@@ -585,9 +619,9 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
 
     \begin{figure}[H]
         \centering
-        \label{pic_user_to_device}
         \includegraphics[width=0.5\linewidth]{obrazky-figures/user_to_device_space.pdf}
         \caption{\todo{TODO: popisek} Inspirován obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
+        \label{pic_user_to_device}
     \end{figure}
     
     \item \textbf{Specializované prostory} -- PDF formát pracuje kromě
@@ -621,9 +655,9 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
 \end{itemize}
 
 \begin{figure}[H]
-    \label{coordinate_spaces}
     \includegraphics[width=\linewidth]{obrazky-figures/coordinate_spaces.pdf}
     \caption[Vztah mezi souřadnicovými systémy používaných uvnitř PDF]{Obrázek označuje vztah mezi souřadnicovými systémy používaných uvnitř PDF. Každá šipka představuje transformaci mezi dvěma souřadnicovými systémy. Inspirováno obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
+    \label{coordinate_spaces}
 \end{figure}
 
 
@@ -652,10 +686,10 @@ stav datové struktury graphics state. Uvnitř celého content streamu musí bý
 použit stejný počet operátorů \texttt{q} a~\texttt{Q}.
 
 \begin{figure}[H]
-    \label{pic_graphics_state}
     \centering
     \includegraphics[width=0.7\linewidth]{obrazky-figures/graphics_state_stack.pdf}
     \caption{\todo{TODO: odkaz}}
+    \label{pic_graphics_state}
 \end{figure}
 
 Pro úpravu parametrů uložených ve struktuře graphics state se používají uvnitř
@@ -960,26 +994,24 @@ například následující:
 
 
 %*********************************************************************************
-%                            4 NÁVRH A IMPLEMENTACE
+%                            4 NÁVRH A IMPLEMENTACE 
 %*********************************************************************************
-%TODO: přejmenovat
-\chapter{Návrh a~implementace aplikace} \label{design_implementation}
+\chapter{Návrh a~implementace aplikace Theses Checker} \label{design_implementation}
 \todo{TODO: úvod do kapitoly}
-
-\dummyText
 
 
 %#######################    4.1 Specifikace požadavků    #######################
 \section{Specifikace požadavků}
+\todo{itemize; přeformulovat na množné, jelikož existují dvě verze (cmd, web)}
 Cílem vytvořené aplikace je nalézt a~vyznačit chyby, které se vyskytují
-v~nahrané technické zprávě. Technická zpráva bude ve formátu PDF.
+v~nahrané technické zprávě. Technická zpráv a bude ve formátu PDF.
 Program musí podporovat technické zprávy napsané v~jazyce českém a~s~menší
 podporou i~v~jazyce slovenském nebo anglickém. Aplikace musí primárně umět
 kontrolovat diplomové práce vytvořené v~šabloně pro jazyk {\LaTeX}, která byla
 poskytnuta univerzitou Vysoké učení technické v~Brně, přesněji Fakultou
 informačních technologií. Aplikace musí
 být lehce přístupná, nejlépe bez nutnosti jakékoliv instalace.
-A měla by být funkční na co nejvíce platformách, aby byla zajištěna dostupnost pro
+A~měla by být funkční na co nejvíce platformách, aby byla zajištěna dostupnost pro
 co nejvíce uživatelů.
 
 Nalezené
@@ -1004,8 +1036,9 @@ zpracoval právě jeden dokument.
 
 %#######################    4.2 Návrh aplikace    #######################
 \section{Návrh aplikace}
+\todo{zmínit cmd aplikaci}
 Aby byla aplikace co nejvíce nezávislá, byla vyvinuta jako webová aplikace.
-Tato aplikace musí být intuitivní a~okrem nahrání PDF dokumentu by se nemělo
+Tato aplikace musí být intuitivní a~až na nahrání PDF dokumentu by se nemělo
 muset vyplňovat zbytečně mnoho informací. Většina informací by měla být
 zjištěna automaticky z~poskytnutého PDF souboru. Jak je ukázáno na
 obrázku~\ref{pic_theses_checker_dia}, vstupem této aplikace by měl být
@@ -1013,10 +1046,10 @@ samotný, neupravený PDF dokument, který vytvořená aplikace zpracuje
 a~jejím výstupem je tento PDF dokument doplněný o~anotace.
 
 \begin{figure}[H]
-    \label{pic_theses_checker_dia}
     \centering
     \includegraphics[width=\linewidth]{obrazky-figures/Theses_Checker_diagram.pdf}
     \caption{\todo{TODO: popis}}
+    \label{pic_theses_checker_dia}
 \end{figure}
 
 Vytvořená webová aplikace by měla odrážet tento uvedený vzor vstupů a~výstupů.
@@ -1029,17 +1062,17 @@ Na této stránce bude pro lepší uživatelskou přívětivost přímo zobrazen
 anotovaný dokument místo často používaného odkazu na stáhnutí souboru.
 
 \begin{figure}[H]
-    \label{pic_theses_checker_design_page1}
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_design-page1.pdf}
     \caption{\todo{TODO: odkaz}}
+    \label{pic_theses_checker_design_page1}
 \end{figure}
 
 \begin{figure}[H]
-    \label{pic_theses_checker_design_page2}
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_design-page2.pdf}
     \caption{\todo{TODO: odkaz}}
+    \label{pic_theses_checker_design_page2}
 \end{figure}
 
 Výstupní dokument bude obsahovat několik anotací, pro označení nalezených chyb.
@@ -1096,7 +1129,7 @@ využity následující technologie:
 
 
 %#######################    4.4 Implementace webové aplikace    #######################
-\section{Implementace webové aplikace}
+\section{Implementace webové aplikace} \label{web_app}
 Výsledná webová aplikace byla vyvinuta s~pomocí Django frameworku.
 Nahraný soubor se pošle na server pomocí HTTP požadavku metodou POST
 a~uloží se ve specifické složce. Poté se pomocí třídy \texttt{Checker}
@@ -1109,31 +1142,10 @@ dokument odstraněn ze serveru. Postup zpracování nahraného PDF souboru je
 naznačen na obrázku~\ref{pic_communication}.
 
 \begin{figure}[H]
-    \label{pic_communication}
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_communication.pdf}
     \caption{TODO: popis + odkaz}
-\end{figure}
-
-\begin{figure}[H]
-    \label{pic_theses_checker_page1}
-    \centering
-    \includegraphics[width=\linewidth]{obrazky-figures/screenshot-page1.png}
-    \caption{\todo{TODO: odkaz}}
-\end{figure}
-
-\begin{figure}[H]
-    \label{pic_theses_checker_page1_loading}
-    \centering
-    \includegraphics[width=\linewidth]{obrazky-figures/screenshot-loading.png}
-    \caption{\todo{TODO: odkaz}}
-\end{figure}
-
-\begin{figure}[H]
-    \label{pic_theses_checker_page2}
-    \centering
-    \includegraphics[width=\linewidth]{obrazky-figures/screenshot-page2.png}
-    \caption{\todo{TODO: odkaz}}
+    \label{pic_communication}
 \end{figure}
 
 
@@ -1176,16 +1188,54 @@ stránky, která se zobrazí při nahrání poškozeného souboru, lze vidět na
 obrázku~\ref{pic_theses_checker_error}.
 
 \begin{figure}[H]
-    \label{pic_theses_checker_error}
     \centering
     \includegraphics[width=\linewidth]{obrazky-figures/screenshot-error.png}
     \caption{\todo{TODO: popis}}
+    \label{pic_theses_checker_error}
 \end{figure}
 
 
 
-%#######################    4.5 Program pro vyhledání chyb a jejich následné vyznačení    #######################
-\section{Program pro vyhledání chyb a~jejich následné vyznačení} \label{checker}
+%#######################    4.5 Program pro použití v~příkazovém řádku    #######################
+\section{Program pro použití v~příkazovém řádku}
+
+Implementovaná webová aplikace umí najednou kontrolovat pouze jeden nahraný PDF
+soubor. Vedoucí diplomových prací často potřebují zkontrolovat více takových
+souborů, proto byl navíc vytvořen program použitelný v~příkazovém řádku. 
+Tento program je v~souboru \texttt{check.py} a~používá program ze
+sekce~\ref{checker}. Pro správnou funkčnost musí být tyto dva soubory uloženy ve
+stejné složce. Program umí na jeden příkaz kontrolovat více PDF souborů
+a~s~pomocí nepovinných přepínačů \texttt{-o}, \texttt{-i}, \texttt{-H}, 
+\texttt{-t}, \texttt{-s}, \texttt{-e} a~\texttt{-b} lze určit které kontroly
+budou či nebudou probíhat. Tento script podporuje navíc nepovinný přepínač
+\texttt{--embedded\_PDF}, který určuje zda budou vnořené PDF brány jako
+vektorové obrázky.
+
+Na obrázku~\ref{pic_theses_checker_cmd}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[]{obrazky-figures/cmd_screenshot_one.pdf}
+    \includegraphics[]{obrazky-figures/cmd_screenshot_many.pdf}
+    \caption{TODO: popis + odkaz}
+    \label{pic_theses_checker_cmd}
+\end{figure}
+
+\todo{ukázka použití}
+
+\subsection*{Závislosti}
+Aby mohla být aplikace použitelná potřebuje následující:
+\begin{itemize}
+    \item Python\,==\,3.10.7
+    \item PyMuPDF\,==\,1.20.2
+    \item numpy\,==\,1.23.5
+\end{itemize}
+Jiné verze těchto závislostí nebyly testovány.
+
+
+
+%#######################    4.6 Implementace programu pro vyhledání chyb a~jejich následné vyznačení    #######################
+\section{Implementace programu pro vyhledání chyb a~jejich následné vyznačení} \label{checker}
 Program, který zodpovídá za práci s~PDF dokumentem, je obsažen v~souboru s~názvem
 \texttt{theses\_checker.py}. Pro zkontrolování technické zprávy se musí použít
 funkce \texttt{annotate()} ze třídy \texttt{Checker}. Při vytváření instance této
@@ -1205,8 +1255,10 @@ nalezených chyb. Jsou to proměnné:
 
     \item \texttt{HIGH\_RED} -- Proměnná obsahuje červenou barvu pro zvýraznění
     textu při nalezené chybě. Barva je ve formátu RGB\footnote{
-        Formát RGB -- Uspořádaná trojice, kde každý prvek obsahuje celé číslo
-        v~intervalu $<0;255>$.
+        Knihovna PyMuPDF umí pracovat s~několika různými formáty barev, jako
+        jsou například formáty CMYK, GRAY, RGB a~sRGB. 
+        Formát RGB je uspořádaná trojice, kde každý prvek obsahuje celé číslo
+        v~intervalu $\left\langle 0;255 \right\rangle$.
     }.
 
     \item \texttt{HIGH\_ORANGE} -- Je to oranžová barva ve formátu RGB pro
@@ -1250,18 +1302,18 @@ proměnných jsou:
     
     \item \texttt{\_\_currDict} -- Tato privátní proměnná obsahuje aktuálně
     zkoumanou stránku ve formě slovníku, jehož struktura je uvedena na
-    obrázku~\ref{pic_curr_page_dict}.
+    obrázku~\ref{pic_curr_page_dict}, ve kterém je označen jménem \emph{Stránka}.
     \begin{figure}[H]
-        \label{pic_curr_page_dict}
         \centering
         \includegraphics[width=\linewidth]{obrazky-figures/page_dictionary.pdf}
         \caption{TODO: \url{https://pymupdf.readthedocs.io/en/latest/textpage.html}}
+        \label{pic_curr_page_dict}
     \end{figure}
     
     \item \texttt{\_\_currPageEmbeddedPdfs} -- Privátní proměnná, která obsahuje
     seznam vykreslených vložených PDF na aktuálně zpracovávané stránce. Každá
     položka tohoto seznamu je pro kompatibilitu s~proměnnou \texttt{\_\_currDict}
-    typu slovník, který odpovídá slovníku \emph{Image block} uvedeném na
+    typu slovník, který odpovídá slovníku \emph{Obrázkový blok} uvedeném na
     obrázku~\ref{pic_curr_page_dict}. 
     
     \item \texttt{\_\_currPageTextContent} -- Tato privátní proměnná obsahuje
@@ -1336,10 +1388,10 @@ obsažených). Pokud blok textu obsahuje přetečení, ohraničení celého blok
 obsahuje i~toto přetečení (viz obrázek~\ref{pic_block_bbox}).
 
 \begin{figure}[H]
-    \label{pic_block_bbox}
     \centering
     \includegraphics[width=0.7\linewidth]{obrazky-figures/block_bbox.pdf}
     \caption{Obrázek ukazuje červeně označené ohraničení bloku textu, který obsahuje přetečení.}
+    \label{pic_block_bbox}
 \end{figure}
 
 Při hledání okraje stránky je použitý algoritmus inspirován tím, jak takový
@@ -1419,57 +1471,17 @@ vykreslených na aktuální stránce je naznačen ve vývojovém diagramu na
 obrázku~\ref{pic_embedded_pdf_flow_chart}.
 
 \begin{figure}[H]
-    \label{pic_embedded_pdf_flow_chart}
     \centering
     \includegraphics[width=\linewidth]{obrazky-figures/embedded_pdf_flow_chart.pdf}
-    \caption{TODO: popis + odkaz}
+    \caption{
+        Na tomto obrázku je nakreslen vývojový diagram, který popisuje
+        algoritmus pro získání souřadnic vnořených PDF. CTM je proměnná imitující 
+        CTM (current transformation matrix) z~datové struktury graphics state
+        vyskytující se v~PDF. Aktuální stránka je instance PDF stránky, která
+        se právě zpracovává a~lze z~ní získat content stream a~vyvolané XObjekty. 
+    }
+    \label{pic_embedded_pdf_flow_chart}
 \end{figure}
-
-
-
-%#######################    4.7 Ukázka použití vytvořené webové aplikace    #######################
-\section{Ukázka použití vytvořené webové aplikace}
-
-\dummyShortText[13]
-
-\dummyText
-
-\todoimage{width=\linewidth,height=3.3in}{Zvolení PDF a~filtrů na webu.}
-
-\dummyShortText[8]
-
-\todoimage{width=\linewidth,height=3.3in}{Čekání na webu.}
-
-\dummyText
-
-\todoimage{width=\linewidth,height=3.3in}{Anotované PDF na webu.}
-
-
-%#######################    4.7 Doplňující program pro použití v~příkazovém řádku    #######################
-\section{Doplňující program pro použití v~příkazovém řádku}
-
-Implementovaná webová aplikace umí najednou kontrolovat pouze jeden nahraný PDF
-soubor. Vedoucí diplomových prací často potřebují zkontrolovat více takových
-souborů, proto byl navíc vytvořen program použitelný v~příkazovém řádku. 
-Tento program je v~souboru \texttt{check.py} a~používá program ze
-sekce~\ref{checker}. Pro správnou funkčnost musí být tyto dva soubory uloženy ve
-stejné složce. Program umí na jeden příkaz kontrolovat více PDF souborů
-a~s~pomocí nepovinných přepínačů \texttt{-o}, \texttt{-i}, \texttt{-H}, 
-\texttt{-t}, \texttt{-s}, \texttt{-e} a~\texttt{-b} lze určit které kontroly
-budou či nebudou probíhat. Tento script podporuje navíc nepovinný přepínač
-\texttt{--embedded\_PDF}, který určuje zda budou vnořené PDF brány jako
-vektorové obrázky.
-
-\todo{ukázka použití}
-
-\subsection*{Závislosti}
-Aby mohla být aplikace použitelná potřebuje následující:
-\begin{itemize}
-    \item Python\,==\,3.10.7
-    \item PyMuPDF\,==\,1.20.2
-    \item numpy\,==\,1.23.5
-\end{itemize}
-Jiné verze těchto závislostí nebyly testovány.
 
 
 %*********************************************************************************
@@ -1481,10 +1493,16 @@ Jiné verze těchto závislostí nebyly testovány.
 %                                 5 TESTOVÁNÍ 
 %*********************************************************************************
 %TODO: přejmenovat
-\chapter{Testování a~zhodnocení výsledné aplikace}
-\todo{TODO: úvod do kapitoly}
+\chapter{Testování a~zhodnocení výsledné aplikace} \label{testing}
+Testování je důležitou součástí vývoje jakéhokoliv nástroje. Během testování
+vývojáři dostávají důležitou zpětnou vazbu a~mohou tak být odhaleny chyby,
+které je třeba opravit.
 
-\dummyShortText[10]
+Tato kapitola popisuje jakým způsobem byl testován výsledný nástroj této
+bakalářské práce. Jsou zde rozvedeny postupy a~výsledky ověřování funkcionality
+vytvořené aplikace. Dále jsou zde zmíněny nedostatky, které se v~této aplikaci
+vyskytují a~rozšíření pro budoucí vývoj tohoto nástroje. 
+
 
 
 %#######################    5.1 Ověření správné funkcionality vyhledávání chyb    #######################
@@ -1505,17 +1523,11 @@ jen tyto výstupy z~vytvořené aplikace nebyly porovnávány s~posudkem oponent
 ale s~poskytnutými poznámkami.
 
 
-%#######################    5.2 Známé chyby aplikace    #######################
-\section{Známé chyby aplikace}
-Typografická kontrola zahrnuje velmi rozšířenou oblast a~často se váže k~jazyku
-vypracovaného textu.
-\todo{TODO: mezera před levou závorkou u funkcí a rovnic, okraje stránky pro oboustranný tisk, špatné ukazování chbějícího popisu kapitoly u grafů, tabulek atd., nefunguje na mobilních zařízeních}
-
 
 %#######################    5.3 Uživatelské dotazníky    #######################
 \section{Uživatelské dotazníky}
 ... 
-Na dotazník odpovědělo celkem 26~uživatelů a~obsahoval tyto otázky:
+Na dotazník odpovědělo celkem 29~uživatelů a~obsahoval tyto otázky:
 \begin{itemize}
     \item Pomocí jakého prohlížeče jste aplikaci použili?
     \item Dokázali jste pomocí aplikace Theses Checker zkontrolovat svou
@@ -1535,20 +1547,69 @@ jak je daná aplikace přehledná. Přehlednost označení nalezených chyb
 uvnitř PDF dokumentu, mělo většinově dobré ohlasy, což lze
 vyčíst z~obrázku~\ref{rate_checks}.
 
-\begin{figure}[H] \label{rate_checks}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/graph1.pdf}
-    \caption{Obrázek obsahuje graf odpovědí na otázku o~přehlednosti
+    \caption{\todo{Graf s novými odpovědmi + popisy os}Obrázek obsahuje graf odpovědí na otázku o~přehlednosti
     označení chyb na stupnici od 1 do 5, kde 1 představuje \uv{Zcela nepřehledné}
     a~5 představuje \uv{Jasné}.}
+    \label{rate_checks}
 \end{figure}
 
 \todo{další odpovědi}
 
 
+
+%#######################    5.2 Známé chyby aplikace    #######################
+\section{Známé chyby aplikace} \label{app_errors}
+%Typografická kontrola zahrnuje velmi rozšířenou oblast a~často se váže k~jazyku vypracovaného textu.
+Při ověřování správné funkcionality aplikace bylo odhaleno, že vytvořenou webovou aplikaci
+nelze použít na mobilním zařízení. Toto je způsobeno načasováním, kdy je odstraněn
+výsledný PDF soubor (více viz sekce~\ref{web_app}). Jelikož element
+\texttt{<iframe>} neumí na mobilním zařízení zobrazit PDF dokument, nelze tak
+získat anotovaný soubor. Při pokusu o~stáhnutí tohoto souboru se pošle dotaz
+na server, kde už tento výstupní soubor neexistuje a~tak je tento vytvořený soubor
+nenávratně ztracen.
+
+Během testování bylo objeveno několik dalších nedostatků, které jsou spojeny přímo
+s~hledáním chyb. Jelikož se při získávání textu nerozlišuje mezi prostým textem
+a~jakýmkoliv jiným elementem obsahujícím text (například grafy a~tabulky),
+nalezené nedostatky se nejčastěji objevují právě okolo těchto elementů. 
+Jeden takový nedostatek je špatné ukazování chybějícího popisu kapitoly.
+V~tomto případě hraje roli rozeznávání nadpisů, kde text z~tohoto elementu
+může být rozpoznán jako nadpis. Dále můžou tyto elementy ovlivnit nalezení
+okraje stránky, jelikož texty uvnitř těchto elementů bývají často odsazené.
+
+Dalším často zmiňovaným nedostatkem v~odpovědích na formulář jsou označené
+varování na mezeru před levou závorkou na místě, kde se mezera vyskytovat
+nemá. Tato místa jsou například názvy funkcí, matematická rovnice a~kód
+ve výpisu. Tento nedostatek není lehké opravit, jelikož by pro vylepšení
+bylo potřeba poznat kontext textu.
+
+%\todo{TODO: okraj stránky pro oboustranný tisk}
+
+
+
 %#######################    5.4 Možné budoucí rozšíření aplikace    #######################
 \section{Možné budoucí rozšíření aplikace}
-\todo{TODO: checkboxy pro nastavení kontrol, okraje pro oboustranný tisk, použití vektorových obrázků a ne rastrových, použití správných uvozovek, hledání nevhodných slov, jednopísmenné spojky na koci řádku,  proměnná \texttt{\_\_currPageTextContent} nebude obsahovat z embedded pdfs}
+Prvním cílem pro budoucí rozšíření bude přidání zaškrtávacích políček na úvodní
+stránce webu pro nastavení kontrol, které se při zpracování provedou. Tato funkce
+byla několikrát navrhnuta uživateli jako vylepšení. Jak je uvedeno
+v~podkapitole~\ref{app_errors}, některým označením chyb se nedá vyhnout, proto 
+bylo navrhnuto, aby bylo možné si zvolit, které kontroly se provedou, a~které se
+vynechají.
+
+Další vylepšení se budou týkat samotných kontrol. První vylepšení bude hledání
+okrajů pro PDF nastavené na oboustranný tisk. Jelikož u~těchto PDF mají sudé
+a~liché stránky jinak nastaveny okraje, nelze v~současném stavu kontrolovat 
+přetečení těchto okrajů či další kontroly, které jsou na nalezených okrajích
+závislé.
+
+Ostatní rozšíření bude přidávání nových kontrol, což je například  kontrola
+použití správných uvozovek, detekce jednopísmenných předložek a~spojek na
+konci řádku a~kontrola používání vektorových obrázků.
+
+%\todo{TODO: hledání nevhodných slov, proměnná \texttt{\_\_currPageTextContent} nebude obsahovat z embedded pdfs}
 
 %*********************************************************************************
 
@@ -1565,7 +1626,7 @@ aplikace byla vytvořena jako webový nástroj a~nyní je veřejně
 přístupná pod názvem Theses Checker\footnote{Theses Checker je dostupný na adrese
 \href{https://theseschecker.eu.pythonanywhere.com/}{https://theseschecker.eu.pythonanywhere.com/}}.
 
-Nejdříve bylo zapotřebí nalézt, které chyby se nejčastěji vyskytují v~závěrečných
+Nejdříve bylo zapotřebí zjistit, které chyby se nejčastěji vyskytují v~závěrečných
 pracích. Ty se nalezly zkoumáním zveřejněných textů a~posudků diplomových prací
 vytvořených na Fakultě informačních technologií Vysokého učení technického v~Brně.
 Poté byly zkoumány některé dostupné aplikace pro kontrolu textu. Bylo zjištěno,
@@ -1580,14 +1641,17 @@ podávána pomocí dotazníku.
 Program umí kontrolovat šest typů chyb a~to přetečení za okraj stránky, 
 špatné použití spojovníku, nevhodná šířka obrázku, vynechaná mezera před levou
 závorkou, chybějící text mezi názvy sekcí a~odkaz na neexistující referenci.
-Byl vytvořen plakát a~video\footnote{\todo{TODO: odkaz na video}} o~použití 
-tohoto programu, čímž byl splněn poslední bod zadání této bakalářské práce.
+Byl vytvořen plakát a~video\footnote{\todo{TODO: odkaz na video}}, které
+demonstruje použití tohoto programu, čímž byl splněn poslední bod zadání této
+bakalářské práce.
 
 Do budoucna bych chtěla vylepšit algoritmus na hledání okrajů PDF stránky
 a~přidat pro něj podporu dokumentů nastavených na oboustranný tisk, jejichž
 okraje jsou pro sudé a~liché stránky rozdílné. Dále bych chtěla vylepšit chování
-kontrol pro textové objekty, jako jsou tabulky či výpisy.
+kontrol pro textové objekty, jako jsou tabulky či výpisy. Též bych chtěla doplnit
+několik dalších kontrol častých chyb, které budou nápomocné uživatelům aplikace.
 
+\todo{práce byla ukázána na konferenci excel@fit; zmínit i cmd program}
 
 
 

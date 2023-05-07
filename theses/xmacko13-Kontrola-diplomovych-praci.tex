@@ -72,6 +72,7 @@
 \csdoublequotesoff
 
 \usepackage{url}
+\usepackage{subcaption}
 \usepackage{xcolor}
 \newcommand{\dummyText}[1][1]{{\color{lightgray}\blindtext[#1]}}
 \newcommand{\DummyText}[0]{{\color{lightgray}\Blindtext}}
@@ -296,15 +297,20 @@
   %keywords.en={Here, individual keywords separated by commas will be written in English.},
   % Abstrakt / Abstract
   abstract.cs={Cílem této práce je vytvoření aplikace, která zkontroluje technickou
-      zprávu a~označí všechny nalezené chyby pomocí PDF anotací. Aplikace je
-      implementována v~jazyku Python a~pomocí frameworku Django je přístupná jako
+      zprávu a~označí všechny nalezené chyby pomocí PDF anotací. 
+      Technická dokumentace této práce rozebírá strukturu PDF souboru, často
+      vyskytované chyby v~diplomových pracích, vývoj webu s~pomocí
+      frameworku Django a~probírá existující knihovny pro úpravu PDF dokumentů.
+      Výsledná aplikace je
+      implementována v~jazyku Python a~s~pomocí frameworku Django je přístupná jako
       webový nástroj. Vytvořené řešení dokáže nalézt šest převážně typografických chyb,
       které se často vyskytují v~diplomových pracích. Nalezené chyby jsou graficky
       označeny a~upravený PDF soubor je poté zobrazen přímo na webové stránce.
-      Výsledný nástroj je volně dostupný a~pomáhá uživatelům při kontrolování textu
-      své vytvářené technické zprávy.
+      Výsledný nástroj je volně dostupný a~pomáhá studentům i~vyučujícím při
+      kontrole vytvářených technických zpráv.
   }, % abstrakt v českém či slovenském jazyce / abstract in czech or slovak language
-  abstract.en={Do tohoto odstavce bude zapsán výtah (abstrakt) práce v anglickém jazyce. \todo{TODO:}
+  abstract.en={
+    The main goal of this work is to create an application that checks technical reports and marks all the found errors with PDF annotations. The technical documentation of this thesis breaks down the structure of a PDF file, commonly found mistakes in graduate theses, web development using the Django framework and discusses existing libraries for editing PDF documents. The resulting application is implemented in Python and is accessible as a web tool with the help of the Django framework. The developed solution recognizes six mostly typographical errors frequently found in graduate theses. The mistakes found are visually marked and the edited PDF file is then displayed directly on the web page. The resulting tool is freely available and helps students and supervisors to correct the technical reports the students create.
   }, % abstrakt v anglickém jazyce / abstract in english
   %abstract.en={An abstract of the work in English will be written in this paragraph.},
   % Prohlášení (u anglicky psané práce anglicky, u slovensky psané práce slovensky; u projektové praxe lze zakomentovat) / Declaration (for thesis in english should be in english; for project practice can be commented out)

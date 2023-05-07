@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-05-02T12:28:45.785Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="Uo0PmC64FZz_GqDKbsYe" version="21.2.1" type="device">
+<mxfile host="Electron" modified="2023-05-07T13:33:30.990Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="S-KclKkrgS0_9IvVCRr3" version="21.2.1" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="1727" dy="1010" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1594" dy="932" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" visible="0" />
@@ -471,7 +471,7 @@
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-133" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=block;endFill=0;endSize=8;fontSize=14;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-134" target="6HZ1eUQJFXA4Xak1XK23-126" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="6HZ1eUQJFXA4Xak1XK23-134" value="Získej všechny objekty XObject evokované aktuální stránkou" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
+        <mxCell id="6HZ1eUQJFXA4Xak1XK23-134" value="Získej všechny objekty XObject vyvolané aktuální stránkou" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
           <mxGeometry x="274" y="235" width="140" height="50" as="geometry" />
         </mxCell>
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-135" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Helvetica;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-136" target="6HZ1eUQJFXA4Xak1XK23-141" edge="1">
@@ -526,9 +526,9 @@
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-145" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-147" target="6HZ1eUQJFXA4Xak1XK23-150" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
+              <mxPoint x="462" y="760" />
               <mxPoint x="463" y="760" />
-              <mxPoint x="463" y="760" />
-              <mxPoint x="463" y="790" />
+              <mxPoint x="463" y="800" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -540,9 +540,9 @@
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-147" value="Má daný příkaz&lt;br style=&quot;font-size: 14px;&quot;&gt;operátor&amp;nbsp; &lt;font face=&quot;Lucida Console&quot; style=&quot;font-size: 14px;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;cm&lt;/b&gt;&lt;/font&gt;?" style="rhombus;whiteSpace=wrap;html=1;shadow=0;fontFamily=Times New Roman;fontSize=14;align=center;strokeWidth=1;spacing=0;spacingTop=3;fillColor=#f8cecc;strokeColor=#b85450;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
           <mxGeometry x="400" y="630" width="125" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="6HZ1eUQJFXA4Xak1XK23-148" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=none;endFill=0;endSize=8;jumpSize=3;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-150" edge="1">
+        <mxCell id="6HZ1eUQJFXA4Xak1XK23-148" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;jumpSize=3;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-150" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="150" y="590" as="targetPoint" />
+            <mxPoint x="119" y="590" as="targetPoint" />
             <Array as="points">
               <mxPoint x="560" y="890" />
               <mxPoint x="268" y="890" />
@@ -556,7 +556,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-150" value="Má daný příkaz&lt;br style=&quot;font-size: 14px;&quot;&gt;operátor&amp;nbsp; &lt;font face=&quot;Lucida Console&quot; style=&quot;font-size: 14px;&quot;&gt;&lt;b style=&quot;font-size: 14px;&quot;&gt;Do&lt;/b&gt;&lt;/font&gt;&amp;nbsp;a je použit&lt;br&gt;pro některý získaný&lt;br&gt;XObject?" style="rhombus;whiteSpace=wrap;html=1;shadow=0;fontFamily=Times New Roman;fontSize=14;align=center;strokeWidth=1;spacing=0;spacingTop=6;fillColor=#f8cecc;strokeColor=#b85450;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
-          <mxGeometry x="480" y="720" width="160" height="140" as="geometry" />
+          <mxGeometry x="480" y="730" width="160" height="140" as="geometry" />
         </mxCell>
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-151" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=none;endFill=0;endSize=8;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-152" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -607,15 +607,15 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="6HZ1eUQJFXA4Xak1XK23-160" value="CTM vynásob zleva operandem příkazu a ulož do CTM" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
-          <mxGeometry x="560" y="660" width="130" height="50" as="geometry" />
+        <mxCell id="6HZ1eUQJFXA4Xak1XK23-160" value="CTM vynásob zleva maticí z operandu příkazu a ulož do CTM" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
+          <mxGeometry x="560" y="650" width="130" height="70" as="geometry" />
         </mxCell>
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-161" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-150" target="6HZ1eUQJFXA4Xak1XK23-168" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="897" y="565" as="sourcePoint" />
             <mxPoint x="881.5" y="615" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="670" y="790" />
+              <mxPoint x="670" y="800" />
               <mxPoint x="670" y="950" />
             </Array>
           </mxGeometry>
@@ -655,14 +655,20 @@
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-172" value="Získej souřadnice obrázku na aktuální stránce a ulož" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">
           <mxGeometry x="86.5" y="730" width="130" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="6HZ1eUQJFXA4Xak1XK23-173" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-174" edge="1">
+        <mxCell id="6HZ1eUQJFXA4Xak1XK23-173" style="edgeStyle=orthogonalEdgeStyle;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;labelBackgroundColor=default;strokeColor=default;fontFamily=Times New Roman;fontSize=14;fontColor=default;endArrow=block;endFill=0;endSize=8;" parent="6HZ1eUQJFXA4Xak1XK23-124" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="148" y="310" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="151" y="590" />
+              <mxPoint x="120" y="590" />
               <mxPoint x="78" y="590" />
               <mxPoint x="78" y="310" />
             </Array>
+            <mxPoint x="120" y="590" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ARuoLZVeyPFELjGK03HC-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="6HZ1eUQJFXA4Xak1XK23-124" source="6HZ1eUQJFXA4Xak1XK23-174">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="151.46666666666664" y="590" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="6HZ1eUQJFXA4Xak1XK23-174" value="Přiřaď CTM poslední uloženou hodnotu zásobníku" style="rounded=1;whiteSpace=wrap;html=1;fontSize=14;glass=0;strokeWidth=1;shadow=0;fontFamily=Times New Roman;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="6HZ1eUQJFXA4Xak1XK23-124" vertex="1">

@@ -1,0 +1,16 @@
+<mxfile host="Electron" modified="2023-05-06T15:43:18.926Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="cBII4i5MflKAIlBznFbh" version="21.2.1" type="device">
+  <diagram name="Stránka-1" id="07-xTgBWMoFNFPGQnNor">
+    <mxGraphModel dx="1050" dy="621" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="NdJ7DiLpbu8O5E_IlQXy-1" value="&lt;font color=&quot;#000000&quot;&gt;PS E:\&amp;gt; &lt;/font&gt;&lt;font&gt;python&lt;/font&gt; &lt;font color=&quot;#000000&quot;&gt;.\check.py .\21395.pdf&lt;br&gt;New file &#39;21395_annotated.pdf&#39; was created. -&amp;gt; &lt;/font&gt;&lt;b&gt;mistakes were found&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#000000&quot;&gt;PS E:\&amp;gt;&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=default;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Consolas;spacing=5;fontColor=#75792e;" vertex="1" parent="1">
+          <mxGeometry x="330" y="70" width="450" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="NdJ7DiLpbu8O5E_IlQXy-3" value="&lt;font color=&quot;#000000&quot;&gt;PS E:\&amp;gt; &lt;/font&gt;&lt;font&gt;python&lt;/font&gt; &lt;font color=&quot;#000000&quot;&gt;.\check.py .\21395.pdf &lt;/font&gt;&lt;font color=&quot;#0b7e9b&quot;&gt;&#39;.\22208 - eng.pdf&#39;&lt;/font&gt;&lt;font color=&quot;#000000&quot;&gt; -i -t&lt;br&gt;New file &#39;21395_annotated.pdf&#39; was created. -&amp;gt; &lt;/font&gt;&lt;b&gt;&lt;font color=&quot;#0c860c&quot;&gt;no mistakes found&lt;/font&gt;&lt;br&gt;&lt;/b&gt;&lt;font color=&quot;#000000&quot;&gt;New file &#39;22208 - eng_annotated.pdf&#39; was created. -&amp;gt;&amp;nbsp;&lt;/font&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;mistakes were found&lt;/b&gt;&lt;font color=&quot;#000000&quot;&gt;&lt;br&gt;PS E:\&amp;gt;&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=default;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Consolas;spacing=5;fontColor=#75792e;" vertex="1" parent="1">
+          <mxGeometry x="310" y="140" width="490" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
