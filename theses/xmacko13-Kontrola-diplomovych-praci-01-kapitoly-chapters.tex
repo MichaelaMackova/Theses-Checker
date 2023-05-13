@@ -16,9 +16,9 @@
     \end{figure}
 }
 
-\renewcommand{\dummyShortText}[1][1]{}
-\renewcommand{\dummyText}[1][1]{}
-\renewcommand{\DummyText}{}
+% \renewcommand{\dummyShortText}[1][1]{}
+% \renewcommand{\dummyText}[1][1]{}
+% \renewcommand{\DummyText}{}
 
 %\renewcommand{\todoimage}[2]{}
 
@@ -33,10 +33,6 @@
 }
 
 
-%TODO: všechny odkazy na knihy rozepsat "z knihy [5]" -> "z knihy Pejsek a Kočička [5]"
-%TODO: k odkazům přidat footnote na přesné nalezení + třeba dopsat v jaké kapitole / na jaké stránce
-%TODO: odkazy v textu na výpisy
-
 
 %*********************************************************************************
 %                                    1 ÚVOD
@@ -50,10 +46,19 @@ všechny vyskytované chyby. Při velké koncentraci chyb se může výsledná p
 \uv{odfláklá} a~může tak být sníženo její ohodnocení, případně může být
 tato práce přímo zamítnuta.
 
-V~současné době existuje několik nástrojů pro kontrolu textu. Tyto nástroje se
+V~současné době existuje několik nástrojů pro kontrolu textu.
+Pro anglický jazyk existuje například Grammarly\footnote{
+    Grammarly lze nalézt na \href{https://grammarly.com/}{https://grammarly.com/}
+} a~pro český jazyk existuje nástroj Lingea\footnote{
+    Nástroj Lingea je dostupný na \href{https://korektor.lingea.cz/}{https://korektor.lingea.cz/}
+} a~nový nástroj Opravidlo\footnote{
+    Opravidlo existuje v~beta verzi na adrese \href{https://www.opravidlo.cz/}{https://www.opravidlo.cz/}
+}, který je nyní dostupný pouze v~beta verzi. Tyto nástroje se
 však převážně zaměřují na gramatické chyby a~typografické chyby tak bývají často
-přehlíženy. Při správné volbě textového procesoru jsou některé chyby automaticky
-při psaní opravovány, ale opět na to není žádná aplikace zaměřena.
+přehlíženy. Při správné volbě textového procesoru jsou některé typografické 
+chyby automaticky při psaní opravovány, ale opět na to není žádná aplikace
+zaměřena. Jedním z~takových textových procesorů je například Microsoft Word,
+který má navíc podporu pro více jazyků. 
 
 Cílem této práce je zkoumáním zveřejněných diplomových prací nalézt, které chyby
 se v~nich často vyskytují. Dalším krokem bylo navrhnout a~vytvořit lehce
@@ -61,30 +66,39 @@ dostupnou aplikaci, která nalezne tyto (převážně typografické) chyby a~ozn
 je přímo uvnitř poskytnutého PDF souboru. Tato aplikace by měla být dostupná bez
 nutnosti instalování a~měla by být co nejvíce intuitivní.
 
-Úvodní stránka výsledného produktu lze vidět na
-obrázku~\ref{pic_theses_checker_page1}. Přesněji lze vidět úvodní stránku
+Úvodní stránka výsledného webového nástroje s~názvem Theses
+Checker\footnote{Theses Checker je dostupný na adrese
+    \href{https://theseschecker.eu.pythonanywhere.com/}{https://theseschecker.eu.pythonanywhere.com/}
+} lze vidět na
+obrázku~\ref{pic_theses_checker_page1}. Přesněji lze úvodní stránku vidět
 na obrázku~\ref{pic_theses_checker_page1_sub1} a~na
 obrázku~\ref{pic_theses_checker_page1_sub2} lze vidět úvodní stránku
 při čekání na zpracování nahraného dokumentu. 
  Na obrázku~\ref{pic_theses_checker_page2}
 je poté vidět PDF výstup vytvořené aplikace. Toto anotované PDF je pro
 příjemnější používání aplikace přímo zobrazené na webové stránce.
+Pro účely kontrolování několika souborů najednou byl vyvinut i~program
+pro použití této aplikace v~příkazovém řádku. Tento program navíc od webové
+aplikace podporuje volbu kontrol, které se provedou při zpracování vstupního PDF 
+dokumentu.
+
+\clearpage % footnote moc nahoře
 
 \begin{figure}[H]
     
     \begin{subfigure}[b]{0.496\linewidth}
         \includegraphics[width=\linewidth]{obrazky-figures/screenshot-page1-small.png}
-        \caption{TODO:}
+        \caption{V~tomto obrázku je stránka, která se zobrazí po otevření webové aplikace Theses Checker}
         \label{pic_theses_checker_page1_sub1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.496\linewidth}
         \includegraphics[width=\linewidth]{obrazky-figures/screenshot-loading-small.png}
-        \caption{TODO:}
+        \caption{Toto je úvodní stránka s~načítacím elementem, který se zobrazí po stisknutí tlačítka Check file}
         \label{pic_theses_checker_page1_sub2}
     \end{subfigure}
     %\includegraphics[width=0.496\linewidth]{obrazky-figures/screenshot-loading-small.png}
-    \caption[]{Tyto obrázky ukazují úvodní stránku vytvořené webové aplikace Theses Checker}
+    \caption[]{Obrázky ukazují úvodní stránku vytvořené webové aplikace Theses Checker}
     \label{pic_theses_checker_page1}
 \end{figure}
 
@@ -95,11 +109,11 @@ příjemnější používání aplikace přímo zobrazené na webové stránce.
     \label{pic_theses_checker_page2}
 \end{figure}
 
-Tento text v~kapitole~\ref{frequent_mistakes} popisuje často vyskytované chyby
+Tato bakalářská práce popisuje \highlight{v~kapitole~\ref{frequent_mistakes}} často vyskytované chyby
 v~diplomových pracích, které byly zjištěny jako součást této práce. Dále je
 popsán formát souboru PDF (kapitola~\ref{PDF_file}) a~návrh a~implementace samotné
 aplikace (kapitola~\ref{design_implementation}), což zahrnuje i~vývoj webové
-aplikace s~pomocí Django frameworku. Kapitola~\ref{testing} poté popisuje postup
+aplikace s~pomocí frameworku Django. Kapitola~\ref{testing} poté popisuje postup
 testování a~vyhodnocení výsledného produktu.
 
 
@@ -124,15 +138,46 @@ může usnadnit hledání některých chyb. Několik dnešních textových proce
 alespoň částečnou kontrolu pravopisu, nicméně tato kontrola umí ve spoustě případů
 upozornit převážně jen na překlepy. Významové chyby, jako je například záměna slov
 \emph{tip, typ} nebo \emph{autorizace, autentizace}, bývají často touto
-automatickou kontrolou zanedbávány. Další části této kapitoly popisují několik
-chyb, které lze nalézt v~mnoha diplomových pracích a~dále uvádějí, jak se těmto
-chybám vyhnout.
+automatickou kontrolou zanedbávány. První část této kapitoly popisuje
+čím se zabývá obor typografie a~v~dalších částech je popsáno několik
+chyb, které lze nalézt v~mnoha diplomových pracích. Tyto části dále uvádějí,
+jak se těmto chybám vyhnout.
 
 
 %#######################    2.1 Rychlokurz typografie    #######################
 \section{Rychlokurz typografie}
-\todo{TODO: text}
-\DummyText
+Typografie je obor zabývající se návrhem a~úpravou všech druhů tiskovin.
+Především se zabývá grafickými prvky (např. obrázky a~písmo) a~jak na člověka
+působí celkový vzhled celého díla.
+Informace získané z~knihy Praktická typografie~\cite{Prakticka_typografie}
+uvádí, že typografie už se rozvíjí přes více jak pět set
+let a~základy její práce se téměř neměnily. I~když dříve byla typografická
+pravidla důležitá převážně pro sazeče, nyní může pomocí počítače sázet
+úplně každý. Toto však zavedlo problém, protože velké množství těchto
+uživatelů o~pojmu typografie nikdy neslyšeli. Typografická pravidla se řídí podle
+norem, avšak jejich používání není vynutitelné. I~přesto se doporučuje
+dodržování těchto typografických pravidel, jelikož při jejich použití
+dokáže čtenář lépe vnímat celé dílo. Pro každý národ existuje vlastní
+soubor typografických pravidel a~při tvorbě cizojazyčného textu, by se
+měla tato pravidla respektovat.
+
+V~minulosti, kdy se opisovaly knihy ručně, bylo základním prvkem písmeno. 
+Základní prvek se od té doby postupně měnil a~nyní je tímto prvkem odstavec.
+Nejviditelnější parametr odstavce je zarovnání, které má ve většině 
+počítačových sázecích programů čtyři druhy~--~do bloku, doleva, doprava 
+a~na střed. Zarovnání odstavce do blokuje běžný v~knižní sazbě a~u~novin
+a~časopisů. Dalším důležitým prvkem je písmo, jehož volba je při psaní textu
+důležitá. Častý problém je, že některá písma neobsahují kompletní znakovou
+sadu, tedy s~tímto písmem nelze vysázet speciální české (či jiné) znaky.
+Pro sazbu češtiny nebo slovenštiny je potřeba použít písmo, které obsahuje
+minimálně všechny znaky použitého jazyka.
+
+Po umístění textu na stránce se typografie ještě zabývá umístěním samotných
+znaků, jako je například otazník, pomlčka či uvozovka. Pro matematickou, 
+chemickou sazbu a~sazbu not je nejlepší použít specializovaný program, 
+který obsahuje potřebné funkce. Jeden z~takový program je právě \TeX,
+nebo je též možné použít vzorce z~Wordu. 
+
 
 
 %#######################    2.2 Přetečení objektů za okraj stránky    #######################
@@ -147,9 +192,11 @@ který se nestává tak často, ale lze jej udělat v~několika textových edito
 
 \begin{figure}[H]
     \centering
-    %\includegraphics[width=\linewidth,height=1.7in]{obrazky-figures/placeholder.pdf}
-    \includegraphics{obrazky-figures/placeholder.pdf}
-    \caption{\textbf{Ukázka přetečení za okraj.} \todo{popisek + přetečení obrázku}}
+    \includegraphics[width=\linewidth]{obrazky-figures/overflow_example.pdf}
+    \caption{
+        Tento obrázek obsahuje ukázku textu, který přetéká za hranici stránky,
+        označení tohoto přetečení a~jeho následnou opravu
+    }
     \label{pic_overflow}
 \end{figure}
 
@@ -159,10 +206,10 @@ který se nestává tak často, ale lze jej udělat v~několika textových edito
 Nesprávné používání spojovníku je chyba, která se vyskytuje nejen v~diplomových
 pracích. Spojovník (-) je graficky velmi podobný pomlčce (--), ale významově
 se značně liší. Pravidla pro psaní těchto znaků, uvedena v~internetové příručce
-Ústavu pro jazyk český~\cite{Ustav_pro_jazyk_cesky},
+Ústavu pro jazyk český~\cite[Cesta: \emph{Pravopis\,--\,interpunkce}~>~\emph{Spojovník} a~\emph{Pravopis\,--\,interpunkce}~>~\emph{Pomlčka}]{Ustav_pro_jazyk_cesky},
 říkají, že spojovník se píše bez mezer mezi výrazy, které spojuje. Výjimkou
 je, naznačuje-li spojovník neúplné slovo. Obecně se tedy v~češtině tento znak
-užívá tehdy, \highlight{chce-li autor vyjádřit}, že jím spojené výrazy tvoří těsný významový
+užívá, chce-li autor vyjádřit, že jím spojené výrazy tvoří těsný významový
 celek. Pomlčka se oproti spojovníku využívá pro oddělování částí projevu,
 vyjádření rozsahu, vztahu nebo vyznačení přestávky v~řeči, pro uvození
 přímé řeči a~pro vyjádření celého čísla při psaní peněžních částek.
@@ -170,17 +217,19 @@ Odděluje se z~obou stran mezerami. Komplikovanější situace nastane pouze
 tehdy, když je toto znaménko použito ve funkci výrazů a, až, od, do nebo proti.
 Spojovník (-) i~pomlčka (--) bývají často zaměňovány se znaménkem minus ($-$),
 to však má též své grafické i~významové odlišnosti.
-V~knize~\cite{Pruvodce_tvorbou_dokumentu} je vysvětleno, že znak minus má stejnou
+V~knize Průvodce tvorbou dokumentů~\cite[k.~19.24, s.~148--149]{Pruvodce_tvorbou_dokumentu}
+je vysvětleno, že znak minus má stejnou
 šíři i~umístění jako znak plus. Znak minus se používá ve dvou významech, a to
 pro označení záporné hodnoty, nebo pro označení operace odčítání. Sazba se v~obou
 případech liší: pro označení záporné hodnoty se znak minus a~následující
 operand píše bez mezery, pro psaní minus jako odčítání se však mezera uvádí
 z~obou stran tohoto znaménka. Internetová příručka Ústavu pro jazyk
-český~\cite{Ustav_pro_jazyk_cesky} však uvádí, že je v~korespondenci dovoleno
+český~\cite[Cesta: \emph{Pravopis\,--\,interpunkce}~>~\emph{Pomlčka}]{Ustav_pro_jazyk_cesky} 
+však uvádí, že je v~korespondenci dovoleno
 znak minus ($-$) nahradit pomlčkou (--).
 
-Podle článku~\cite{Zaklady_typografie:Slezakova} se tato chyba (naznačena na
-obrázku~\ref{TODO:}) vyskytuje v~textu kvůli absenci znaku pomlčky na klávesnici.
+Podle článku Základy typografie~\cite{Zaklady_typografie:Slezakova} se tato chyba (naznačena na
+obrázku~\ref{pic_hyphen}) vyskytuje v~textu kvůli absenci znaku pomlčky na klávesnici.
 Místo znaku pomlčky, který je při psaní textu pravděpodobně potřebný častěji,
 se na klávesnici vyskytuje právě znak spojovníku. I~když nyní už spousta
 textových editorů dokáže automaticky nahradit spojovník za pomlčku, tato náhrada
@@ -189,31 +238,59 @@ z~klávesnice jako \verb|-|,
 pomlčku je možno zapsat pomocí dvou spojovníků \verb|--| a~znaménko minus je
 zapsáno jako spojovník v~matematickém prostředí \verb|$-$| nebo též \verb|$$-$$|.
 
-\todoimage{width=\linewidth,height=1.7in}{Ukázka chybně použitého spojovníku.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/dash_example.pdf}
+    \caption{
+        Na obrázku je ukázáno chybné použití spojovníku, poté je tato chyba
+        označena a~nakonec je ukázáno její opravení
+    }
+    \label{pic_hyphen}
+\end{figure}
 
 
 %#######################    2.4 Chybějící popis kapitoly    #######################
 \section{Chybějící popis kapitoly}
 
 I~když je kapitola rozdělena na několik podkapitol, musí i~samotná kapitola
-obsahovat úvod do této kapitoly. Blog~\cite{Leany_blog} vysvětluje, že pokud není uveden
+obsahovat úvod do této kapitoly. Leaný blog~\cite{Leany_blog} vysvětluje, že 
+pokud není uveden
 popis mezi kapitolou a~její podkapitolou, působí poté práce nedopracovaně. Tuto
-skutečnost lze vidět i~na ukázce v~obrázku~\ref{TODO:}. V~tomto místě
+skutečnost lze vidět i~na ukázce v~obrázku~\ref{pic_chapter_introduction}. V~tomto místě
 se hodí napsat 1--2 odstavce, kde bude vysvětlené o~čem daná kapitola je a~co se
 v~ní čtenář dozví.
-\todoimage{width=\linewidth,height=1.7in}{Ukázka chybějícího textu.}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/chapter_introduction_example.pdf}
+    \caption{
+        Obrázek obsahuje ukázku chybějícího popisu kapitoly (tzn. mezi dvěma
+        nadpisy se nevyskytuje text). V~další části tohoto obrázku je tato 
+        chyba označena a~poté opravena
+    }
+    \label{pic_chapter_introduction}
+\end{figure}
 
 
 %#######################    2.5 Nadpisy třetí a větší úrovně v obsahu    #######################
 \section{Nadpisy třetí a~větší úrovně v~obsahu}
 V~diplomové práci není vhodné v~obsahu uvádět nadpisy třetí či větší úrovně.
-Jak je vidět na obrázku~\ref{TODO:}, obsah je poté nepřehledný a~zbytečně
+Jak je vidět na obrázku~\ref{pic_heading}, obsah je poté nepřehledný a~zbytečně
 dlouhý. Samotná třetí úroveň nadpisů je velmi podrobná, ale v~diplomové práci
 ji lze použít v~případě, když bude nečíslovaná. V~programu {\LaTeX} tohoto lze dosáhnout
 příkazem \verb|\subsection*{}|. Nadpisy čtvrté a~větší úrovně už by se v~diplomové
 práci neměly vůbec vyskytovat.
 
-\todoimage{width=\linewidth,height=1.7in}{Ukázka obsahu s~nadpisy 3 a~více úrovně.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/heading_example.pdf}
+    \caption{
+        Tento obrázek obsahuje ukázku nevhodného uvedení nadpisů třetí
+        úrovně v~obsahu, označení nadpisů, které do obsahu nepatří
+        a~následnou opravu této chyby
+    }
+    \label{pic_heading}
+\end{figure}
 
 
 %#######################    2.6 Absence vektorové grafiky    #######################
@@ -222,33 +299,44 @@ Při vkládání obrázku do textu se autor musí zabývat několika otázkami a
 z~nich je určitě jeho kvalita. Pokud má obrázek moc malé rozlišení
 nevypadá v~odborné práci dobře. I~přesto, že se obrázek na displeji zdá
 dostatečně kvalitní, při tisku může být daný obrázek \uv{rozkostičkovaný}.
-Toto nevhodné použití lze vidět i~na obrázku~\ref{TODO:}.
+Toto nevhodné použití lze vidět i~na obrázku~\ref{pic_vector_graphics}.
 Tento problém kvalitního rozlišení nám může vyřešit použití vektorového obrázku.
-Podle knihy~\cite{Pruvodce_tvorbou_dokumentu} je zásadní výhodou vektorového
+Podle knihy Průvodce tvorbou dokumentů~\cite[k.~10, s.~56--61]{Pruvodce_tvorbou_dokumentu} 
+je zásadní výhodou vektorového
 obrázku jeho uložení, díky kterému si obrázek ponechá vysokou kvalitu i~v~různém
 zvětšení. Ale použití vektorové grafiky není vždy vhodné a~v~některých případech
 není ani možné. V~knize je proto uvedeno doporučení použít vektorovou grafiku
 (formáty SVG, EPS a~PDF) na schémata a~loga, rastrovou grafiku formátu JPG pro
 fotografie a~pro ostatní rastrovou grafiku použít formát PNG.
 
-\todoimage{width=\linewidth,height=1.7in}{Ukázka rastrového a~vektorového obrázku.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/vector_graphics_example.pdf}
+    \caption{
+        Na tomto obrázku je uvedena ukázka absence vektorové grafiky, dále je
+        tato chyba označena a~nakonec je ukázáno její opravení použitím 
+        vektorového obrázku
+    }
+    \label{pic_vector_graphics}
+\end{figure}
 
 
 %#######################    2.7 Nepoužívání pevné mezery    #######################
 \section{Nepoužívání pevné mezery}
 Jako spousta jiných věcí i~psaní mezer má svá pravidla. Jak zmiňuje
-článek~\cite{Ctenar_12_2015}, i~v~něčem tak samozřejmém, jako je psaní pouhé
+článek Jak se vyhnout typografickým hříchům~\cite{Ctenar_12_2015}, i~v~něčem
+tak samozřejmém, jako je psaní pouhé
 mezery se často chybuje: mezera se musí psát za tečkou (nebo též čárkou), ne před
 ní a~píše se vždy jen jedna, data se píšou ve formátu \emph{d.~m. yyyy}
 a~čísla se oddělují mezerou po tisících (s~výjimkou letopočtu). Při psaní se může
 stát, že mezera spojující znaky nebo čísla, vyjde na konec řádku a~tyto znaky
-by se rozdělily. Tento případ lze pozorovat i~na obrázku~\ref{TODO:}.
+by se rozdělily. Tento případ lze pozorovat i~na obrázku~\ref{pic_hard_space}.
 Pro zamezení takových případů existuje právě pevná (nebo též nedělitelná)
 mezera.
 
 Pevná mezera se zobrazí stejně jako normální mezera, ale na rozdíl od normální
 mezery, spojí dohromady příslušné znaky a~zablokuje jejich rozdělení na konci
-řádku. Podle pravidel internetové jazykové příručky~\cite{Ustav_pro_jazyk_cesky}
+řádku. Podle pravidel internetové jazykové příručky~\cite[Cesta: \emph{Dopisy a~grafická úprava písemností}~>~\emph{Zalomení řádků a~nevhodné výrazy na jejich konci}]{Ustav_pro_jazyk_cesky}
 se má pevná mezera použít v~těchto případech (převzato a~upraveno):
 \begin{itemize}
     \item ve spojení neslabičných předložek \emph{k, s, v, z} s~následujícím
@@ -283,7 +371,16 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 (\texttildelow) a~v~editoru WORD se zapíše pomocí kombinace kláves
 \emph{Ctrl Shift mezera}.
 
-\todoimage{width=\linewidth,height=1.7in}{Ukázka.}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/hard_space_example.pdf}
+    \caption{
+        Tento obrázek obsahuje ukázku zalomení řádku na místě, kde by se měla
+        vyskytovat pevná mezera. V~druhé části je tato chyba označena a~v~poslední
+        části je uvedeno možné opravení použitím nezlomitelné mezery
+    }
+    \label{pic_hard_space}
+\end{figure}
 
 %#######################    2.8 Použití nesprávných uvozovek    #######################
 % \section{Použití nesprávných uvozovek}
@@ -305,10 +402,10 @@ stoprocentní úspěšnost. V~programu {\LaTeX} se pevná mezera zapíše znakem
 %                               3 ANOTACE V PDF
 %*********************************************************************************
 \chapter{PDF soubor} \label{PDF_file}
-Tato kapitola se zaobírá popsáním struktury PDF dokumentu. 
-
-\todo{TODO: úvod do kapitoly}
-\dummyText
+Tato kapitola popisuje strukturu PDF dokumentu. Přesněji popisuje vnitřní
+strukturu a~uložení objektů. Dále popisuje jak funguje grafika pro zobrazení
+PDF dokumentů. V~neposlední řadě je představeno několik knihoven, které
+dokáží manipulovat s~PDF dokumenty.
 
 
 
@@ -321,7 +418,7 @@ Avšak pro pokročilejší práci s~PDF dokumenty není na obtíž si zjistit p�
 základních informací o~uložení dat v~tomto formátu.
 PDF dokument má podobu textového souboru a~na jeho pochopení jsou v~této sekci
 vysvětleny jeho 4 základní stavební bloky. Tato sekce čerpá informace ze
-standardu PDF~32000-1~\cite{PDF32000-1:2008}.
+standardu PDF~32000-1~\cite[k.~7, s.~11--109]{PDF32000-1:2008}.
 
 
 %---------- 3.1.1 Objekty ----------
@@ -379,7 +476,12 @@ osm typů objektů:
     klíčem \texttt{Length}. Každý objekt datového toku musí být zároveň nepřímým
     objektem (vysvětleno později v~této sekci). Validní objekt datového toku je
     například uveden ve výpise~\ref{code_stream}:
-    \pdfcode{code_examples/pdf_code/stream_objects.txt}{TODO:}{code_stream}
+    \pdfcode{code_examples/pdf_code/stream_objects.txt}{
+        V~tomto výpisu je uveden příklad nepřímého objektu
+        s~identifikátorem~\texttt{12~0}. Tento nepřímý objekt je zároveň objekt
+        datového toku s~velikostí 20\,B, který musí být pro přečtení dekódován 
+        FlateDecode filtrem
+    }{code_stream}
 
     \item \textbf{Null objekt} -- Null objekt je speciální objekt, který nabývá
     pouze hodnoty \texttt{null}.
@@ -394,8 +496,11 @@ Druhou částí je tzv. \emph{číslo generace}, které je pro nově generovaný
 0. Toto číslo musí být vždy nezáporné celé číslo. Nepřímý objekt se zapíše jako
 číslo objektu, poté bílý znak a~číslo generace. Následuje samotný objekt uzavřen
 mezi klíčovými slovy \texttt{obj} a~\texttt{endobj}. Validní nepřímý objekt je
-například:
-\pdfcode{code_examples/pdf_code/indirect_object.txt}{TODO:}{code_indirect_object}
+uveden ve výpise~\ref{code_indirect_object}:
+\pdfcode{code_examples/pdf_code/indirect_object.txt}{
+    Tento výpis obsahuje příklad nepřímého řetězcového objektu
+    s~identifikátorem~\texttt{7~0}
+}{code_indirect_object}
 \noindent Nepřímý objekt lze referencovat pomocí \emph{nepřímého odkazu}.
 Nepřímý odkaz se zapíše číslem objektu, číslem generace a~klíčovým slovem
 \texttt{R}, oddělené bílými znaky. Odkaz na výše uvedený nepřímý objet se zapíše
@@ -428,10 +533,12 @@ PDF soubor se je rozdělen do 4~částí:
     má tvar \emph{nnnnnnnnnn ggggg \texttt{n}} a~je zakončen koncem řádku.
     Desetimístné číslo \emph{nnnnnnnnnn} označuje offset bajtů od začátku
     dokumentu, po začátek nepřímého objektu. Pětimístné číslo \emph{ggggg} je
-    číslo generace. Jedna sekce křížových odkazů, rozdělena na 2~podsekce, celkově
-    obsahující 3~záznamy může vypadat například:
-    \pdfcode{code_examples/pdf_code/cross_reference_table.txt}{TODO:}{code_cross_reference_table}
-    \todo{od verze 1.5 může být ve streamu}
+    číslo generace. Jedna možná sekce křížových odkazů je uvedena ve 
+    výpisu~\ref{code_cross_reference_table}:
+    \pdfcode{code_examples/pdf_code/cross_reference_table.txt}{
+        Výpis obsahuje jednu sekci křížových odkazů. Tato sekce je rozdělena
+        na 2~podsekce a~celkem obsahuje 3~záznamy
+    }{code_cross_reference_table}
     
     \item \textbf{Patička} -- Patička umožňuje rychlé nalezení tabulky křížových
     odkazů a~jiných speciálních objektů. Proto obecně platí, že by se měl PDF
@@ -442,13 +549,31 @@ PDF soubor se je rozdělen do 4~částí:
     poslední se na samostatném řádku musí objevit výraz \texttt{\%\%EOF}.
     V~celém souboru se může vyskytovat více patiček, to je způsobeno aktualizováním
     daného PDF dokumentu. Na posledním řádku souboru se vždy musí vyskytovat
-    výraz \texttt{\%\%EOF}. Patička může vypadat následovně:
-    \pdfcode{code_examples/pdf_code/trailer.txt}{TODO:}{code_trailer}
-    \todo{od verze 1.5 může být slovník ve streamu}
+    výraz \texttt{\%\%EOF}. Možná patička je vypsána ve výpisu~\ref{code_trailer}:
+    \pdfcode{code_examples/pdf_code/trailer.txt}{
+        V~tomto výpisu je uvedena možná patička PDF souboru. Z~této patičky lze
+        vyčíst, že tabulka křížových odkazů má celkem 12 záznamů a~její poslední
+        sekce začíná na 565~bajtu. Dále lze zjistit, že nepřímý objekt 
+        s~identifikátorem~\texttt{3 0} je
+        dokumentový katalog a~metadata dokumentu jsou obsaženy 
+        ve slovníkovém nepřímém objektu s~identifikátorem~\texttt{1 0}
+    }{code_trailer}
 
 \end{itemize}
 
-\todoimage{width=\linewidth,height=1.7in}{Ukázka struktury souboru + odkaz.}
+Tyto 4~části jsou v~PDF souboru seřazeny v~takovém pořadí, v~jakém jsou zde
+sepsané. Tyto části jsou vyznačeny v~ukázkovém souboru, který je ukázán
+na obrázku~\ref{pic_file_structure}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/file_structure.pdf}
+    \caption{
+        Na obrázku se vyskytuje ukázkový PDF soubor, ve kterém jsou vyznačeny 
+        4~části struktury PDF souborů 
+    }
+    \label{pic_file_structure}
+\end{figure}
 
 
 %---------- 3.1.3 Struktura dokumentu ----------
@@ -464,9 +589,12 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     dokumentu. Objekt katalogu je slovník, ve kterém se musí vyskytovat klíč
     \texttt{Type}, ke kterému je přiřazena hodnota \texttt{/Catalog}. Dalším
     povinným prvkem katalogového slovníku je klíč \texttt{Pages}, jehož hodnota je
-    nepřímý odkaz na kořenový objekt stromu stránek. Objekt katalogu dokumentu
-    může být například:
-    \pdfcode{code_examples/pdf_code/document_catalog.txt}{TODO:}{code_documet_catalog}
+    nepřímý odkaz na kořenový objekt stromu stránek. Příklad objektu katalogu
+    dokumentu je uveden ve výpisu~\ref{code_document_catalog}:
+    \pdfcode{code_examples/pdf_code/document_catalog.txt}{
+        Tento výpis obsahuje příklad katalogu dokumentu, ze kterého lze zjistit,
+        že kořen stromu stránek je nepřímý objekt s~identifikátorem~\texttt{5 0}
+    }{code_document_catalog}
 
     \item \textbf{Strom stránek} -- Strom stránek určuje pořadí zobrazení stránek.
     Listové uzly tohoto stromu jsou typu \emph{objektu stránky}, které mají jiný
@@ -478,8 +606,13 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     nepřímé odkazy na uzly stromu stránek, nebo na objekty stránek. Hodnota klíče
     \texttt{Count} je počet listových uzlů, které jsou potomkem tohoto uzlu. Ke
     klíči \texttt{Parent} je přiřazena hodnota nepřímého odkazu přímého předchůdce
-    tohoto uzlu. Uzel stromu stránek může být například:
-    \pdfcode{code_examples/pdf_code/page_tree.txt}{TODO:}{code_page_tree}
+    tohoto uzlu. Platný uzel stromu je uveden ve výpisu~\ref{code_page_tree}:
+    \pdfcode{code_examples/pdf_code/page_tree.txt}{
+        Výpis obsahuje jeden uzel stromu stránek. Potomci tohoto uzlu jsou
+        nepřímé objekty s~identifikátorem~\texttt{21~0} a~\texttt{24~0}
+        a~celkově existuje 10 listových uzlů (objektů stránek), které
+        jsou potomky tohoto uzlu
+    }{code_page_tree}
 
     \item \textbf{Objekt stránky} -- Objekt stránky je typ listového uzlu stromu
     stránek. Tento uzel má tvar slovníku, ve kterém se musí vyskytovat klíč
@@ -489,8 +622,13 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     patří záznamy s~klíčem \texttt{MediaBox}, \texttt{Resources} \highlight{(popsáno dále
     v~této kapitole)}, \texttt{Rotate},
     \texttt{Contents} \highlight{(popsáno dále v~této kapitole)}, \texttt{Annots} aj.
-    Jednoduchý objekt stránky může vypadat následovně:
-    \pdfcode{code_examples/pdf_code/page_object.txt}{TODO:}{code_page_object}
+    Možný objekt stránky je obsažen ve výpisu~\ref{code_page_object}:
+    \pdfcode{code_examples/pdf_code/page_object.txt}{
+        Tento výpis obsahuje jednoduchý objekt stránky, jejíž content stream
+        je obsažen v~nepřímém objektu s~identifikátorem~\texttt{10~0} a~resources
+        použity v~tomto content streamu jsou vypsané v~nepřímém objektu
+        s~identifikátorem~\texttt{9~0}
+    }{code_page_object}
 \end{itemize}
 
 
@@ -517,16 +655,19 @@ Tyto jména lze používat pouze uvnitř content streams a~mimo ně nejsou v~PDF
 dokumentu validní. Named resources se používají například pro obrázky a~fonty,
 které jsou použity na dané stránce. Objekt pro resources je typu slovníku, který
 má několik definovaných klíčů, které je možné použít, např. \texttt{ColorSpace}, 
-\texttt{XObject}, \texttt{Font}, \texttt{ProcSet} a~další. Slovník pro resources,
-který obsahuje font pod jménem \texttt{F5} a~dva externí objekty pojmenované jako
-\texttt{Im1} a~\texttt{Im2}, může vypadat následovně:
-\pdfcode{code_examples/pdf_code/resources.txt}{TODO:}{code_resources}
+\texttt{XObject}, \texttt{Font}, \texttt{ProcSet} a~další. Příklad slovníku pro
+resources je uveden ve výpisu~\ref{code_resources}:
+\pdfcode{code_examples/pdf_code/resources.txt}{
+    V~tomto výpisu je uveden slovník pro resources, který obsahuje jeden font pod 
+    jménem \texttt{F5} a~dva externí objekty pojmenované jako \texttt{Im1} 
+    a~\texttt{Im2}
+}{code_resources}
 
 
 
 %#######################    3.2 Grafika v~PDF    #######################
 \section{Grafika v~PDF}
-Tato sekce čerpá informace ze standardu PDF~32000-1~\cite{PDF32000-1:2008}.
+Tato sekce čerpá informace ze standardu PDF~32000-1~\cite[k.~8, s.~110--236]{PDF32000-1:2008}.
 Grafika PDF dokumentu je popsána pomocí content streams, jenž je vysvětleno
 v~kapitole~\ref{content_streams}. Operátory zde používané spadají do šesti
 hlavních skupin:
@@ -580,17 +721,17 @@ a~$M'$ označuje matici, která kombinuje všechny tyto provedené transformace.
 Bod $(x, y)$ v~souřadnicovém systému se může matematicky popsat jako vektor
 z~rovnice~\eqref{point}.
 \begin{equation}\label{point}
-    P = 
+    \overrightarrow{p}  = 
     \begin{pmatrix}
         x & y & 1
     \end{pmatrix}
 \end{equation}
 Transformovaný bod (souřadnice bodu po použití všech transformací) se vypočítá
-pomocí vzorce~\eqref{transform_point}. $P$ v~tomto vzorci označuje původní vektor
-transformovaného bodu, $P'$ je vektor tohoto bodu po transformaci a~$M'$ je matice
+pomocí vzorce~\eqref{transform_point}. $\overrightarrow{p}$ v~tomto vzorci označuje původní vektor
+transformovaného bodu, $\overrightarrow{p'}$ je vektor tohoto bodu po transformaci a~$M'$ je matice
 kombinující všechny provedené transformace.
 \begin{equation} \label{transform_point}
-    P' = P \cdot M'
+    \overrightarrow{p'} = \overrightarrow{p} \cdot M'
 \end{equation}
 
 Dále jsou popsány souřadnicové systémy používané v~PDF. Vztahy mezi těmito
@@ -620,7 +761,14 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.5\linewidth]{obrazky-figures/user_to_device_space.pdf}
-        \caption{\todo{TODO: popisek} Inspirován obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
+        \caption{
+            V~tomto obrázku je ukázána transformace z~uživatelského prostoru
+            do dvou různých prostorů zařízení, kde jeden má rozlišení 72\,DPI 
+            a~druhý má 300\,DPI. CTM představuje current transformation matrix
+            získanou z~datové struktury graphics state.
+            Obrázek je převzatý a~upravený ze
+            standardu~PDF~32000-1~\cite[k.~8.3.2.3, s.~116]{PDF32000-1:2008}
+        }
         \label{pic_user_to_device}
     \end{figure}
     
@@ -656,7 +804,12 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{obrazky-figures/coordinate_spaces.pdf}
-    \caption[Vztah mezi souřadnicovými systémy používaných uvnitř PDF]{Obrázek označuje vztah mezi souřadnicovými systémy používaných uvnitř PDF. Každá šipka představuje transformaci mezi dvěma souřadnicovými systémy. Inspirováno obrázkem ze standardu~PDF~32000-1~\cite{PDF32000-1:2008}}
+    \caption[Vztah mezi souřadnicovými systémy používaných uvnitř PDF]{
+        Obrázek označuje vztah mezi souřadnicovými systémy používaných uvnitř
+        PDF. Každá šipka představuje transformaci mezi dvěma souřadnicovými 
+        systémy. Obrázek je převzatý a~upravený ze 
+        standardu~PDF~32000-1~\cite[k.~8.3.3, s.~117]{PDF32000-1:2008}
+    }
     \label{coordinate_spaces}
 \end{figure}
 
@@ -679,7 +832,8 @@ Na jedné stránce se může vyskytovat několik grafických objektů, které se
 vykreslují nezávisle na sobě. Pro tyto účely se používá
 \emph{graphics state zásobník}, díky kterému je možné dělat lokální úpravy 
 datové struktury graphics state. Tento zásobník je LIFO (last in, first out)
-a~ukládá se do něj celá datová struktura graphics state. Pro uložení
+a~ukládá se do něj celá datová struktura graphics state, jak je ukázáno na
+obrázku~\ref{pic_graphics_state}. Pro uložení
 se musí použít operátor \texttt{q} a~pro odebrání první položky z~vrcholu
 zásobníku se musí použít operátor \texttt{Q}, kterým se obnoví posledně uložený
 stav datové struktury graphics state. Uvnitř celého content streamu musí být
@@ -688,7 +842,10 @@ použit stejný počet operátorů \texttt{q} a~\texttt{Q}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{obrazky-figures/graphics_state_stack.pdf}
-    \caption{\todo{TODO: odkaz}}
+    \caption{
+        Na tomto obrázku je ukázán graphics state zásobník, do kterého se ukládá
+        pomocí příkazu \texttt{q} a~odebírá se z~něj příkazem \texttt{Q}
+    }
     \label{pic_graphics_state}
 \end{figure}
 
@@ -708,9 +865,12 @@ struktury graphics state.
 
 %---------- 3.2.3 Externí objekty ----------
 \subsection*{Externí objekty} \label{XObject}
-Externí objekt (též taky \emph{XObject}) ... \todo{TODO: obecný popis}.
+Externí objekt (též taky \emph{XObject}) je grafický objekt, jehož vzhled
+je definován v~samostatném datovém toku.
 Každý XObject lze vykreslit pomocí operátoru \texttt{Do} vyskytujícího se uvnitř
-content streamu. K~tomuto operátoru se váže jeden operand typu jméno. Toto jméno
+content streamu (více informací o~content streamu je uvedeno 
+v~sekci~\ref{content_streams}). K~tomuto operátoru se váže jeden operand typu 
+jméno. Toto jméno
 musí být uvedeno ve slovníku resources (viz kapitola~\ref{resources}) vázaného
 na stejnou stránku jako content stream. Přesněji se toto jméno musí objevit
 v~položce, která má hodnotu typu slovník, pod klíčem \texttt{XObject}. Operátor
@@ -720,10 +880,14 @@ příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
 \texttt{Do} jsou:
 \begin{itemize}
     \item \texttt{/Image} -- Tyto externí objekty mají ve slovníkové části své
-    definice dodatečné prvky. Prvky s~klíčem \texttt{Width} a~\texttt{Height}
-    jsou v~těchto objektech povinné. Tyto prvky můžou ovlivnit jak bude
+    definice dodatečné prvky. Některé tyto prvky můžou ovlivnit jak bude
     vykreslený obrázek vypadat, ale podle aktuálního nastavení stránky můžou mít
-    omezené možnosti. \todo{Do}
+    omezené možnosti. Prvky s~klíčem \texttt{Width} a~\texttt{Height}
+    jsou v~těchto objektech povinné a~vyjadřují výšku a~šířku původního obrázku
+    (uvedeného ve streamu tohoto externího objektu). Pro vykreslení
+    tohoto objektu na stránce se používá operátoru \texttt{Do}, který 
+    pomocí parametrů uvnitř datové struktury graphics state (vysvětlena dříve
+    v~této sekci) správně upraví a~vykreslí tento objekt.
     
     \item \texttt{/Form} -- Takzvaný \emph{Form XObject} je takový, který ve svém
     datovém toku obsahuje content stream (popsán v~sekci~\ref{content_streams}).
@@ -735,13 +899,13 @@ příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
     \texttt{Matrix}. Pokud tato matice není uvedena, použije se místo ní
     jednotková matice. Pro vykreslení se tohoto objektu se musí použít operátor
     \texttt{Do} a~při tom se provedou následující kroky (převzato ze standardu
-    PDF~\cite{PDF32000-1:2008}):
+    PDF~\cite[k.~8.10.1, s.~218]{PDF32000-1:2008}):
     \begin{enumerate}
         \item Uloží se aktuální stav datové struktury graphics state, stejně
         jako kdyby byl použit operátor \texttt{q}.
         \item Vynásobí se matice ze slovníkového prvku \texttt{Matrix} a~matice
         CTM z~datové struktury graphics state.
-        \item \texttt{BBox} \todo{clips}
+        \item Ostřihne se na základě slovníkového prvku \texttt{BBox}.
         \item Vykreslí obsahované  grafické objekty podle instrukcí uvnitř content
         streamu definovaného objektem form XObject.
         \item Obnoví původní stav struktury graphics state (jako použití operátoru
@@ -760,8 +924,12 @@ příkazu. Hodnoty klíče \texttt{Subtype} a~k nim vázané chování příkazu
 \section{Reprezentace anotací v~PDF souboru} \label{PDF_annotations}
 Anotace spojují objekty (zvuk, video, text, \dots) s~pozicí na PDF stránce.
 Uživatel může s~anotacemi interagovat pomocí myši a~klávesnice.
-\todo{\texttt{Annotations} klíč ve slovníku stránky (viz
-sekce~\ref{document_structure})} PDF dokumenty podporují několik typů anotací, 
+Pokud se na stránce vyskytují nějaké anotace, všechny tyto anotace jsou vypsány
+v~objektu dané stránky (více viz sekce~\ref{document_structure}). Přesněji
+se v~tomto objektu vyskytuje prvek s~klíčem \texttt{Annots}, který má jako 
+hodnotu pole, které obsahuje nepřímé odkazy na objekty anotací vyskytovaných
+na dané stránce.
+PDF dokumenty podporují několik typů anotací, 
 například:
 \begin{itemize}
     \item \textbf{Text} -- Tyto anotace imitují nalepovací papírky. Jsou
@@ -773,9 +941,10 @@ například:
     \texttt{State} a~\texttt{StateModel}. Příklad textové anotace lze vidět ve
     výpisu~\ref{code_text_annotation}:
     \pdfcode{code_examples/pdf_code/text_annotation.txt}{
-    Anotace typu \emph{Text}, která se zobrazí jako ikona
-    \emph{Note}. Po interakci s~myší se zobrazí vyskakovací okénko
-    s~textem \uv{This is text annotation.}}{code_text_annotation}
+        Anotace typu \emph{Text}, která se zobrazí jako ikona
+        \emph{Note}. Po interakci s~myší se zobrazí vyskakovací okénko
+        s~textem \uv{This is text annotation.}
+    }{code_text_annotation}
 
     \item \textbf{Odkaz} -- Anotace odkazu slouží jako hypertextový
     odkaz na místo v~daném dokumentu nebo jako akce, která se má
@@ -786,8 +955,8 @@ například:
     a~\texttt{BS}. Validní anotace odkazu je uvedena ve
     výpisu~\ref{code_link_annotation}:
     \pdfcode{code_examples/pdf_code/link_annotation.txt}{
-    Anotace typu \emph{Link}, která odkazuje na místo uvnitř
-    stejného dokumentu.
+        Anotace typu \emph{Link}, která odkazuje na místo uvnitř
+        stejného dokumentu.
     }{code_link_annotation}
     
     \item \textbf{Volný text} -- Tato anotace bude na stránce
@@ -839,31 +1008,31 @@ PDF souborů, jejich speciality a~nedostatky.
 %---------- 3.3.1 C# ----------
 \subsection*{C\#}
 
-C\# je objektově orientovaný programovací jazyk, vyvinutý firmou Microsoft.
+Dokumentace jazyka C\#~\cite{CSharp} říká, že  C\# je objektově orientovaný 
+programovací jazyk, vyvinutý firmou Microsoft.
 Jazyk C\# je potomkem rodiny jazyků C, je jim tedy podobný a~programátorům těchto
 jazyků nebude dlouho trvat se jej naučit. Jazyk C\# je jeden z~nejpoužívanějších
 jazyků pro vývoj na platformě .NET.
-\cite{CSharp}
 
 Nejznámější C\# knihovna pro práci s~PDF dokumenty je \textbf{iText 7}\footnote{
 \href{https://kb.itextpdf.com/home}{https://kb.itextpdf.com/home}
 }. Tato knihovna je dostupná pod \emph{Open Source AGPLv3}\footnote{
 \href{https://itextpdf.com/how-buy/AGPLv3-license}{https://itextpdf.com/how-buy/AGPLv3-license}
-} licencí a~dvěma verzemi komerční licence. 
-\todo{popsat funkce knihovny iText 7}
-
-\dummyText
+} licencí a~dvěma verzemi komerční licence. Tato knihovna umí vytvářet nové
+i~upravovat již existující PDF dokumenty. Pomocí této knihovny lze například
+přidávat anotace, hlavičky a~patičky stránek, spojovat několik dokumentů do
+jednoho, upravovat metadata, vyplňovat či upravovat formuláře a~extrahovat 
+text či~jiné PDF objekty.
 
 
 %---------- 3.3.2 JavaScript ----------
 \subsection*{JavaScript}
-
-JavaScript je dynamicky typovaný, objektově orientovaný, interpretovaný
+Podle webové stránky věnované jazyku JavaScript~\cite{JavaScript}, je
+JavaScript dynamicky typovaný, objektově orientovaný, interpretovaný
 programovací jazyk. Nejčastěji se využívá jako skriptovací jazyk používaný
 pro vytváření webových stránek, je však často používaný i~mimo prostředí webového
 prohlížeče. Nejznámější z~těchto případů je například Node.js, Apache CouchDB
 a~Adobe Acrobat. 
-\cite{JavaScript}
 
 Pro zpracování PDF souborů v~jazyce JavaScript je možné použít některou
 z~následujících knihoven:
@@ -906,13 +1075,13 @@ z~následujících knihoven:
 %---------- 3.3.3 PHP ----------
 \subsection*{PHP}
 
-PHP je skriptovací programovací jazyk, který je především vhodný pro vývoj
+Informace uvedené na oficiálních PHP stránkách~\cite{PHP_is, PHP_can_do} uvádí,
+že PHP je skriptovací programovací jazyk, který je především vhodný pro vývoj
 dynamických webových stránek. Často je PHP kód vnořený přímo do HTML kódu, kterému
 tak přidává dynamičnost. PHP podporuje objektově orientované i~procedurální 
 programování. I~když je PHP jazyk používán převážně pro vývoj webu, lze jej využít
 i~pro vytvoření aplikace běžící v~příkazové řádce a~pro vývoj
 desktopových aplikací.
-\cite{PHP_is}, \cite{PHP_can_do}
 
 \begin{itemize}
     \item \textbf{TCPDF}\footnote{
@@ -948,12 +1117,12 @@ desktopových aplikací.
 %---------- 3.3.4 Python ----------
 \subsection*{Python} \label{python_libraries}
 
-Python je vysokoúrovňový, interpretovaný programovací jazyk. Má dynamickou
+Oficiální dokumentace jazyka Python~\cite{Python} uvádí, že Python je 
+vysokoúrovňový, interpretovaný programovací jazyk. Má dynamickou
 kontrolu datových typů a~podporuje objektově orientované programování. Tyto
 skutečnosti z~něj dělají ideální jazyk pro skriptování a~rychlé prototypování
 různých aplikací na mnoho platformách. Python je programovací jazyk vhodný i~pro
 začátečníky.
-\cite{Python}
 
 V~tomto jazyce existuje několik knihoven pro práci s~PDF soubory. Je možné použít
 například následující: 
@@ -972,8 +1141,11 @@ například následující:
     instalaci je nainstalován též Tesseract. Podporované formáty dokumentu jsou
     PDF, XPS, OpenXPS, CBZ, EPUB a~FB2 (eBooks). PyMuPDF umí zacházet
     i~s~populárními formáty obrázků jako jsou PNG, JPEG, BMP, TIFF a~dalšími.
-    \todo{vlastnosti pouze pro PDF -- anotovat, vyplňovat formuláře, vytvoření nového}
-    \todo{přístup z příkazové řádky}
+    Knihovna má pro~PDF dokumenty několik funkcí navíc,
+    což zahrnuje například vytváření nového dokumentu, extrahování a~přidávání
+    fontů a~obrázků, pracování se soubory chráněnými heslem (např. zašifrování 
+    a~dešifrování), zcela podporuje práci s~vloženými soubory, plně podporuje 
+    práci s~anotacemi a~dokáže dokáže vytvářet, číst i~vyplňovat formuláře.
 
     \item \textbf{pikepdf}\footnote{
     \href{https://pikepdf.readthedocs.io/en/latest/}{https://pikepdf.readthedocs.io/en/latest/}
@@ -997,46 +1169,54 @@ například následující:
 %                            4 NÁVRH A IMPLEMENTACE 
 %*********************************************************************************
 \chapter{Návrh a~implementace aplikace Theses Checker} \label{design_implementation}
-\todo{TODO: úvod do kapitoly}
+Tato kapitola pojednává o~požadavcích na vytvářenou aplikaci a~dále
+popisuje detaily všech vytvořených programů.
 
 
 %#######################    4.1 Specifikace požadavků    #######################
 \section{Specifikace požadavků}
-\todo{itemize; přeformulovat na množné, jelikož existují dvě verze (cmd, web)}
 Cílem vytvořené aplikace je nalézt a~vyznačit chyby, které se vyskytují
-v~nahrané technické zprávě. Technická zpráv a bude ve formátu PDF.
-Program musí podporovat technické zprávy napsané v~jazyce českém a~s~menší
-podporou i~v~jazyce slovenském nebo anglickém. Aplikace musí primárně umět
-kontrolovat diplomové práce vytvořené v~šabloně pro jazyk {\LaTeX}, která byla
-poskytnuta univerzitou Vysoké učení technické v~Brně, přesněji Fakultou
-informačních technologií. Aplikace musí
-být lehce přístupná, nejlépe bez nutnosti jakékoliv instalace.
-A~měla by být funkční na co nejvíce platformách, aby byla zajištěna dostupnost pro
-co nejvíce uživatelů.
+v~nahrané technické zprávě. Technická zpráva bude ve formátu PDF.
+Požadavky pro vytvořený program jsou:
+\begin{itemize}
+    \item Program musí podporovat technické zprávy napsané v~jazyce českém
+    a~s~menší podporou i~v~jazyce slovenském nebo anglickém.
 
-Nalezené
-chyby budou označeny graficky pomocí PDF anotací, jako například zvýraznění textu
-a~kreslení čar. Toto označení by mělo být zřetelné -- dobře viditelné
-a~na první pohled pochopitelné. Aplikace by tím měla imitovat poznámky korektora.
-Detekované chyby jsou takové, které se často vyskytují v~technických pracích.
+    \item Aplikace musí primárně umět kontrolovat diplomové práce vytvořené
+    v~šabloně pro jazyk {\LaTeX}, která byla
+    poskytnuta univerzitou Vysoké učení technické v~Brně, přesněji Fakultou
+    informačních technologií.
+
+    \item Program musí být lehce přístupný, nejlépe bez nutnosti
+    jakékoliv instalace.
+    
+    \item Aplikace by měla být funkční na co nejvíce platformách, aby byla
+    zajištěna dostupnost pro co nejvíce uživatelů.
+
+    \item Aplikace by měla umět pracovat s~co nejaktuálnější verzí PDF.
+    
+    \item Není nutné, aby program dokázal zpracovat několik PDF dokumentů
+    zároveň, postačí aby v~jednom příkazu zpracoval právě jeden dokument.
+\end{itemize}
+
+Nalezené chyby budou označeny graficky pomocí PDF anotací, jako například
+zvýraznění textu a~kreslení čar. Toto označení by mělo být zřetelné -- dobře
+viditelné a~na první pohled pochopitelné. Aplikace by tím měla imitovat
+poznámky korektora. Detekované chyby jsou takové, které se často vyskytují 
+v~technických pracích.
 Tyto časté chyby byly zjištěny zkoumáním rozpracovaných i~odevzdaných
 diplomových prací a~projevilo se, že vyskytované časté chyby jsou porušení
 některého z~typografických pravidel. Tyto nalezené časté chyby jsou uvedeny
 v~kapitole~\ref{frequent_mistakes}. 
 Aktuálně neexistuje žádná aplikace, která by aktivně kontrolovala typografické
 chyby. Většina existujících aplikací hledá pouze porušení gramatických pravidel.
-
 Hledání chyb bude pracovat na principu zvaném \emph{false-positive}. To znamená,
 že něco může být označeno jako chyba, ale ve skutečnosti se o~chybu nejedná.
-Aplikace by měla umět pracovat s~co nejaktuálnější verzí PDF. Není nutné, aby
-program dokázal zpracovat několik PDF dokumentů zároveň, postačí aby v~jednom příkazu
-zpracoval právě jeden dokument.
 
 
 
 %#######################    4.2 Návrh aplikace    #######################
 \section{Návrh aplikace}
-\todo{zmínit cmd aplikaci}
 Aby byla aplikace co nejvíce nezávislá, byla vyvinuta jako webová aplikace.
 Tato aplikace musí být intuitivní a~až na nahrání PDF dokumentu by se nemělo
 muset vyplňovat zbytečně mnoho informací. Většina informací by měla být
@@ -1048,7 +1228,9 @@ a~jejím výstupem je tento PDF dokument doplněný o~anotace.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{obrazky-figures/Theses_Checker_diagram.pdf}
-    \caption{\todo{TODO: popis}}
+    \caption{
+        Na tomto obrázku jsou ukázány vstupy a~výstupy aplikace Theses Checker
+    }
     \label{pic_theses_checker_dia}
 \end{figure}
 
@@ -1064,16 +1246,27 @@ anotovaný dokument místo často používaného odkazu na stáhnutí souboru.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_design-page1.pdf}
-    \caption{\todo{TODO: odkaz}}
+    \caption{
+        Tento obrázek obsahuje návrh úvodní stránky webové aplikace Theses Checker
+    }
     \label{pic_theses_checker_design_page1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_design-page2.pdf}
-    \caption{\todo{TODO: odkaz}}
+    \caption{
+        Tento obrázek obsahuje návrh stránky webové aplikace Theses Checker, kde
+        je zobrazeno výstupní PDF
+    }
     \label{pic_theses_checker_design_page2}
 \end{figure}
+
+Jelikož webová aplikace umí kontrolovat pouze jeden dokument byla navrhnuta
+též konzolová aplikace. Tato konzolová aplikace musí pracovat na podobném
+principu, jako je uveden na obrázku~\ref{pic_theses_checker_dia}. Proto
+webová i~konzolová aplikace musí používat stejný program, který bude kontrolovat
+a~anotovat vstupní PDF dokument.  
 
 Výstupní dokument bude obsahovat několik anotací, pro označení nalezených chyb.
 Toto označení by mělo být viditelné a~mělo by jasně označovat, co za chybu bylo
@@ -1082,7 +1275,7 @@ s~pop-up anotací. Highlight anotace označí, kde na stránce byla nalezena chy
 a~podrobný popis nalezené chyby je možné zobrazit rozkliknutím pop-up anotace,
 která se váže na danou highlight anotaci.
 
-\todo{cílová skupina?, obrázek pop-up anotace?}
+
 
 %#######################    4.3 Využité technologie    #######################
 \section{Využité technologie}
@@ -1144,17 +1337,59 @@ naznačen na obrázku~\ref{pic_communication}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/Theses_Checker_communication.pdf}
-    \caption{TODO: popis + odkaz}
+    \caption{
+        Tento obrázek popisuje postup komunikace webové aplikace mezi 
+        frameworkem Django a~programem pro vyhledávání chyb v~PDF dokumentu 
+    }
     \label{pic_communication}
 \end{figure}
 
 
 %---------- 4.4.1 Architektura webové aplikace ----------
 \subsection*{Architektura webové aplikace}
-\todo{MVC?, kde jsou jaké soubory, }
+Django pracuje s~architekturou zvanou model-view-template (dále jen MVT),
+která je velmi podobná známé architektuře model-view-controller (dále jen MVC).
+View má v~architektuře MVT podobnou roli jako controller z~architektury MVC 
+a~template z~MVT má podobnou roli jako view z~MVC.
 
+Všechny šablony použité pro webové stránky jsou uloženy ve
+složce \texttt{templates} a~každá rozvíjí šablonu zvanou \texttt{base.html}
+pro jednotný vzhled. Řídící logika webové aplikace je umístěna v~souboru
+\texttt{views.py} a~program pro vyhledání a~označení chyb se vyskytuje 
+v~souboru \texttt{theses\_checker.py}. V~souboru \texttt{settings.py}
+se před spuštěním musí nastavit tajný klíč (proměnná \texttt{SECRET\_KEY}) 
+a~může se zde nastavit, zda server poběží v~módu pro vývoj či nikoliv
+(proměnná \texttt{DEBUG}). Server webové aplikace se spustí
+pomocí souboru \texttt{manage.py} použitím
+příkazu: \verb|$ python manage.py runserver|
 
-\dummyText[2]
+Všechny potřebné soubory pro správnou funkci webové aplikace jsou uloženy
+ve složce s~názvem \texttt{web}. Hlavní struktura této složky vypadá následovně:
+
+\dirtree{%
+.1 \textbf{web}.
+.2 \textbf{files}.
+.2 \textbf{static}.
+.3 \textbf{css}.
+.3 \textbf{js}.
+.2 \textbf{templates}.
+.3 \textbf{theses\_checker}.
+.4 annotated.html.
+.4 index.html.
+.3 400.html.
+.3 403.html.
+.3 404.html.
+.3 500.html.
+.3 base.html.
+.2 \textbf{theses\_checker}.
+.3 \textbf{bl}.
+.4 theses\_checker.py.
+.3 views.py.
+.2 \textbf{web}.
+.3 settings.py.
+.2 manage.py.
+}
+
 
 
 %---------- 4.4.2 Implementační detaily ----------
@@ -1190,7 +1425,9 @@ obrázku~\ref{pic_theses_checker_error}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{obrazky-figures/screenshot-error.png}
-    \caption{\todo{TODO: popis}}
+    \caption{
+        Na tomto obrázku je ukázka stránky, která se zobrazí při vyvolané chybě 
+    }
     \label{pic_theses_checker_error}
 \end{figure}
 
@@ -1209,19 +1446,31 @@ a~s~pomocí nepovinných přepínačů \texttt{-o}, \texttt{-i}, \texttt{-H},
 \texttt{-t}, \texttt{-s}, \texttt{-e} a~\texttt{-b} lze určit které kontroly
 budou či nebudou probíhat. Tento script podporuje navíc nepovinný přepínač
 \texttt{--embedded\_PDF}, který určuje zda budou vnořené PDF brány jako
-vektorové obrázky.
-
-Na obrázku~\ref{pic_theses_checker_cmd}
+vektorové obrázky. Ukázky použití lze vidět na 
+obrázku~\ref{pic_theses_checker_cmd}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[]{obrazky-figures/cmd_screenshot_one.pdf}
-    \includegraphics[]{obrazky-figures/cmd_screenshot_many.pdf}
-    \caption{TODO: popis + odkaz}
+    \begin{subfigure}[b]{0.8\linewidth}
+        \includegraphics[width=\linewidth]{obrazky-figures/cmd_screenshot_one.pdf}
+        \caption{Ukázka spuštění všech kontrol pro jeden PDF soubor}
+        \label{pic_theses_checker_cmd_one}
+    \end{subfigure}
+
+    \hfill\\
+    \begin{subfigure}[b]{0.85\linewidth}
+        \includegraphics[width=\linewidth]{obrazky-figures/cmd_screenshot_many.pdf}
+        \caption{Ukázka spuštění pouze dvou kontrol na dvou PDF souborech}
+        \label{pic_theses_checker_cmd_many}
+    \end{subfigure}
+    \caption{
+        Tyto obrázky ukazují možné použití programu Theses Checker
+        z~příkazového řádku
+    }
     \label{pic_theses_checker_cmd}
 \end{figure}
 
-\todo{ukázka použití}
+
 
 \subsection*{Závislosti}
 Aby mohla být aplikace použitelná potřebuje následující:
@@ -1236,6 +1485,7 @@ Jiné verze těchto závislostí nebyly testovány.
 
 %#######################    4.6 Implementace programu pro vyhledání chyb a~jejich následné vyznačení    #######################
 \section{Implementace programu pro vyhledání chyb a~jejich následné vyznačení} \label{checker}
+\todo{TODO: obrázek pop-up anotace}
 Program, který zodpovídá za práci s~PDF dokumentem, je obsažen v~souboru s~názvem
 \texttt{theses\_checker.py}. Pro zkontrolování technické zprávy se musí použít
 funkce \texttt{annotate()} ze třídy \texttt{Checker}. Při vytváření instance této
@@ -1319,14 +1569,14 @@ proměnných jsou:
     \item \texttt{\_\_currPageTextContent} -- Tato privátní proměnná obsahuje
     všechen text vyskytující se na aktuální stránce. Jelikož při extrakci textu
     z~PDF stránky nelze vždy získat nepřerušovaný text (text většinou obsahuje
-    například znak
-    zalomení řádku tam, kde by byl vykreslen na stránce), musí se nejdříve tento
-    extrahovaný text upravit.
+    například znak zalomení řádku tam, kde by byl vykreslen na stránce), 
+    musí se nejdříve tento extrahovaný text upravit.
     Text obsažen uvnitř proměnné \texttt{\_\_currPageTextContent} je formátován
-    přímo pro čtení (falešné nové řádky nahrazeny za mezeru a~jsou odebrány
-    spojovníky u~rozdělených slov např. \emph{spojo-vník}), kde každý blok je
-    oddělen prázdným
-    řádkem.\todo{TODO: samotná podsekce?, proměnná obsahuje i text z vložených pdf}
+    přímo pro čtení což znamená, že znaky nového řádku, které byli přidány pro správné 
+    zobrazení na PDF stránce, jsou nahrazeny za mezeru a~jsou odebrány
+    spojovníky u~rozdělených slov (např. \emph{spojo-vník}). Každý blok textu
+    vyskytnutý na PDF stránce je v~této proměnné
+    oddělen prázdným řádkem. 
 \end{itemize}
 
 Než se budou moct provézt některé kontroly, musí se nejdříve zjistit pár
@@ -1334,12 +1584,6 @@ základních informací o~kontrolovaném dokumentu (například font normálníh
 nebo souřadnice okrajů stránek). Toto získávání informací provádí funkce
 \texttt{\_\_getDocInfo()}, která pro zrychlení programu skenuje pouze předem
 určený počet stran. Skenované stránky jsou získány náhodně.
-
-% \lstinputlisting[
-%     style=myPython,
-%     caption={TODO:},
-%     label=code
-% ]{code_examples/python_code/getDocInfo.py}
 
 Hlavní funkce \texttt{annotate()} (naznačená ve výpisu~\ref{code_annotate}) přijímá parametry typu boolean, kde
 každý typ kontroly má vlastní parametr. Tyto parametry určují, zda se má daná
@@ -1357,26 +1601,27 @@ závorkou, chybějící text mezi názvy sekcí a~odkaz na neexistující refere
 
 \noindent\begin{minipage}{\linewidth}
     \hfill
-    \lstinputlisting[style=myPython,caption={TODO:},label=code_annotate]{code_examples/python_code/annotate.py}
+    \lstinputlisting[style=myPython,caption={
+        V~tomto výpisu je naznačena veřejná funkce \texttt{annotate()},
+        která provede všechny kontroly a~uloží anotovaný soubor
+    },label=code_annotate]{code_examples/python_code/annotate.py}
 \end{minipage}
-
-
-
-%---------- 4.6.1 Extrahovaný text ve formátu pro čtení ----------
-\subsection*{Extrahovaný text ve formátu pro čtení}
-\todo{proč existuje proměnná \texttt{\_\_currPageTextContent} a na co se to potom používá}
 
 
 %---------- 4.6.1 Nalezení okraje stránky ----------
 \subsection*{Nalezení okraje stránky}
 Hlavní kontrola, na kterou se měl tento program zaměřit je přetékání objektů za
 okraj stránky. Pokud jsou známy souřadnice okraje, nalezení jeho přetečení
-se řídí algoritmem naznačeném ve výpisu~\ref{code_overflow}.
+se řídí a
+lgoritmem naznačeném ve výpisu~\ref{code_overflow}.
 
 \noindent\begin{minipage}{\linewidth}
     \hfill
     \lstinputlisting[
-        style=myPython, caption={TODO:}, label=code_overflow
+        style=myPython, caption={
+            Výpis naznačuje funkci \texttt{getOverflow()}, která získá souřadnice 
+            všech přetečení okraje stránky
+        }, label=code_overflow
     ]{code_examples/python_code/overflow.py}
 \end{minipage}
 
@@ -1390,7 +1635,7 @@ obsahuje i~toto přetečení (viz obrázek~\ref{pic_block_bbox}).
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{obrazky-figures/block_bbox.pdf}
-    \caption{Obrázek ukazuje červeně označené ohraničení bloku textu, který obsahuje přetečení.}
+    \caption{Obrázek ukazuje červeně označené ohraničení bloku textu, který obsahuje přetečení}
     \label{pic_block_bbox}
 \end{figure}
 
@@ -1404,11 +1649,11 @@ Podobné pravidlo platí i~pro poslední řádek a~jeho pravý okraj.
 
 \noindent\begin{minipage}{\linewidth}
     \hfill
-    \lstinputlisting[style=myPython, caption={TODO:}, label=code_get_page_border]{code_examples/python_code/getPageBorder.py}
+    \lstinputlisting[style=myPython, caption={
+        Výpis naznačuje funkci \texttt{getPageBorder()}, která nalezne
+        levý a~pravý okraj stránky
+    }, label=code_get_page_border]{code_examples/python_code/getPageBorder.py}
 \end{minipage}
-
-\todo{?blbne u textových objektů (tabulka, listing, grafy?)?}
-
  
 
 %---------- 4.6.2 Nalezení souřadnic vloženého PDF na stránce ----------
@@ -1478,7 +1723,7 @@ obrázku~\ref{pic_embedded_pdf_flow_chart}.
         algoritmus pro získání souřadnic vnořených PDF. CTM je proměnná imitující 
         CTM (current transformation matrix) z~datové struktury graphics state
         vyskytující se v~PDF. Aktuální stránka je instance PDF stránky, která
-        se právě zpracovává a~lze z~ní získat content stream a~vyvolané XObjekty. 
+        se právě zpracovává a~lze z~ní získat content stream a~vyvolané XObjekty
     }
     \label{pic_embedded_pdf_flow_chart}
 \end{figure}
@@ -1492,7 +1737,6 @@ obrázku~\ref{pic_embedded_pdf_flow_chart}.
 %*********************************************************************************
 %                                 5 TESTOVÁNÍ 
 %*********************************************************************************
-%TODO: přejmenovat
 \chapter{Testování a~zhodnocení výsledné aplikace} \label{testing}
 Testování je důležitou součástí vývoje jakéhokoliv nástroje. Během testování
 vývojáři dostávají důležitou zpětnou vazbu a~mohou tak být odhaleny chyby,
@@ -1526,8 +1770,10 @@ ale s~poskytnutými poznámkami.
 
 %#######################    5.3 Uživatelské dotazníky    #######################
 \section{Uživatelské dotazníky}
-... 
-Na dotazník odpovědělo celkem 29~uživatelů a~obsahoval tyto otázky:
+Další formou testování bylo provedeno formou dotazníku.
+Tento dotazník byl přeposlán několika možným uživatelům
+aplikace. Celkově na tento dotazník odpovědělo
+34~uživatelů. Dotazník obsahoval tyto otázky:
 \begin{itemize}
     \item Pomocí jakého prohlížeče jste aplikaci použili?
     \item Dokázali jste pomocí aplikace Theses Checker zkontrolovat svou
@@ -1542,21 +1788,81 @@ Na dotazník odpovědělo celkem 29~uživatelů a~obsahoval tyto otázky:
 \end{itemize}
 
 Odpovědi na tento dotazník pomohly vylepšit funkcionalitu vytvořené aplikace.
-Hlavní ... tohoto dotazníku bylo ověření již vytvořených kontrol a~určení,
+Hlavním účelem tohoto dotazníku bylo ověření již vytvořených kontrol a~určení,
 jak je daná aplikace přehledná. Přehlednost označení nalezených chyb
 uvnitř PDF dokumentu, mělo většinově dobré ohlasy, což lze
-vyčíst z~obrázku~\ref{rate_checks}.
+vyčíst i~z~obrázku~\ref{rate_checks}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{obrazky-figures/graph1.pdf}
-    \caption{\todo{Graf s novými odpovědmi + popisy os}Obrázek obsahuje graf odpovědí na otázku o~přehlednosti
-    označení chyb na stupnici od 1 do 5, kde 1 představuje \uv{Zcela nepřehledné}
-    a~5 představuje \uv{Jasné}.}
+    \caption{
+        Obrázek obsahuje graf odpovědí
+        na otázku o~přehlednosti označení chyb na stupnici od~1 do~5, kde 
+        1 představuje \uv{Zcela nepřehledné}
+        a~5 představuje \uv{Jasné}
+    }
     \label{rate_checks}
 \end{figure}
 
-\todo{další odpovědi}
+Ověření funkčnosti kontrol bylo provedeno otázkou na špatné označení chyb
+a~upřesněním, který typ chyby byl špatně označen. Shrnutí odpovědí na
+první otázku lze vidět na obrázku~\ref{pic_graph_false_mistakes}.
+Tento poměr byl očekávaný, jelikož tato testovaná aplikace označuje chyby
+false-positive principem.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{obrazky-figures/graph_false_mistakes.pdf}
+    \caption{
+        Tento graf ukazuje shrnutí odpovědí na otázku \uv{Bylo něco špatně označeno jako chyba?}
+    }
+    \label{pic_graph_false_mistakes}
+\end{figure}
+
+Nejčastější špatně označenou chybou byla vynechaná mezera před levou závorkou. 
+Celkem tuto chybu odpovědělo 12~z~20~(60\,\%)~lidí a~dále upřesnili, že
+toto označení se chybně objevovalo převážně v~matematických vzorcích, u~názvů
+funkcí a~ve výpisech kódu. Jako další bylo často zodpovězeno chybné označení
+chybějícího textu mezi nadpisy, které se v~odpovědích objevilo celkem~8$\times$.
+V~odpovědích bylo upřesněno, že se toto chybné označení objevovalo
+okolo tabulek, výpisu kódu a~vektorových obrázků.
+
+Dále byla otestována multiplatformost vytvořené webové aplikace otázkou
+na použitý webový prohlížeč. Souhrn odpovědí na tuto otázku je ukázán na
+obrázku~\ref{pic_graph_browser}. Zejména takto bylo testováno zobrazení
+anotací ve zobrazeném výstupním PDF dokumentu. V~odpovědích na dotazník
+byl pouze jediný uživatel, kterému se nezobrazovali PDF anotace. Tento 
+uživatel použil webový prohlížeč Google Chrome.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{obrazky-figures/graph_browser.pdf}
+    \caption{
+        V~tomto obrázku je ukázán graf webových prohlížečů, které byly
+        použity uživateli při zkoušení webové aplikace Theses Checker.
+        Tyto informace byly získány z~odpovědí na dotazník
+    }
+    \label{pic_graph_browser}
+\end{figure}
+
+Poslední otázka byla nepovinná a~dotazovala se na možné vylepšení webové
+aplikace. Některé z~navrhnutých vylepšení jsou:
+\begin{itemize}
+    \item možnost dát uživateli vypnutí některých kontrol,
+    \item na stránce s~výstupem přidat tlačítko na nahrání dalšího PDF souboru,
+    \item ukázání seznamu chyb nalezených chyb,
+    \item přidání pop-up anotací pro všechny kontroly.
+\end{itemize}
+Další návrhy byly na přidání nových kontrol, jako jsou například:
+\begin{itemize}
+    \item krátké sekce,
+    \item dlouhé odstavce,
+    \item špatná kvalita obrázků (rastrové grafy),
+    \item citace za odstavcem,
+    \item mezera před footnote odkazem,
+    \item chybějící mezera před odkazem na kapitolu.
+\end{itemize}
 
 
 
@@ -1586,8 +1892,6 @@ nemá. Tato místa jsou například názvy funkcí, matematická rovnice a~kód
 ve výpisu. Tento nedostatek není lehké opravit, jelikož by pro vylepšení
 bylo potřeba poznat kontext textu.
 
-%\todo{TODO: okraj stránky pro oboustranný tisk}
-
 
 
 %#######################    5.4 Možné budoucí rozšíření aplikace    #######################
@@ -1609,7 +1913,7 @@ Ostatní rozšíření bude přidávání nových kontrol, což je například  
 použití správných uvozovek, detekce jednopísmenných předložek a~spojek na
 konci řádku a~kontrola používání vektorových obrázků.
 
-%\todo{TODO: hledání nevhodných slov, proměnná \texttt{\_\_currPageTextContent} nebude obsahovat z embedded pdfs}
+
 
 %*********************************************************************************
 
@@ -1638,24 +1942,23 @@ V~návrhu a~implementaci byla dána velká váha na přívětivost pro uživatel
 Aplikace se postupně měnila i~na základě zpětné vazby od uživatelů, která byla
 podávána pomocí dotazníku.
 
-Program umí kontrolovat šest typů chyb a~to přetečení za okraj stránky, 
+Vytvořený program umí kontrolovat šest typů chyb a~to přetečení za okraj stránky, 
 špatné použití spojovníku, nevhodná šířka obrázku, vynechaná mezera před levou
 závorkou, chybějící text mezi názvy sekcí a~odkaz na neexistující referenci.
-Byl vytvořen plakát a~video\footnote{\todo{TODO: odkaz na video}}, které
-demonstruje použití tohoto programu, čímž byl splněn poslední bod zadání této
-bakalářské práce.
+Tento program je využit ve výsledné webové aplikaci a~též pro něj byl 
+vytvořen program pro jeho spuštění v~příkazovém řádku.
+Výsledky této práce byly představeny na konferenci Excel@FIT. Pro
+účast na této konferenci byla povinná tvorba plakátu, který je u~této
+práce přiložen.
+Dále bylo vytvořeno video\footnote{\todo{TODO: odkaz na video}}, které
+demonstruje použití tohoto webového nástroje, čímž byl splněn poslední bod
+zadání této bakalářské práce.
 
 Do budoucna bych chtěla vylepšit algoritmus na hledání okrajů PDF stránky
 a~přidat pro něj podporu dokumentů nastavených na oboustranný tisk, jejichž
 okraje jsou pro sudé a~liché stránky rozdílné. Dále bych chtěla vylepšit chování
 kontrol pro textové objekty, jako jsou tabulky či výpisy. Též bych chtěla doplnit
 několik dalších kontrol častých chyb, které budou nápomocné uživatelům aplikace.
-
-\todo{práce byla ukázána na konferenci excel@fit; zmínit i cmd program}
-
-
-
-
 
 %*********************************************************************************
 

@@ -1,0 +1,43 @@
+<mxfile host="Electron" modified="2023-05-09T23:28:14.730Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.1 Chrome/112.0.5615.87 Electron/24.1.2 Safari/537.36" etag="jhQUCIBzC-MnHGexPREj" version="21.2.1" type="device">
+  <diagram name="Stránka-1" id="qd5s0iNdWMvR4r2C5c5G">
+    <mxGraphModel dx="592" dy="346" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kif9EiL0x0l5iAz5XZqo-1" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Tento text je pouze ukáz- kový a není v něm uvedena žádná důležitá informace. Tato část slouží pouze k demonstraci.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Tento text je pouze ukázkový a není v něm uvedena žádná důležitá informace. Text slouží pou- ze k demonstraci.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0.1;strokeColor=#B3B3B3;fontSize=9;fontFamily=Times New Roman;spacingLeft=2;spacingRight=2;spacingBottom=2;spacingTop=2;" parent="1" vertex="1">
+          <mxGeometry x="210" y="165" width="110" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kif9EiL0x0l5iAz5XZqo-6" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;width=6.857142857142857;endSize=4.382857142857143;endWidth=13.224489795918368;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="215" as="sourcePoint" />
+            <mxPoint x="370" y="214.76000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kif9EiL0x0l5iAz5XZqo-8" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;width=6.857142857142857;endSize=4.382857142857143;endWidth=13.224489795918368;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="500" y="214.9" as="sourcePoint" />
+            <mxPoint x="540" y="214.66000000000003" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V7vBtIVnTagh1HoDdg4t-1" value="&lt;div style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Tento text je pouze ukáz- kový a není v něm uvedena žádná důležitá informace. Tato část slouží pouze k demonstraci.&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Tento text je pouze ukázkový a není v něm uvedena žádná důležitá informace. Text slouží pou- ze k demonstraci.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0.1;strokeColor=#B3B3B3;fontSize=9;fontFamily=Times New Roman;spacingLeft=2;spacingRight=2;spacingBottom=2;spacingTop=2;" vertex="1" parent="1">
+          <mxGeometry x="380" y="165" width="110" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="V7vBtIVnTagh1HoDdg4t-2" value="&lt;div style=&quot;text-align: justify;&quot;&gt;Tento text je pouze ukáz- kový a&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;není v&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;něm uvedena žádná důležitá informace. Tato část slouží pouze k&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;de- monstraci.&amp;nbsp;&lt;/span&gt;Tento text je pouze ukázkový a&amp;nbsp;není v&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;něm uvedena žádná dů- ležitá informace. Text slouží pouze k&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;demonstraci.&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeWidth=0.1;strokeColor=#B3B3B3;fontSize=9;fontFamily=Times New Roman;spacingLeft=2;spacingRight=2;spacingBottom=2;spacingTop=2;" vertex="1" parent="1">
+          <mxGeometry x="550" y="165" width="110" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="V7vBtIVnTagh1HoDdg4t-3" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=11;strokeColor=#CC0000;opacity=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="478" y="205" as="sourcePoint" />
+            <mxPoint x="488" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V7vBtIVnTagh1HoDdg4t-4" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=11;strokeColor=#CC0000;opacity=50;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="478" y="226.5" as="sourcePoint" />
+            <mxPoint x="488" y="226.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
