@@ -42,7 +42,10 @@
 Pro úspěšné dokončení vysokoškolského studia musí student napsat několik desítek
 stran textu zvaného závěrečná práce. Tato technická zpráva by měla být před jejím
 zveřejněním několikrát překontrolována, ale ve většině případů se nenaleznou
-všechny vyskytované chyby. Při velké koncentraci chyb se může výsledná práce zdát
+všechny vyskytované chyby. Studenti se při kontrole často obrací na své známé,
+tito lidé však často nebývají seznámeni s~typografickými pravidly, a~tak se
+tyto typy chyb často přehlížejí.
+Při velké koncentraci chyb se může výsledná práce zdát
 \uv{odfláklá} a~může tak být sníženo její ohodnocení, případně může být
 tato práce přímo zamítnuta.
 
@@ -60,11 +63,12 @@ chyby automaticky při psaní opravovány, ale opět na to není žádná aplika
 zaměřena. Jedním z~takových textových procesorů je například Microsoft Word,
 který má navíc podporu pro více jazyků. 
 
-Cílem této práce je zkoumáním zveřejněných diplomových prací nalézt, které chyby
-se v~nich často vyskytují. Dalším krokem bylo navrhnout a~vytvořit lehce
+Cílem této práce bylo zkoumáním zveřejněných diplomových prací a~jejich posudků
+od oponenta nalézt, které chyby se v~těchto pracích často vyskytují. Dalším
+krokem bylo navrhnout a~vytvořit lehce
 dostupnou aplikaci, která nalezne tyto (převážně typografické) chyby a~označí
-je přímo uvnitř poskytnutého PDF souboru. Tato aplikace by měla být dostupná bez
-nutnosti instalování a~měla by být co nejvíce intuitivní.
+je přímo uvnitř poskytnutého PDF souboru. Tato aplikace měla být dostupná bez
+nutnosti instalování a~měla být co nejvíce intuitivní.
 
 Úvodní stránka výsledného webového nástroje s~názvem Theses
 Checker\footnote{Theses Checker je dostupný na adrese
@@ -780,7 +784,10 @@ souřadnicovými systémy jsou vyznačeny na obrázku~\ref{coordinate_spaces}.
         pomocí \emph{textové matice} a~několika textových parametrů vyskytujících
         se v~datové struktuře graphics state.
 
-        \item \emph{Glyph space} -- Glyfy znaků fontu musí být definovány v~tomto
+        \item \emph{Glyph space} -- Glyfy\footnote{
+            Glyf je grafické znázornění grafému (písmena, číslice, znaku, piktogramu, interpunkčního a~jiných znamének).
+        }
+        znaků fontu musí být definovány v~tomto
         prostoru. Z~glyph space se poté transformuje do textového prostoru.
         
         \item \emph{Obrázkový prostor} -- Všechny obrázky by měly být definovány
@@ -1014,9 +1021,9 @@ Jazyk C\# je potomkem rodiny jazyků C, je jim tedy podobný a~programátorům t
 jazyků nebude dlouho trvat se jej naučit. Jazyk C\# je jeden z~nejpoužívanějších
 jazyků pro vývoj na platformě .NET.
 
-Nejznámější C\# knihovna pro práci s~PDF dokumenty je \textbf{iText 7}\footnote{
-\href{https://kb.itextpdf.com/home}{https://kb.itextpdf.com/home}
-}. Tato knihovna je dostupná pod \emph{Open Source AGPLv3}\footnote{
+Nejznámější C\# knihovna pro práci s~PDF dokumenty je \textbf{iText 7}
+(informace byly získány z~její oficiální dokumentace~\cite{iText_7}). 
+Tato knihovna je dostupná pod \emph{Open Source AGPLv3}\footnote{
 \href{https://itextpdf.com/how-buy/AGPLv3-license}{https://itextpdf.com/how-buy/AGPLv3-license}
 } licencí a~dvěma verzemi komerční licence. Tato knihovna umí vytvářet nové
 i~upravovat již existující PDF dokumenty. Pomocí této knihovny lze například
@@ -1037,9 +1044,9 @@ a~Adobe Acrobat.
 Pro zpracování PDF souborů v~jazyce JavaScript je možné použít některou
 z~následujících knihoven:
 \begin{itemize}
-    \item \textbf{PDF.js}\footnote{
-    \href{http://mozilla.github.io/pdf.js/getting_started/}{http://mozilla.github.io/pdf.js/getting\_started/}
-    }\,--\,Tato knihovna byla vyvinuta převážně pro čtení a~vykreslování PDF
+    \item \textbf{PDF.js}\,--\,Informace o~této knihovně byly získány
+    z~oficiální dokumentace PDF.js knihovny~\cite{PDFjs}.
+    Tato knihovna byla vyvinuta převážně pro čtení a~vykreslování PDF
     souborů, samotná neumí dané soubory editovat. Jiné knihovny jsou s~touto
     knihovnou často kombinovány pro pokročilejší práci s~PDF soubory. Práce
     s~PDF.js knihovnou závisí na využívání takzvaných Promises, bez kterých nelze
@@ -1048,9 +1055,9 @@ z~následujících knihoven:
     licencí \emph{Apache License 2.0}\footnote{
     \href{https://github.com/mozilla/pdf.js/blob/master/LICENSE}{https://github.com/mozilla/pdf.js/blob/master/LICENSE}}.
     
-    \item \textbf{pdfAnnotate}\footnote{
-    \href{https://github.com/highkite/pdfAnnotate}{https://github.com/highkite/pdfAnnotate}
-    }\,--\,Je knihovna vyvinutá specificky pro anotování PDF souborů dostupná pod
+    \item \textbf{pdfAnnotate}\,--\,Informace o~této knihovně byly získány
+    z~GitHub stránek pdfAnnotate knihovny~\cite{pdfAnnotate}.
+    Knihovna pdfAnnotate je vyvinutá specificky pro anotování PDF souborů dostupná pod
     licencí \emph{MIT License}\footnote{
     \href{https://github.com/highkite/pdfAnnotate/blob/master/LICENSE}{https://github.com/highkite/pdfAnnotate/blob/master/LICENSE}
     }. Funguje pouze v~prostředí webového prohlížeče a~Node.js. Samotná knihovna
@@ -1059,9 +1066,9 @@ z~následujících knihoven:
     na konec PDF souboru a~díky tomu je možné je zobrazit i~mimo vytvořenou
     aplikaci.
     
-    \item \textbf{PDF-LIB}\footnote{
-    \href{https://pdf-lib.js.org/}{https://pdf-lib.js.org/}
-    }\,--\,Tuto knihovnu je možné používat v~jakémkoliv JavaScriptovém prostředí.
+    \item \textbf{PDF-LIB}\,--\,Informace o~této knihovně byly získány
+    z~oficiálních stránek PDF-LIB knihovny~\cite{pdf_lib}.
+    Tuto knihovnu je možné používat v~jakémkoliv JavaScriptovém prostředí.
     PDF-LIB dokáže vytvářet nové či modifikovat existující PDF soubory. Mezi
     modifikace patří například vytváření a~vyplňování formulářů, vkládání PDF
     stránek a~čtení a~přepisování metadat souboru. Vytváření anotací je možné, ale
@@ -1084,9 +1091,9 @@ i~pro vytvoření aplikace běžící v~příkazové řádce a~pro vývoj
 desktopových aplikací.
 
 \begin{itemize}
-    \item \textbf{TCPDF}\footnote{
-    \href{https://tcpdf.org/}{https://tcpdf.org/}
-    }\,--\,Tato knihovna je zaměřena na vytváření PDF dokumentů, mezi její hlavní
+    \item \textbf{TCPDF}\,--\,Informace o~této knihovně byly získány
+    z~oficiálních stránek TCPDF kni\-hov\-ny~\cite{TCPDF}.
+    Tato knihovna je zaměřena na vytváření PDF dokumentů, mezi její hlavní
     vlastnosti patří podpora fontů, automatické hlavičky a~patičky na stránce,
     dělení slov, zarovnání a~zalamování textu, PDF anotace a~automatické číslování
     stran. TCPDF nepodporuje čtení a~editaci existujících PDF souborů.
@@ -1100,9 +1107,9 @@ desktopových aplikací.
     
     % \dummyShortText[8]
 
-    \item \textbf{FPDI}\footnote{
-    \href{https://www.setasign.com/products/fpdi/about/}{https://www.setasign.com/products/fpdi/about/}
-    }\,--\,Je knihovna pro používání stránek z~existujícího PDF dokumentu jako
+    \item \textbf{FPDI}\,--\,Informace o~této knihovně byly získány
+    ze stránek FPDI kni\-hov\-ny~\cite{FPDI}.
+    Toto je knihovna pro používání stránek z~existujícího PDF dokumentu jako
     šablonu do nového PDF dokumentu. Při opakovaném použití jedné šablony tato 
     knihovna zajistí, že šablona bude v~souboru PDF zahrnuta právě jednou. Díky
     této skutečnosti může být výsledné PDF menší velikosti než PDF vytvořeno jiným
@@ -1127,9 +1134,9 @@ začátečníky.
 V~tomto jazyce existuje několik knihoven pro práci s~PDF soubory. Je možné použít
 například následující: 
 \begin{itemize}
-    \item \textbf{PyMuPDF}\footnote{
-    \href{https://pymupdf.readthedocs.io/en/latest/}{https://pymupdf.readthedocs.io/en/latest/}
-    }\,--\,Je Python verze MuPDF. Je dostupná pod dvěma různými licencemi, a~to pod
+    \item \textbf{PyMuPDF}\,--\,Informace o~této knihovně byly získány
+    z~oficiální dokumentace PyMuPDF kni\-hov\-ny~\cite{PyMuPDF}.
+    Je Python verze MuPDF. Je dostupná pod dvěma různými licencemi, a~to pod
     licencí \emph{Open Source\,--\,AGPL}\footnote{
     \href{https://artifex.com/licensing/agpl/}{https://artifex.com/licensing/agpl/}
     } a~komerční\footnote{
@@ -1147,9 +1154,9 @@ například následující:
     a~dešifrování), zcela podporuje práci s~vloženými soubory, plně podporuje 
     práci s~anotacemi a~dokáže dokáže vytvářet, číst i~vyplňovat formuláře.
 
-    \item \textbf{pikepdf}\footnote{
-    \href{https://pikepdf.readthedocs.io/en/latest/}{https://pikepdf.readthedocs.io/en/latest/}
-    }\,--\,Tuto knihovnu lze používat pro vytváření, čtení i~úpravu PDF dokumentů.
+    \item \textbf{pikepdf}\,--\,Informace o~této knihovně byly získány
+    z~oficiální pikepdf dokumentace~\cite{pikepdf}.
+    Tuto knihovnu lze používat pro vytváření, čtení i~úpravu PDF dokumentů.
     Je to Python verze C++ knihovny QPDF. Pro požívání knihovny je nutné být
     seznámen se specifikací PDF formátu. Knihovna je dostupná pod
     \emph{Mozilla Public License 2.0}\footnote{
@@ -1169,8 +1176,9 @@ například následující:
 %                            4 NÁVRH A IMPLEMENTACE 
 %*********************************************************************************
 \chapter{Návrh a~implementace aplikace Theses Checker} \label{design_implementation}
-Tato kapitola pojednává o~požadavcích na vytvářenou aplikaci a~dále
-popisuje detaily všech vytvořených programů.
+Součástí této práce byly vytvořeny 2~aplikace, jedena je webový nástroj a~druhá je
+program pro použití z~příkazového řádku. Tato kapitola pojednává o~požadavcích na 
+vytvářené aplikace a~dále popisuje detaily všech vytvořených programů.
 
 
 %#######################    4.1 Specifikace požadavků    #######################
@@ -1556,7 +1564,11 @@ proměnných jsou:
     \begin{figure}[H]
         \centering
         \includegraphics[width=\linewidth]{obrazky-figures/page_dictionary.pdf}
-        \caption{TODO: \url{https://pymupdf.readthedocs.io/en/latest/textpage.html}}
+        \caption{
+            Na tomto obrázku je vyznačena struktura slovníku \texttt{\_\_currDict}.
+            Obrázek byl převzat a~upraven z~oficiální PyMuPDF 
+            dokumentace~\cite[Cesta: \emph{TextPage}]{PyMuPDF} 
+            }
         \label{pic_curr_page_dict}
     \end{figure}
     
@@ -1950,7 +1962,7 @@ vytvořen program pro jeho spuštění v~příkazovém řádku.
 Výsledky této práce byly představeny na konferenci Excel@FIT. Pro
 účast na této konferenci byla povinná tvorba plakátu, který je u~této
 práce přiložen.
-Dále bylo vytvořeno video\footnote{\todo{TODO: odkaz na video}}, které
+Dále bylo vytvořeno video (též přiloženo k~této práci), které
 demonstruje použití tohoto webového nástroje, čímž byl splněn poslední bod
 zadání této bakalářské práce.
 
