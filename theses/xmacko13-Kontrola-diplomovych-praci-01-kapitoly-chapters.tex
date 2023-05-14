@@ -42,8 +42,8 @@
 Pro úspěšné dokončení vysokoškolského studia musí student napsat několik desítek
 stran textu zvaného závěrečná práce. Tato technická zpráva by měla být před jejím
 zveřejněním několikrát překontrolována, ale ve většině případů se nenaleznou
-všechny vyskytované chyby. Studenti se při kontrole často obrací na své známé,
-tito lidé však často nebývají seznámeni s~typografickými pravidly, a~tak se
+všechny vyskytované chyby. Studenti se při kontrole často obrací na své známé.
+Tito lidé však často nebývají seznámeni s~typografickými pravidly, a~tak se
 tyto typy chyb často přehlížejí.
 Při velké koncentraci chyb se může výsledná práce zdát
 \uv{odfláklá} a~může tak být sníženo její ohodnocení, případně může být
@@ -113,7 +113,8 @@ dokumentu.
     \label{pic_theses_checker_page2}
 \end{figure}
 
-Tato bakalářská práce popisuje \highlight{v~kapitole~\ref{frequent_mistakes}} často vyskytované chyby
+V~kapitole~\ref{frequent_mistakes} této bakalářské práce jsou popsány často 
+vyskytované chyby
 v~diplomových pracích, které byly zjištěny jako součást této práce. Dále je
 popsán formát souboru PDF (kapitola~\ref{PDF_file}) a~návrh a~implementace samotné
 aplikace (kapitola~\ref{design_implementation}), což zahrnuje i~vývoj webové
@@ -623,9 +624,8 @@ Některé z~důležitých částí tohoto hierarchického stromu jsou:
     \texttt{Type} s~hodnotou \texttt{/Page}. Dalším povinným záznamem tohoto
     slovníku je klíč \texttt{Parent}, jehož hodnota je nepřímý odkaz na přímého
     předchůdce tohoto listového uzlu stromu stránek. Mezi jiné důležité záznamy
-    patří záznamy s~klíčem \texttt{MediaBox}, \texttt{Resources} \highlight{(popsáno dále
-    v~této kapitole)}, \texttt{Rotate},
-    \texttt{Contents} \highlight{(popsáno dále v~této kapitole)}, \texttt{Annots} aj.
+    patří záznamy s~klíčem \texttt{MediaBox}, \texttt{Resources}, \texttt{Rotate},
+    \texttt{Contents}, \texttt{Annots} aj.
     Možný objekt stránky je obsažen ve výpisu~\ref{code_page_object}:
     \pdfcode{code_examples/pdf_code/page_object.txt}{
         Tento výpis obsahuje jednoduchý objekt stránky, jejíž content stream
@@ -1493,25 +1493,53 @@ Jiné verze těchto závislostí nebyly testovány.
 
 %#######################    4.6 Implementace programu pro vyhledání chyb a~jejich následné vyznačení    #######################
 \section{Implementace programu pro vyhledání chyb a~jejich následné vyznačení} \label{checker}
-\todo{TODO: obrázek pop-up anotace}
 Program, který zodpovídá za práci s~PDF dokumentem, je obsažen v~souboru s~názvem
 \texttt{theses\_checker.py}. Pro zkontrolování technické zprávy se musí použít
 funkce \texttt{annotate()} ze třídy \texttt{Checker}. Při vytváření instance této
 třídy se musí uvést cesta ke kontrolovanému PDF souboru. Třída \texttt{Checker}
-v~sobě obsahuje všechny potřebné funkce a~proměnné pro správnou funkci hledání
+v~sobě obsahuje všechny potřebné metody a~proměnné pro správnou funkci hledání
 a~zvýrazňování chyb uvnitř PDF dokumentů.
 
 Třídní proměnné jsou rozděleny do dvou skupin -- statické třídní proměnné
 a~třídní proměnné vázané na jednu instanci. Statické třídní proměnné nemění 
-svou přiřazenou hodnotu a~jsou využívány především pro jednotnou barvu označení
-nalezených chyb. Jsou to proměnné:
+svou přiřazenou hodnotu a~třídní proměnné instance naopak během programu
+svou hodnotu mění.
+
+Třída \texttt{Checker} obsahuje několik veřejných proměnných a~metod, 
+které se používají 
+při zpracovávání PDF souboru. Tyto proměnné a~metody lze vidět na 
+obrázku~\ref{pic_class_Checker}. Proměnné \texttt{RND\_PAGE\_CNT},
+\texttt{HIGHLIGHT\_PADDING} a~proměnné označeny jako \emph{Nastavení barev}
+jsou statické třídní proměnné. Tyto proměnné lze nastavit před použitím
+funkce \texttt{annotate()}. Proměnné, které jsou označeny jako
+\emph{Nastavení barev} jsou využívány především pro jednotnou barvu označení
+nalezených chyb. Veřejné třídní proměnné instance jsou proměnné 
+\texttt{borderNotFound} a~\texttt{mistakes\_found}. Tyto dvě proměnné
+slouží jako pomocný výstup aplikace a~nesou v~sobě informaci o~tom, jak
+probíhalo zpracování PDF dokumentu.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{obrazky-figures/class_Checker.pdf}
+    \caption{
+        Na tomto obrázku jsou vyznačeny všechny veřejně přístupné proměnné
+        a~metody třídy \texttt{Checker}. Proměnné pro nastavení barev jsou
+        speciálně vyznačeny
+    }
+    \label{pic_class_Checker}
+\end{figure}
+Každá z~těchto veřejných proměnných plní vlastní funkci. Statické třídní
+proměnné se používají pro:
 \begin{itemize}
-    \item \texttt{RND\_PAGE\_CNT} -- Tato proměnná se používá při zjišťování
+    \item \texttt{RND\_PAGE\_CNT}\,--\,Tato proměnná se používá při zjišťování
     základních informací o~dodaném PDF dokumentu. Tyto informace jsou potřebné
     pro správné hledání chyb. Proměnná obsahuje maximální počet náhodných stran,
     které jsou zkoumány, pro získání těchto základních informací.
 
-    \item \texttt{HIGH\_RED} -- Proměnná obsahuje červenou barvu pro zvýraznění
+    \item \texttt{HIGHLIGHT\_PADDING}\,--\,Tato proměnná obsahuje velikost okraje,
+    který je použit, když je zvýraznění moc těsné zvýrazněnému objektu. Toto
+    nastává při hledání přetečení okraje stránky.
+
+    \item \texttt{HIGH\_RED}\,--\,Proměnná obsahuje červenou barvu pro zvýraznění
     textu při nalezené chybě. Barva je ve formátu RGB\footnote{
         Knihovna PyMuPDF umí pracovat s~několika různými formáty barev, jako
         jsou například formáty CMYK, GRAY, RGB a~sRGB. 
@@ -1519,46 +1547,48 @@ nalezených chyb. Jsou to proměnné:
         v~intervalu $\left\langle 0;255 \right\rangle$.
     }.
 
-    \item \texttt{HIGH\_ORANGE} -- Je to oranžová barva ve formátu RGB pro
-    zvýraznění textu při varování.
+    \item \texttt{WHITE}\,--\,Proměnná obsahuje bílou barvu ve formátu RGB 
+    a~je považována jako barva pozadí PDF stránky. 
     
-    \item \texttt{HIGHLIGHT\_PADDING} -- Tato proměnná obsahuje velikost okraje,
-    který je použit, když je zvýraznění moc těsné zvýrazněnému objektu. Toto
-    nastává při hledání přetečení okraje stránky.
-    
-    \item \texttt{RED} -- Je to červená barva ve formátu RGB. Tato barva je
+    \item \texttt{RED}\,--\,Je to červená barva ve formátu RGB. Tato barva je
     použita při kreslení přímek.
     
-    \item \texttt{WHITE} -- Proměnná obsahuje bílou barvu ve formátu RGB.
+    \item \texttt{HIGH\_ORANGE}\,--\,Je to oranžová barva ve formátu RGB pro
+    zvýraznění textu při varování. 
 \end{itemize}
-Třídní proměnné instance během programu mění svou hodnotu. Některé jsou využívány
-pro navigaci v~kontrolovaném dokumentu a~další v~sobě mají uložená data
-o~tomto dokumentu, která jsou potřebná k~prováděným kontrolám. Některé z~důležitých
-proměnných jsou:
+Veřejné třídní proměnné instance mají funkci:
 \begin{itemize}
-    \item \texttt{mistakes\_found} -- Veřejná proměnná typu boolean, která označuje,
+    \item \texttt{borderNotFound}\,--\,Tato proměnná je veřejná a~označuje zda byl
+    při hledání základních informací o~dokumentu nalezen okraj stránky.
+
+    \item \texttt{mistakes\_found}\,--\,Veřejná proměnná typu boolean, která označuje,
     zda byla při kontrole PDF dokumentu nalezena jakákoliv chyba (či varování
     na chybu).
+\end{itemize}
 
-    \item \texttt{borderNotFound} -- Tato proměnná je veřejná a~označuje zda byl
-    při hledání základních informací o~dokumentu nalezen okraj stránky. 
 
-    \item \texttt{\_\_document} -- Tato privátní proměnná obsahuje instanci
+
+Dále třída \texttt{Checker} obsahuje privátní třídní proměnné instance
+a~privátní metody. 
+Některé privátní proměnné jsou využívány pro navigaci v~kontrolovaném dokumentu
+a~další v~sobě mají o~tomto dokumentu uložená data, která jsou potřebná
+k~prováděným kontrolám. Tyto privátní proměnné jsou vyznačeny na
+obrázku~\ref{pic_class_Checker_private}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{obrazky-figures/class_Checker_private.pdf}
+    \caption{Tento obrázek ukazuje všechny privátní proměnné třídy \texttt{Checker}}
+    \label{pic_class_Checker_private}
+\end{figure}
+Privátní proměnné, které se používají pro navigaci v~dokumentu, jsou:
+\begin{itemize}
+    \item \texttt{\_\_document}\,--\,Tato proměnná obsahuje instanci
     kontrolovaného PDF dokumentu.
 
-    \item \texttt{\_\_currPage} -- Privátní proměnná, která obsahuje instanci
-    aktuálně zpracovávané stránky z~PDF dokumentu.
-    
-    \item \texttt{\_\_currTextPage} -- Tato privátní proměnná obsahuje instanci
-    takzvané \emph{textpage} aktuálně zpracovávané stránky. Textpage se používá
-    pro urychlení některých funkcí pracující s~PDF stránkou.
-    
-    \item \texttt{\_\_currPixmap} -- Tato privátní proměnná obsahuje pixelovou
-    mapu aktuálně skenované stránky. Pixelová mapa je podobná obrázku a~v~tomto
-    programu se používá pouze pro nalezení přetékajících objektů za okraje
-    aktuálně kontrolované stránky.
-    
-    \item \texttt{\_\_currDict} -- Tato privátní proměnná obsahuje aktuálně
+    \item \texttt{\_\_currPage}\,--\,Toto je proměnná, která obsahuje instanci
+    aktuálně zpracovávané strán\-ky z~PDF dokumentu.
+
+    \item \texttt{\_\_currDict}\,--\,Tato proměnná obsahuje aktuálně
     zkoumanou stránku ve formě slovníku, jehož struktura je uvedena na
     obrázku~\ref{pic_curr_page_dict}, ve kterém je označen jménem \emph{Stránka}.
     \begin{figure}[H]
@@ -1571,14 +1601,23 @@ proměnných jsou:
             }
         \label{pic_curr_page_dict}
     \end{figure}
-    
-    \item \texttt{\_\_currPageEmbeddedPdfs} -- Privátní proměnná, která obsahuje
+
+    \item \texttt{\_\_currPageEmbeddedPdfs}\,--\,Toto je proměnná, která obsahuje
     seznam vykreslených vložených PDF na aktuálně zpracovávané stránce. Každá
     položka tohoto seznamu je pro kompatibilitu s~proměnnou \texttt{\_\_currDict}
     typu slovník, který odpovídá slovníku \emph{Obrázkový blok} uvedeném na
     obrázku~\ref{pic_curr_page_dict}. 
     
-    \item \texttt{\_\_currPageTextContent} -- Tato privátní proměnná obsahuje
+    \item \texttt{\_\_currTextPage}\,--\,Tato proměnná obsahuje instanci
+    takzvané \emph{textpage} aktuálně zpracovávané stránky. Textpage se používá
+    pro urychlení některých funkcí pracující s~PDF stránkou.
+    
+    \item \texttt{\_\_currPixmap}\,--\,Tato proměnná obsahuje takzvanou pixelovou
+    mapu aktuálně skenované stránky. Pixelová mapa je podobná obrázku a~v~tomto
+    programu se používá pouze pro nalezení přetékajících objektů za okraje
+    aktuálně kontrolované stránky.
+    
+    \item \texttt{\_\_currPageTextContent}\,--\,Tato proměnná obsahuje
     všechen text vyskytující se na aktuální stránce. Jelikož při extrakci textu
     z~PDF stránky nelze vždy získat nepřerušovaný text (text většinou obsahuje
     například znak zalomení řádku tam, kde by byl vykreslen na stránce), 
@@ -1590,6 +1629,20 @@ proměnných jsou:
     vyskytnutý na PDF stránce je v~této proměnné
     oddělen prázdným řádkem. 
 \end{itemize}
+Privátní proměnné, které uchovávají informace pro prováděné kontroly, jsou: 
+\begin{itemize}
+    \item \texttt{\_\_border}\,--\,Tato proměnná obsahuje nalezené souřadnice 
+    levého a~pravého okraje stránky.
+    \item \texttt{\_\_isContentPage}\,--\,Tato proměnná
+    označuje, zda aktuální stránka je stránka obsahu.
+    \item \texttt{\_\_regularFont}\,--\,Tato proměnná obsahuje
+    font, který je ve zpracovávaném dokumentu použit pro klasický text.
+    \item \texttt{\_\_isPreviousTitle}\,--\,Toto je pomocná proměnná pro
+    kontrolu chybějícího textu mezi nadpisy. V~této proměnné je uloženo,
+    zda předchozí blok textu byl nadpis.
+    \item \texttt{\_\_embeddedPdfAsImage}\,--\,Tato proměnná určuje, zda se
+    má s~vnořenými PDF soubory pracovat jako s~obrázkem, či nikoliv.
+\end{itemize} 
 
 Než se budou moct provézt některé kontroly, musí se nejdříve zjistit pár
 základních informací o~kontrolovaném dokumentu (například font normálního textu
@@ -1943,7 +1996,7 @@ přístupná pod názvem Theses Checker\footnote{Theses Checker je dostupný na 
 \href{https://theseschecker.eu.pythonanywhere.com/}{https://theseschecker.eu.pythonanywhere.com/}}.
 
 Nejdříve bylo zapotřebí zjistit, které chyby se nejčastěji vyskytují v~závěrečných
-pracích. Ty se nalezly zkoumáním zveřejněných textů a~posudků diplomových prací
+pracích. Ty byly nalezeny zkoumáním zveřejněných textů a~posudků diplomových prací
 vytvořených na Fakultě informačních technologií Vysokého učení technického v~Brně.
 Poté byly zkoumány některé dostupné aplikace pro kontrolu textu. Bylo zjištěno,
 že žádná dosavadní aplikace se nezaměřuje na typografickou stránku textu, jelikož
