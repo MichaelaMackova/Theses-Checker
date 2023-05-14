@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+
+    <div class="text">
+        Thank you for using Theses Checker. Please consider filling out this short
+        questionnaire <a href="https://forms.gle/wZyY7kYp6pqQBBrH7">https://forms.gle/wZyY7kYp6pqQBBrH7</a>
+    </div>
+    
+    <iframe src="{% url 'view_annotated' pdf_name=pdf_name %}" style="width: 100%; height: 95vh;">
+        <div>No online PDF viewer installed</div>
+    </iframe>
+
+{% endblock body %}

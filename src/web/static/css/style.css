@@ -1,0 +1,61 @@
+@import "three-dots.css";
+@import "base-style.css";
+
+#loader{
+    display: none;
+
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+
+.box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.overlay{
+    background-color: rgba(245, 245, 245, 0.75);
+    z-index: 9;
+}
+
+.button{
+    background-color:royalblue;
+    color: white;
+    font-size: inherit;
+    padding: 0.65em;
+    border-radius: 5px;
+    border: none;
+    transition: ease-in-out 0.5s;
+}
+
+.button:hover{
+    background-color: rgb(46, 75, 164);
+    cursor: pointer;
+    transition: ease-in-out 0.5s;
+}
+
+.text{
+    color: rgb(131, 131, 131);
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 30px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+/* change loader color */
+.dot-pulse, .dot-pulse::after, .dot-pulse::before{
+    color: royalblue;
+    background-color: royalblue;
+}

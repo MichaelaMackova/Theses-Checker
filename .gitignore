@@ -1,4 +1,10 @@
 command.txt
+thesis/Sablona_prezentace_2021.zip
+thesis/sablona2020.zip
+src/web/templates/test.html
+src/web/.env
+.vscode/launch.json
+.vscode/settings.json
 theses/xmacko13-Kontrola-diplomovych-praci.aux
 theses/xmacko13-Kontrola-diplomovych-praci.bbl
 theses/xmacko13-Kontrola-diplomovych-praci.blg
@@ -11,9 +17,5 @@ theses/xmacko13-Kontrola-diplomovych-praci.ptc
 theses/xmacko13-Kontrola-diplomovych-praci.synctex.gz
 theses/xmacko13-Kontrola-diplomovych-praci.toc
 theses/xmacko13-Kontrola-diplomovych-praci.synctex.gz(busy)
-src/web/templates/test.html
-src/web/.env
-.vscode/launch.json
-.vscode/settings.json
 theses/drawio/.$*
 theses/pdf_to_png

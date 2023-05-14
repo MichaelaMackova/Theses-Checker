@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 365px;
+    background-color:whitesmoke;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.page-content {
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 20px;
+}
+
+#page-grid{
+    display: grid;
+    grid-template-areas:
+        'header'
+        'main'
+        'footer';
+    grid-template-rows:max-content auto max-content;
+    min-height: 100vh;
+}
+
+#header {
+    grid-area: header;
+    background-color: midnightblue;
+    height: 70px;
+    color: whitesmoke;
+    position: relative;
+    border-radius: 0 0 5px 5px;
+}
+
+#title {
+    font-weight: 600;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+#title a, #footer a{
+    text-decoration: none;
+    color: inherit;
+}
+
+#main{
+    grid-area: main;
+}
+
+#footer{
+    grid-area: footer;
+    height: 50px;
+    background-color: rgb(234, 234, 234);
+    border-top:rgb(198, 198, 198) 1px solid;
+    color: rgb(137, 137, 137);
+}
+
+#footer div{
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
+}
+
+.contacts{
+    font-weight: 600;
+}
