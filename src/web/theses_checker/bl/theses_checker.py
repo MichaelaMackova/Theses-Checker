@@ -236,12 +236,22 @@ class Checker:
                             # [ x' y' 1 ] = [ x  y  1 ] * viewMatrix
                             blMatrix = numpy.matmul([xobject[3][0], xobject[3][1], 1.0],viewMatrix)
                             trMatrix = numpy.matmul([xobject[3][2], xobject[3][3], 1.0],viewMatrix)
-                            size = self.__document.xref_get_key(xobject[0],'Length')[1]
-                            try:
+
+                            length = self.__document.xref_get_key(xobject[0],'Length')
+                            if length[0] == 'xref':
+                                length_xref = length[1][:-4] # always ends with ' 0 R'
+                                size = self.__document.xref_object(int(length_xref))
                                 size = int(size)
-                            except:
-                                size = self.__document.xref_object(int(size[:3]))
-                                size = int(size)
+                            elif length[0] == 'int':
+                                size = int(length[1])
+                            elif length[0] == 'string':
+                                try:
+                                    size = int(length[1])
+                                except:
+                                    size = None
+                            else:
+                                size = None
+                                
                             embeddedPdfBlocks.append(
                                 {
                                     'type'          : 1,
