@@ -179,10 +179,14 @@ class Checker:
             # instance already exists
             return
         
+        self.__currPageEmbeddedPdfs = []
         xobjects = self.__getPageXobjects()
         embeddedPdfBlocks = []
         if xobjects:
-            pageContent = str(self.__currPage.read_contents(),'utf-8')
+            try:
+                pageContent = str(self.__currPage.read_contents(),'utf-8')
+            except:
+                return
             cmds = pageContent.splitlines()
 
             CTMStack = []
@@ -214,10 +218,12 @@ class Checker:
                             Matrix = self.__document.xref_get_key(xobject[0], "Matrix")[1]
                             if Matrix != 'null':
                                 #Matrix = '[a b c d e f]'
+                                Matrix = Matrix[1:-1]
+                                Matrix = Matrix.split(" ")
                                 Matrix = [
-                                    [float(Matrix[1]), float(Matrix[3]), 0.0],
-                                    [float(Matrix[5]), float(Matrix[7]), 0.0],
-                                    [float(Matrix[9]), float(Matrix[11]), 1.0]
+                                    [float(Matrix[0]), float(Matrix[1]), 0.0],
+                                    [float(Matrix[2]), float(Matrix[3]), 0.0],
+                                    [float(Matrix[4]), float(Matrix[5]), 1.0]
                                 ]
                                 CTM = numpy.matmul(Matrix,CTM)
 
@@ -230,6 +236,12 @@ class Checker:
                             # [ x' y' 1 ] = [ x  y  1 ] * viewMatrix
                             blMatrix = numpy.matmul([xobject[3][0], xobject[3][1], 1.0],viewMatrix)
                             trMatrix = numpy.matmul([xobject[3][2], xobject[3][3], 1.0],viewMatrix)
+                            size = self.__document.xref_get_key(xobject[0],'Length')[1]
+                            try:
+                                size = int(size)
+                            except:
+                                size = self.__document.xref_object(int(size[:3]))
+                                size = int(size)
                             embeddedPdfBlocks.append(
                                 {
                                     'type'          : 1,
@@ -242,7 +254,7 @@ class Checker:
                                     'yres'          : None,
                                     'bpc'           : None,
                                     'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
-                                    'size'          : int(self.__document.xref_get_key(xobject[0],'Length')[1]),
+                                    'size'          : size,
                                     'image'         : self.__document.xref_stream_raw(xobject[0])
                                 }
                             )
