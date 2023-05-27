@@ -17,6 +17,7 @@
 % Odolejte pokušení říkat banality a všeobecně známé informace.
 % "Žijeme v době rozvoje mobilní výpočetní techniky, kdy každý má v kapse mobil" - je dokonale prázdné a hloupé sdělení, nic takového neříkejte, fakt to nikoho nezajímá.
 
+%TODO: obrázky vektorově
 \begin{frame}\frametitle{Motivace}
   \makebox[\linewidth]{
     \begin{tikzpicture}
@@ -50,6 +51,7 @@
 % Je zbytečné říkat generická a obecná tvrzení: "Řešení by mělo být rychlé, spolehlivé a robustní" - toto jsou obecné požadavky na cokoli a informační hodnota sdělení je NULA - je to jen plýtvání časem a inteligencí.
 % Mluvte konkrétně: Jaké konkrétní vlastnosti má mít Vaše řešení, co konkrétně znamená "robustní", co konkrétně znamená "spolehlivé"?
 
+%TODO: aktualizovaný diagram z bakalářky
 \begin{frame}
   \frametitle{Cíle práce}
   \includegraphics[width=\textwidth]{img/Theses_checker_diagram2.png}
@@ -77,6 +79,7 @@
 % - Na slajdy je dobré dát vizuální informaci: vzorce, schemata, obrázky, diagramy. Slovní informaci můžete předat pusou. Je dokonale zbytečné a otravné mít na slajdu v odrážkách to samé, co se chystáte říct.
 % - Titulek slajdu "Podstatné informace o řešení" je hodně generický. Ve skutečné Vaší prezentaci bude daleko lepší použít specifický titulek na každém ze slajdů, například: "Schéma neuronové sítě pro detekci frňáků", "Návrh nekonečného automatu", "Vytvořená datová sada" apod.
 
+%TODO: obrázky vektorově
 \begin{frame}\frametitle{Hledání okrajů}
 
   \begin{itemize}
@@ -96,8 +99,17 @@
   }
 \end{frame}
 
+\begin{frame}\frametitle{Pozice PDF obrázku na stránce}
 
-%%%%%%%%                    04.a - Výsledky práce                     %%%%%%%%
+  \begin{itemize}
+    \item PDF nepozná rozdíl mezi PDF obrázkem a~pokračováním/rozšířením dokumentu 
+    \item Simulace struktury graphics state a~procházení content streamu
+  \end{itemize}
+
+\end{frame}
+
+
+%%%%%%%%                    04 - Výsledky práce                     %%%%%%%%
 %---------------------------------------------------------------------------
 % Shrňte, jakých výsledků se Vám podařilo dosáhnout.
 % Uveďte, jakým způsobem byla vyhodnocena funkčnost a správnost řešení.
@@ -105,6 +117,9 @@
 % Místo "Úspěšnost detektoru je hodně dobrá" řekněte "Úspěšnost detektoru je 93 % mAP" nebo ještě radši ukažte tabulku se srovnáním oproti alternativním řešením.
 % Pokud vyhodnocení sestávalo ze dvou nebo tří částí, může být vhodné rozdělit obsah na dva či tři slajdy. Při prezentování je ovšem potřeba se pohlídat, aby čas věnovaný každému slajdu byl adekvátně krátký a nedošlo k přetažení času.
 
+%TODO: error view
+%TODO: console app
+%TODO: obrázky vektorově
 \begin{frame}
   \frametitle{Výsledky práce}
   \centering
@@ -127,32 +142,31 @@
   }
 \end{frame}
 
-
-%%%%%%%%                    04.b - Rozšíření                    %%%%%%%%
-%---------------------------------------------------------------------------
-% Shrňte, jakých výsledků se Vám podařilo dosáhnout.
-% Uveďte, jakým způsobem byla vyhodnocena funkčnost a správnost řešení.
-% Buďte konkrétní: místo "Aplikace je otestovaná", řekněte, kým a jak byla testována, jaké byly výsledky testů.
-% Místo "Úspěšnost detektoru je hodně dobrá" řekněte "Úspěšnost detektoru je 93 % mAP" nebo ještě radši ukažte tabulku se srovnáním oproti alternativním řešením.
-% Pokud vyhodnocení sestávalo ze dvou nebo tří částí, může být vhodné rozdělit obsah na dva či tři slajdy. Při prezentování je ovšem potřeba se pohlídat, aby čas věnovaný každému slajdu byl adekvátně krátký a nedošlo k přetažení času.
-
 \begin{frame}
-  \frametitle{Rozšíření}
+  \frametitle{Výsledky práce}
   \begin{columns}
     \column{0.4\textwidth}
       \begin{itemize}
-        \item Rastrové obrázky
-        \item Prázdné kapitoly
-        \item Nízké úrovně nadpisů v~obsahu
-        \item Mezera u reference
-        \bigskip
-        \bigskip
-        \item Vzhled webové stránky
+        \pause
+        \item Chybějící text mezi názvy sekcí
+        \pause
+        \item Vynechaná mezera před levou závorkou
+        \pause
+        \item Přetečení za okraj stránky
+        \pause
+        \item Špatné použití spojovníku
+        \pause
+        \item Nevhodná šířka obrázku
+        \pause
+        \item Nadpisy třetí a~větší úrovně v~obsahu
       \end{itemize}
       
     \column{0.6\textwidth}
       \centering
+      %TODO: animovaný obrázek
+      \onslide<1->
       \includegraphics[width=\textwidth]{img/future-annotated.png}
+      \onslide<1->
   \end{columns}
 \end{frame}
 
@@ -169,6 +183,7 @@
 % HEROUT, Adam. Prezentování. Herout.net: Poznámky učitele, kouče, čtenáře. [online]. [cit. 2021-9-15]. Dostupné z: https://www.herout.net/blog/category/prezentovani/
 %---------------------------------------------------------------------------
 
+%TODO: aktualizovaný screen
 \begin{frame}
   \frametitle{Děkuji za pozornost!}
   \href{http://theseschecker.eu.pythonanywhere.com/}{http://theseschecker.eu.pythonanywhere.com/}
@@ -208,16 +223,36 @@
 % Pokud je otázek více a jsou k nim obrázky či grafy, je vhodné mít pro každou otázku jeden slajd - nahoře znění otázky, pod ním vizuální materiál.
 
 \appendix{}
+
 \begin{frame}
-  \frametitle{Doplňující informace -- Testování}
+  \frametitle{Otázky oponenta}
   \begin{itemize}
-    \item Okraje stránky
-    \item Úspěšnost:
-    \begin{itemize}
-      \item Všechny stránky: 0\,\%
-      \item Bez začátku a~konce: \emph{94\,\%}
-      \item Random 10: 66\,\%
-    \end{itemize}
-    
+    \item \textit{\uv{Jakou operaci popisuje na str. 20 věta „Ostřihne se na 
+    základě slovníkového prvku BBox.“?}}
+  \end{itemize}
+  \bigskip
+  \begin{itemize}
+    \item  Standard PDF:\\ 
+    \textit{\uv{Clips according to the form dictionary's \textbf{BBox} entry}}
+  \end{itemize}
+  \includegraphics[width=\textwidth]{img/Clip BBox.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Otázky oponenta}
+  \begin{itemize}
+    \item \textit{\uv{Vysvětlete, co znamená, že znaky „zapadají do rozmezí 
+    mezi znakem vykřičníku (!) a znakem tildy (\texttildelow)" (str. 10 ve zprávě).}}
+  \end{itemize}
+  \bigskip
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/ascii-table.jpg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Otázky oponenta}
+  \begin{itemize}
+    \item \textit{\uv{Bylo by obtížné do aplikace zakomponovat i opravu gramatiky, 
+    např. pomocí existujících knihoven?}}
   \end{itemize}
 \end{frame}
