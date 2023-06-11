@@ -22,10 +22,10 @@
   \makebox[\linewidth]{
     \begin{tikzpicture}
       \node (screenshot) 
-         {\includegraphics[height=0.9\paperheight]{img/future.png}};
+         {\includegraphics[height=0.9\paperheight]{img/lorem_ipsum_1.pdf}};
       \pause
       \node (schema) at (screenshot)
-         {\includegraphics[height=0.9\paperheight]{img/future-annotated.png}};\onslide<1->
+         {\includegraphics[height=0.9\paperheight]{img/lorem_ipsum_2.pdf}};\onslide<1->
     \end{tikzpicture}
   }
 \end{frame}
@@ -54,7 +54,7 @@
 %TODO: aktualizovaný diagram z bakalářky
 \begin{frame}
   \frametitle{Cíle práce}
-  \includegraphics[width=\textwidth]{img/Theses_checker_diagram2.png}
+  \includegraphics[width=\textwidth]{img/Theses_Checker_diagram.pdf}
   \begin{itemize}
     \item \emph{Přenositelný} program
     \item Pochopitelné na první pohled
@@ -91,10 +91,10 @@
   \makebox[\linewidth]{
     \begin{tikzpicture}
       \node (screenshot) 
-         {\includegraphics[width=\textwidth]{img/find-border.png}};
+         {\includegraphics[width=\textwidth]{img/overflow_0.pdf}};
       \pause
       \node (schema) at (screenshot)
-         {\includegraphics[width=\textwidth]{img/find-border-annotated.png}};\onslide<1->
+         {\includegraphics[width=\textwidth]{img/overflow_1.pdf}};\onslide<1->
     \end{tikzpicture}
   }
 \end{frame}
@@ -106,7 +106,7 @@
     \item Simulace struktury graphics state a~procházení content streamu
   \end{itemize}
   \centering
-  \includegraphics[width=0.8\textwidth]{img/PDF-picture.png}
+  \includegraphics[width=0.7\textwidth]{img/pdf_picture.pdf}
 \end{frame}
 
 
@@ -118,59 +118,87 @@
 % Místo "Úspěšnost detektoru je hodně dobrá" řekněte "Úspěšnost detektoru je 93 % mAP" nebo ještě radši ukažte tabulku se srovnáním oproti alternativním řešením.
 % Pokud vyhodnocení sestávalo ze dvou nebo tří částí, může být vhodné rozdělit obsah na dva či tři slajdy. Při prezentování je ovšem potřeba se pohlídat, aby čas věnovaný každému slajdu byl adekvátně krátký a nedošlo k přetažení času.
 
-%TODO: error view
-%TODO: console app
-%TODO: obrázky vektorově
+
+\begin{frame}
+  \frametitle{Aplikací detekované chyby}
+  \begin{columns}
+    \column{0.4\textwidth}
+      \vspace*{-30pt}
+      \begin{itemize}
+        \pause
+        \item Chybějící text mezi názvy sekcí
+        \pause
+        \item Špatné použití spojovníku
+        \pause
+        \item Vynechaná mezera před levou závorkou
+        \pause
+        \item Přetečení za okraj stránky
+        \pause
+        \item Nevhodná šířka obrázku
+        \pause
+        \item Odkaz na neexistující referenci
+        \pause
+        \item Nadpisy třetí a~větší úrovně v~obsahu
+        \onslide<1->
+      \end{itemize}
+      
+    %TODO: animovaný obrázek
+    \column{0.6\textwidth}
+      \centering
+      \vspace*{-10pt}
+      \makebox[\textwidth]{
+        \begin{tikzpicture}
+          \onslide<1>
+          \node (result_1)
+            {\includegraphics[width=\textwidth]{img/result_1.pdf}};
+          \onslide<2>
+          \node (result_2) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_2.pdf}};
+          \onslide<3>
+          \node (result_3) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_3.pdf}};
+          \onslide<4>
+          \node (result_4) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_4.pdf}};
+          \onslide<5>
+          \node (result_5) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_5.pdf}};
+          \onslide<6>
+          \node (result_6) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_6.pdf}};
+          \onslide<7->
+          \node (result_7) at (result_1)
+            {\includegraphics[width=\textwidth]{img/result_7.pdf}};
+          \onslide<1->
+        \end{tikzpicture}
+      }
+  \end{columns}
+\end{frame}
+
 \begin{frame}
   \frametitle{Výsledky práce}
   \centering
   \makebox[\textwidth]{
     \begin{tikzpicture}
       \node (overflow)
-         {\includegraphics[width=0.6\paperwidth]{img/overflow-check.png}};
+         {\frame{\includegraphics[width=0.6\paperwidth]{img/result_end_1.pdf}}};
       \pause
-      \node (image) at (overflow.north west) [xshift=2.5em]
-        {\includegraphics[width=0.5\paperwidth]{img/image-check.png}};
+      \node (image) at (2,2)
+        {\frame{\includegraphics[width=0.5\paperwidth]{img/result_end_2.pdf}}};
       \pause
-      \node (hyphen) at (-3,-1)
-         {\includegraphics[width=0.5\paperwidth]{img/hyphen-check.png}};
+      \node (hyphen) at (-2,-1.5)
+         {\frame{\includegraphics[width=0.5\paperwidth]{img/result_end_3.pdf}}};
       
       \pause
+      \node (cmd_line) at (-1,3)
+          {\frame{\includegraphics[width=0.75\paperwidth]{img/cmd_screenshot_many.pdf}}};
+      \pause
       \node (website) at (-0.2,0.8)
-          {\includegraphics[width=0.9\paperwidth]{img/website.png}};
+          {\includegraphics[width=0.9\paperwidth]{img/screenshot-page2.png}};
       \onslide<1->
     \end{tikzpicture}
   }
 \end{frame}
-
-\begin{frame}
-  \frametitle{Výsledky práce}
-  \begin{columns}
-    \column{0.4\textwidth}
-      \begin{itemize}
-        \pause
-        \item Chybějící text mezi názvy sekcí
-        \pause
-        \item Vynechaná mezera před levou závorkou
-        \pause
-        \item Přetečení za okraj stránky
-        \pause
-        \item Špatné použití spojovníku
-        \pause
-        \item Nevhodná šířka obrázku
-        \pause
-        \item Nadpisy třetí a~větší úrovně v~obsahu
-      \end{itemize}
-      
-    \column{0.6\textwidth}
-      \centering
-      %TODO: animovaný obrázek
-      \onslide<1->
-      \includegraphics[width=\textwidth]{img/future-annotated.png}
-      \onslide<1->
-  \end{columns}
-\end{frame}
-
 
 %%%%%%%%                      05 - Poděkování                       %%%%%%%%
 %---------------------------------------------------------------------------
@@ -194,9 +222,11 @@
     \makebox[\textwidth]{
       \begin{tikzpicture}
         \node (website) 
-          {\includegraphics[width=0.75\paperwidth]{img/website.png}};
+          {\includegraphics[width=0.75\paperwidth]{img/screenshot-page2.png}};
         \node (image_check) at (website.south east) [yshift=2ex]
-          {\includegraphics[width=0.4\paperwidth]{img/image-check.png}};
+          {\includegraphics[width=0.4\paperwidth]{img/result_end_2.pdf}};
+        \node (excel) at (-1.25, -3.75)
+          {\includegraphics[width=0.4\paperwidth]{img/excel-fit-2023-logo.pdf}};
       \end{tikzpicture}
     }
   }
@@ -236,7 +266,16 @@
     \item  Standard PDF:\\ 
     \textit{\uv{Clips according to the form dictionary's \textbf{BBox} entry}}
   \end{itemize}
-  \includegraphics[width=\textwidth]{img/Clip BBox.png}
+  \bigskip
+  {
+    \makebox[\textwidth]{
+      \centering
+      \begin{tikzpicture}
+        \node (bbox) 
+          {\includegraphics[width=0.95\paperwidth]{img/clip_bbox.pdf}};
+      \end{tikzpicture}
+    }
+  }
 \end{frame}
 
 \begin{frame}
@@ -246,8 +285,15 @@
     mezi znakem vykřičníku (!) a znakem tildy (\texttildelow)" (str. 10 ve zprávě).}}
   \end{itemize}
   \bigskip
-  \centering
-  \includegraphics[width=0.8\textwidth]{img/ascii-table.jpg}
+  {
+    \makebox[\textwidth]{
+      \centering
+      \begin{tikzpicture}
+        \node (bbox) 
+          {\includegraphics[width=0.9\paperwidth]{img/ascii-table.jpg}};
+      \end{tikzpicture}
+    }
+  }
 \end{frame}
 
 \begin{frame}
