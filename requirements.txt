@@ -1,4 +1,2 @@
-Django==4.1.4
 numpy==1.23.5
 PyMuPDF==1.20.2
-python-decouple==3.8
