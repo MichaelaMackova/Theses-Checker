@@ -141,3 +141,11 @@ The application can be used as follows:
 ```
 > python check.py file.pdf -H -s -b
 ```
+
+
+
+# Known Issues
+
++ overflow check doesn't work for two-sided papers (padding on odd pages is different than padding on even pages)
++ when user leaves mid request, files stay in `static` folder
++ when error is thrown during file processing, files stay in `files` folder

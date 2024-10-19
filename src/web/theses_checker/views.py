@@ -35,8 +35,12 @@ def checkPDF(request):
     try:
         checker = Checker(original_pdf_path)
     except:
-        exception = "File '" + request.FILES['file'].name + "' could not be opened or parsed. Check if your file isn't corrupted."
-        return render(request, '404.html', {'exception': exception})
+        exception = "File '" + request.FILES['file'].name + "' could not be opened. Check if your file isn't corrupted."
+        return render(request, '500.html', {'exception': exception})
+    
+    if checker.isFileEmpty():
+        exception = "File '" + request.FILES['file'].name + "' could not be parsed. Document does not contain any pages."
+        return render(request, '500.html', {'exception': exception})
     
     checker.annotate(os.path.join(pdf_dir, pdf_name))
     del checker
