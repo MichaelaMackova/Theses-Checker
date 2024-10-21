@@ -39,7 +39,7 @@ tool is freely available and helps students and supervisors to correct the techn
 the students create.
 
 
-
+---
 ---
 # Development
 
@@ -76,6 +76,7 @@ After installing the dependencies, you’ll need to make a few adjustments befor
 + For the web application to work properly, the `theses_checker.py` file must be located in the `src\web\theses_checker\bl\` folder (its original location).
 + The next step is creating a `.env` file in `src\web\` folder. This file will contain the secret key that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
 + Next, the `DEBUG` variable in the `settings.py` file (located in `src\web\web\` folder), must be set. This variable can be used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
++ The tool creates and stores new PDF files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
 
 **`.env` file example:**
 ```
@@ -144,8 +145,48 @@ The application can be used as follows:
 
 
 
+---
+## 4. For web server with small storage space
+
+In case server has small storage space there were developed two strategies on how to delete annotated PDF files:
+
+
+### 4.1. Bash script for periodic deletion
+
+
+***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job).***
+
+This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh`. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder that are older than specified period (originally set to 24h). To change this period, simply change the value in `Period` variable.
+
+This script can by run by this command:
+```
+> bash periodicDeleteFiles.sh
+```
+
+
+### 4.2. Delete when loaded on the user's side
+
+***Note: By using this method, web cannot be used on mobile devices - PDF is deleted before user can download resource from server.***
+
+This option relies on user's web browser to store PDF in temporary storage. PDF file is sent as (a part of) a HTTP response and than deleted from server.
+
+There are a few steps to set up if you want to use this option:
+1. in `src\web\theses_checker\views.py` uncomment method `view_annotated` (lines 67-81)
+2. in `src\web\theses_checker\urls.py` uncomment/add new path to `urlpatterns` list:
+    ```
+    path('view/<str:pdf_name>', views.view_annotated, name='view_annotated')
+    ```
+3. in `src\web\templates\theses_checker\annotated.html` set `<iframe>` source (src) to following (as seen in comment in file). By using this source, there is no need to load static in template anymore
+    ```
+    "{% url 'view_annotated' pdf_name=pdf_name %}"
+    ```  
+
+
+
+---
+---
 # Known Issues
 
 + overflow check doesn't work for two-sided papers (padding on odd pages is different than padding on even pages)
-+ when user leaves mid request, files stay in `static` folder
++ some files (when user leaves mid request?) stay in `static` folder
 + when error is thrown during file processing, files stay in `files` folder

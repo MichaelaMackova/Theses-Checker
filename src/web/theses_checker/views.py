@@ -36,11 +36,11 @@ def checkPDF(request):
         checker = Checker(original_pdf_path)
     except:
         exception = "File '" + request.FILES['file'].name + "' could not be opened. Check if your file isn't corrupted."
-        return render(request, '500.html', {'exception': exception})
+        return render(request, '500.html', {'exception': exception}, status=500)
     
     if checker.isFileEmpty():
         exception = "File '" + request.FILES['file'].name + "' could not be parsed. Document does not contain any pages."
-        return render(request, '500.html', {'exception': exception})
+        return render(request, '500.html', {'exception': exception}, status=500)
     
     checker.annotate(os.path.join(pdf_dir, pdf_name))
     del checker
@@ -61,21 +61,24 @@ def show_annotated(request, pdf_name):
     })
 
 
-# X-Frame-Options configured thank to [1], Function taken from [2] and edited
-@xframe_options_exempt
-def view_annotated(request, pdf_name):
-    """
-    Returns a PDF file as HTTP Response.
 
-    Args:
-        pdf_name (str): Name of the viewed document.
-    """
-    pdf_path = os.path.join(settings.BASE_DIR, 'static/', pdf_name)
-    with open(pdf_path, 'rb') as f:
-        pdf_contents = f.read()
-    os.remove(pdf_path)
-    response = HttpResponse(pdf_contents, content_type='application/pdf')
-    return response
+# Use if you in case of small storage - deletes annotated pdf file after user is done with loading that file
+#
+# # X-Frame-Options configured thank to [1], Function taken from [2] and edited
+# @xframe_options_exempt
+# def view_annotated(request, pdf_name):
+#     """
+#     Returns a PDF file as HTTP Response.
+
+#     Args:
+#         pdf_name (str): Name of the viewed document.
+#     """
+#     pdf_path = os.path.join(settings.BASE_DIR, 'static/', pdf_name)
+#     with open(pdf_path, 'rb') as f:
+#         pdf_contents = f.read()
+#     os.remove(pdf_path)
+#     response = HttpResponse(pdf_contents, content_type='application/pdf')
+#     return response
 
 
 
@@ -83,7 +86,7 @@ def error_404(request, exception):
     """
     Returns an error 404 web page as HTTP Response.
     """
-    return render(request, '404.html')
+    return render(request, '404.html', status=404)
 
 
 
@@ -91,7 +94,7 @@ def error_500(request):
     """
     Returns an error 500 web page as HTTP Response.
     """
-    return render(request, '500.html')
+    return render(request, '500.html', status=500)
 
 
 
@@ -99,7 +102,7 @@ def error_403(request, exception):
     """
     Returns an error 403 web page as HTTP Response.
     """
-    return render(request, '403.html')
+    return render(request, '403.html', status=403)
 
 
 
@@ -107,7 +110,7 @@ def error_400(request, exception):
     """
     Returns an error 400 web page as HTTP Response.
     """
-    return render(request, '400.html')
+    return render(request, '400.html', status=400)
 
 
 
