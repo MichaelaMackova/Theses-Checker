@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 14.1.2023
-# Last Updated  : 7.5.2023
+# Last Updated  : 19.10.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -197,9 +197,9 @@ class Checker:
             ]
 
             for cmd in cmds:
-                if cmd == 'q':
+                if cmd[-1:] == 'q':
                     CTMStack.append(CTM)
-                elif cmd == 'Q':
+                elif cmd[-1:] == 'Q':
                     CTM = CTMStack.pop()
                 elif cmd[-2:] == 'cm':
                     matrix = cmd.split(' ')
@@ -558,7 +558,7 @@ class Checker:
                     self.__border = (pageBound[0], pageBound[2])
 
         if findRegularFont:
-            self.__regularFont = regularFonts[self.__getMostUsedFontIndex(regularFonts)][0]
+            self.__regularFont = regularFonts[self.__getMostUsedFontIndex(regularFonts)][0] if regularFonts else None
 
 
 
@@ -1019,6 +1019,17 @@ class Checker:
         self.__isContentPage = False
         self.__regularFont = None
         self.__isPreviousTitle = False
+
+
+
+    def isFileEmpty(self):
+        """
+        Checks if file has any pages -> if file can be parsed.
+
+        Returns:
+            bool: True -> file cannot be parsed; False -> file can be parsed
+        """
+        return not self.__document
 
 
 

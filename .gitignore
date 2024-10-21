@@ -19,3 +19,7 @@ theses/xmacko13-Kontrola-diplomovych-praci.toc
 theses/xmacko13-Kontrola-diplomovych-praci.synctex.gz(busy)
 theses/drawio/.$*
 theses/pdf_to_png
+__pycache__
+src/web/deleteFiles.sh
+src/web/files/*.pdf
+src/web/static/*.pdf
