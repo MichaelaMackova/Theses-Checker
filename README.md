@@ -7,7 +7,7 @@ The developed applications implement a tool that checks for typographical errors
 
 ***This program is a part of a bachelor's thesis.***
 
----
+--- 
 
 ### Web tool
 
