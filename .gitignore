@@ -23,3 +23,4 @@ __pycache__
 src/web/deleteFiles.sh
 src/web/files/*.pdf
 src/web/static/*.pdf
+lib_tests
