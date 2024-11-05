@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 23.10.2024
-# Last Updated  : 24.10.2024
+# Last Updated  : 05.11.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -25,4 +25,4 @@ def countStandardPagesFromImage(bbox):
     """
     height_cm = round(pxToCm(abs(bbox[2] - bbox[0])), 4)
     width_cm = round(pxToCm(abs(bbox[3] - bbox[1])), 4)
-    return round((height_cm*width_cm)/(15.5 * 22.5), 2) #TODO: old ratio -> new ratio: cm2 / 350 + information about how many characters it makes
+    return round((height_cm*width_cm)/(163.64), 2) #TODO: old ratio 15.5 * 22.5 -> new ratio: cm2 / 163.64 + information about how many characters it makes

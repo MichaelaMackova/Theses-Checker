@@ -2,8 +2,8 @@
 # File          : theses_checker.py
 # Created By    : Michaela Macková
 # Login         : xmacko13
-# Created Date  : 14.1.2023
-# Last Updated  : 24.10.2024
+# Created Date  : 14.01.2023
+# Last Updated  : 05.11.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -69,8 +69,8 @@ class Checker:
         self.__border = (-1.0, -1.0)
         ## Boolean indicating whether current page contains table of content (TOC)
         self.__isContentPage = False
-        ## Boolean indicating whether current page contains list of bibliography
-        self.__isBibliographyPage = False
+        ## Boolean indicating whether current page is page containing list of bibliography or after bibliography page
+        self.__bibliographyPagePassed = False
         ## Language of document (Not used)
         self.__language = pdfLang
         ## Default font used in document
@@ -791,13 +791,16 @@ class Checker:
 
 
 
-    def __getIsBibliographyPage(self, pageFirstBlock : dict):
+    def __getBibliographyPagePassed(self, pageFirstBlock : dict):
         """
         Updates isBibliographyPage class variable.
 
         Args:
             pageFirstBlock (dict): First block from dictionary of current page.
         """
+        if self.__bibliographyPagePassed:
+            return # if already set to true, Bibliography page passed
+        
         if (pageFirstBlock['type'] == 0): 
             # --- text ---
             lines = pageFirstBlock['lines']
@@ -806,10 +809,10 @@ class Checker:
                 if line_spans:
                     text = line_spans[0]['text'].lower().strip()
                     if ( text == "literatura" or text == "literatúra" or text == "bibliography"):
-                        self.__isBibliographyPage = True
-                    # TODO: rename self.__isBibliographyPage -> self.__isBibliographyPageAndAfter :)
+                        self.__bibliographyPagePassed = True
+                    # TODO: rename self.__bibliographyPagePassed -> self.__isBibliographyPageAndAfter :)
                     # else:
-                    #     self.__isBibliographyPage = False
+                    #     self.__bibliographyPagePassed = False
 
 
 
@@ -820,38 +823,53 @@ class Checker:
         isNewChapter = False
         chapterName = ""
         self.__getPageDictionary()
-        pageFirstBlock = self.__currDict['blocks'][0]
-        if self.__isTitleBlock(0):
-            if (pageFirstBlock['type'] == 0): 
-                # --- text ---
-                lines = pageFirstBlock['lines']
-                if (len(lines) == 1):
-                    line_spans = lines[0]['spans']
-                    if line_spans:
-                        text = line_spans[0]['text'].strip()
-                        text_lower = text.lower()
-                        if (re.match("^(kapitola|chapter) \d+$", text_lower)):
-                            isNewChapter = True
-                            if self.__isTitleBlock(1):
-                                chapterName = self.__getBlockText(1)
-                            else:
-                                chapterName = text + " " + text_cont
-                        elif (re.match("^(kapitola|chapter)$", text_lower)):
-                            text_cont = line_spans[1]['text'].lower().strip()
-                            if (re.match("^\d+$", text_cont)):
+        block_count = len(self.__currDict['blocks'])
+
+        if block_count > 0:
+            # if page has any blocks
+            pageFirstBlock = self.__currDict['blocks'][0]
+            if self.__isTitleBlock(0):
+                if (pageFirstBlock['type'] == 0): 
+                    # --- block with text ---
+                    lines = pageFirstBlock['lines']
+                    if (len(lines) == 1):
+                        line_spans = lines[0]['spans']
+                        line_spans_count = len(line_spans)
+                        if line_spans:
+                            text = line_spans[0]['text'].strip()
+                            text_lower = text.lower()
+
+                            # option 1:
+                            if (re.match("^(kapitola|chapter) \d+$", text_lower)):
                                 isNewChapter = True
-                                if self.__isTitleBlock(1):
-                                    chapterName = self.__getBlockText(1)
-                                else:
-                                    chapterName = text + " " + text_cont
-                        elif (re.match("^\d+ .*$", text_lower)):
-                            isNewChapter = True
-                            chapterName = text
-                        elif (re.match("^\d+$", text_lower)):
-                            text_cont = line_spans[1]['text'].strip()
-                            if (text_cont != ""):
+                                chapterName = text
+                                if block_count > 1:
+                                    if self.__isTitleBlock(1):
+                                        chapterName = self.__getBlockText(1)
+                                    
+                            # option 2:
+                            elif (re.match("^(kapitola|chapter)$", text_lower)):
                                 isNewChapter = True
-                                chapterName = text + " " + text_cont
+                                if line_spans_count > 1:
+                                    text_cont = line_spans[1]['text'].lower().strip()
+                                    if (re.match("^\d+$", text_cont)):
+                                        chapterName = text + " " + text_cont
+                                        if block_count > 1:
+                                            if self.__isTitleBlock(1):
+                                                chapterName = self.__getBlockText(1)
+                                            
+                            # option 3:
+                            elif (re.match("^\d+ .*$", text_lower)):
+                                isNewChapter = True
+                                chapterName = text
+
+                            # option 4:
+                            elif (re.match("^\d+$", text_lower)):
+                                if line_spans_count > 1:
+                                    text_cont = line_spans[1]['text'].strip()
+                                    if (text_cont != ""):
+                                        isNewChapter = True
+                                        chapterName = text + " " + text_cont
         return (isNewChapter, chapterName)
     
 
@@ -860,26 +878,32 @@ class Checker:
         """
         TODO: 
         """
+        self.__getPageDictionary()
+        if self.__currDict['blocks']:
+            self.__getBibliographyPagePassed(self.__currDict['blocks'][0])
+            if self.__bibliographyPagePassed:
+                return # not counting bibliography page and after 
+        
         isNewChapter, chapterName = self.__pageBeginsNewChapter()
         if isNewChapter:
             # dictionary: {"number": int, "name": str, "pages": (start_num, end_num), "charCount": int, "pictures": [{"bbox": (x0, y0, x1, y1), "page": int}]}
             self.__currChapterInfo = dict(
                 number= (self.__currChapterInfo["number"]+1) if (self.__currChapterInfo != None) else 0,
                 name= chapterName,
-                pages= (self.__currPage.number, self.__currPage.number),
+                pages= (self.__currPage.number+1, self.__currPage.number+1),
                 charCount= 0,
                 pictures= []
             )
             self.chaptersInfo.append(self.__currChapterInfo)
 
         if self.__currChapterInfo != None:
-            self.__currChapterInfo["pages"]= (self.__currChapterInfo["pages"][0], self.__currPage.number)
+            self.__currChapterInfo["pages"]= (self.__currChapterInfo["pages"][0], self.__currPage.number+1)
             self.__getPageDictionary()
             blocks = self.__currDict['blocks']
             for block in blocks:
                 if block['type'] == 1:
                     # --- image ---
-                    self.__currChapterInfo['pictures'].append(dict(bbox=block['bbox'],page=self.__currPage.number))
+                    self.__currChapterInfo['pictures'].append(dict(bbox=block['bbox'],page=self.__currPage.number+1))
 
             self.__getPageTextContent()
             self.__currChapterInfo['charCount'] = self.__currChapterInfo['charCount'] + len(self.__currPageTextContent)
@@ -937,6 +961,10 @@ class Checker:
         if self.__currPageTextContent == None:
             self.__currPageTextContent = ""
             textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
+            
+            if not textBlocks:
+                return
+            
             for block in textBlocks[:-1]:
                 text = ""
                 # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
@@ -964,7 +992,6 @@ class Checker:
                         if text[-1] == "\n":
                             text = text[:-1]
                         self.__currPageTextContent += text.replace("\n"," ") + "\n"
-
 
 
 
@@ -1136,7 +1163,7 @@ class Checker:
         self.borderNotFound = False
         self.__border = (-1.0, -1.0)
         self.__isContentPage = False
-        self.__isBibliographyPage = False
+        self.__bibliographyPagePassed = False
         self.__regularFont = None
         self.__isPreviousTitle = False
         self.__currChapterInfo = None
@@ -1156,7 +1183,8 @@ class Checker:
 
 
     def annotate(self ,annotatedPath : string, embeddedPdfAsImage : bool = True, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True,
-                 TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True):
+                 TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True, 
+                 gatherChaptersInfo : bool = True):
         """
         Examines whole document and checks for mistakes. If a mistake occurred, it will be marked as annotation at appropriate place.
         Class variable mistakes_found indicates whether at least one mistake was marked.
@@ -1171,6 +1199,7 @@ class Checker:
             spaceBracketCheck (bool, optional): Determines if document will be scanned for missing space before any left bracket. Defaults to True.
             emptySectionCheck (bool, optional): Determines if document will be scanned for absence of text between (sub)section titles. Defaults to True.
             badReferenceCheck (bool, optional): Determines if document will be scanned for missing references (indicated by '??'). Defaults to True.
+            gatherChaptersInfo (bool, optional): TODO:
         """
         self.__resetCheckerVars()
         self.__embeddedPdfAsImage = embeddedPdfAsImage
@@ -1203,8 +1232,9 @@ class Checker:
                     if self.__currPage.number > 0:
                         self.__emptySectionCheck()
             
-                self.__updateCurrChapter()
+                if gatherChaptersInfo:
+                    self.__updateCurrChapter()
+
                 self.__resetCurrVars()
-        # print(self.chaptersInfo) # TODO: delete
         self.__document.save(annotatedPath)
 
