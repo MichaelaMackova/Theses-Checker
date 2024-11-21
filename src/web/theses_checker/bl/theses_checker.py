@@ -2,8 +2,9 @@
 # File          : theses_checker.py
 # Created By    : Michaela Macková
 # Login         : xmacko13
+# Email         : michaela.mackovaa@gmail.com
 # Created Date  : 14.01.2023
-# Last Updated  : 05.11.2024
+# Last Updated  : 21.11.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -14,6 +15,7 @@ import fitz
 import re
 from enum import Enum
 import numpy
+from .chapter_info import *
 
 
 
@@ -79,9 +81,9 @@ class Checker:
         self.__isPreviousTitle = False
         ## Boolean indicating whether embedded PDFs inside document will be taken as images
         self.__embeddedPdfAsImage = True
-        ## TODO: dictionary: {"number": int, "name": str, "pages": (start_num, end_num), "charCount": int, "pictures": [{"bbox": (x0, y0, x1, y1)}]}
-        self.__currChapterInfo = None
-         ## TODO: list of chapters informations
+        ## Current chapter information
+        self.__currChapterInfo : ChapterInfo = None
+        ## List of information about all chapters in document
         self.chaptersInfo = []
         
 
@@ -886,27 +888,27 @@ class Checker:
         
         isNewChapter, chapterName = self.__pageBeginsNewChapter()
         if isNewChapter:
-            # dictionary: {"number": int, "name": str, "pages": (start_num, end_num), "charCount": int, "pictures": [{"bbox": (x0, y0, x1, y1), "page": int}]}
-            self.__currChapterInfo = dict(
-                number= (self.__currChapterInfo["number"]+1) if (self.__currChapterInfo != None) else 0,
-                name= chapterName,
-                pages= (self.__currPage.number+1, self.__currPage.number+1),
-                charCount= 0,
-                pictures= []
+            self.__currChapterInfo = ChapterInfo(
+                sequence= (self.__currChapterInfo.sequence+1) if (self.__currChapterInfo != None) else 1,
+                title= chapterName,
+                pages= Pages(self.__currPage.number+1, self.__currPage.number+1),
             )
             self.chaptersInfo.append(self.__currChapterInfo)
 
         if self.__currChapterInfo != None:
-            self.__currChapterInfo["pages"]= (self.__currChapterInfo["pages"][0], self.__currPage.number+1)
+            self.__currChapterInfo.addPage(self.__currPage.number+1)
             self.__getPageDictionary()
             blocks = self.__currDict['blocks']
             for block in blocks:
                 if block['type'] == 1:
                     # --- image ---
-                    self.__currChapterInfo['pictures'].append(dict(bbox=block['bbox'],page=self.__currPage.number+1))
+                    self.__currChapterInfo.addPicture(
+                        bbox=block['bbox'][0:4],
+                        page=self.__currPage.number+1
+                    )
 
             self.__getPageTextContent()
-            self.__currChapterInfo['charCount'] = self.__currChapterInfo['charCount'] + len(self.__currPageTextContent)
+            self.__currChapterInfo.addText(self.__currPageTextContent)
         
 
 
@@ -1236,5 +1238,6 @@ class Checker:
                     self.__updateCurrChapter()
 
                 self.__resetCurrVars()
-        self.__document.save(annotatedPath)
 
+        self.__document.save(annotatedPath)
+        self.__document.close()

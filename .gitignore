@@ -24,5 +24,7 @@ src/web/deleteFiles.sh
 src/web/files/*.pdf
 src/web/static/*.pdf
 lib_tests
-src/chceckTestFiles.py
-src/chceckTestFiles.ps1
+src/testing
+src/cmd/delete_theses_checker_package.ps1
+src/cmd/theses_checker_package/*.py
+!src/cmd/theses_checker_package/__init__.py
