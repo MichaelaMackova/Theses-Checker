@@ -84,7 +84,7 @@ class Checker:
         ## Current chapter information
         self.__currChapterInfo : ChapterInfo = None
         ## List of information about all chapters in document
-        self.chaptersInfo = []
+        self.chaptersInfo : list[ChapterInfo] = []
         
 
 

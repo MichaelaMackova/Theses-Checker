@@ -1,10 +1,10 @@
 #----------------------------------------------------------------------------
-# File          : theses_checker.py
+# File          : chapter_info.py
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 20.11.2024
-# Last Updated  : 20.11.2024
+# Last Updated  : 25.11.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ class ChapterInfo:
         title (str): Title of the chapter.
         pages (Pages): Pages of the chapter.
         textInfo (TextInfo): Information about the text in the chapter.
-        pictures (list): List of PictureInfo objects.
+        pictures (list): List of objects with information about pictures in the chapter.
     """
 
     def __init__(self, sequence: int = 0, title: str = None, pages: Pages = Pages(0, 0), textInfo: TextInfo = TextInfo(0, 0, 0), pictures: list = []):
@@ -68,7 +68,7 @@ class ChapterInfo:
             title (str): Title of the chapter.
             pages (Pages): Pages of the chapter.
             textInfo (TextInfo): Information about the text in the chapter.
-            pictures (list): List of PictureInfo objects.
+            pictures (list): List of objects with information about pictures in the chapter.
         """
         self.sequence : int = sequence 
         self.title : str = title
@@ -88,15 +88,16 @@ class ChapterInfo:
 
     def addText(self, text: str):
         """
-        Adds text to the text information of the chapter.
+        Adds information on 'text' to the text information of the chapter.
 
         Args:
-            text (str): Text to add.
+            text (str): Text to analyze and add its information to the text information of the chapter.
         """
+        text_split = text.split()
         self.textInfo = TextInfo(
             totalCharCount= self.textInfo.totalCharCount + len(text),
-            nonWhiteCharCount= self.textInfo.nonWhiteCharCount + len(text.replace(" ", "").replace("\n", "")),
-            totalWordCount= self.textInfo.totalWordCount + len(text.split())
+            nonWhiteCharCount= self.textInfo.nonWhiteCharCount + len("".join(text_split)),
+            totalWordCount= self.textInfo.totalWordCount + len(text_split)
         )
 
     def addPage(self, page: int):
