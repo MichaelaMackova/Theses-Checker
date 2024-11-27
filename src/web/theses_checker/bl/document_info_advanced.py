@@ -8,7 +8,6 @@
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
-from typing import NamedTuple
 from .chapter_info import *
 from .standard_pages import *
 
@@ -97,6 +96,8 @@ class ChapterInfoAdvanced:
         pages (Pages): Pages of the chapter.
         textInfo (TextInfoAdvanced): Information about the text in the chapter.
         pictures (list[PictureInfoAdvanced]): List of objects with advanced information about pictures in the chapter.
+        picturesStdPages (float): Total standard pages of the pictures in the chapter. Rounded to 2 decimal places.
+        totalStdPages (float): Total standard pages of the chapter. Rounded to 2 decimal places.
     """
 
     def __init__(self, chapterInfo : ChapterInfo):
@@ -111,4 +112,65 @@ class ChapterInfoAdvanced:
         self.pages : Pages = chapterInfo.pages
         self.textInfo : TextInfoAdvanced = TextInfoAdvanced(chapterInfo.textInfo)
         self.pictures : list[PictureInfoAdvanced] = [PictureInfoAdvanced(picture) for picture in chapterInfo.pictures]
+        self.picturesStdPages : float = round(sum([picture.stdPages for picture in self.pictures]), 2)
+        self.totalStdPages : float = round(self.textInfo.totalCharCountStdPages + self.picturesStdPages, 2)
+    
+    def toDict(self) -> dict:
+        """
+        Convert the ChapterInfoAdvanced object to a dictionary.
 
+        Returns:
+            dict: Dictionary with the chapter information.
+        """
+        return {
+            'sequence': self.sequence,
+            'title': self.title,
+            'pages': self.pages.__dict__,
+            'textInfo': self.textInfo.__dict__,
+            'pictures': [picture.__dict__ for picture in self.pictures],
+            'picturesStdPages': self.picturesStdPages,
+            'totalStdPages': self.totalStdPages
+        }
+
+class DocumentInfoAdvanced:
+    """
+    Advanced information about a document.
+
+    Attributes:
+        chapters (list[ChapterInfoAdvanced]): List of objects with advanced information about chapters in the document.
+        totalStdPages (float): Total standard pages of the document. Rounded to 2 decimal places.
+    """
+    chapters: list[ChapterInfoAdvanced] ## List of objects with advanced information about chapters in the document.
+    totalStdPages: float ## Total standard pages of the document. Rounded to 2 decimal places.
+
+    def __init__(self, chaptersInfo : list[ChapterInfo]):
+        """
+        Initialize the DocumentInfoAdvanced object from basic information about the chapters in the document.
+
+        Args:
+            chaptersInfo (list[ChapterInfo]): Basic information about the chapters in the document.
+        """
+        self.chapters : list[ChapterInfoAdvanced] = [ChapterInfoAdvanced(chapter) for chapter in chaptersInfo]
+        self.totalStdPages : float = round(sum([chapter.totalStdPages for chapter in self.chapters]), 2)
+
+    # def __init__(self, chaptersInfo : list[ChapterInfoAdvanced]):
+    #     """
+    #     Initialize the DocumentInfoAdvanced object from advanced information about the chapters in the document.
+
+    #     Args:
+    #         chaptersInfo (list[ChapterInfoAdvanced]): Advanced information about the chapters in the document.
+    #     """
+    #     self.chapters : list[ChapterInfoAdvanced] = chaptersInfo
+    #     self.totalStdPages : float = round(sum([chapter.totalStdPages for chapter in self.chapters]), 2)
+
+    def toDict(self) -> dict:
+        """
+        Convert the DocumentInfoAdvanced object to a dictionary.
+
+        Returns:
+            dict: Dictionary with the document information.
+        """
+        return {
+            'chapters': [chapter.toDict() for chapter in self.chapters],
+            'totalStdPages': self.totalStdPages
+        }

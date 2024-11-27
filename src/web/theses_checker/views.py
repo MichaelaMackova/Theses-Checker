@@ -5,7 +5,7 @@ from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.files.storage import default_storage
 from django.conf import settings
 
-
+from .bl.document_info_advanced import ChapterInfoAdvanced, DocumentInfoAdvanced
 from .bl.theses_checker import Checker
 from .bl import auxiliary_functions
 import os
@@ -43,6 +43,12 @@ def checkPDF(request):
         return render(request, '500.html', {'exception': exception}, status=500)
     
     checker.annotate(os.path.join(pdf_dir, pdf_name))
+
+    json_dir = os.path.join(settings.BASE_DIR, 'files', 'json')
+    json_name = pdf_name[:-4]
+    chaptersInfo = {json_name: DocumentInfoAdvanced(checker.chaptersInfo).toDict()}
+    auxiliary_functions.saveDictAsJSON(chaptersInfo, os.path.join(json_dir, json_name + '.json'))
+
     del checker
     os.remove(original_pdf_path)
     return HttpResponseRedirect(reverse('show_annotated', args={pdf_name}))
@@ -56,8 +62,10 @@ def show_annotated(request, pdf_name):
     Args:
         pdf_name (str): Name of annotated document, that will be shown.
     """
+    json_dict = auxiliary_functions.readJSONAsDict(os.path.join(settings.BASE_DIR, 'files', 'json', pdf_name[:-4] + '.json'))
     return render(request, 'theses_checker/annotated.html', {
-        'pdf_name': pdf_name
+        'pdf_name': pdf_name,
+        'info' : json_dict[pdf_name[:-4]]
     })
 
 

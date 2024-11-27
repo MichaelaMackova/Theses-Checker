@@ -12,7 +12,7 @@ from math import pi
 from typing import NamedTuple
 
 
-class Pages(NamedTuple):
+class Pages:
     """
     Information about the pages of a chapter.
 
@@ -22,6 +22,17 @@ class Pages(NamedTuple):
     """
     first: int ## Number of the first page of the chapter. Page indexing starts from 1.
     last: int ## Number of the last page of the chapter. Page indexing starts from 1.
+
+    def __init__(self, first: int = 0, last: int = 0):
+        """
+        Constructor.
+
+        Args:
+            first (int): Number of the first page of the chapter. Page indexing starts from 1.
+            last (int): Number of the last page of the chapter. Page indexing starts from 1.
+        """
+        self.first = first
+        self.last = last
 
 class TextInfo(NamedTuple):
     """
@@ -59,7 +70,7 @@ class ChapterInfo:
         pictures (list): List of objects with information about pictures in the chapter.
     """
 
-    def __init__(self, sequence: int = 0, title: str = None, pages: Pages = Pages(0, 0), textInfo: TextInfo = TextInfo(0, 0, 0), pictures: list = []):
+    def __init__(self, sequence: int = 0, title: str|None = None, pages: Pages|None = None, textInfo: TextInfo|None = None, pictures: list[PictureInfo]|None = None):
         """
         Constructor.
 
@@ -72,9 +83,9 @@ class ChapterInfo:
         """
         self.sequence : int = sequence 
         self.title : str = title
-        self.pages : Pages = pages
-        self.textInfo : TextInfo = textInfo
-        self.pictures : list = pictures
+        self.pages : Pages = pages if pages is not None else Pages(0, 0)
+        self.textInfo : TextInfo = textInfo if textInfo is not None else TextInfo(0, 0, 0)
+        self.pictures : list[PictureInfo] = pictures if pictures is not None else []
     
     def addPicture(self, bbox: tuple, page: int):
         """
@@ -110,4 +121,4 @@ class ChapterInfo:
         if self.pages.first == 0:
             self.pages = Pages(page, page)
         else:
-            self.pages = Pages(self.pages.first, page)
+            self.pages.last = page
