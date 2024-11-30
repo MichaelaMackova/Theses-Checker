@@ -5,14 +5,43 @@
 body {
     margin: 0;
     min-width: 365px;
-    background-color:whitesmoke;
     font-family: Helvetica, Arial, sans-serif;
+    font-size: 100%;
 }
 
-.page-content {
+.page-padding{
     padding-left: 50px;
     padding-right: 50px;
-    margin-top: 20px;
+}
+
+.primary-color{
+    background-color: #191970;
+    color: #fefefe;
+}
+
+.primary-container-color{
+    background-color: #292a7e;
+    color: #bfc0ff;
+}
+
+.secondary-color{
+    background-color: #5b5b7e;
+    color: #fefefe;
+}
+
+.secondary-container-color{
+    background-color: #dcdbff;
+    color: #424364;
+}
+
+.base-color{
+    background-color: #fcf8ff;
+    color: #1b1b21;
+}
+
+.base-container-color{
+    background-color: #e4e1e9;
+    color: #464651;
 }
 
 #page-grid{
@@ -27,9 +56,7 @@ body {
 
 #header {
     grid-area: header;
-    background-color: midnightblue;
     height: 70px;
-    color: whitesmoke;
     position: relative;
     border-radius: 0 0 5px 5px;
 }
@@ -37,8 +64,7 @@ body {
 #title {
     font-weight: 600;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin: 0;
     font-size: 40px;
     top: 50%;
     transform: translateY(-50%);
@@ -52,14 +78,13 @@ body {
 
 #main{
     grid-area: main;
+    padding: 20px 0px;
 }
 
 #footer{
     grid-area: footer;
     height: 50px;
-    background-color: rgb(234, 234, 234);
-    border-top:rgb(198, 198, 198) 1px solid;
-    color: rgb(137, 137, 137);
+    border-top:#c7c5d3 1px solid;
 }
 
 #footer div{

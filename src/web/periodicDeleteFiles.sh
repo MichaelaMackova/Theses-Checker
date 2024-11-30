@@ -5,7 +5,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 19.10.2024
-# Last Updated  : 22.10.2024
+# Last Updated  : 27.11.2024
 # License       : AGPL-3.0 license
 #
 # Description: 
@@ -26,9 +26,9 @@ Period=$DAY_IN_SEC # SET PERIOD HERE
 Today=$(date +'%s') # today as seconds since Epoch
 Yesterday=$((Today-Period))
 
-for i in files/*.pdf static/*.pdf ; do 
+for i in files/*.pdf static/*.pdf files/json/*.json ; do 
     if [ -f "$i" ] ; then
-        # all files (-f) in directory "files/" or "static/" that end in ".pdf"
+        # all files (-f) in directory "files/" or "static/" that end in ".pdf" and files in directory "files/json/" that end in ".json"
 
         File_date=$(stat -c "%Y" "$i") # time of last modification of a file as seconds since Epoch
 

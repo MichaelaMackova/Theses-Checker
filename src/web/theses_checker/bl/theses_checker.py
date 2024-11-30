@@ -2,8 +2,9 @@
 # File          : theses_checker.py
 # Created By    : Michaela Macková
 # Login         : xmacko13
-# Created Date  : 14.1.2023
-# Last Updated  : 19.10.2024
+# Email         : michaela.mackovaa@gmail.com
+# Created Date  : 14.01.2023
+# Last Updated  : 21.11.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -14,6 +15,7 @@ import fitz
 import re
 from enum import Enum
 import numpy
+from .chapter_info import *
 
 
 
@@ -63,12 +65,14 @@ class Checker:
         self.__currDict = None
         ## List of embedded PDFs invoked by current page as dictionary image blocks 
         self.__currPageEmbeddedPdfs = None
-        ## All text from current page in one continuous string (warning: included text from embedded PDFs)
+        ## All text from current page in one continuous string
         self.__currPageTextContent = None
         ## Tuple containing x0 and x1 coordinates of page border
         self.__border = (-1.0, -1.0)
         ## Boolean indicating whether current page contains table of content (TOC)
         self.__isContentPage = False
+        ## Boolean indicating whether current page is page containing list of bibliography or after bibliography page
+        self.__bibliographyPagePassed = False
         ## Language of document (Not used)
         self.__language = pdfLang
         ## Default font used in document
@@ -77,6 +81,10 @@ class Checker:
         self.__isPreviousTitle = False
         ## Boolean indicating whether embedded PDFs inside document will be taken as images
         self.__embeddedPdfAsImage = True
+        ## Current chapter information
+        self.__currChapterInfo : ChapterInfo = None
+        ## List of information about all chapters in document
+        self.chaptersInfo : list[ChapterInfo] = []
         
 
 
@@ -280,7 +288,7 @@ class Checker:
         Gets current TextPage from current page.
         """
         if self.__currTextPage == None:
-            self.__currTextPage = self.__currPage.get_textpage()
+            self.__currTextPage = self.__currPage.get_textpage(flags=(fitz.TEXTFLAGS_BLOCKS | fitz.TEXT_PRESERVE_IMAGES)) # include images
 
 
 
@@ -778,11 +786,132 @@ class Checker:
                 line_spans = lines[0]['spans']
                 if line_spans:
                     text = line_spans[0]['text'].lower().strip()
-                    if ( text == "obsah" or text == "contents"):
+                    if ( text == "obsah" or text == "contents" or text == "table of contents"):
                         self.__isContentPage = True
                     else:
                         self.__isContentPage = False
 
+
+
+    def __getBibliographyPagePassed(self, pageFirstBlock : dict):
+        """
+        Updates isBibliographyPage class variable.
+
+        Args:
+            pageFirstBlock (dict): First block from dictionary of current page.
+        """
+        if self.__bibliographyPagePassed:
+            return # if already set to true, Bibliography page passed
+        
+        if (pageFirstBlock['type'] == 0): 
+            # --- text ---
+            lines = pageFirstBlock['lines']
+            if (len(lines) == 1):
+                line_spans = lines[0]['spans']
+                if line_spans:
+                    text = line_spans[0]['text'].lower().strip()
+                    if ( text == "literatura" or text == "literatúra" or text == "bibliography"):
+                        self.__bibliographyPagePassed = True
+                    # TODO: rename self.__bibliographyPagePassed -> self.__isBibliographyPageAndAfter :)
+                    # else:
+                    #     self.__bibliographyPagePassed = False
+
+
+
+    def __pageBeginsNewChapter(self):
+        """
+        Determines if current page begins a new chapter. If so, returns True and name of the chapter.
+        """
+        isNewChapter = False
+        chapterName = ""
+        self.__getPageDictionary()
+        block_count = len(self.__currDict['blocks'])
+
+        if block_count > 0:
+            # if page has any blocks
+            pageFirstBlock = self.__currDict['blocks'][0]
+            if self.__isTitleBlock(0):
+                if (pageFirstBlock['type'] == 0): 
+                    # --- block with text ---
+                    lines = pageFirstBlock['lines']
+                    if (len(lines) == 1):
+                        line_spans = lines[0]['spans']
+                        line_spans_count = len(line_spans)
+                        if line_spans:
+                            text = line_spans[0]['text'].strip()
+                            text_lower = text.lower()
+
+                            # option 1:
+                            if (re.match("^(kapitola|chapter) \d+$", text_lower)):
+                                isNewChapter = True
+                                chapterName = text
+                                if block_count > 1:
+                                    if self.__isTitleBlock(1):
+                                        chapterName = self.__getBlockText(1)
+                                    
+                            # option 2:
+                            elif (re.match("^(kapitola|chapter)$", text_lower)):
+                                isNewChapter = True
+                                if line_spans_count > 1:
+                                    text_cont = line_spans[1]['text'].lower().strip()
+                                    if (re.match("^\d+$", text_cont)):
+                                        chapterName = text + " " + text_cont
+                                        if block_count > 1:
+                                            if self.__isTitleBlock(1):
+                                                chapterName = self.__getBlockText(1)
+                                            
+                            # option 3:
+                            elif (re.match("^\d+ .*$", text_lower)):
+                                isNewChapter = True
+                                chapterName = text
+
+                            # option 4:
+                            elif (re.match("^\d+$", text_lower)):
+                                if line_spans_count > 1:
+                                    text_cont = line_spans[1]['text'].strip()
+                                    if (text_cont != ""):
+                                        isNewChapter = True
+                                        chapterName = text + " " + text_cont
+        return (isNewChapter, chapterName)
+    
+
+
+    def __updateCurrChapter(self):
+        """
+        Updates current chapter information with current page information.
+        If new chapter begins, creates new chapter and adds it to chaptersInfo.
+        If current page is not part of any chapter, does nothing.
+        """
+        self.__getPageDictionary()
+        if self.__currDict['blocks']:
+            self.__getBibliographyPagePassed(self.__currDict['blocks'][0])
+            if self.__bibliographyPagePassed:
+                return # not counting bibliography page and after 
+        
+        isNewChapter, chapterName = self.__pageBeginsNewChapter()
+        if isNewChapter:
+            self.__currChapterInfo = ChapterInfo(
+                sequence= (self.__currChapterInfo.sequence+1) if (self.__currChapterInfo != None) else 1,
+                title= chapterName,
+                pages= Pages(self.__currPage.number+1, self.__currPage.number+1),
+            )
+            self.chaptersInfo.append(self.__currChapterInfo)
+
+        if self.__currChapterInfo != None:
+            self.__currChapterInfo.addPage(self.__currPage.number+1)
+            self.__getPageDictionary()
+            blocks = self.__currDict['blocks']
+            for block in blocks:
+                if block['type'] == 1:
+                    # --- image ---
+                    self.__currChapterInfo.addPicture(
+                        bbox=block['bbox'][0:4],
+                        page=self.__currPage.number+1
+                    )
+
+            self.__getPageTextContent()
+            self.__currChapterInfo.addText(self.__currPageTextContent)
+        
 
 
     def __TOCSectionsCheck(self):
@@ -831,21 +960,42 @@ class Checker:
 
     def __getPageTextContent(self):
         """
-        Scans current page for all text and saves its dehyphenated form in class variable currPageTextContent (warning: text from embedded PDFs included)
+        Scans current page for all text and saves its dehyphenated form in class variable currPageTextContent
         """
         if self.__currPageTextContent == None:
             self.__currPageTextContent = ""
             textBlocks = self.__currPage.get_text("blocks", flags=fitz.TEXT_PRESERVE_LIGATURES|fitz.TEXT_DEHYPHENATE|fitz.TEXT_MEDIABOX_CLIP)
-            for block in textBlocks:
+            
+            if not textBlocks:
+                return
+            
+            for block in textBlocks[:-1]:
                 text = ""
                 # block = (x0, y0, x1, y1, "lines in the block", block_no, block_type)
                 if block[6] == 0:   # contains text
+                    if self.__embeddedPdfAsImage:
+                        if self.__isInsideEmbeddedPdf([block[0], block[1], block[2], block[3]]):
+                            continue # ignore text inside PDF images
                     text = block[4]
                     if text[-1] == "\n":
                         text = text[:-1]
                     
-                    self.__currPageTextContent += text.replace("\n"," ") + "\n\n"
+                    self.__currPageTextContent += text.replace("\n"," ") + "\n"
 
+            # last block (possibly page number)
+            block = textBlocks[-1]
+            if block[6] == 0: # contains text
+                text = ""
+                isImage = False
+                if self.__embeddedPdfAsImage:
+                    if self.__isInsideEmbeddedPdf([block[0], block[1], block[2], block[3]]):
+                            isImage = True
+                if not isImage:
+                    text = block[4]
+                    if not re.match("^\d*$",text.strip()): # if page number, do not include
+                        if text[-1] == "\n":
+                            text = text[:-1]
+                        self.__currPageTextContent += text.replace("\n"," ") + "\n"
 
 
 
@@ -1017,8 +1167,11 @@ class Checker:
         self.borderNotFound = False
         self.__border = (-1.0, -1.0)
         self.__isContentPage = False
+        self.__bibliographyPagePassed = False
         self.__regularFont = None
         self.__isPreviousTitle = False
+        self.__currChapterInfo = None
+        self.chaptersInfo = []
 
 
 
@@ -1034,7 +1187,8 @@ class Checker:
 
 
     def annotate(self ,annotatedPath : string, embeddedPdfAsImage : bool = True, borderCheck : bool = True, hyphenCheck : bool = True, imageWidthCheck : bool = True,
-                 TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True):
+                 TOCCheck : bool = True, spaceBracketCheck : bool = True, emptySectionCheck : bool = True, badReferenceCheck : bool = True, 
+                 gatherChaptersInfo : bool = True):
         """
         Examines whole document and checks for mistakes. If a mistake occurred, it will be marked as annotation at appropriate place.
         Class variable mistakes_found indicates whether at least one mistake was marked.
@@ -1049,6 +1203,7 @@ class Checker:
             spaceBracketCheck (bool, optional): Determines if document will be scanned for missing space before any left bracket. Defaults to True.
             emptySectionCheck (bool, optional): Determines if document will be scanned for absence of text between (sub)section titles. Defaults to True.
             badReferenceCheck (bool, optional): Determines if document will be scanned for missing references (indicated by '??'). Defaults to True.
+            gatherChaptersInfo (bool, optional): Determines if information about chapters will be gathered. Defaults to True.
         """
         self.__resetCheckerVars()
         self.__embeddedPdfAsImage = embeddedPdfAsImage
@@ -1081,6 +1236,10 @@ class Checker:
                     if self.__currPage.number > 0:
                         self.__emptySectionCheck()
             
-                self.__resetCurrVars()
-        self.__document.save(annotatedPath)
+                if gatherChaptersInfo:
+                    self.__updateCurrChapter()
 
+                self.__resetCurrVars()
+
+        self.__document.save(annotatedPath)
+        self.__document.close()

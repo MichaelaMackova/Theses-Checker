@@ -59,3 +59,138 @@
     color: royalblue;
     background-color: royalblue;
 }
+
+.chapter-box{
+    display: grid;
+    grid-template-areas:
+        'chapter_title'
+        'chapter_info'
+        'chapter_total';
+    margin: 20px 0;
+    border-radius: 15px;
+
+    &:first-child{
+        margin-top: 0;
+    }
+
+    p, h2, h3 {
+        margin: 0;
+    }
+
+    h3 {
+        margin-bottom: 12px;
+    }
+
+    p {
+        margin-left: 1em;
+        margin-bottom: 8px;
+    }
+
+    .chapter-title{
+        grid-area: chapter_title; 
+        border-radius: 15px 15px 0 0;
+        background-color: #aaa6e5;
+        color: #1D1D33;
+        padding: 15px 15px 8px 15px;
+    }
+
+    .chapter-info{
+        grid-area: chapter_info;
+        padding: 15px 25px 15px 25px;
+    }
+
+    .chapter-total{
+        grid-area: chapter_total;
+        padding: 8px 25px 15px 25px;
+        text-align: center;
+        font-size: 115%;
+    }
+}
+
+.chapter-box h2{
+    small{
+        padding-left: 10px;
+        font-size: 0.65em;
+        font-weight: normal;
+    }
+}
+
+.chapter-box table{
+    width: 90%;
+    border-collapse: collapse;
+    margin: auto;
+
+    th, td {
+        text-align: center;
+        vertical-align: bottom;
+        padding: 7px;
+    }
+
+    thead {
+        background-color: #aaa6e580;
+    }
+
+    tr {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+}
+
+.section-title{
+    border-bottom: #5b5b7e solid 1px;
+    border-top: #5b5b7e solid 1px;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 0;
+
+    i{
+        float: right;
+    }
+}
+
+.section-content{
+    margin: 0;
+    padding: 20px;
+    padding-bottom: 0;
+    box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;
+}
+
+#chapters-section{
+    margin-bottom: 20px;
+    
+    .chapters-total{
+        text-align: center;
+        font-size: 135%;
+        padding: 10px;
+    }
+}
+
+.percentage-bar-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.percentage-bar{
+    height: 20px;
+    width: 50%;
+    max-width: 440px;
+    display: flex;
+    background-color: #dcdbff;
+    border: #5b5b7e80 solid 1px;
+
+    > div{
+        height: 100%;
+        background-color: #8a83d8;
+    }
+}
+
+.percentage-bar-description{
+    font-size: 65%;
+    font-weight: bold;
+    margin: 0 10px;
+    color: #8067d3;
+
+    &:nth-child(1){
+        color: #5237a6;
+    }
+}

@@ -23,3 +23,9 @@ __pycache__
 src/web/deleteFiles.sh
 src/web/files/*.pdf
 src/web/static/*.pdf
+src/web/files/json/*.json
+lib_tests
+src/testing
+src/cmd/delete_theses_checker_package.ps1
+src/cmd/theses_checker_package/*.py
+!src/cmd/theses_checker_package/__init__.py
