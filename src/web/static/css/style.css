@@ -4,7 +4,11 @@
 #loader{
     display: none;
 
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -24,13 +28,13 @@
 }
 
 .overlay{
-    background-color: rgba(245, 245, 245, 0.75);
+    background-color: #fcf8ffd7;
     z-index: 9;
 }
 
 .button{
-    background-color:royalblue;
-    color: white;
+    background-color:#3d46a6;
+    color: #fefefe;
     font-size: inherit;
     padding: 0.65em;
     border-radius: 5px;
@@ -39,15 +43,15 @@
 }
 
 .button:hover{
-    background-color: rgb(46, 75, 164);
+    background-color: #191970;
     cursor: pointer;
     transition: ease-in-out 0.5s;
 }
 
 /* change loader color */
 .dot-pulse, .dot-pulse::after, .dot-pulse::before{
-    color: royalblue;
-    background-color: royalblue;
+    color: #191970;
+    background-color: #191970;
 }
 
 .chapter-box{
