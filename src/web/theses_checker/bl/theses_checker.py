@@ -820,7 +820,7 @@ class Checker:
 
     def __pageBeginsNewChapter(self):
         """
-        TODO:
+        Determines if current page begins a new chapter. If so, returns True and name of the chapter.
         """
         isNewChapter = False
         chapterName = ""
@@ -878,7 +878,9 @@ class Checker:
 
     def __updateCurrChapter(self):
         """
-        TODO: 
+        Updates current chapter information with current page information.
+        If new chapter begins, creates new chapter and adds it to chaptersInfo.
+        If current page is not part of any chapter, does nothing.
         """
         self.__getPageDictionary()
         if self.__currDict['blocks']:
@@ -1201,7 +1203,7 @@ class Checker:
             spaceBracketCheck (bool, optional): Determines if document will be scanned for missing space before any left bracket. Defaults to True.
             emptySectionCheck (bool, optional): Determines if document will be scanned for absence of text between (sub)section titles. Defaults to True.
             badReferenceCheck (bool, optional): Determines if document will be scanned for missing references (indicated by '??'). Defaults to True.
-            gatherChaptersInfo (bool, optional): TODO:
+            gatherChaptersInfo (bool, optional): Determines if information about chapters will be gathered. Defaults to True.
         """
         self.__resetCheckerVars()
         self.__embeddedPdfAsImage = embeddedPdfAsImage

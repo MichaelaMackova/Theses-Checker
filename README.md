@@ -76,7 +76,7 @@ After installing the dependencies, you’ll need to make a few adjustments befor
 + For the web application to work properly, the `theses_checker.py`, `chapter_info.py`, `chapter_info_advanced.py` and `standard_pages.py` files must be located in the `src\web\theses_checker\bl\` folder (their original location).
 + The next step is creating a `.env` file in `src\web\` folder. This file will contain the secret key that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
 + Next, the `DEBUG` variable in the `settings.py` file (located in `src\web\web\` folder), must be set. This variable can be used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
-+ The tool creates and stores new PDF files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space) TODO: created txt file
++ The tool creates and stores new PDF and JSON files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
 
 **`.env` file example:**
 ```
@@ -175,7 +175,7 @@ In case server has small storage space there were developed two strategies on ho
 
 ***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job).***
 
-This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh`. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder that are older than specified period (originally set to 24h). To change this period, simply change the value in `Period` variable.
+This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh`. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder and all JSON files located in `.\files\json` folder that are older than specified period (originally set to 24h). To change this period, simply change the value in `Period` variable.
 
 This script can by run by this command:
 ```
@@ -209,4 +209,4 @@ There are a few steps to set up if you want to use this option:
 + overflow check doesn't work for two-sided papers (padding on odd pages is different than padding on even pages)
 + some files (when user leaves mid request?) stay in `static` folder
 + when error is thrown during file processing, files stay in `files` folder
-+ in some cases chapter titles are not recognized
++ in some cases chapter titles are not recognized (possible fix - by getting toc from document)
