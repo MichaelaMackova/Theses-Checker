@@ -8,6 +8,7 @@
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
+from numpy import std
 from .chapter_info import *
 from .standard_pages import *
 
@@ -125,7 +126,7 @@ class ChapterInfoAdvanced:
         return {
             'sequence': self.sequence,
             'title': self.title,
-            'pages': self.pages.__dict__,
+            'pages': self.pages.toDict(),
             'textInfo': self.textInfo.__dict__,
             'pictures': [picture.__dict__ for picture in self.pictures],
             'picturesStdPages': self.picturesStdPages,
@@ -151,17 +152,11 @@ class DocumentInfoAdvanced:
             chaptersInfo (list[ChapterInfo]): Basic information about the chapters in the document.
         """
         self.chapters : list[ChapterInfoAdvanced] = [ChapterInfoAdvanced(chapter) for chapter in chaptersInfo]
+        self.totalStdPagesFromText : float = round(sum([chapter.textInfo.totalCharCountStdPages for chapter in self.chapters]), 2)
+        self.totalStdPagesFromPictures : float = round(sum([chapter.picturesStdPages for chapter in self.chapters]), 2)
         self.totalStdPages : float = round(sum([chapter.totalStdPages for chapter in self.chapters]), 2)
-
-    # def __init__(self, chaptersInfo : list[ChapterInfoAdvanced]):
-    #     """
-    #     Initialize the DocumentInfoAdvanced object from advanced information about the chapters in the document.
-
-    #     Args:
-    #         chaptersInfo (list[ChapterInfoAdvanced]): Advanced information about the chapters in the document.
-    #     """
-    #     self.chapters : list[ChapterInfoAdvanced] = chaptersInfo
-    #     self.totalStdPages : float = round(sum([chapter.totalStdPages for chapter in self.chapters]), 2)
+        self.stdPagesPicturePercentage : float = round(self.totalStdPagesFromPictures / self.totalStdPages * 100, 2)
+        self.stdPagesTextPercentage : float = round(self.totalStdPagesFromText / self.totalStdPages * 100, 2)
 
     def toDict(self) -> dict:
         """
@@ -172,5 +167,9 @@ class DocumentInfoAdvanced:
         """
         return {
             'chapters': [chapter.toDict() for chapter in self.chapters],
-            'totalStdPages': self.totalStdPages
+            'totalStdPagesFromText': self.totalStdPagesFromText,
+            'totalStdPagesFromPictures': self.totalStdPagesFromPictures,
+            'totalStdPages': self.totalStdPages,
+            'stdPagesPicturePercentage': self.stdPagesPicturePercentage,
+            'stdPagesTextPercentage': self.stdPagesTextPercentage,
         }

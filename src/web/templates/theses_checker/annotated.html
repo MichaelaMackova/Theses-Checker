@@ -20,7 +20,7 @@
                             <div class="chapter-title">
                                 <h2>
                                     {{chapter.sequence}}. {{chapter.title}}
-                                    <small>{{chapter.pages.first}} - {{chapter.pages.last}} (? pages)</small>
+                                    <small>{{chapter.pages.first}} - {{chapter.pages.last}} ({{chapter.pages.count}} page{% if chapter.pages.count != 1 %}s{% endif %})</small>
                                 </h2>
                             </div>
                             <div class="chapter-info">
@@ -67,11 +67,11 @@
                 </div>
                 <div class="chapters-total">
                     <div class="percentage-bar-container">
-                        <div class="percentage-bar-description">Images ?%</div>
+                        <div class="percentage-bar-description">Images {{info.stdPagesPicturePercentage}}%&ensp;({{info.totalStdPagesFromPictures}})</div>
                         <div class="percentage-bar">
-                            <div style="width: 20%"></div>
+                            <div style="width: {{info.stdPagesPicturePercentage}}%"></div>
                         </div>
-                        <div class="percentage-bar-description">Text ?%</div>
+                        <div class="percentage-bar-description">Text {{info.stdPagesTextPercentage}}%&ensp;({{info.totalStdPagesFromText}})</div>
                     </div>
                     <p>Total number of standard pages from chapters:&ensp;<b>{{info.totalStdPages}}</b></p>
                 </div>

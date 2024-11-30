@@ -34,6 +34,28 @@ class Pages:
         self.first = first
         self.last = last
 
+    def toDict(self):
+        """
+        Converts the object to a dictionary.
+
+        Returns:
+            dict: Dictionary with the attributes of the object.
+        """
+        return {
+            "first": self.first,
+            "last": self.last,
+            "count": self.count()
+        }
+    
+    def count(self):
+        """
+        Counts the number of pages in the chapter.
+
+        Returns:
+            int: Number of pages in the chapter.
+        """
+        return self.last - self.first + 1
+
 class TextInfo(NamedTuple):
     """
     Information about the text in a chapter.
