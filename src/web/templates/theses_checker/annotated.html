@@ -69,7 +69,16 @@
                     <p>Total number of standard pages from chapters:&ensp;<b>{{info.totalStdPages}}</b></p>
                 </div>
             {% else %}
-                <p>Content information is not available.</p>
+                <div class="page-padding">
+                    <div class="toast-container-with-heading error">
+                        <div class="toast-heading">
+                            Error
+                        </div>
+                        <div class="toast-content">
+                            Information about chapters is not available.
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>
