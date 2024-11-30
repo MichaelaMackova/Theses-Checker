@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #TODO: production - False; development - True
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
 
