@@ -1,13 +1,6 @@
 {% extends "base.html" %}
 {% block body %}
 
-    <div class="page-padding">
-        <div class="text">
-            Thank you for using Theses Checker. Please consider filling out this short
-            questionnaire <a href="https://forms.gle/wZyY7kYp6pqQBBrH7">https://forms.gle/wZyY7kYp6pqQBBrH7</a>
-        </div>
-    </div>
-
     <div id="chapters-section" class="page-padding">
         <div class="section-title">
             <h1>Chapters information<i class="fa-solid fa-chevron-up"></i></h1>
@@ -26,15 +19,15 @@
                             <div class="chapter-info">
                                 <div class="chapter-text-info">
                                     <h3>Text</h3>
-                                    <p>Number of characters:&ensp;{{chapter.textInfo.totalCharCount}}</p>
-                                    <p>Number of characters without whitespaces:&ensp;{{chapter.textInfo.nonWhiteCharCount}}</p>
-                                    <p>Number of words:&ensp;{{chapter.textInfo.totalWordCount}}</p>
-                                    <p>Number of standard pages from text:&ensp;<b>{{chapter.textInfo.totalCharCountStdPages}}</b></p>
+                                    <p>Characters:&ensp;{{chapter.textInfo.totalCharCount}}</p>
+                                    <p>Characters without whitespaces:&ensp;{{chapter.textInfo.nonWhiteCharCount}}</p>
+                                    <p>Words:&ensp;{{chapter.textInfo.totalWordCount}}</p>
+                                    <p>Standard pages from text:&ensp;<b>{{chapter.textInfo.totalCharCountStdPages}}</b></p>
                                 </div>
                                 <div class="chapter-image-info">
                                     <h3>Images</h3>
                                     <p>Number of images:&ensp;{{chapter.pictures|length}}</p>
-                                    <p>Number of standard pages from images:&ensp;<b>{{chapter.picturesStdPages}}</b></p>
+                                    <p>Standard pages from images:&ensp;<b>{{chapter.picturesStdPages}}</b></p>
                                     {% if chapter.pictures|length > 0 %}
                                         <table>
                                             <thead>
@@ -76,7 +69,16 @@
                     <p>Total number of standard pages from chapters:&ensp;<b>{{info.totalStdPages}}</b></p>
                 </div>
             {% else %}
-                <p>Content information is not available.</p>
+                <div class="page-padding">
+                    <div class="toast-container-with-heading error">
+                        <div class="toast-heading">
+                            Error
+                        </div>
+                        <div class="toast-content">
+                            Information about chapters is not available.
+                        </div>
+                    </div>
+                </div>
             {% endif %}
         </div>
     </div>

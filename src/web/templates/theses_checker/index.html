@@ -2,8 +2,10 @@
 {% block body %}
 
     <div class="page-padding">
-        <div class="text">
-            Theses Checker is an online tool that checks your thesis mainly for typographical errors.
+        <div class="toast-container">
+            Theses Checker is an online tool that checks your thesis mainly for typographical errors 
+            and analyzes the content to show information about text and images inside the document for 
+            quick evaluation on its length.
             This tool searches for mistakes such as text overflow, wrong usage of hyphens, no section
             description and others.
             To find some mistakes, Theses Checker searches for keywords. Therefore the thesis should be
@@ -19,11 +21,13 @@
                     <input class="button" type="submit" value="Check file">
                 </form>
             </div>
+        </div>
 
-            <div id="loader" class="box overlay">
-                <div class="dot-pulse"></div>
-            </div>
+        <div id="loader" class="overlay">
+            <div class="dot-pulse"></div>
         </div>
     </div>
+
+    
 
 {% endblock body %}

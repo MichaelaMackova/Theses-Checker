@@ -2,7 +2,9 @@
 {% block title %}Theses Checker - Bad Request (400){% endblock %}
 {% block body %}
 
-    <h1>Bad Request (400)</h1>
-    <p><b>More information:</b> {% firstof exception "None" %}</p>
+    <div class="page-padding">
+        <h1>Bad Request (400)</h1>
+        <p><b>More information:</b> {% firstof exception "None" %}</p>
+    </div>
 
 {% endblock body %}
