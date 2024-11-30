@@ -19,15 +19,15 @@
                             <div class="chapter-info">
                                 <div class="chapter-text-info">
                                     <h3>Text</h3>
-                                    <p>Number of characters:&ensp;{{chapter.textInfo.totalCharCount}}</p>
-                                    <p>Number of characters without whitespaces:&ensp;{{chapter.textInfo.nonWhiteCharCount}}</p>
-                                    <p>Number of words:&ensp;{{chapter.textInfo.totalWordCount}}</p>
-                                    <p>Number of standard pages from text:&ensp;<b>{{chapter.textInfo.totalCharCountStdPages}}</b></p>
+                                    <p>Characters:&ensp;{{chapter.textInfo.totalCharCount}}</p>
+                                    <p>Characters without whitespaces:&ensp;{{chapter.textInfo.nonWhiteCharCount}}</p>
+                                    <p>Words:&ensp;{{chapter.textInfo.totalWordCount}}</p>
+                                    <p>Standard pages from text:&ensp;<b>{{chapter.textInfo.totalCharCountStdPages}}</b></p>
                                 </div>
                                 <div class="chapter-image-info">
                                     <h3>Images</h3>
                                     <p>Number of images:&ensp;{{chapter.pictures|length}}</p>
-                                    <p>Number of standard pages from images:&ensp;<b>{{chapter.picturesStdPages}}</b></p>
+                                    <p>Standard pages from images:&ensp;<b>{{chapter.picturesStdPages}}</b></p>
                                     {% if chapter.pictures|length > 0 %}
                                         <table>
                                             <thead>
