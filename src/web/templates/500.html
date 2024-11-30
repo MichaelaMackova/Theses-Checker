@@ -2,8 +2,10 @@
 {% block title %}Theses Checker - Server Error (500){% endblock %}
 {% block body %}
 
-    <h1>Server Error (500)</h1>
-    <p>Something went wrong :(</p>
-    <p><b>More information:</b> {% firstof exception "None" %}</p>
+    <div class="page-padding">
+        <h1>Server Error (500)</h1>
+        <p>Something went wrong :(</p>
+        <p><b>More information:</b> {% firstof exception "None" %}</p>
+    </div>
 
 {% endblock body %}

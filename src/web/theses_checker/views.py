@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.files.storage import default_storage
 from django.conf import settings
-from matplotlib.style import available
 
 from .bl.document_info_advanced import DocumentInfoAdvanced
 from .bl.theses_checker import Checker

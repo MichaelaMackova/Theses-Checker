@@ -44,16 +44,6 @@
     transition: ease-in-out 0.5s;
 }
 
-.text{
-    color: rgb(131, 131, 131);
-    font-weight: bold;
-    text-align: center;
-    padding: 20px 30px;
-    background-color: rgb(230, 230, 230);
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
-
 /* change loader color */
 .dot-pulse, .dot-pulse::after, .dot-pulse::before{
     color: royalblue;
