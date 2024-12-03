@@ -9,8 +9,8 @@
 # License       : AGPL-3.0 license
 #
 # Description: 
-#    Deletes PDF files in "files/" or "static/" folder
-#    that are older than 24 hours.
+#    Deletes PDF files in "files/" or "static/" folder and JSON files
+#    in "files/json/" folder that are older than Period.
 # ---------------------------------------------------------------------------
 
 
@@ -25,7 +25,7 @@ Period=$TWELVE_HOURS_IN_SEC # SET PERIOD HERE
 
 
 Today=$(date +'%s') # today as seconds since Epoch
-Yesterday=$((Today-Period))
+Time_to_delete=$((Today-Period))
 
 for i in files/*.pdf static/*.pdf files/json/*.json ; do 
     if [ -f "$i" ] ; then
@@ -33,7 +33,7 @@ for i in files/*.pdf static/*.pdf files/json/*.json ; do
 
         File_date=$(stat -c "%Y" "$i") # time of last modification of a file as seconds since Epoch
 
-        if [ "$File_date" -le "$Yesterday" ]; then
+        if [ "$File_date" -le "$Time_to_delete" ]; then
             # remove file
             rm -f "$i"
         fi

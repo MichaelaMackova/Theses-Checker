@@ -59,14 +59,12 @@ def readJSONAsDict(path : str) -> dict:
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
     
-def checkStorageAvailableSpace(file_size : int, max_storage_space : int|None = None) -> bool:
+def checkStorageAvailableSpace(file_size : int) -> bool:
     """
         Checks if there is enough storage space for a file with size file_size
 
         Args:
             file_size (int): size of the file in bytes
-            max_storage_space (int|None, optional): maximum storage space in bytes, if None, maximum storage space is determined by the system (default None)
-            os_win (bool, optional): if True, the function is called on Windows, otherwise on Linux (default False)
     
         Returns:
             bool: True if there is enough storage space, False otherwise
@@ -75,28 +73,36 @@ def checkStorageAvailableSpace(file_size : int, max_storage_space : int|None = N
     import os
     from django.conf import settings
 
-    #TODO: implement for Windows (přidat settins.OS)
-
-    if max_storage_space != None:
-        bash_path = "./getStorageUsage.sh"
-        # bash_path = os.path.join(settings.BASE_DIR, 'getStorageUsage.sh')
-        available_storage = max_storage_space - int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
+    if settings.OPERATING_SYSTEM == 'Windows':
+        script_path = '\"' + os.path.join(settings.BASE_DIR, 'getStorageAvailableSpace.ps1') + '\"' # path with spaces
+        available_storage = int(subprocess.check_output(['powershell', '& ' + script_path]).decode('utf-8').strip())
+    elif settings.OPERATING_SYSTEM == 'Linux':
+        if settings.MAX_STORAGE_SPACE != None:
+            bash_path = os.path.join(settings.BASE_DIR, 'getStorageUsage.sh')
+            available_storage = settings.MAX_STORAGE_SPACE - int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
+        else:
+            bash_path = os.path.join(settings.BASE_DIR, 'getStorageAvailableSpace.sh')
+            available_storage = int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
     else:
-        bash_path = "./getStorageAvailableSpace.sh"
-        # bash_path = os.path.join(settings.BASE_DIR, 'getStorageAvailableSpace.sh')
-        available_storage = int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
+        raise ValueError("Invalid operating system")
 
     return available_storage >= file_size
 
-def callBashScript(script_path : str):
+def deleteFilesOlderThanPeriod():
     """
-        Calls bash script
-
-        Args:
-            script_path (str): path to the bash script
+        Deletes files using periodicDeleteFiles.sh script (on Linux) or periodicDeleteFiles.ps1 script (on Windows)
     """
+    import os
     import subprocess
+    from django.conf import settings
 
-    #TODO: implement for Windows (přidat settins.OS)
+    if settings.OPERATING_SYSTEM == 'Windows':
+        script_path = '\"' + os.path.join(settings.BASE_DIR, 'periodicDeleteFiles.ps1') + '\"' # path with spaces
+        subprocess.check_call(['powershell', '& ' + script_path])
 
-    subprocess.check_call(['bash', script_path])
+    elif settings.OPERATING_SYSTEM == 'Linux':
+        script_path = os.path.join(settings.BASE_DIR, 'periodicDeleteFiles.sh')
+        subprocess.check_call(['bash', script_path])
+
+    else:
+        raise ValueError("Invalid operating system")

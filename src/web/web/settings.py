@@ -29,6 +29,14 @@ SECRET_KEY = config('SECRET_KEY')
 #TODO: production - False; development - True
 DEBUG = True
 
+# WARNING: update this when you have the production host
+# TODO: Allowed values: 'Linux', 'Windows'
+OPERATING_SYSTEM = 'Windows'
+
+# WARNING: update this when you have the production host
+# MAX_STORAGE_SPACE (int|None): maximum storage space in bytes, if None, maximum storage space is determined by the system (WARNING: only for Linux, for Windows ignored)
+MAX_STORAGE_SPACE : (int|None) = 536870912 # 512MB - pythonanywhere.com (free) maximum storage space
+
 ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
 
 
