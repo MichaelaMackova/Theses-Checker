@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
+from decouple import config, Choices
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,16 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#TODO: production - False; development - True
-DEBUG = True
+#TODO: set in file .env: production - False; development - True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 # WARNING: update this when you have the production host
-# TODO: Allowed values: 'Linux', 'Windows'
-OPERATING_SYSTEM = 'Windows'
+# TODO: set in file .env: Allowed values: 'Linux', 'Windows'
+OPERATING_SYSTEM = config('OPERATING_SYSTEM', cast=Choices(['Linux', 'Windows']))
 
 # WARNING: update this when you have the production host
 # MAX_STORAGE_SPACE (int|None): maximum storage space in bytes, if None, maximum storage space is determined by the system (WARNING: only for Linux, for Windows ignored)
-MAX_STORAGE_SPACE : (int|None) = 536870912 # 512MB - pythonanywhere.com (free) maximum storage space
+# TODO: set in file .env: Allowed values: None or integer number
+MAX_STORAGE_SPACE : (int|None) = config('MAX_STORAGE_SPACE', default=None, cast=int)
 
 ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
 

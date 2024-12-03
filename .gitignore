@@ -21,6 +21,7 @@ theses/drawio/.$*
 theses/pdf_to_png
 __pycache__
 src/web/deleteFiles.sh
+src/web/deleteFiles.ps1
 src/web/files/*.pdf
 src/web/static/*.pdf
 src/web/files/json/*.json
