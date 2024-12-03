@@ -26,6 +26,24 @@ def checkPDF(request):
     """
     Annotates document given through form and redirects to 'show_annotated'.
     """
+    storage_needed_bytes =  request.FILES['file'].size * 2 + 1572864 # to save original file (fileSize), annotated file (fileSize + 1MB) and json file (0.5MB)
+    
+    # option 1: check if there is enough storage space - "local"
+    maximum_storage_bytes = None
+    
+    # option 2: check if there is enough storage space - known maximum storage
+    # maximum_storage_bytes = 536870912 # 512MB - pythonanywhere.com (free) maximum storage space # TODO: move to settings
+    
+
+    space_available = auxiliary_functions.checkStorageAvailableSpace(storage_needed_bytes, maximum_storage_bytes)
+    if not space_available:
+        auxiliary_functions.callBashScript(os.path.join(settings.BASE_DIR, 'periodicDeleteFiles.sh')) # delete files to free up space
+        space_available = auxiliary_functions.checkStorageAvailableSpace(storage_needed_bytes, maximum_storage_bytes)
+        if not space_available:
+            exception = "Not enough storage space available. Please try again later."
+            return render(request, '507.html', {'exception': exception}, status=507)
+
+
     original_pdf_path = default_storage.save(os.path.join(settings.BASE_DIR, 'files', request.FILES['file'].name), request.FILES['file'])
     pdf_name = os.path.basename(original_pdf_path)[:-4]
     pdf_dir = os.path.join(settings.BASE_DIR, 'static')

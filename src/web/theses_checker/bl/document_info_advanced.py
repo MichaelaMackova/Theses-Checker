@@ -4,11 +4,10 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 26.11.2024
-# Last Updated  : 26.11.2024
+# Last Updated  : 02.12.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
-from numpy import std
 from .chapter_info import *
 from .standard_pages import *
 
@@ -155,8 +154,8 @@ class DocumentInfoAdvanced:
         self.totalStdPagesFromText : float = round(sum([chapter.textInfo.totalCharCountStdPages for chapter in self.chapters]), 2)
         self.totalStdPagesFromPictures : float = round(sum([chapter.picturesStdPages for chapter in self.chapters]), 2)
         self.totalStdPages : float = round(sum([chapter.totalStdPages for chapter in self.chapters]), 2)
-        self.stdPagesPicturePercentage : float = round(self.totalStdPagesFromPictures / self.totalStdPages * 100, 2)
-        self.stdPagesTextPercentage : float = round(self.totalStdPagesFromText / self.totalStdPages * 100, 2)
+        self.stdPagesPicturePercentage : float = round(((self.totalStdPagesFromPictures / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
+        self.stdPagesTextPercentage : float = round(((self.totalStdPagesFromText / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
 
     def toDict(self) -> dict:
         """

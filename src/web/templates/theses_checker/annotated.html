@@ -6,7 +6,7 @@
             <h1>Chapters information<i class="fa-solid fa-chevron-up"></i></h1>
         </div>
         <div class="section-content">
-            {% if info_available %}
+            {% if info_available and info.totalStdPages != 0.0 %}
                 <div class="chapters-container">
                     {% for chapter in info.chapters %}
                         <div class="chapter-box secondary-container-color">

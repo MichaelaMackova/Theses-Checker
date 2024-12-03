@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
-# Last Updated  : 25.11.2024
+# Last Updated  : 03.12.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -58,3 +58,45 @@ def readJSONAsDict(path : str) -> dict:
 
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
+    
+def checkStorageAvailableSpace(file_size : int, max_storage_space : int|None = None) -> bool:
+    """
+        Checks if there is enough storage space for a file with size file_size
+
+        Args:
+            file_size (int): size of the file in bytes
+            max_storage_space (int|None, optional): maximum storage space in bytes, if None, maximum storage space is determined by the system (default None)
+            os_win (bool, optional): if True, the function is called on Windows, otherwise on Linux (default False)
+    
+        Returns:
+            bool: True if there is enough storage space, False otherwise
+    """
+    import subprocess
+    import os
+    from django.conf import settings
+
+    #TODO: implement for Windows (přidat settins.OS)
+
+    if max_storage_space != None:
+        bash_path = "./getStorageUsage.sh"
+        # bash_path = os.path.join(settings.BASE_DIR, 'getStorageUsage.sh')
+        available_storage = max_storage_space - int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
+    else:
+        bash_path = "./getStorageAvailableSpace.sh"
+        # bash_path = os.path.join(settings.BASE_DIR, 'getStorageAvailableSpace.sh')
+        available_storage = int(subprocess.check_output(['bash', bash_path]).decode('utf-8').strip())
+
+    return available_storage >= file_size
+
+def callBashScript(script_path : str):
+    """
+        Calls bash script
+
+        Args:
+            script_path (str): path to the bash script
+    """
+    import subprocess
+
+    #TODO: implement for Windows (přidat settins.OS)
+
+    subprocess.check_call(['bash', script_path])
