@@ -805,18 +805,28 @@ class Checker:
         if self.__bibliographyPagePassed:
             return # if already set to true, Bibliography page passed
         
-        if (pageFirstBlock['type'] == 0): 
-            # --- text ---
-            lines = pageFirstBlock['lines']
-            if (len(lines) == 1):
-                line_spans = lines[0]['spans']
-                if line_spans:
-                    text = line_spans[0]['text'].lower().strip()
-                    if ( text == "literatura" or text == "literatúra" or text == "bibliography"):
-                        self.__bibliographyPagePassed = True
-                    # TODO: rename self.__bibliographyPagePassed -> self.__isBibliographyPageAndAfter :)
-                    # else:
-                    #     self.__bibliographyPagePassed = False
+        text = ""
+        if self.__toc:
+            pageNum = self.__currPage.number+1
+            for toc_item in self.__toc:
+                # toc_item = [lvl, title, page]
+                if toc_item[2] == pageNum:
+                    text = toc_item[1].lower().strip()
+                    break
+        else:
+            if (pageFirstBlock['type'] == 0): 
+                # --- text ---
+                lines = pageFirstBlock['lines']
+                if (len(lines) == 1):
+                    line_spans = lines[0]['spans']
+                    if line_spans:
+                        text = line_spans[0]['text'].lower().strip()
+                        
+        if ( text == "literatura" or text == "literatúra" or text == "bibliography"):
+            self.__bibliographyPagePassed = True
+        # TODO: rename self.__bibliographyPagePassed -> self.__isBibliographyPageAndAfter :)
+        # else:
+        #     self.__bibliographyPagePassed = False
 
 
 
@@ -826,54 +836,64 @@ class Checker:
         """
         isNewChapter = False
         chapterName = ""
-        self.__getPageDictionary()
-        block_count = len(self.__currDict['blocks'])
 
-        if block_count > 0:
-            # if page has any blocks
-            pageFirstBlock = self.__currDict['blocks'][0]
-            if self.__isTitleBlock(0):
-                if (pageFirstBlock['type'] == 0): 
-                    # --- block with text ---
-                    lines = pageFirstBlock['lines']
-                    if (len(lines) == 1):
-                        line_spans = lines[0]['spans']
-                        line_spans_count = len(line_spans)
-                        if line_spans:
-                            text = line_spans[0]['text'].strip()
-                            text_lower = text.lower()
+        if self.__toc:
+            pageNum = self.__currPage.number+1
+            for toc in self.__toc:
+                # toc = [lvl, title, page]
+                if toc[2] == pageNum and toc[0] == 1:
+                    isNewChapter = True
+                    chapterName = toc[1]
+                    break
+        else:
+            self.__getPageDictionary()
+            block_count = len(self.__currDict['blocks'])
 
-                            # option 1:
-                            if (re.match("^(kapitola|chapter) \d+$", text_lower)):
-                                isNewChapter = True
-                                chapterName = text
-                                if block_count > 1:
-                                    if self.__isTitleBlock(1):
-                                        chapterName = self.__getBlockText(1)
-                                    
-                            # option 2:
-                            elif (re.match("^(kapitola|chapter)$", text_lower)):
-                                isNewChapter = True
-                                if line_spans_count > 1:
-                                    text_cont = line_spans[1]['text'].lower().strip()
-                                    if (re.match("^\d+$", text_cont)):
-                                        chapterName = text + " " + text_cont
-                                        if block_count > 1:
-                                            if self.__isTitleBlock(1):
-                                                chapterName = self.__getBlockText(1)
-                                            
-                            # option 3:
-                            elif (re.match("^\d+ .*$", text_lower)):
-                                isNewChapter = True
-                                chapterName = text
+            if block_count > 0:
+                # if page has any blocks
+                pageFirstBlock = self.__currDict['blocks'][0]
+                if self.__isTitleBlock(0):
+                    if (pageFirstBlock['type'] == 0): 
+                        # --- block with text ---
+                        lines = pageFirstBlock['lines']
+                        if (len(lines) == 1):
+                            line_spans = lines[0]['spans']
+                            line_spans_count = len(line_spans)
+                            if line_spans:
+                                text = line_spans[0]['text'].strip()
+                                text_lower = text.lower()
 
-                            # option 4:
-                            elif (re.match("^\d+$", text_lower)):
-                                if line_spans_count > 1:
-                                    text_cont = line_spans[1]['text'].strip()
-                                    if (text_cont != ""):
-                                        isNewChapter = True
-                                        chapterName = text + " " + text_cont
+                                # option 1:
+                                if (re.match("^(kapitola|chapter) \d+$", text_lower)):
+                                    isNewChapter = True
+                                    chapterName = text
+                                    if block_count > 1:
+                                        if self.__isTitleBlock(1):
+                                            chapterName = self.__getBlockText(1)
+                                        
+                                # option 2:
+                                elif (re.match("^(kapitola|chapter)$", text_lower)):
+                                    isNewChapter = True
+                                    if line_spans_count > 1:
+                                        text_cont = line_spans[1]['text'].lower().strip()
+                                        if (re.match("^\d+$", text_cont)):
+                                            chapterName = text + " " + text_cont
+                                            if block_count > 1:
+                                                if self.__isTitleBlock(1):
+                                                    chapterName = self.__getBlockText(1)
+                                                
+                                # option 3:
+                                elif (re.match("^\d+ .*$", text_lower)):
+                                    isNewChapter = True
+                                    chapterName = text
+
+                                # option 4:
+                                elif (re.match("^\d+$", text_lower)):
+                                    if line_spans_count > 1:
+                                        text_cont = line_spans[1]['text'].strip()
+                                        if (text_cont != ""):
+                                            isNewChapter = True
+                                            chapterName = text + " " + text_cont
         return (isNewChapter, chapterName)
     
 
