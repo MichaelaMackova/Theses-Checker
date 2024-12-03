@@ -4,7 +4,7 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 14.01.2023
-# Last Updated  : 21.11.2024
+# Last Updated  : 03.12.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -55,6 +55,8 @@ class Checker:
         self.borderNotFound = False
         ## Scanned PDF Document
         self.__document = fitz.Document(pdfPath)
+        ## Table of content of document
+        self.__toc = self.__document.get_toc(simple=True)
         ## Currently scanned page
         self.__currPage = fitz.Page
         ## TextPage of current page
@@ -83,8 +85,8 @@ class Checker:
         self.__embeddedPdfAsImage = True
         ## Current chapter information
         self.__currChapterInfo : ChapterInfo = None
-        ## List of information about all chapters in document
-        self.chaptersInfo : list[ChapterInfo] = []
+        ## Tuple containing information about chapters in document, first element is everything before first chapter, second element is list of chapters, third element is everything after last chapter (appendix, bibliography, etc.)
+        self.chaptersInfo : tuple[ChapterInfo, list[ChapterInfo], ChapterInfo] = (ChapterInfo(sequence=0, title="Before First Chapter"), [], ChapterInfo(sequence=-1, title="After Last Chapter"))
         
 
 
@@ -880,37 +882,45 @@ class Checker:
         """
         Updates current chapter information with current page information.
         If new chapter begins, creates new chapter and adds it to chaptersInfo.
-        If current page is not part of any chapter, does nothing.
         """
         self.__getPageDictionary()
         if self.__currDict['blocks']:
             self.__getBibliographyPagePassed(self.__currDict['blocks'][0])
-            if self.__bibliographyPagePassed:
-                return # not counting bibliography page and after 
-        
-        isNewChapter, chapterName = self.__pageBeginsNewChapter()
-        if isNewChapter:
-            self.__currChapterInfo = ChapterInfo(
-                sequence= (self.__currChapterInfo.sequence+1) if (self.__currChapterInfo != None) else 1,
-                title= chapterName,
-                pages= Pages(self.__currPage.number+1, self.__currPage.number+1),
-            )
-            self.chaptersInfo.append(self.__currChapterInfo)
 
-        if self.__currChapterInfo != None:
-            self.__currChapterInfo.addPage(self.__currPage.number+1)
-            self.__getPageDictionary()
-            blocks = self.__currDict['blocks']
-            for block in blocks:
-                if block['type'] == 1:
-                    # --- image ---
-                    self.__currChapterInfo.addPicture(
-                        bbox=block['bbox'][0:4],
-                        page=self.__currPage.number+1
+        if self.__bibliographyPagePassed:
+            # bibliography and after
+            chapter = self.chaptersInfo[2]
+        else:
+            if self.__currChapterInfo == None:
+                # before first chapter or new first chapter
+                chapter = self.chaptersInfo[0]
+            else:
+                chapter = self.__currChapterInfo
+
+            isNewChapter, chapterName = self.__pageBeginsNewChapter()
+            if isNewChapter:
+                self.__currChapterInfo = ChapterInfo(
+                    sequence= (self.__currChapterInfo.sequence+1) if (self.__currChapterInfo != None) else 1,
+                    title= chapterName,
+                    pages= Pages(self.__currPage.number+1, self.__currPage.number+1),
                     )
+                self.chaptersInfo[1].append(self.__currChapterInfo)
+                chapter = self.__currChapterInfo
 
-            self.__getPageTextContent()
-            self.__currChapterInfo.addText(self.__currPageTextContent)
+
+        chapter.addPage(self.__currPage.number+1)
+        self.__getPageDictionary()
+        blocks = self.__currDict['blocks']
+        for block in blocks:
+            if block['type'] == 1:
+                # --- image ---
+                chapter.addPicture(
+                    bbox=block['bbox'][0:4],
+                    page=self.__currPage.number+1
+                )
+
+        self.__getPageTextContent()
+        chapter.addText(self.__currPageTextContent)
         
 
 
@@ -1171,7 +1181,7 @@ class Checker:
         self.__regularFont = None
         self.__isPreviousTitle = False
         self.__currChapterInfo = None
-        self.chaptersInfo = []
+        self.chaptersInfo = (ChapterInfo(sequence=0, title="Before First Chapter"), [], ChapterInfo(sequence=-1, title="After Last Chapter"))
 
 
 

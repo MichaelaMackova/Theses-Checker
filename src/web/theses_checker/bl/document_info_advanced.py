@@ -132,20 +132,24 @@ class ChapterInfoAdvanced:
             'totalStdPages': self.totalStdPages
         }
 
-class DocumentInfoAdvanced:
+class ChaptersInfoAdvanced:
     """
     Advanced information about a document.
 
     Attributes:
         chapters (list[ChapterInfoAdvanced]): List of objects with advanced information about chapters in the document.
-        totalStdPages (float): Total standard pages of the document. Rounded to 2 decimal places.
+        totalStdPagesFromText (float): Total standard pages of the text in the document from chapters. Rounded to 2 decimal places.
+        totalStdPagesFromPictures (float): Total standard pages of the pictures in the document from chapters. Rounded to 2 decimal places.
+        totalStdPages (float): Total standard pages from all chapters. Rounded to 2 decimal places.
+        stdPagesPicturePercentage (float): Percentage of standard pages from pictures. Rounded to 2 decimal places.
+        stdPagesTextPercentage (float): Percentage of standard pages from text. Rounded to 2 decimal places.
     """
     chapters: list[ChapterInfoAdvanced] ## List of objects with advanced information about chapters in the document.
     totalStdPages: float ## Total standard pages of the document. Rounded to 2 decimal places.
 
     def __init__(self, chaptersInfo : list[ChapterInfo]):
         """
-        Initialize the DocumentInfoAdvanced object from basic information about the chapters in the document.
+        Initialize the ChaptersInfoAdvanced object from basic information about the chapters in the document.
 
         Args:
             chaptersInfo (list[ChapterInfo]): Basic information about the chapters in the document.
@@ -159,13 +163,66 @@ class DocumentInfoAdvanced:
 
     def toDict(self) -> dict:
         """
-        Convert the DocumentInfoAdvanced object to a dictionary.
+        Convert the ChaptersInfoAdvanced object to a dictionary.
 
         Returns:
             dict: Dictionary with the document information.
         """
         return {
             'chapters': [chapter.toDict() for chapter in self.chapters],
+            'totalStdPagesFromText': self.totalStdPagesFromText,
+            'totalStdPagesFromPictures': self.totalStdPagesFromPictures,
+            'totalStdPages': self.totalStdPages,
+            'stdPagesPicturePercentage': self.stdPagesPicturePercentage,
+            'stdPagesTextPercentage': self.stdPagesTextPercentage,
+        }
+    
+class DocumentInfoAdvanced:
+    """
+    Advanced information about a document.
+
+    Attributes:
+        chapters (ChaptersInfoAdvanced): List of objects with advanced information about chapters in the document.
+        beforeFirstChapterInfo (ChapterInfoAdvanced): Advanced information about the content before the first chapter.
+        afterLastChapterInfo (ChapterInfoAdvanced): Advanced information about the content after the last chapter.
+        totalStdPagesFromText (float): Total standard pages of the document from text. Rounded to 2 decimal places.
+        totalStdPagesFromPictures (float): Total standard pages of the document from pictures. Rounded to 2 decimal places.
+        totalStdPages (float): Total standard pages of the document. Rounded to 2 decimal places.
+        stdPagesPicturePercentage (float): Percentage of standard pages from pictures. Rounded to 2 decimal places.
+        stdPagesTextPercentage (float): Percentage of standard pages from text. Rounded to 2 decimal places.
+    """
+    chapters: list[ChapterInfoAdvanced] ## List of objects with advanced information about chapters in the document.
+    totalStdPages: float ## Total standard pages of the document. Rounded to 2 decimal places.
+
+    def __init__(self, beforeFirstChapterInfo : ChapterInfo, chaptersInfo : list[ChapterInfo], afterLastChapterInfo : ChapterInfo):
+        """
+        Initialize the DocumentInfoAdvanced object from basic information about the chapters in the document.
+
+        Args:
+            beforeFirstChapterInfo (ChapterInfo): Basic information about the content before the first chapter.
+            chaptersInfo (list[ChapterInfo]): Basic information about the chapters in the document.
+            afterLastChapterInfo (ChapterInfo): Basic information about the content after the last chapter.
+        """
+        self.chapters : ChaptersInfoAdvanced = ChaptersInfoAdvanced(chaptersInfo)
+        self.beforeFirstChapterInfo : ChapterInfoAdvanced = ChapterInfoAdvanced(beforeFirstChapterInfo)
+        self.afterLastChapterInfo : ChapterInfoAdvanced = ChapterInfoAdvanced(afterLastChapterInfo)
+        self.totalStdPagesFromText : float = round(self.chapters.totalStdPagesFromText + self.beforeFirstChapterInfo.textInfo.totalCharCountStdPages + self.afterLastChapterInfo.textInfo.totalCharCountStdPages, 2)
+        self.totalStdPagesFromPictures : float = round(self.chapters.totalStdPagesFromPictures + self.beforeFirstChapterInfo.picturesStdPages + self.afterLastChapterInfo.picturesStdPages, 2)
+        self.totalStdPages : float = round(self.chapters.totalStdPages + self.beforeFirstChapterInfo.totalStdPages + self.afterLastChapterInfo.totalStdPages, 2)
+        self.stdPagesPicturePercentage : float = round(((self.totalStdPagesFromPictures / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
+        self.stdPagesTextPercentage : float = round(((self.totalStdPagesFromText / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
+
+    def toDict(self) -> dict:
+        """
+        Convert the DocumentInfoAdvanced object to a dictionary.
+
+        Returns:
+            dict: Dictionary with the document information.
+        """
+        return {
+            'chapters': self.chapters.toDict(),
+            'beforeFirstChapterInfo': self.beforeFirstChapterInfo.toDict(),
+            'afterLastChapterInfo': self.afterLastChapterInfo.toDict(),
             'totalStdPagesFromText': self.totalStdPagesFromText,
             'totalStdPagesFromPictures': self.totalStdPagesFromPictures,
             'totalStdPages': self.totalStdPages,
