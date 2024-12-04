@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
-# Last Updated  : 03.12.2024
+# Last Updated  : 05.12.2024
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -43,6 +43,9 @@ def saveDictAsJSON(dict : dict, path : str):
             path (str): path to the JSON file
     """
     import json
+    import os
+
+    os.makedirs(os.path.dirname(path), exist_ok=True) # create folder if it does not exist
 
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(dict, f, indent=4, ensure_ascii=False)
