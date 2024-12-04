@@ -6,68 +6,33 @@
             <h1>Chapters information<i class="fa-solid fa-chevron-up"></i></h1>
         </div>
         <div class="section-content">
-            {% if info_available %}
-                <div class="chapters-container">
-                    {% for chapter in info.chapters %}
-                        <div class="chapter-box secondary-container-color">
-                            <div class="chapter-title">
-                                <h2>
-                                    {{chapter.sequence}}. {{chapter.title}}
-                                    <small>{{chapter.pages.first}} - {{chapter.pages.last}} ({{chapter.pages.count}} page{% if chapter.pages.count != 1 %}s{% endif %})</small>
-                                </h2>
-                            </div>
-                            <div class="chapter-info">
-                                <div class="chapter-text-info">
-                                    <h3>Text</h3>
-                                    <p>Characters:&ensp;{{chapter.textInfo.totalCharCount}}</p>
-                                    <p>Characters without whitespaces:&ensp;{{chapter.textInfo.nonWhiteCharCount}}</p>
-                                    <p>Words:&ensp;{{chapter.textInfo.totalWordCount}}</p>
-                                    <p>Standard pages from text:&ensp;<b>{{chapter.textInfo.totalCharCountStdPages}}</b></p>
-                                </div>
-                                <div class="chapter-image-info">
-                                    <h3>Images</h3>
-                                    <p>Number of images:&ensp;{{chapter.pictures|length}}</p>
-                                    <p>Standard pages from images:&ensp;<b>{{chapter.picturesStdPages}}</b></p>
-                                    {% if chapter.pictures|length > 0 %}
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Page</th>
-                                                    <th>Area [cm<sup>2</sup>]</th>
-                                                    <th>Standard Pages</th>
-                                                    <th>Approximate Character Count</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for picture in chapter.pictures %}
-                                                    <tr>
-                                                        <td>{{picture.page}}</td>
-                                                        <td>{{picture.area}}</td>
-                                                        <td>{{picture.stdPages}}</td>
-                                                        <td>{{picture.charCount}}</td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="chapter-total">
-                                <p>Total number of standard pages in chapter:&ensp;<b>{{chapter.totalStdPages}}</b></p>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="chapters-total">
-                    <div class="percentage-bar-container">
-                        <div class="percentage-bar-description">Images {{info.stdPagesPicturePercentage}}%&ensp;({{info.totalStdPagesFromPictures}})</div>
-                        <div class="percentage-bar">
-                            <div style="width: {{info.stdPagesPicturePercentage}}%"></div>
-                        </div>
-                        <div class="percentage-bar-description">Text {{info.stdPagesTextPercentage}}%&ensp;({{info.totalStdPagesFromText}})</div>
+            {% if info_available and info.totalStdPages != 0.0 %}
+                {% if info.chapters.totalStdPages != 0.0 %}
+                    <div class="chapters-container">
+                        {% for chapter in info.chapters.chapters %}
+                            {% include "theses_checker/widgets/chapter.html" with chapter=chapter %}
+                        {% endfor %}
                     </div>
-                    <p>Total number of standard pages from chapters:&ensp;<b>{{info.totalStdPages}}</b></p>
-                </div>
+                    {% include "theses_checker/widgets/chapters_total.html" with chapters_info=info.chapters %}
+                {% else %}
+                    <div class="page-padding">
+                        <div class="toast-container-with-heading warning">
+                            <div class="toast-heading">
+                                Warning
+                            </div>
+                            <div class="toast-content">
+                                Information about chapters is not available. Info displayed is about the whole document.
+                            </div>
+                        </div>
+                    </div>
+                    {% if info.beforeFirstChapterInfo.totalStdPages != 0.0  %}
+                        {% include "theses_checker/widgets/chapter.html" with chapter=info.beforeFirstChapterInfo %}
+                    {% endif %}
+                    {% if info.afterLastChapterInfo.totalStdPages != 0.0  %}
+                        {% include "theses_checker/widgets/chapter.html" with chapter=info.afterLastChapterInfo %}
+                    {% endif %}
+                    {% include "theses_checker/widgets/chapters_total.html" with chapters_info=info %}
+                {% endif %}
             {% else %}
                 <div class="page-padding">
                     <div class="toast-container-with-heading error">

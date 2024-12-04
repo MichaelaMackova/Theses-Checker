@@ -26,6 +26,17 @@ def checkPDF(request):
     """
     Annotates document given through form and redirects to 'show_annotated'.
     """
+
+    storage_needed_bytes =  request.FILES['file'].size * 2 + 1572864 # to save original file (fileSize), annotated file (fileSize + 1MB) and json file (0.5MB)
+    space_available = auxiliary_functions.checkStorageAvailableSpace(storage_needed_bytes)
+    if not space_available:
+        auxiliary_functions.deleteFilesOlderThanPeriod() # delete files to free up space
+        space_available = auxiliary_functions.checkStorageAvailableSpace(storage_needed_bytes)
+        if not space_available:
+            exception = "Not enough storage space available. Please try again later."
+            return render(request, '507.html', {'exception': exception}, status=507)
+
+
     original_pdf_path = default_storage.save(os.path.join(settings.BASE_DIR, 'files', request.FILES['file'].name), request.FILES['file'])
     pdf_name = os.path.basename(original_pdf_path)[:-4]
     pdf_dir = os.path.join(settings.BASE_DIR, 'static')
@@ -46,7 +57,7 @@ def checkPDF(request):
 
     json_dir = os.path.join(settings.BASE_DIR, 'files', 'json')
     json_name = pdf_name[:-4]
-    chaptersInfo = {json_name: DocumentInfoAdvanced(checker.chaptersInfo).toDict()}
+    chaptersInfo = {json_name: DocumentInfoAdvanced(checker.chaptersInfo[0], checker.chaptersInfo[1], checker.chaptersInfo[2]).toDict()}
     auxiliary_functions.saveDictAsJSON(chaptersInfo, os.path.join(json_dir, json_name + '.json'))
 
     del checker

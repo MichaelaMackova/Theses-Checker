@@ -98,10 +98,10 @@ class ChapterInfo:
 
         Args:
             sequence (int): Sequence number of the chapter. Starting from 1.
-            title (str): Title of the chapter.
-            pages (Pages): Pages of the chapter.
-            textInfo (TextInfo): Information about the text in the chapter.
-            pictures (list): List of objects with information about pictures in the chapter.
+            title (str|None, optional): Title of the chapter.
+            pages (Pages|None, optional): Pages of the chapter.
+            textInfo (TextInfo|None, optional): Information about the text in the chapter.
+            pictures (list[PictureInfo]|None, optional): List of objects with information about pictures in the chapter.
         """
         self.sequence : int = sequence 
         self.title : str = title

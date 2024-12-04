@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Theses Checker - 507 Insufficient Storage{% endblock %}
+{% block body %}
+
+    <div class="page-padding">
+        <h1>507 Insufficient Storage</h1>
+        <p><b>More information:</b> {% firstof exception "None" %}</p>
+    </div>
+
+{% endblock body %}

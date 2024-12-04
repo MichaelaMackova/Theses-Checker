@@ -74,14 +74,26 @@ After installing the dependencies, you’ll need to make a few adjustments befor
 ### Web tool
 
 + For the web application to work properly, the `theses_checker.py`, `chapter_info.py`, `chapter_info_advanced.py` and `standard_pages.py` files must be located in the `src\web\theses_checker\bl\` folder (their original location).
-+ The next step is creating a `.env` file in `src\web\` folder. This file will contain the secret key that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
-+ Next, the `DEBUG` variable in the `settings.py` file (located in `src\web\web\` folder), must be set. This variable can be used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
++ The next step is creating a `.env` file in `src\web\` folder. This file contains:
+    + **[required]** The **secret key** that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
+    + **[required]** The **debug configuration** that should be set to `True` in production. The file must contain a line starting with `DEBUG=` followed by `True` or `False`. This variable is used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
+    + **[required]** The **operating system name** on which this tool is running. The file must contain a line starting with `OPERATING_SYSTEM=` followed by either `Windows` or `Linux`. Other types are not supported.
+    + The **maximum storage space available** (in bytes) for the whole repository. The file must contain a line starting with `MAX_STORAGE_SPACE=` followed by a number. If it is not stated in `.env` file the maximum storage space is determined by the system. (WARNING: only for Linux, for Windows ignored)
 + The tool creates and stores new PDF and JSON files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
 
-**`.env` file example:**
+**`.env` file examples:**
 ```
 SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
+DEBUG=False
+OPERATING_SYSTEM=Windows
 ```
+```
+SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
+DEBUG=True
+OPERATING_SYSTEM=Linux
+MAX_STORAGE_SPACE=536870912000
+```
+*Note: It is important not to assign values in the quotation in `.env` file*
 
 ### Command-line executable
 
@@ -175,12 +187,18 @@ In case server has small storage space there were developed two strategies on ho
 
 ***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job).***
 
-This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh`. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder and all JSON files located in `.\files\json` folder that are older than specified period (originally set to 24h). To change this period, simply change the value in `Period` variable.
+This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh` for Linux systems or `periodicDeleteFiles.ps1` for Windows systems. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder and all JSON files located in `.\files\json` folder that are older than specified period (originally set to 12h). To change this period, simply change the value (in seconds) in `Period` variable.
 
-This script can by run by this command:
+This script can by run on *Linux* by this command:
 ```
-> bash periodicDeleteFiles.sh
+$ bash periodicDeleteFiles.sh
 ```
+
+This script can by run on *Windows* by this command:
+```
+> powershell '& periodicDeleteFiles.sh'
+```
+
 
 
 ### 4.2. Delete when loaded on the user's side
@@ -209,4 +227,4 @@ There are a few steps to set up if you want to use this option:
 + overflow check doesn't work for two-sided papers (padding on odd pages is different than padding on even pages)
 + some files (when user leaves mid request?) stay in `static` folder
 + when error is thrown during file processing, files stay in `files` folder
-+ in some cases chapter titles are not recognized (possible fix - by getting toc from document)
++ in some cases chapter titles are not recognized
