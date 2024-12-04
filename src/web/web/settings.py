@@ -36,7 +36,7 @@ OPERATING_SYSTEM = config('OPERATING_SYSTEM', cast=Choices(['Linux', 'Windows'])
 # WARNING: update this when you have the production host
 # MAX_STORAGE_SPACE (int|None): maximum storage space in bytes, if None, maximum storage space is determined by the system (WARNING: only for Linux, for Windows ignored)
 # TODO: set in file .env: Allowed values: None or integer number
-MAX_STORAGE_SPACE : (int|None) = config('MAX_STORAGE_SPACE', default=None, cast=int)
+MAX_STORAGE_SPACE : (int|None) = None if config('MAX_STORAGE_SPACE', default=None) == None else config('MAX_STORAGE_SPACE', cast=int)
 
 ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
 

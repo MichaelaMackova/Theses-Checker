@@ -88,10 +88,10 @@ DEBUG=False
 OPERATING_SYSTEM=Windows
 ```
 ```
-SECRET_KEY = django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
-DEBUG = True
-OPERATING_SYSTEM = Linux
-MAX_STORAGE_SPACE = 536870912000 # 500 GB
+SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
+DEBUG=True
+OPERATING_SYSTEM=Linux
+MAX_STORAGE_SPACE=536870912000
 ```
 *Note: It is important not to assign values in the quotation in `.env` file*
 
