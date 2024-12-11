@@ -3,7 +3,7 @@
 # Created By    : Michaela Macková
 # Login         : xmacko13
 # Created Date  : 03.12.2024
-# Last Updated  : 03.12.2024
+# Last Updated  : 11.12.2024
 # License       : AGPL-3.0 license
 #
 # Description: 
@@ -26,6 +26,6 @@ $today = Get-Date
 $time_to_delete = $today.AddSeconds(-$Period)
 
 $files = Get-ChildItem -Path ./static/*.pdf, ./files/*.pdf, ./files/json/*.json -File | Where-Object { $_.LastWriteTime -lt $time_to_delete }
-if ($files -ne $null) {
+if ($null -ne $files) {
     Remove-Item -Path $files 
 }
