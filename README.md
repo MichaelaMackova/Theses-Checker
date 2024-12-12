@@ -7,6 +7,8 @@ The developed applications implement a tool that checks for typographical errors
 
 ***This program is a part of a bachelor's thesis and later extended as Project Practice.***
 
+
+
 --- 
 
 ### Web tool
@@ -18,6 +20,26 @@ The input of this application is a PDF file containing the technical report that
 ### Command-line executable
 
 The input to this application is one or more PDF files, each containing a technical report that will be checked. Using the available arguments, you can set which checks are performed and whether embedded PDF files (located inside the PDF documents) are treated as images during the checks. The output consists of the provided PDF files, each accompanied by a graphical indication of any identified mistakes, with errors marked using PDF annotations, and text files containing information about text and pictures for each input PDF file.
+
+
+
+## Contents
+* [Bachelor's thesis](#bachelors-thesis)
+- [Development](#development)
+    * [1. Installation of dependencies](#1-installation-of-dependencies)
+        + [Web tool](#web-tool-1)
+        + [Command-line executable](#command-line-executable-1)
+    * [2. Before first use](#2-before-first-use)
+        + [Web tool](#web-tool-2)
+        + [Command-line executable](#command-line-executable-2)
+    * [3. Usage](#3-usage)
+        + [Web tool](#web-tool-3)
+        + [Command-line executable](#command-line-executable-3)
+    * [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
+        + [4.1. Bash/Powershell script for periodic deletion](#41-bash-powershell-script-for-periodic-deletion)
+            - [4.1.1. Python script for periodic tasks](#411-python-script-for-periodic-tasks)
+        + [4.2. Delete when loaded on the user's side](#42-delete-when-loaded-on-the-user-s-side)
+- [Known Issues](#known-issues)
 
 
 
