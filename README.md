@@ -182,10 +182,10 @@ The application can be used as follows:
 In case server has small storage space there were developed two strategies on how to delete annotated PDF files:
 
 
-### 4.1. Bash script for periodic deletion
+### 4.1. Bash/Powershell script for periodic deletion
 
 
-***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job).***
+***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job) or use `periodicTasks.py` script.***
 
 This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh` for Linux systems or `periodicDeleteFiles.ps1` for Windows systems. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder and all JSON files located in `.\files\json` folder that are older than specified period (originally set to 12h). To change this period, simply change the value (in seconds) in `Period` variable.
 
@@ -199,6 +199,20 @@ This script can by run on *Windows* by this command:
 > powershell '& periodicDeleteFiles.sh'
 ```
 
+
+#### 4.1.1. Python script for periodic tasks
+
+For easier use of scripts for periodic deletion a scheduling script has been created - named `periodicTasks.py`. This script is located in `src\web\` folder and for its usage a new dependency is neeed. These dependencies are listed in `requirements_scheduler.txt`. To install these dependencies you can use command:
+```
+> pip install -r requirements_scheduler.txt
+```
+
+This script runs indefinitelly and periodically executes file-deletion task. This period is initally set to: every day at 8:00 and 20:00. You can change the execute times by changing the `DELETE_FILES_TIMES` variable.
+
+Script can be run by this command:
+```
+> python periodicTasks.py
+```
 
 
 ### 4.2. Delete when loaded on the user's side
