@@ -190,6 +190,8 @@ class DocumentInfoAdvanced:
         totalStdPages (float): Total standard pages of the document. Rounded to 2 decimal places.
         stdPagesPicturePercentage (float): Percentage of standard pages from pictures. Rounded to 2 decimal places.
         stdPagesTextPercentage (float): Percentage of standard pages from text. Rounded to 2 decimal places.
+        mostFrequentWordsFromChapters (list[tuple[str, int]]): List of at most 50 tuples with the most frequent words from the chapters and their frequency.
+        mostFrequentWordsTotal (list[tuple[str, int]]): List of at most 50 tuples with the most frequent words from the document and their frequency.
     """
     chapters: list[ChapterInfoAdvanced] ## List of objects with advanced information about chapters in the document.
     totalStdPages: float ## Total standard pages of the document. Rounded to 2 decimal places.
@@ -211,6 +213,30 @@ class DocumentInfoAdvanced:
         self.totalStdPages : float = round(self.chapters.totalStdPages + self.beforeFirstChapterInfo.totalStdPages + self.afterLastChapterInfo.totalStdPages, 2)
         self.stdPagesPicturePercentage : float = round(((self.totalStdPagesFromPictures / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
         self.stdPagesTextPercentage : float = round(((self.totalStdPagesFromText / self.totalStdPages) if self.totalStdPages != 0.0 else 0.0 ) * 100, 2)
+        self.mostFrequentWordsFromChapters = self.__getMostFrequentWords(chaptersInfo)
+        self.mostFrequentWordsTotal = self.__getMostFrequentWords([beforeFirstChapterInfo, afterLastChapterInfo] + chaptersInfo)
+
+    def __getMostFrequentWords(self, chaptersInfo : list[ChapterInfo]) -> list[tuple[str, int]]:
+        """
+        Get the most frequent words from the chapters.
+
+        Args:
+            chaptersInfo (list[ChapterInfo]): List of basic information about the chapters.
+
+        Returns:
+            list[tuple[str, int]]: List of at most 50 tuples with the most frequent words and their frequency.
+        """
+
+        # Merge the word frequency from all chapters
+        wordFrequency = {}
+        for chapter in chaptersInfo:
+            for word, frequency in chapter.textInfo.wordFrequency.items():
+                if word in wordFrequency:
+                    wordFrequency[word] += frequency
+                else:
+                    wordFrequency[word] = frequency
+        
+        return sorted(wordFrequency.items(), key=lambda x: x[1], reverse=True)[:50]
 
     def toDict(self) -> dict:
         """
@@ -228,4 +254,6 @@ class DocumentInfoAdvanced:
             'totalStdPages': self.totalStdPages,
             'stdPagesPicturePercentage': self.stdPagesPicturePercentage,
             'stdPagesTextPercentage': self.stdPagesTextPercentage,
+            'mostFrequentWordsFromChapters': self.mostFrequentWordsFromChapters,
+            'mostFrequentWordsTotal': self.mostFrequentWordsTotal
         }

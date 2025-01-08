@@ -188,3 +188,43 @@
         color: #5237a6;
     }
 }
+
+.word-frequency-table{
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+
+    td {
+        vertical-align: bottom;
+        padding: 7px;
+
+        &:nth-child(1){
+            text-align: right;
+        }
+
+        &:nth-child(2){
+            text-align: left;
+            width: 100%;
+        }
+    }
+
+    .word-frequency{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .word-frequency-bar{
+            height: 18px;
+            background-color: #8a83d8;
+            margin-right: 10px;
+        }
+
+        .word-frequency-value{
+            display: flex;
+            width: 20px;
+            font-size: smaller;
+            align-items: center;
+        }
+    }
+}
+

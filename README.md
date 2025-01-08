@@ -264,3 +264,4 @@ There are a few steps to set up if you want to use this option:
 + some files (when user leaves mid request?) stay in `static` folder
 + when error is thrown during file processing, files stay in `files` folder
 + in some cases chapter titles are not recognized
++ chapter detection and adding content information for chapter depends on condition, that chapter title is always on a new page 
