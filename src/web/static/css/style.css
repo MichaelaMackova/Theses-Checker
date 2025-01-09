@@ -129,6 +129,10 @@
     }
 }
 
+.section:not(:last-child){
+    margin-bottom: 20px;
+}
+
 .section-title{
     border-bottom: #5b5b7e solid 1px;
     border-top: #5b5b7e solid 1px;
@@ -148,13 +152,13 @@
     box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;
 }
 
-#chapters-section{
-    margin-bottom: 20px;
-    
-    .chapters-total{
-        text-align: center;
-        font-size: 135%;
-        padding: 10px;
+#chapters-section .chapters-total{
+    text-align: center;
+    font-size: 135%;
+    padding: 10px;
+
+    p {
+        margin-bottom: 0;
     }
 }
 

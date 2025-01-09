@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block body %}
 
-    <div id="chapters-section" class="page-padding">
-        <div class="section-title">
+    <div id="chapters-section" class="section page-padding">
+        <div class="section-title" onclick="toggleSection('chapters-section')">
             <h1>Chapters information<i class="fa-solid fa-chevron-up"></i></h1>
         </div>
         <div class="section-content">
@@ -45,57 +45,57 @@
     </div>
 
 
-    <div id="frequency-section" class="page-padding">
-                <div class="section-title">
-                    <h1>Word frequency<i class="fa-solid fa-chevron-up"></i></h1>
-                </div>
-                <div class="section-content">
-                    {% if info_available %}
-                        {% if info.mostFrequentWordsFromChapters|length == 0 %}
-                            <div class="toast-container-with-heading info">
-                                <div class="toast-content">
-                                    Information about words frequency displayed is from chapters (excluding text before first chapter and bibliography and after).
-                                </div>
+    <div id="frequency-section" class="section page-padding">
+        <div class="section-title" onclick="toggleSection('frequency-section')">
+            <h1>Word frequency<i class="fa-solid fa-chevron-up"></i></h1>
+        </div>
+        <div class="section-content">
+            {% if info_available %}
+                {% if info.mostFrequentWordsFromChapters|length > 0 %}
+                    <div class="toast-container-with-heading info">
+                        <div class="toast-content">
+                            Information about words frequency displayed is from chapters (excluding text before first chapter and bibliography and after).
+                        </div>
+                    </div>
+                    {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsFromChapters %}
+                {% else %}
+                    {% if info.mostFrequentWordsTotal|length > 0 %}
+                        <div class="toast-container-with-heading warning">
+                            <div class="toast-heading">
+                                Warning
                             </div>
-                            {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsFromChapters %}
-                        {% else %}
-                            {% if info.mostFrequentWordsTotal|length > 0 %}
-                                <div class="toast-container-with-heading warning">
-                                    <div class="toast-heading">
-                                        Warning
-                                    </div>
-                                    <div class="toast-content">
-                                        Information about words frequency in chapters is not available. Info displayed is about the whole document.
-                                    </div>
-                                </div>
-                                {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsTotal %}
-                            {% else %}
-                                <div class="toast-container-with-heading error">
-                                    <div class="toast-heading">
-                                        Error
-                                    </div>
-                                    <div class="toast-content">
-                                        No words were found in the document.
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endif %}
+                            <div class="toast-content">
+                                Information about words frequency in chapters is not available. Info displayed is about the whole document.
+                            </div>
+                        </div>
+                        {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsTotal %}
                     {% else %}
                         <div class="toast-container-with-heading error">
                             <div class="toast-heading">
                                 Error
                             </div>
                             <div class="toast-content">
-                                Information about words frequency is not available.
+                                No words were found in the document.
                             </div>
                         </div>
                     {% endif %}
+                {% endif %}
+            {% else %}
+                <div class="toast-container-with-heading error">
+                    <div class="toast-heading">
+                        Error
+                    </div>
+                    <div class="toast-content">
+                        Information about words frequency is not available.
+                    </div>
                 </div>
-            </div>
+            {% endif %}
+        </div>
+    </div>
 
     
-    <div id="typography-section" class="page-padding">
-        <div class="section-title">
+    <div id="typography-section" class="section page-padding">
+        <div class="section-title" onclick="toggleSection('typography-section')">
             <h1>Typography<i class="fa-solid fa-chevron-up"></i></h1>
         </div>
         <div class="section-content">
