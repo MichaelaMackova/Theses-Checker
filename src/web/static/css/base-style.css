@@ -77,7 +77,7 @@ body {
 
     .toast-content{
         grid-area: toast_content;
-        padding: 15px 30px 20px 30px;
+        padding: 20px 30px;
     }
 }
 

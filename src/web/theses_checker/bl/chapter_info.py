@@ -4,7 +4,7 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 20.11.2024
-# Last Updated  : 25.11.2024
+# Last Updated  : 08.01.2025
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
@@ -56,7 +56,7 @@ class Pages:
         """
         return self.last - self.first + 1
 
-class TextInfo(NamedTuple):
+class TextInfo:
     """
     Information about the text in a chapter.
 
@@ -64,10 +64,51 @@ class TextInfo(NamedTuple):
         totalCharCount (int): Total character count.
         nonWhiteCharCount (int): Total character count without white characters.
         totalWordCount (int): Total word count.
+        wordFrequency (dict): Frequency of words in the text.
     """
-    totalCharCount: int ## Total character count.
-    nonWhiteCharCount: int ## Total character count without white characters.
-    totalWordCount: int ## Total word count.
+
+    def __init__(self, totalCharCount: int = 0, nonWhiteCharCount: int = 0, totalWordCount: int = 0, wordFrequency: dict|None = None):
+        """
+        Constructor.
+
+        Args:
+            totalCharCount (int): Total character count.
+            nonWhiteCharCount (int): Total character count without white characters.
+            totalWordCount (int): Total word count.
+            wordFrequency (dict, optional): Frequency of words in the text.
+        """
+        self.totalCharCount = totalCharCount
+        self.nonWhiteCharCount = nonWhiteCharCount
+        self.totalWordCount = totalWordCount
+        self.wordFrequency = wordFrequency if wordFrequency is not None else {}
+
+    def __updateWordFrequency(self, words: list[str]):
+        """
+        Updates the frequency of words in the text.
+
+        Args:
+            words (list[str]): List of words to update the frequency.
+
+        Returns:
+            dict: Frequency of words in the text.
+        """
+        for word in words:
+            if len(word) > 2:
+                word = word.lower()
+                self.wordFrequency[word] = self.wordFrequency.get(word, 0) + 1
+    
+    def update(self, text: str):
+        """
+        Updates the information about the text with the new text.
+
+        Args:
+            text (str): Text to analyze and update the information.
+        """
+        words = text.split()
+        self.totalCharCount = self.totalCharCount + len(text)
+        self.nonWhiteCharCount = self.nonWhiteCharCount + len("".join(words))
+        self.totalWordCount = self.totalWordCount + len(words)
+        self.__updateWordFrequency(words)
 
 class PictureInfo(NamedTuple):
     """
@@ -106,7 +147,7 @@ class ChapterInfo:
         self.sequence : int = sequence 
         self.title : str = title
         self.pages : Pages = pages if pages is not None else Pages(0, 0)
-        self.textInfo : TextInfo = textInfo if textInfo is not None else TextInfo(0, 0, 0)
+        self.textInfo : TextInfo = textInfo if textInfo is not None else TextInfo()
         self.pictures : list[PictureInfo] = pictures if pictures is not None else []
     
     def addPicture(self, bbox: tuple, page: int):
@@ -126,12 +167,7 @@ class ChapterInfo:
         Args:
             text (str): Text to analyze and add its information to the text information of the chapter.
         """
-        text_split = text.split()
-        self.textInfo = TextInfo(
-            totalCharCount= self.textInfo.totalCharCount + len(text),
-            nonWhiteCharCount= self.textInfo.nonWhiteCharCount + len("".join(text_split)),
-            totalWordCount= self.textInfo.totalWordCount + len(text_split)
-        )
+        self.textInfo.update(text)
 
     def addPage(self, page: int):
         """

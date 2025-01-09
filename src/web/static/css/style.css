@@ -129,6 +129,10 @@
     }
 }
 
+.section:not(:last-child){
+    margin-bottom: 20px;
+}
+
 .section-title{
     border-bottom: #5b5b7e solid 1px;
     border-top: #5b5b7e solid 1px;
@@ -148,13 +152,13 @@
     box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;
 }
 
-#chapters-section{
-    margin-bottom: 20px;
-    
-    .chapters-total{
-        text-align: center;
-        font-size: 135%;
-        padding: 10px;
+#chapters-section .chapters-total{
+    text-align: center;
+    font-size: 135%;
+    padding: 10px;
+
+    p {
+        margin-bottom: 0;
     }
 }
 
@@ -186,5 +190,52 @@
 
     &:nth-child(1){
         color: #5237a6;
+    }
+}
+
+#frequency-section .section-content p{
+    font-size: 120%;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+.word-frequency-table{
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+
+    th, td {
+        vertical-align: bottom;
+        padding: 7px;
+    }
+
+    td {
+        &:nth-child(1){
+            text-align: right;
+        }
+
+        &:nth-child(2){
+            text-align: left;
+            width: 100%;
+        }
+    }
+
+    .word-frequency{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .word-frequency-bar{
+            height: 18px;
+            background-color: #8a83d8;
+            margin-right: 10px;
+        }
+
+        .word-frequency-value{
+            display: flex;
+            width: 20px;
+            font-size: smaller;
+            align-items: center;
+        }
     }
 }

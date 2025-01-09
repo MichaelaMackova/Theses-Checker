@@ -7,6 +7,8 @@ The developed applications implement a tool that checks for typographical errors
 
 ***This program is a part of a bachelor's thesis and later extended as Project Practice.***
 
+
+
 --- 
 
 ### Web tool
@@ -18,6 +20,26 @@ The input of this application is a PDF file containing the technical report that
 ### Command-line executable
 
 The input to this application is one or more PDF files, each containing a technical report that will be checked. Using the available arguments, you can set which checks are performed and whether embedded PDF files (located inside the PDF documents) are treated as images during the checks. The output consists of the provided PDF files, each accompanied by a graphical indication of any identified mistakes, with errors marked using PDF annotations, and text files containing information about text and pictures for each input PDF file.
+
+
+
+## Contents
+* [Bachelor's thesis](#bachelors-thesis)
+- [Development](#development)
+    * [1. Installation of dependencies](#1-installation-of-dependencies)
+        + [Web tool](#web-tool-1)
+        + [Command-line executable](#command-line-executable-1)
+    * [2. Before first use](#2-before-first-use)
+        + [Web tool](#web-tool-2)
+        + [Command-line executable](#command-line-executable-2)
+    * [3. Usage](#3-usage)
+        + [Web tool](#web-tool-3)
+        + [Command-line executable](#command-line-executable-3)
+    * [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
+        + [4.1. Bash/Powershell script for periodic deletion](#41-bash-powershell-script-for-periodic-deletion)
+            - [4.1.1. Python script for periodic tasks](#411-python-script-for-periodic-tasks)
+        + [4.2. Delete when loaded on the user's side](#42-delete-when-loaded-on-the-user-s-side)
+- [Known Issues](#known-issues)
 
 
 
@@ -182,10 +204,10 @@ The application can be used as follows:
 In case server has small storage space there were developed two strategies on how to delete annotated PDF files:
 
 
-### 4.1. Bash script for periodic deletion
+### 4.1. Bash/Powershell script for periodic deletion
 
 
-***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job).***
+***Note: This script does not run by itself. For it to work you need to schedule a job (for example as cron job) or use `periodicTasks.py` script.***
 
 This script is located in `src\web\` folder and is named `periodicDeleteFiles.sh` for Linux systems or `periodicDeleteFiles.ps1` for Windows systems. When this script is run, it deletes all PDF files located in in `.\files\` or `.\static\` folder and all JSON files located in `.\files\json` folder that are older than specified period (originally set to 12h). To change this period, simply change the value (in seconds) in `Period` variable.
 
@@ -199,6 +221,20 @@ This script can by run on *Windows* by this command:
 > powershell '& periodicDeleteFiles.sh'
 ```
 
+
+#### 4.1.1. Python script for periodic tasks
+
+For easier use of scripts for periodic deletion a scheduling script has been created - named `periodicTasks.py`. This script is located in `src\web\` folder and for its usage a new dependency is neeed. These dependencies are listed in `requirements_scheduler.txt`. To install these dependencies you can use command:
+```
+> pip install -r requirements_scheduler.txt
+```
+
+This script runs indefinitelly and periodically executes file-deletion task. This period is initally set to: every day at 8:00 and 20:00. You can change the execute times by changing the `DELETE_FILES_TIMES` variable.
+
+Script can be run by this command:
+```
+> python periodicTasks.py
+```
 
 
 ### 4.2. Delete when loaded on the user's side
@@ -228,3 +264,4 @@ There are a few steps to set up if you want to use this option:
 + some files (when user leaves mid request?) stay in `static` folder
 + when error is thrown during file processing, files stay in `files` folder
 + in some cases chapter titles are not recognized
++ chapter detection and adding content information for chapter depends on condition, that chapter title is always on a new page 

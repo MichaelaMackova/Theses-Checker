@@ -1,0 +1,25 @@
+<p>Total word count:&ensp;{{ words_count }}</p>
+<p><b>Most frequent words:</b></p>
+<table class="word-frequency-table">
+    <thead>
+        <tr>
+            <th class="secondary-container-color">Word</th>
+            <th class="secondary-container-color">Frequency</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% with words_frequency.0.1 as most_frequent_value %}
+            {% for word_frequency in words_frequency %}
+                <tr>
+                    <td>{{ word_frequency.0 }}</td>
+                    <td>
+                        <div class="word-frequency">
+                            <div class="word-frequency-bar" style="width: calc({{ word_frequency.1 }}/{{ most_frequent_value }}*100%)"></div>
+                            <div class="word-frequency-value">{{ word_frequency.1 }}</div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endwith %}
+    </tbody>
+</table>
