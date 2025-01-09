@@ -193,15 +193,23 @@
     }
 }
 
+#frequency-section .section-content p{
+    font-size: 120%;
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
 .word-frequency-table{
-    width: 100%;
+    width: 90%;
     max-width: 900px;
     margin: auto;
 
-    td {
+    th, td {
         vertical-align: bottom;
         padding: 7px;
+    }
 
+    td {
         &:nth-child(1){
             text-align: right;
         }
@@ -231,4 +239,3 @@
         }
     }
 }
-

@@ -1,4 +1,12 @@
+<p>Total word count:&ensp;{{ words_count }}</p>
+<p><b>Most frequent words:</b></p>
 <table class="word-frequency-table">
+    <thead>
+        <tr>
+            <th class="secondary-container-color">Word</th>
+            <th class="secondary-container-color">Frequency</th>
+        </tr>
+    </thead>
     <tbody>
         {% with words_frequency.0.1 as most_frequent_value %}
             {% for word_frequency in words_frequency %}

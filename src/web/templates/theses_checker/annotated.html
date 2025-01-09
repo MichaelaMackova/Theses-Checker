@@ -29,7 +29,7 @@
                     {% if info.afterLastChapterInfo.totalStdPages != 0.0  %}
                         {% include "theses_checker/widgets/chapter.html" with chapter=info.afterLastChapterInfo %}
                     {% endif %}
-                    {% include "theses_checker/widgets/chapters_total.html" with chapters_info=info %}
+                    {% include "theses_checker/widgets/chapters_total.html" with chapters_info=info.totalWordCount %}
                 {% endif %}
             {% else %}
                 <div class="toast-container-with-heading error">
@@ -51,13 +51,13 @@
         </div>
         <div class="section-content">
             {% if info_available %}
-                {% if info.mostFrequentWordsFromChapters|length > 0 %}
+                {% if info.chapters.mostFrequentWords|length > 0 %}
                     <div class="toast-container-with-heading info">
                         <div class="toast-content">
                             Information about words frequency displayed is from chapters (excluding text before first chapter and bibliography and after).
                         </div>
                     </div>
-                    {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsFromChapters %}
+                    {% include "theses_checker/widgets/word_frequency.html" with words_frequency=info.chapters.mostFrequentWords words_count=info.chapters.totalWordCount %}
                 {% else %}
                     {% if info.mostFrequentWordsTotal|length > 0 %}
                         <div class="toast-container-with-heading warning">
@@ -68,7 +68,7 @@
                                 Information about words frequency in chapters is not available. Info displayed is about the whole document.
                             </div>
                         </div>
-                        {% include "theses_checker/widgets/word_frequency_table.html" with words_frequency=info.mostFrequentWordsTotal %}
+                        {% include "theses_checker/widgets/word_frequency.html" with words_frequency=info.mostFrequentWordsTotal words_count=info.totalWordCount %}
                     {% else %}
                         <div class="toast-container-with-heading error">
                             <div class="toast-heading">
