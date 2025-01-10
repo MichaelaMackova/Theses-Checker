@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config, Choices
+from decouple import config, Choices, Csv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,11 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#TODO: set in file .env
+# TODO: set in file .env
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#TODO: set in file .env: production - False; development - True
+# TODO: set in file .env: production - False; development - True
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 # WARNING: update this when you have the production host
@@ -38,7 +38,8 @@ OPERATING_SYSTEM = config('OPERATING_SYSTEM', cast=Choices(['Linux', 'Windows'])
 # TODO: set in file .env: Allowed values: None or integer number
 MAX_STORAGE_SPACE : (int|None) = None if config('MAX_STORAGE_SPACE', default=None) == None else config('MAX_STORAGE_SPACE', cast=int)
 
-ALLOWED_HOSTS = ['theseschecker.eu.pythonanywhere.com', 'localhost', '127.0.0.1', '[::1]']
+# TODO: set in file .env
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost, 127.0.0.1, [::1]', cast=Csv())
 
 
 # Application definition
@@ -94,6 +95,10 @@ DATABASES = {
 }
 
 
+FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default=None)
+CSRF_COOKIE_PATH = config('CSRF_COOKIE_PATH', default='/')
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -128,14 +133,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = config('STATIC_URL', default='static/')
+
+# Define STATIC_ROOT
+relative_static_root = config('RELATIVE_STATIC_ROOT', default=None)
+STATIC_ROOT = os.path.join(BASE_DIR, relative_static_root) if relative_static_root is not None else None
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    os.path.join(BASE_DIR, 'static/'),
-    os.path.join(BASE_DIR, 'static/css/'),
-    os.path.join(BASE_DIR, 'static/js/'),
-    os.path.join(BASE_DIR, 'static/favicon/'),
+    BASE_DIR / "static" / "css",
+    BASE_DIR / "static" / "js",
+    BASE_DIR / "static" / "favicon",
 ]
 
 # Default primary key field type
