@@ -39,7 +39,10 @@ OPERATING_SYSTEM = config('OPERATING_SYSTEM', cast=Choices(['Linux', 'Windows'])
 MAX_STORAGE_SPACE : (int|None) = None if config('MAX_STORAGE_SPACE', default=None) == None else config('MAX_STORAGE_SPACE', cast=int)
 
 # TODO: set in file .env
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost, 127.0.0.1, [::1]', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.localhost, 127.0.0.1, [::1]', cast=Csv())
+
+# TODO: set in file .env
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv())
 
 
 # Application definition
@@ -95,7 +98,10 @@ DATABASES = {
 }
 
 
+# TODO: set in file .env
 FORCE_SCRIPT_NAME = config('FORCE_SCRIPT_NAME', default=None)
+
+# TODO: set in file .env
 CSRF_COOKIE_PATH = config('CSRF_COOKIE_PATH', default='/')
 
 
@@ -133,9 +139,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+# TODO: set in file .env
 STATIC_URL = config('STATIC_URL', default='static/')
 
 # Define STATIC_ROOT
+# TODO: set in file .env
 relative_static_root = config('RELATIVE_STATIC_ROOT', default=None)
 STATIC_ROOT = os.path.join(BASE_DIR, relative_static_root) if relative_static_root is not None else None
 
