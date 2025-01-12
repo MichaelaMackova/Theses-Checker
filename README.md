@@ -96,24 +96,54 @@ After installing the dependencies, you’ll need to make a few adjustments befor
 ### Web tool
 
 + For the web application to work properly, the `theses_checker.py`, `chapter_info.py`, `chapter_info_advanced.py` and `standard_pages.py` files must be located in the `src\web\theses_checker\bl\` folder (their original location).
-+ The next step is creating a `.env` file in `src\web\` folder. This file contains:
-    + **[required]** The **secret key** that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
-    + **[required]** The **debug configuration** that should be set to `True` in production. The file must contain a line starting with `DEBUG=` followed by `True` or `False`. This variable is used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
-    + **[required]** The **operating system name** on which this tool is running. The file must contain a line starting with `OPERATING_SYSTEM=` followed by either `Windows` or `Linux`. Other types are not supported.
-    + The **maximum storage space available** (in bytes) for the whole repository. The file must contain a line starting with `MAX_STORAGE_SPACE=` followed by a number. If it is not stated in `.env` file the maximum storage space is determined by the system. (WARNING: only for Linux, for Windows ignored)
-+ The tool creates and stores new PDF and JSON files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space)
++ The next step is creating a `.env` file in `src\web\` folder. This file is described later in this section.
++ The tool creates and stores new PDF and JSON files, for our developed strategies on how to delete these files see section [4. For web server with small storage space](#4-for-web-server-with-small-storage-space).
 
-**`.env` file examples:**
+
+#### Specifications for `.env` file
+
+This file should contain:
++ **[required] `SECRET_KEY`** - The **secret key** that should be set before this application is published. The file must contain a line starting with `SECRET_KEY=` followed by the newly generated secret key. The example below contains the base value of the secret key, but this value must be manually changed to maintain security. This secret key can be generated, for example, at [Djecrety](https://djecrety.ir/).
++ **[required] `DEBUG`** - The **debug configuration** that should be set to `True` in production. The file must contain a line starting with `DEBUG=` followed by `True` or `False`. This variable is used to specify whether the application will run in development mode or production mode. (Static files such as `style.css` and `script.js` may not function correctly in production mode on the local server.)
++ **[required] `OPERATING_SYSTEM`** - The **operating system name** on which this tool is running. The file must contain a line starting with `OPERATING_SYSTEM=` followed by either `Windows` or `Linux`. Other types are not supported.
++ **`MAX_STORAGE_SPACE`** - The **maximum storage space available** (in bytes) for the whole repository. The file must contain a line starting with `MAX_STORAGE_SPACE=` followed by a number. If it is not stated in `.env` file the maximum storage space is determined by the system. (WARNING: only for Linux, for Windows ignored)
++ **`ALLOWED_HOSTS`** - List of **allowed host/domain names** that this Django site can serve. This list can include fully qualified names (e.g. *`www.example.com`*) and subdomains (e.g. *`.example.com`*, that matches all subdomains of ***example.com***). The `.env` file must contain a line starting with `ALLOWED_HOSTS=` followed by a list of domains. If `ALLOWED_HOSTS` is not specified default `.localhost, 127.0.0.1, [::1]` will be applied.
+* **`CSRF_TRUSTED_ORIGINS`** - A list of **trusted origins** for unsafe requests. If cross-origin unsafe requests are needed. This list can include for example *`https://secure.example.com`*, *`http://insecure.example.com`* or *`https://*.example.com`* (to allow access from all subdomains of ***example.com***). To use this setting the `.env` file must contain a line starting with `CSRF_TRUSTED_ORIGINS=` followed by list of trusted origins.
++ **`FORCE_SCRIPT_NAME`** - This will be used as the value of the *SCRIPT_NAME* environment variable in any HTTP request. If needed the `.env` file must contain a line `FORCE_SCRIPT_NAME=` followed by script name.
++ **`CSRF_COOKIE_PATH`** - The path set on the **CSRF cookie**. To use this setting the `.env` file must contain a line starting with `CSRF_COOKIE_PATH=` followed by CSRF cookie path. Default path is `/`.
++ **`RELATIVE_STATIC_ROOT`** - Path (relative to `BASE_DIR`) to the directory where `collectstatic` will **collect static files** for deployment. For example *`path/to/collectstatic`*. To use this the `.env` file must contain a line starting with `RELATIVE_STATIC_ROOT=` followed by a path.
++ **`STATIC_URL`** - URL to use when **referring to static files** located in `RELATIVE_STATIC_ROOT`. For example *`static/`* or *`http://static.example.com/`* (value must end in a slash). To use this the `.env` file must contain a line starting with `STATIC_URL=` followed by URL.
+
+**valid `.env` file examples:**
+```
+SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
+DEBUG=True
+ALLOWED_HOSTS=127.0.0.1, .localhost, my.example.site.com, .subdomain.example.org
+CSRF_TRUSTED_ORIGINS=https://example.com, http://another.example.com
+STATIC_URL=static/
+OPERATING_SYSTEM=Windows
+```
 ```
 SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
 DEBUG=False
-OPERATING_SYSTEM=Windows
+OPERATING_SYSTEM=Linux
+FORCE_SCRIPT_NAME=/my-script-name
+ALLOWED_HOSTS=my.example.site.com, .localhost, 127.0.0.1, [::1]
+STATIC_URL=/url/example/static/
+RELATIVE_STATIC_ROOT=collectedstaticfiles/path
+CSRF_COOKIE_PATH=/cookie-path
 ```
 ```
 SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
 DEBUG=True
 OPERATING_SYSTEM=Linux
+FORCE_SCRIPT_NAME=/
 MAX_STORAGE_SPACE=536870912000
+```
+```
+SECRET_KEY=django-insecure-8%7#%6m22)=2**4c50n1h-&_!z_&3os6r+0g3_0eofna9mlkx*
+DEBUG=False
+OPERATING_SYSTEM=Windows
 ```
 *Note: It is important not to assign values in the quotation in `.env` file*
 
