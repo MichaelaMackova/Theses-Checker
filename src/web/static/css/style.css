@@ -134,6 +134,7 @@
 }
 
 .section-title{
+    cursor: pointer;
     border-bottom: #5b5b7e solid 1px;
     border-top: #5b5b7e solid 1px;
     padding-left: 1em;
