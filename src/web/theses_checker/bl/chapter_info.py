@@ -94,8 +94,27 @@ class TextInfo:
         """
         for word in words:
             if len(word) > 2:
-                word = word.lower()
                 self.wordFrequency[word] = self.wordFrequency.get(word, 0) + 1
+
+    def __extractLegibleWords(self, possible_words: list[str]):
+        """
+        Extracts legible words from a list of possible words.
+
+        Args:
+            possible_words (list[str]): List of possible words.
+
+        Returns:
+            list[str]: List of legible words.
+        """
+        import re
+
+        legibleWords = []
+        for word in possible_words:
+            legibleWord = re.sub(r'^[^\w]+|[^\w]+$', '', word.lower(), flags=re.UNICODE) # trim non-alphanumeric characters and convert to lowercase
+            if legibleWord != '':
+                legibleWords.append(legibleWord)
+        return legibleWords
+
     
     def update(self, text: str):
         """
@@ -104,9 +123,12 @@ class TextInfo:
         Args:
             text (str): Text to analyze and update the information.
         """
-        words = text.split()
+        import re
+
+        text_split = text.split()
         self.totalCharCount = self.totalCharCount + len(text)
-        self.nonWhiteCharCount = self.nonWhiteCharCount + len("".join(words))
+        self.nonWhiteCharCount = self.nonWhiteCharCount + len("".join(text_split))
+        words = self.__extractLegibleWords(text_split)
         self.totalWordCount = self.totalWordCount + len(words)
         self.__updateWordFrequency(words)
 
