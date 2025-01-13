@@ -4,11 +4,10 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 20.11.2024
-# Last Updated  : 08.01.2025
+# Last Updated  : 13.01.2025
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
-from math import pi
 from typing import NamedTuple
 
 
@@ -55,6 +54,7 @@ class Pages:
             int: Number of pages in the chapter.
         """
         return self.last - self.first + 1
+
 
 class TextInfo:
     """
@@ -115,7 +115,6 @@ class TextInfo:
                 legibleWords.append(legibleWord)
         return legibleWords
 
-    
     def update(self, text: str):
         """
         Updates the information about the text with the new text.
@@ -132,6 +131,7 @@ class TextInfo:
         self.totalWordCount = self.totalWordCount + len(words)
         self.__updateWordFrequency(words)
 
+
 class PictureInfo(NamedTuple):
     """
     Information about a picture in a chapter.
@@ -142,6 +142,7 @@ class PictureInfo(NamedTuple):
     """
     bbox: tuple ## Bounding box of the picture. Tuple of 4 integers: (x0, y0, x1, y1).
     page: int ## Number of the page where the picture is located. Page indexing starts from 1.
+
 
 class ChapterInfo:
     """

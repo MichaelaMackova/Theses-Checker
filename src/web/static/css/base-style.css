@@ -145,6 +145,12 @@ body {
     color: inherit;
 }
 
+#version{
+    vertical-align: sub;
+    font-size: 45%;
+    font-weight: 400;
+}
+
 #main{
     grid-area: main;
     padding: 20px 0px;
