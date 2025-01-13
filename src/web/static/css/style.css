@@ -140,6 +140,12 @@
     padding-left: 1em;
     padding-right: 1em;
     margin: 0;
+    transition: ease-in-out 0.25s;
+
+    &:hover{
+        background-color: #eeedff;
+        color: #31314a;
+    }
 
     h1{
         width: 100%;
