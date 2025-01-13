@@ -19,8 +19,9 @@
     <div id="page-grid">
 
         <header id="header" class="page-padding primary-color">
+            {% load theses_checker_tags %}
             <div id="title">
-                <a href="{% url 'index' %}">Theses Checker</a>
+                <a href="{% url 'index' %}">Theses Checker<span id="version">v{% version %}</span></a>
             </div>
         </header>
 

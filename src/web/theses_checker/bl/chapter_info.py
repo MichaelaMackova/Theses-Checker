@@ -4,11 +4,10 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 20.11.2024
-# Last Updated  : 08.01.2025
+# Last Updated  : 13.01.2025
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
-from math import pi
 from typing import NamedTuple
 
 
@@ -56,6 +55,7 @@ class Pages:
         """
         return self.last - self.first + 1
 
+
 class TextInfo:
     """
     Information about the text in a chapter.
@@ -94,9 +94,27 @@ class TextInfo:
         """
         for word in words:
             if len(word) > 2:
-                word = word.lower()
                 self.wordFrequency[word] = self.wordFrequency.get(word, 0) + 1
-    
+
+    def __extractLegibleWords(self, possible_words: list[str]):
+        """
+        Extracts legible words from a list of possible words.
+
+        Args:
+            possible_words (list[str]): List of possible words.
+
+        Returns:
+            list[str]: List of legible words.
+        """
+        import re
+
+        legibleWords = []
+        for word in possible_words:
+            legibleWord = re.sub(r'^[^\w]+|[^\w]+$', '', word.lower(), flags=re.UNICODE) # trim non-alphanumeric characters and convert to lowercase
+            if legibleWord != '':
+                legibleWords.append(legibleWord)
+        return legibleWords
+
     def update(self, text: str):
         """
         Updates the information about the text with the new text.
@@ -104,11 +122,15 @@ class TextInfo:
         Args:
             text (str): Text to analyze and update the information.
         """
-        words = text.split()
+        import re
+
+        text_split = text.split()
         self.totalCharCount = self.totalCharCount + len(text)
-        self.nonWhiteCharCount = self.nonWhiteCharCount + len("".join(words))
+        self.nonWhiteCharCount = self.nonWhiteCharCount + len("".join(text_split))
+        words = self.__extractLegibleWords(text_split)
         self.totalWordCount = self.totalWordCount + len(words)
         self.__updateWordFrequency(words)
+
 
 class PictureInfo(NamedTuple):
     """
@@ -120,6 +142,7 @@ class PictureInfo(NamedTuple):
     """
     bbox: tuple ## Bounding box of the picture. Tuple of 4 integers: (x0, y0, x1, y1).
     page: int ## Number of the page where the picture is located. Page indexing starts from 1.
+
 
 class ChapterInfo:
     """
