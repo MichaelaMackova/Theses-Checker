@@ -262,25 +262,28 @@ class Checker:
                             else:
                                 size = None
                                 
-                            embeddedPdfBlocks.append(
-                                {
-                                    'type'          : 1,
-                                    'bbox'          : fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1]),
-                                    'ext'           : 'pdf',
-                                    'width'         : xobject[3].width,
-                                    'height'        : xobject[3].height,
-                                    'colorspace'    : None,
-                                    'xres'          : None,
-                                    'yres'          : None,
-                                    'bpc'           : None,
-                                    'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
-                                    'size'          : size,
-                                    'image'         : self.__document.xref_stream_raw(xobject[0])
-                                }
-                            )
+                            # if pdf image has the same bbox as already found pdf image -> skip (it's the same image)
+                            bbox = fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1])
+                            if not self.__isInsideEmbeddedPdf(bbox, embeddedPdfBlocks):
+                                embeddedPdfBlocks.append(
+                                    {
+                                        'type'          : 1,
+                                        'bbox'          : bbox,
+                                        'ext'           : 'pdf',
+                                        'width'         : xobject[3].width,
+                                        'height'        : xobject[3].height,
+                                        'colorspace'    : None,
+                                        'xres'          : None,
+                                        'yres'          : None,
+                                        'bpc'           : None,
+                                        'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
+                                        'size'          : size,
+                                        'image'         : self.__document.xref_stream_raw(xobject[0])
+                                    }
+                                )
 
                             CTM = CTMStack.pop()
-                            break
+                            break 
         self.__currPageEmbeddedPdfs = sorted(embeddedPdfBlocks, key=lambda x: (x['bbox'][1], x['bbox'][0]))
 
 
@@ -308,6 +311,10 @@ class Checker:
                 0 -> rectA inside rectB,
                 1 -> rectA after rectB
         """
+        from .tolerance_float import ToleranceFloat
+        rectA = [ToleranceFloat(rectA[0]), ToleranceFloat(rectA[1]), ToleranceFloat(rectA[2]), ToleranceFloat(rectA[3])]
+        rectB = [ToleranceFloat(rectB[0]), ToleranceFloat(rectB[1]), ToleranceFloat(rectB[2]), ToleranceFloat(rectB[3])]
+
         if rectA[0]>=rectB[0] and rectA[1]>=rectB[1] and rectA[2]<=rectB[2] and rectA[3]<=rectB[3]:
             return 0
         elif rectA[1]<rectB[1]:
@@ -319,18 +326,21 @@ class Checker:
 
 
 
-    def __isInsideEmbeddedPdf(self, rect):
+    def __isInsideEmbeddedPdf(self, rect, embeddedPdfs = None):
         """
         Determines if specified rectangle is inside any of embedded PDFs on current page.
 
         Args:
             rect: Rectangle which position is determined.
+            embeddedPdfs: List of embedded PDFs on current page. If not specified, it will use currPageEmbeddedPdfs.
 
         Returns:
             bool: Position of specified rectangle.
         """
-        self.__getPageEmbeddedPdfs()
-        for embeddedPdfBlock in self.__currPageEmbeddedPdfs:
+        if embeddedPdfs == None:
+            self.__getPageEmbeddedPdfs()
+            embeddedPdfs = self.__currPageEmbeddedPdfs
+        for embeddedPdfBlock in embeddedPdfs:
             if self.__rectRelativePosition(rect, embeddedPdfBlock['bbox']) == 0:
                 return True
         return False
