@@ -4,7 +4,7 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 14.01.2023
-# Last Updated  : 03.12.2024
+# Last Updated  : 09.04.2025
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
