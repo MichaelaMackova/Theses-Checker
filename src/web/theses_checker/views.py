@@ -57,7 +57,10 @@ def checkPDF(request):
 
     json_dir = os.path.join(settings.BASE_DIR, 'files', 'json')
     json_name = pdf_name[:-4]
-    chaptersInfo = {json_name: DocumentInfoAdvanced(checker.chaptersInfo[0], checker.chaptersInfo[1], checker.chaptersInfo[2]).toDict()}
+    chaptersInfo = {
+        json_name: DocumentInfoAdvanced(checker.chaptersInfo[0], checker.chaptersInfo[1], checker.chaptersInfo[2]).toDict(),
+        json_name + " (typography)": checker.typographyMistakes.toDict()
+    }
     auxiliary_functions.saveDictAsJSON(chaptersInfo, os.path.join(json_dir, json_name + '.json'))
 
     del checker
