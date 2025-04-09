@@ -4,13 +4,15 @@
 # Login         : xmacko13
 # Email         : michaela.mackovaa@gmail.com
 # Created Date  : 14.01.2023
-# Last Updated  : 03.12.2024
+# Last Updated  : 09.04.2025
 # License       : AGPL-3.0 license
 # ---------------------------------------------------------------------------
 
+from ast import List
 import string
 import random
 from statistics import median
+from tkinter import SE
 import fitz
 import re
 from enum import Enum
@@ -24,7 +26,129 @@ class Language(Enum):
     CZECH = 0
     SLOVAK = 1
     ENGLISH = 2
-    
+
+
+
+class TypographyMistakes:
+
+    class MistakeType(Enum):
+        """
+        Enumeration of types of mistakes.
+        """
+        BORDER = 0
+        HYPHEN = 1
+        IMAGE_WIDTH = 2
+        TOC = 3
+        SPACE_BRACKET = 4
+        EMPTY_SECTION = 5
+        BAD_REFERENCE = 6
+
+        def popupText(self) -> string:
+            """
+            Returns text that will be shown in the pop-up annotation.
+
+            Returns:
+                string: Text that will be shown in the pop-up annotation.
+            """
+            return {
+                TypographyMistakes.MistakeType.BORDER : "",
+                TypographyMistakes.MistakeType.HYPHEN : "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.",
+                TypographyMistakes.MistakeType.IMAGE_WIDTH : "",
+                TypographyMistakes.MistakeType.TOC : "Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content",
+                TypographyMistakes.MistakeType.SPACE_BRACKET : "Chybi mezera pred levou zavorkou. / Missing space in between.",
+                TypographyMistakes.MistakeType.EMPTY_SECTION : "Chybi text mezi nadpisy. / Missing text between sections.",
+                TypographyMistakes.MistakeType.BAD_REFERENCE : "Spatne uvedena reference. / Missing reference."
+            }[self]
+        
+        def popupTitle(self) -> string:
+            """
+            Returns title of the pop-up annotation.
+
+            Returns:
+                string: Title of the pop-up annotation.
+            """
+            return "Chyba / Error" if self in TypographyMistakes.SEVERE_MISTAKES else "Varovani / Warning"
+        
+        def highlightColor(self) -> tuple:
+            """
+            Returns color of the highlight annotation.
+
+            Returns:
+                tuple: Color of the highlight annotation.
+            """
+            return Checker.HIGH_RED if self in TypographyMistakes.SEVERE_MISTAKES else Checker.HIGH_ORANGE
+        
+
+    SEVERE_MISTAKES = [
+        MistakeType.BORDER,
+        MistakeType.HYPHEN,
+        MistakeType.EMPTY_SECTION,
+        MistakeType.BAD_REFERENCE
+        ]
+
+
+    def __init__(self):
+        self.__borderMistakesPages : list[int] = []
+        self.__hyphenMistakesPages : list[int] = []
+        self.__imageWidthMistakesPages : list[int] = []
+        self.__TOCMistakesPages : list[int] = []
+        self.__spaceBracketMistakesPages : list[int] = []
+        self.__emptySectionMistakesPages : list[int] = []
+        self.__badReferenceMistakesPages : list[int] = []
+        self.__severeMistakesCount : int = 0
+        self.__warningMistakesCount : int = 0
+        self.__totalMistakesCount : int = 0
+
+    def toDict(self) -> dict:
+        """
+        Converts TypographyMistakes object to a dictionary.
+
+        Returns:
+            dict: Dictionary containing all found mistakes.
+        """
+        return {
+            "borderMistakesPages" : self.__borderMistakesPages,
+            "hyphenMistakesPages" : self.__hyphenMistakesPages,
+            "imageWidthMistakesPages" : self.__imageWidthMistakesPages,
+            "tocMistakesPages" : self.__TOCMistakesPages,
+            "spaceBracketMistakesPages" : self.__spaceBracketMistakesPages,
+            "emptySectionMistakesPages" : self.__emptySectionMistakesPages,
+            "badReferenceMistakesPages" : self.__badReferenceMistakesPages,
+            "severeMistakesCount" : self.__severeMistakesCount,
+            "warningMistakesCount" : self.__warningMistakesCount,
+            "totalMistakesCount" : self.__totalMistakesCount
+        }
+
+    def addMistake(self, mistakeType : MistakeType, page : int):
+        """
+        Adds mistake to the list of mistakes.
+
+        Args:
+            MistakeType (MistakeType): Type of the mistake.
+            page (int): Page where the mistake was found.
+        """
+        if mistakeType == TypographyMistakes.MistakeType.BORDER:
+            self.__borderMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.HYPHEN:
+            self.__hyphenMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.IMAGE_WIDTH:
+            self.__imageWidthMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.TOC:
+            self.__TOCMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.SPACE_BRACKET:
+            self.__spaceBracketMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.EMPTY_SECTION:
+            self.__emptySectionMistakesPages.append(page)
+        elif mistakeType == TypographyMistakes.MistakeType.BAD_REFERENCE:
+            self.__badReferenceMistakesPages.append(page)
+
+        if mistakeType in self.SEVERE_MISTAKES:
+            self.__severeMistakesCount += 1
+        else:
+            self.__warningMistakesCount += 1
+        self.__totalMistakesCount += 1
+
+
 
 
 class Checker:
@@ -87,7 +211,9 @@ class Checker:
         self.__currChapterInfo : ChapterInfo = None
         ## Tuple containing information about chapters in document, first element is everything before first chapter, second element is list of chapters, third element is everything after last chapter (appendix, bibliography, etc.)
         self.chaptersInfo : tuple[ChapterInfo, list[ChapterInfo], ChapterInfo] = (ChapterInfo(sequence=0, title="Before First Chapter"), [], ChapterInfo(sequence=-1, title="After Last Chapter"))
-        
+        ## All found typography mistakes in document
+        self.typographyMistakes : TypographyMistakes = TypographyMistakes()
+
 
 
     def __rgbToPdf(self, color:tuple):
@@ -262,25 +388,28 @@ class Checker:
                             else:
                                 size = None
                                 
-                            embeddedPdfBlocks.append(
-                                {
-                                    'type'          : 1,
-                                    'bbox'          : fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1]),
-                                    'ext'           : 'pdf',
-                                    'width'         : xobject[3].width,
-                                    'height'        : xobject[3].height,
-                                    'colorspace'    : None,
-                                    'xres'          : None,
-                                    'yres'          : None,
-                                    'bpc'           : None,
-                                    'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
-                                    'size'          : size,
-                                    'image'         : self.__document.xref_stream_raw(xobject[0])
-                                }
-                            )
+                            # if pdf image has the same bbox as already found pdf image -> skip (it's the same image)
+                            bbox = fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1])
+                            if not self.__isInsideEmbeddedPdf(bbox, embeddedPdfBlocks):
+                                embeddedPdfBlocks.append(
+                                    {
+                                        'type'          : 1,
+                                        'bbox'          : bbox,
+                                        'ext'           : 'pdf',
+                                        'width'         : xobject[3].width,
+                                        'height'        : xobject[3].height,
+                                        'colorspace'    : None,
+                                        'xres'          : None,
+                                        'yres'          : None,
+                                        'bpc'           : None,
+                                        'transform'     : fitz.Matrix(CTM[0][0], CTM[0][1], CTM[1][0], CTM[1][1], CTM[2][0], CTM[2][1]),
+                                        'size'          : size,
+                                        'image'         : self.__document.xref_stream_raw(xobject[0])
+                                    }
+                                )
 
                             CTM = CTMStack.pop()
-                            break
+                            break 
         self.__currPageEmbeddedPdfs = sorted(embeddedPdfBlocks, key=lambda x: (x['bbox'][1], x['bbox'][0]))
 
 
@@ -308,6 +437,10 @@ class Checker:
                 0 -> rectA inside rectB,
                 1 -> rectA after rectB
         """
+        from .tolerance_float import ToleranceFloat
+        rectA = [ToleranceFloat(rectA[0]), ToleranceFloat(rectA[1]), ToleranceFloat(rectA[2]), ToleranceFloat(rectA[3])]
+        rectB = [ToleranceFloat(rectB[0]), ToleranceFloat(rectB[1]), ToleranceFloat(rectB[2]), ToleranceFloat(rectB[3])]
+
         if rectA[0]>=rectB[0] and rectA[1]>=rectB[1] and rectA[2]<=rectB[2] and rectA[3]<=rectB[3]:
             return 0
         elif rectA[1]<rectB[1]:
@@ -319,18 +452,21 @@ class Checker:
 
 
 
-    def __isInsideEmbeddedPdf(self, rect):
+    def __isInsideEmbeddedPdf(self, rect, embeddedPdfs = None):
         """
         Determines if specified rectangle is inside any of embedded PDFs on current page.
 
         Args:
             rect: Rectangle which position is determined.
+            embeddedPdfs: List of embedded PDFs on current page. If not specified, it will use currPageEmbeddedPdfs.
 
         Returns:
             bool: Position of specified rectangle.
         """
-        self.__getPageEmbeddedPdfs()
-        for embeddedPdfBlock in self.__currPageEmbeddedPdfs:
+        if embeddedPdfs == None:
+            self.__getPageEmbeddedPdfs()
+            embeddedPdfs = self.__currPageEmbeddedPdfs
+        for embeddedPdfBlock in embeddedPdfs:
             if self.__rectRelativePosition(rect, embeddedPdfBlock['bbox']) == 0:
                 return True
         return False
@@ -668,11 +804,15 @@ class Checker:
         self.__overflowLine(self.__border[1], overflow_rects)
         if(overflow_rects):
             self.mistakes_found = True
+            for rect in overflow_rects:
+                self.typographyMistakes.addMistake(TypographyMistakes.MistakeType.BORDER, self.__currPage.number+1)
         overflow_rects = self.__getPageLeftOverflow()
         self.__highlight(overflow_rects,self.HIGH_RED)
         self.__overflowLine(self.__border[0], overflow_rects)
         if(overflow_rects):
             self.mistakes_found = True
+            for rect in overflow_rects:
+                self.typographyMistakes.addMistake(TypographyMistakes.MistakeType.BORDER, self.__currPage.number+1)
 
 
 
@@ -697,12 +837,40 @@ class Checker:
                 self.__highlight(rect, highlightColor, popupText, popupTitle)
 
 
+    def __searchForMistakeAndHighlight(self, searchFor : string, mistakeType : TypographyMistakes.MistakeType):
+        """
+        Searches for searchFor expression on current page and highlights all occurrences.
+        If mistakeType is severe, it will be highlighted in red, otherwise in orange.
+        Popup text will be set according to mistakeType.
+        Popup title will be set according to severity of mistakeType.
+        All mistakes will be added to typographyMistakes.
+
+        Args:
+            searchFor (string): Expression that will be searched for.
+            mistakeType (TypographyMistakes.MistakeType): Type of the mistake that will be searched for.
+        """
+        popupText = mistakeType.popupText()
+        popupTitle = mistakeType.popupTitle()
+        highlightColor = mistakeType.highlightColor()
+
+        self.__getTextPage()
+        rects = self.__currPage.search_for(searchFor, textpage=self.__currTextPage)
+        for rect in rects:
+            if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
+                if self.__embeddedPdfAsImage:
+                    if self.__isInsideEmbeddedPdf(rect):
+                        continue
+                self.mistakes_found = True
+                self.typographyMistakes.addMistake(mistakeType, self.__currPage.number+1)
+                self.__highlight(rect, highlightColor, popupText, popupTitle)
+
+
 
     def __hyphenPageCheck(self):
         """
         Check for wrong usage of hyphen on current page. Highlights all bad usages.
         """
-        self.__searchForAndHighlight(" - ", "Pouzijte pomlcku namisto spojovniku. / Use dash instead of hyphen.", "Chyba / Error", self.HIGH_RED)
+        self.__searchForMistakeAndHighlight(" - ", TypographyMistakes.MistakeType.HYPHEN)
 
 
 
@@ -710,7 +878,7 @@ class Checker:
         """
         Check for missing references on current page, which are indicated by '??'. Highlights all missing references.
         """
-        self.__searchForAndHighlight("??", "Spatne uvedena reference. / Missing reference.", "Chyba / Error", self.HIGH_RED)
+        self.__searchForMistakeAndHighlight("??", TypographyMistakes.MistakeType.BAD_REFERENCE)
 
 
 
@@ -768,6 +936,8 @@ class Checker:
         
         if rects:
             self.mistakes_found = True
+            for rect in rects:
+                self.typographyMistakes.addMistake(TypographyMistakes.MistakeType.IMAGE_WIDTH, self.__currPage.number+1)
         self.__overflowLine(self.__border[0],rects)
         self.__overflowLine(self.__border[1],rects)
 
@@ -969,7 +1139,9 @@ class Checker:
                                 x = re.search("^(?:\d+|[A-Z])\.(?:\d+\.)+\d+", line['spans'][0]['text']) # example: 3.12.5; C.2.3
                                 if x:
                                     self.mistakes_found = True
-                                    self.__highlight([line['bbox']],self.HIGH_RED,"Nadpisy 3 a vetsi urovne nezobrazovat v obsahu. / Do not show headings level 3 or more in table of content", "Chyba / Error")
+                                    mistakeType = TypographyMistakes.MistakeType.TOC
+                                    self.typographyMistakes.addMistake(mistakeType, self.__currPage.number+1)
+                                    self.__highlight([line['bbox']], mistakeType.highlightColor(), mistakeType.popupText(), mistakeType.popupTitle())
                             origin_y = line_origin[1]
 
 
@@ -1049,12 +1221,30 @@ class Checker:
 
 
 
+    def __regexSearchForMistakeAndHighlight(self, regexSearch : string, mistakeType : TypographyMistakes.MistakeType):
+        """
+        Searches for regexSearch as a regular expression on current page and highlights all occurrences.
+
+        Args:
+            regexSearch (string): Regular expression that will be searched for.
+            mistakeType (TypographyMistakes.MistakeType): Type of the mistake that will be searched for.
+        """
+        self.__getPageTextContent()
+        matchList = re.findall(regexSearch, self.__currPageTextContent)
+
+        if matchList:
+            matchList = self.__deleteDuplicate(matchList)
+            for match in matchList:
+                self.__searchForMistakeAndHighlight(match, mistakeType)
+
+
+
     def __spaceBracketCheck(self):
         """
         Check for missing space before any left bracket on current page. Highlights all missing spaces.
         """
         # "\S(?:\(|\[|{)" -> for example: "l(", ".[", "5{"
-        self.__regexSearchAndHighlight("\S(?:\(|\[|{)", "Chybi mezera pred levou zavorkou. / Missing space in between.", "Varovani / Warning", self.HIGH_ORANGE)
+        self.__regexSearchForMistakeAndHighlight("\S(?:\(|\[|{)", TypographyMistakes.MistakeType.SPACE_BRACKET)
         
 
 
@@ -1161,7 +1351,9 @@ class Checker:
                         rect = fitz.Rect(self.__border[0],y1,self.__border[1],y2)
                         if rect.is_valid and rect[0] < rect[2] and rect[1] < rect[3]:
                             self.mistakes_found = True
-                            self.__highlight([rect],self.HIGH_RED,"Chybi text mezi nadpisy. / Missing text between sections.","Chyba / Error")
+                            mistakeType = TypographyMistakes.MistakeType.EMPTY_SECTION
+                            self.typographyMistakes.addMistake(mistakeType, self.__currPage.number+1)
+                            self.__highlight([rect],mistakeType.highlightColor(), mistakeType.popupText(), mistakeType.popupTitle())
 
                 x = re.search("^(?:(?:Kapitola|Chapter) \d+|(?:Příloha|Appendix|Príloha) [A-Z])$", blockText) # example: Kapitola 4; Chapter 4; Appendix D; Príloha D; Příloha D
                 if  x:

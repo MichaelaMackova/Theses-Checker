@@ -159,10 +159,10 @@
     margin: 0;
     padding: 20px;
     padding-bottom: 0;
-    box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;
+    /*box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;*/
 }
 
-#chapters-section .chapters-total{
+.chapters-total{
     text-align: center;
     font-size: 135%;
     padding: 10px;
@@ -250,3 +250,34 @@
     }
 }
 
+
+/* Start chapters as closed */
+#chapters-section, #frequency-section, #typography-section{
+    .section-content{
+        box-shadow: 0px 7px 5px -6px #5b5b7e9e inset;
+        display: none;
+    }
+}
+
+
+hr{
+    border: 0;
+    height: 1.5px;
+    background-color: #5b5b7ebf;
+    margin: 50px 0;
+}
+
+#quick-overview{
+    h1{
+        margin: 0;
+    }
+
+    .chapters-total{
+        padding: 0;
+        
+        p{
+        font-size: 90%;
+        margin-top: 0.5em;
+        }
+    }
+}

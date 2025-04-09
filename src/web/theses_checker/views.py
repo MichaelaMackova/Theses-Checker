@@ -1,3 +1,4 @@
+from math import inf
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -57,7 +58,10 @@ def checkPDF(request):
 
     json_dir = os.path.join(settings.BASE_DIR, 'files', 'json')
     json_name = pdf_name[:-4]
-    chaptersInfo = {json_name: DocumentInfoAdvanced(checker.chaptersInfo[0], checker.chaptersInfo[1], checker.chaptersInfo[2]).toDict()}
+    chaptersInfo = {
+        json_name: DocumentInfoAdvanced(checker.chaptersInfo[0], checker.chaptersInfo[1], checker.chaptersInfo[2]).toDict(),
+        json_name + " (typography)": checker.typographyMistakes.toDict()
+    }
     auxiliary_functions.saveDictAsJSON(chaptersInfo, os.path.join(json_dir, json_name + '.json'))
 
     del checker
@@ -76,17 +80,31 @@ def show_annotated(request, pdf_name):
     
     json_title = pdf_name[:-4]
     try:
-        json_dict = auxiliary_functions.readJSONAsDict(os.path.join(settings.BASE_DIR, 'files', 'json', json_title + '.json'))[json_title]
-        available = True
+        json_dict = auxiliary_functions.readJSONAsDict(os.path.join(settings.BASE_DIR, 'files', 'json', json_title + '.json'))
     except:
         json_dict = {}
-        available = False
+
+    try:
+        info_dict = json_dict[json_title]
+        info_available = True
+    except:
+        info_dict = {}
+        info_available = False
+
+    try:
+        typography_dict = json_dict[json_title + " (typography)"]
+        typography_available = True
+    except:
+        typography_dict = {}
+        typography_available = False
 
     
     return render(request, 'theses_checker/annotated.html', {
         'pdf_name': pdf_name,
-        'info_available' : available,
-        'info' : json_dict
+        'info_available' : info_available,
+        'info' : info_dict,
+        'typography_available' : typography_available,
+        'typography' : typography_dict,
     })
 
 
