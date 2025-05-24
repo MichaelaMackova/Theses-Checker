@@ -13,6 +13,7 @@
 #    in "files/json/" folder that are older than Period.
 # ---------------------------------------------------------------------------
 
+cd "$(dirname "$0")"
 
 TWO_HOURS_IN_SEC=7200
 TWELVE_HOURS_IN_SEC=43200
@@ -21,7 +22,7 @@ THREE_DAYS_IN_SEC=259200
 WEEK_IN_SEC=604800
 
 
-Period=$TWELVE_HOURS_IN_SEC # SET PERIOD HERE
+Period=$TWO_HOURS_IN_SEC # SET PERIOD HERE
 
 
 Today=$(date +'%s') # today as seconds since Epoch

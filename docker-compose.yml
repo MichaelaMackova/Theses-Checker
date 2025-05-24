@@ -1,0 +1,23 @@
+services:
+  app:
+    build: .
+    container_name: theses-checker
+    expose: 
+      - 8000
+    image: 1ukastesar/theses-checker
+    restart: unless-stopped
+    user: '1000'
+    volumes:
+      - ./:/app
+      - ./.env:/app/src/web/.env
+  static:
+    image: nginx
+    container_name: theses-checker-static
+    volumes:
+      - ./src/web/static:/usr/share/nginx/html:ro
+    restart: unless-stopped
+
+networks:
+  default:
+    name: npm-proxy
+    external: true
