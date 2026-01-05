@@ -3,6 +3,7 @@ thesis/Sablona_prezentace_2021.zip
 thesis/sablona2020.zip
 src/web/templates/test.html
 src/web/.env
+.venv/
 .vscode/launch.json
 .vscode/settings.json
 theses/xmacko13-Kontrola-diplomovych-praci.aux
