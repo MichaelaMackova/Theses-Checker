@@ -1,0 +1,17 @@
+FROM python:3.10
+
+WORKDIR /app
+
+RUN pip install --upgrade pip
+
+COPY requirements_scheduler.txt /app/
+
+RUN pip install -r requirements_scheduler.txt
+
+WORKDIR /app/src/
+
+COPY /src/web/periodicTasks.py /app/src/web/periodicTasks.py
+COPY /src/web/periodicDeleteFiles.sh /app/src/web/periodicDeleteFiles.sh
+COPY /src/web/web/settings.py /app/src/web/web/settings.py
+
+CMD ["python", "web/periodicTasks.py"]

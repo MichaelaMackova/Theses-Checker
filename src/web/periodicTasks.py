@@ -17,10 +17,14 @@ try:
     import time
     import os
     import subprocess
+    import platform
+    from pathlib import Path
 
-    from web.settings import BASE_DIR, OPERATING_SYSTEM
+    BASE_DIR = Path(__file__).resolve().parent
+    OPERATING_SYSTEM = platform.system()
 
 
+    print("Running periodic tasks")
     DELETE_FILES_TIMES = ["20:00", "08:00"] # times when the files are deleted in format HH:MM
     WINDOWS_FILE_PATH = '\"' + os.path.join(BASE_DIR, 'periodicDeleteFiles.ps1') + '\"' # path with spaces
     LINUX_FILE_PATH = os.path.join(BASE_DIR, 'periodicDeleteFiles.sh')
@@ -36,7 +40,9 @@ try:
         """
         Periodic task for deleting files on Linux.
         """
+        print("Running cleanup task")
         subprocess.check_call(['bash', LINUX_FILE_PATH])
+        print("Task finished")
 
 
 
@@ -46,6 +52,9 @@ try:
         periodic_delete_files_task = periodicDeleteFilesLinux
     else:
         raise ValueError("Invalid operating system")
+
+
+    print(f"Chose tasks for {OPERATING_SYSTEM}")
 
     # Schedule tasks
     for sched_time in DELETE_FILES_TIMES:
