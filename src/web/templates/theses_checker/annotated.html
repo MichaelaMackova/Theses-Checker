@@ -1,6 +1,37 @@
 {% extends "base.html" %}
 {% block body %}
 
+    <div id="quick-overview" class="page-padding">
+        <h1>Quick overview</h1>
+        <div class="section-content">
+            {% if info_available and info.totalStdPages != 0.0 and info.chapters.totalStdPages != 0.0 %}
+                {% include "theses_checker/widgets/chapters_total.html" with chapters_info=info.chapters %}
+            {% endif %}
+
+            {% if info_available and info.chapters.mostFrequentWords|length > 0 %}
+                {% with info.chapters.mostFrequentWords.0 as most_frequent %}
+                    <p>Most frequent word is "<b>{{ most_frequent.0 }}</b>" ({{ most_frequent.1 }} times out of {{ info.chapters.totalWordCount }} total words)</p>
+                {% endwith %}
+            {% endif %}
+
+            {% if typography_available %}
+                {% if typography.totalMistakesCount > 0 %}
+                    <p>Typographical mistakes found:&ensp;<b>{{ typography.severeMistakesCount }} severe</b> and {{ typography.warningMistakesCount }} warnings</p>
+                {% else %}
+                    <p>No typographical mistakes.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+
+
+    <hr>
+
+
+
+
     <div id="chapters-section" class="section page-padding">
         <div class="section-title" onclick="toggleSection('chapters-section')">
             <h1>Chapters information<i class="fa-solid fa-chevron-up"></i></h1>
@@ -43,6 +74,7 @@
             {% endif %}
         </div>
     </div>
+
 
 
     <div id="frequency-section" class="section page-padding">
@@ -94,6 +126,7 @@
     </div>
 
     
+
     <div id="typography-section" class="section page-padding">
         <div class="section-title" onclick="toggleSection('typography-section')">
             <h1>Typography<i class="fa-solid fa-chevron-up"></i></h1>
