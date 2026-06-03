@@ -12,7 +12,6 @@ from ast import List
 import string
 import random
 from statistics import median
-from tkinter import SE
 import fitz
 import re
 from enum import Enum
