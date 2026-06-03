@@ -389,14 +389,15 @@ class Checker:
                                 
                             # if pdf image has the same bbox as already found pdf image -> skip (it's the same image)
                             bbox = fitz.Rect(blMatrix[0], trMatrix[1], trMatrix[0], blMatrix[1])
+                            xobjectRect = fitz.Rect(xobject[3])
                             if not self.__isInsideEmbeddedPdf(bbox, embeddedPdfBlocks):
                                 embeddedPdfBlocks.append(
                                     {
                                         'type'          : 1,
                                         'bbox'          : bbox,
                                         'ext'           : 'pdf',
-                                        'width'         : xobject[3].width,
-                                        'height'        : xobject[3].height,
+                                        'width'         : xobjectRect.width,
+                                        'height'        : xobjectRect.height,
                                         'colorspace'    : None,
                                         'xres'          : None,
                                         'yres'          : None,
