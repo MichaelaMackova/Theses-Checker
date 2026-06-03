@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.core.files.storage import default_storage
 from django.conf import settings
+from django.utils.text import get_valid_filename
 
 from .bl.document_info_advanced import DocumentInfoAdvanced
 from .bl.theses_checker import Checker
@@ -38,7 +39,7 @@ def checkPDF(request):
             return render(request, '507.html', {'exception': exception}, status=507)
 
 
-    original_pdf_path = default_storage.save(os.path.join(settings.BASE_DIR, 'files', request.FILES['file'].name), request.FILES['file'])
+    original_pdf_path = default_storage.save(os.path.join('files', get_valid_filename(request.FILES['file'].name)), request.FILES['file'])
     pdf_name = os.path.basename(original_pdf_path)[:-4]
     pdf_dir = os.path.join(settings.BASE_DIR, 'static')
 
